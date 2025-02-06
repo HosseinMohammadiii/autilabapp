@@ -3,6 +3,8 @@ import 'package:autilab_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/data/auth/page/login_screen.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class AutilabRouter {
@@ -14,6 +16,11 @@ class AutilabRouter {
         path: '/',
         name: AutiLabRoutes.initialScreen,
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/login',
+        name: AutiLabRoutes.loginScreen,
+        builder: (context, state) => const LogInScreen(),
       ),
     ],
   );
