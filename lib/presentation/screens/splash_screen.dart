@@ -12,11 +12,31 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late AnimationController animation;
+  late Animation<double> _fadeInFadeOut;
   @override
   void initState() {
     super.initState();
-    _splash();
+    //Animation duration define
+    animation = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+    //Define animate animation
+    _fadeInFadeOut = Tween<double>(begin: 0.0, end: 2).animate(animation);
+
+    animation.addStatusListener((status) {
+      //Animation revers whene completed
+      if (status == AnimationStatus.completed) {
+        animation.reverse();
+        //Navigat to loginScreen whene dismissed animation
+      } else if (status == AnimationStatus.dismissed) {
+        context.goNamed(AutiLabRoutes.loginScreen);
+      }
+    });
+    animation.forward();
   }
 
   @override
@@ -28,36 +48,20 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SvgPicture.asset(
-              'assets/icons/autilab_logo.svg',
-              colorFilter: const ColorFilter.mode(
-                Color(0xff81BFDA),
-                BlendMode.srcIn,
+            FadeTransition(
+              opacity: _fadeInFadeOut,
+              child: SvgPicture.asset(
+                'assets/icons/autilab_logo.svg',
+                colorFilter: const ColorFilter.mode(
+                  AutilabColor.blue,
+                  BlendMode.srcIn,
+                ),
+                width: 300,
               ),
-              width: 300,
-            ),
-            Text(
-              'Larg',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            Text(
-              'medium',
-              style: Theme.of(context).textTheme.bodyMedium!,
             ),
           ],
         ),
       ),
-    );
-  }
-
-//Method to create a delay and go to the page logIn
-  Future<void> _splash() async {
-    Future.delayed(
-      const Duration(seconds: 5),
-      () {
-        //Go to the logIn Screen
-        //context.goNamed(AutiLabRoutes.loginScreen);
-      },
     );
   }
 }
