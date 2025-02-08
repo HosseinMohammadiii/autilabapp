@@ -10,3 +10,12 @@ class AutilabColor {
   static const Color gray = Color(0xff9C9595);
   static const Color lightGray = Color(0xffE7E6E3);
 }
+
+class AutilabFont {
+  static TextStyle regular = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+  );
+  static TextStyle medium = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+  );
+}

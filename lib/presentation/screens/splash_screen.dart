@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -35,10 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               width: 300,
             ),
-            const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xff81BFDA),
-              ),
+            Text(
+              'Larg',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            Text(
+              'medium',
+              style: Theme.of(context).textTheme.bodyMedium!,
             ),
           ],
         ),
@@ -52,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 5),
       () {
         //Go to the logIn Screen
-        context.goNamed(AutiLabRoutes.loginScreen);
+        //context.goNamed(AutiLabRoutes.loginScreen);
       },
     );
   }
