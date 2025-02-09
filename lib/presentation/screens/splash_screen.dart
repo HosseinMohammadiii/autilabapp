@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
     //Animation duration define
     animation = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 1),
     );
     //Define animate animation
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 2).animate(animation);
@@ -31,9 +31,9 @@ class _SplashScreenState extends State<SplashScreen>
       //Animation revers whene completed
       if (status == AnimationStatus.completed) {
         animation.reverse();
-        //Navigat to loginScreen whene dismissed animation
       } else if (status == AnimationStatus.dismissed) {
-        context.goNamed(AutiLabRoutes.loginScreen);
+        //Navigat to loginScreen whene dismissed animation
+        context.goNamed(AutiLabRoutes.programIntroductionScreen);
       }
     });
     animation.forward();

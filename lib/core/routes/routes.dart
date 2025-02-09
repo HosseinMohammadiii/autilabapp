@@ -1,9 +1,11 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/data/auth/page/login_screen.dart';
+import '../../presentation/screens/welcome_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -18,9 +20,26 @@ class AutilabRouter {
         builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
-        path: '/login',
-        name: AutiLabRoutes.loginScreen,
-        builder: (context, state) => const LogInScreen(),
+        path: '/Program_Introduction',
+        name: AutiLabRoutes.programIntroductionScreen,
+        builder: (context, state) => const ProgramIntroductionScreen(),
+      ),
+      GoRoute(
+        path: '/welcome',
+        name: AutiLabRoutes.welcomeScreen,
+        builder: (context, state) => const WelcomeScreen(),
+        routes: [
+          GoRoute(
+              path: '/login',
+              name: AutiLabRoutes.loginScreen,
+              builder: (context, state) {
+                final Map<String, dynamic> extraData =
+                    state.extra as Map<String, dynamic>;
+                return LogInScreen(
+                  isSignUp: extraData['isSignUp'] as bool,
+                );
+              }),
+        ],
       ),
     ],
   );
