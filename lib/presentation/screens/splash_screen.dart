@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/constants/constant_routes.dart';
+import '../../utils/functions/animation_control.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,29 +15,28 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController animation;
-  late Animation<double> _fadeInFadeOut;
+  late AnimationHelper animationHelper;
   @override
   void initState() {
     super.initState();
-    //Animation duration define
-    animation = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    //Define animate animation
-    _fadeInFadeOut = Tween<double>(begin: 0.0, end: 2).animate(animation);
+    animationHelper = AnimationHelper(vsync: this);
 
-    animation.addStatusListener((status) {
-      //Animation revers whene completed
-      if (status == AnimationStatus.completed) {
-        animation.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        //Navigat to loginScreen whene dismissed animation
-        context.goNamed(AutiLabRoutes.programIntroductionScreen);
-      }
-    });
-    animation.forward();
+    animationHelper.animationController.addStatusListener(
+      (status) {
+        if (status == AnimationStatus.completed) {
+          animationHelper.animationController.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          context.goNamed(AutiLabRoutes.programIntroductionScreen);
+        }
+      },
+    );
+    animationHelper.animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationHelper.dispose();
   }
 
   @override
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FadeTransition(
-              opacity: _fadeInFadeOut,
+              opacity: animationHelper.fadeAnimation,
               child: SvgPicture.asset(
                 'assets/icons/autilab_logo.svg',
                 colorFilter: const ColorFilter.mode(
