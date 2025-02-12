@@ -1,3 +1,4 @@
+import 'package:autilab_project/common/widgets/bubble_background_widget.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:flutter/material.dart';
@@ -110,27 +111,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                 const SizedBox(
                   height: 8,
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    width: 47,
-                    height: 47,
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color(0xffE0E7FF),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 86,
-                  height: 86,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: const Color(0xffE0E7FF),
-                  ),
-                ),
+                const BubbleBackgroundWidget(),
                 const SizedBox(
                   height: 16,
                 ),

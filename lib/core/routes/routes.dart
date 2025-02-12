@@ -1,5 +1,6 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
+import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class AutilabRouter {
         path: '/send_email',
         name: AutiLabRoutes.sendEmailScreen,
         builder: (context, state) {
-          return const SendEmailCodeScreen();
+          return const SendEmailScreen();
         },
       ),
     ],
