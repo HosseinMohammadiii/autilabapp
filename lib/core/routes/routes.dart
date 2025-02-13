@@ -1,3 +1,4 @@
+import 'package:autilab_project/common/widgets/buttomnavigation_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
@@ -19,7 +20,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ButtomnavigationWidget(),
       ),
       GoRoute(
         path: '/Program_Introduction',
@@ -56,6 +57,13 @@ class AutilabRouter {
         name: AutiLabRoutes.sendEmailScreen,
         builder: (context, state) {
           return const SendEmailScreen();
+        },
+      ),
+      GoRoute(
+        path: '/buttomNavigationScreen',
+        name: AutiLabRoutes.buttomNavigationScreen,
+        builder: (context, state) {
+          return const ButtomnavigationWidget();
         },
       ),
     ],

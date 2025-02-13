@@ -2,6 +2,8 @@ import 'dart:ui';
 
 class AutilabColor {
   static const Color white = Color(0xffF3F3F3);
+  static const Color drawerWhite = Color(0xffECF0FF);
+  static const Color backgroundDrawer = Color(0xffFBFBFB);
   static const Color primary = Color(0xffF5F0CD);
   static const Color bb = Color(0xffA7BBFF);
   static const Color yellow = Color(0xffFADA7A);

@@ -1,8 +1,10 @@
 import 'package:autilab_project/common/widgets/bubble_background_widget.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/appbar_login_section.dart';
@@ -99,7 +101,10 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                   ),
                 ),
                 CustomButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    context.pushReplacementNamed(
+                        AutiLabRoutes.buttomNavigationScreen);
+                  },
                   height: 50,
                   color: AutilabColor.bb,
                   text: 'Send Code',
