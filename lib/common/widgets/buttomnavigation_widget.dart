@@ -115,16 +115,12 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget> {
           children: [
             SvgPicture.asset(
               icon,
-              // colorFilter: ColorFilter.mode(
-              //   state == index ? Theme.of(context).primaryColor : Colors.black,
-              //   BlendMode.srcIn,
-              // ),
             ),
             Text(lable),
           ],
         ),
       ),
-      label: ' 1',
+      label: '',
     );
   }
 }
