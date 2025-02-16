@@ -1,7 +1,8 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
-import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar_widget.dart';
 import '../../../../common/widgets/cached_network_image_widget.dart';
@@ -19,159 +20,40 @@ class _DoctorScreenState extends State<DoctorScreen>
     with SingleTickerProviderStateMixin {
   final searchController = TextEditingController();
   final searchFocusNode = FocusNode();
-  List<String> title1 = [
-    'My Doctors',
-    'All Appointment',
-    'Messages',
-    'My Subscribtion',
-  ];
-  List<String> icon1 = [
-    'assets/icons/doctor_buttomnavigation.svg',
-    'assets/icons/calendar.svg',
-    'assets/icons/messages.svg',
-    'assets/icons/crown.svg',
+  bool isChecked = false;
+
+  List<String> titleCategory = [
+    'Behaviorism',
+    'Pediatrician',
+    'Physiotherapy',
+    'Consultant',
+    'Psychologist',
+    'Speech therapy',
   ];
 
-  List<String> title2 = [
-    'Notification',
-    'Test History',
-    'My Favorite',
+  List<String> imageCategory = [
+    'assets/images/behaviorism_image.png',
+    'assets/images/pediatrician_image.png',
+    'assets/images/physiotherapy_image.png',
+    'assets/images/conversation_image.png',
+    'assets/images/psychologist_image.png',
+    'assets/images/speech_therapy_image.png',
   ];
-  List<String> icon2 = [
-    'assets/icons/notification_icon.svg',
-    'assets/icons/archive_icon.svg',
-    'assets/icons/heart.svg',
-  ];
-  List<String> title3 = [
-    'About AutiLab',
-    'Log Out',
-  ];
-  List<String> icon3 = [
-    'assets/icons/lamp_charge_icon.svg',
-    'assets/icons/logout.svg',
+  List<Color> colorBoxCategory = const [
+    Color(0xffC772FF),
+    Color.fromRGBO(83, 226, 255, 0.7),
+    Color(0xffFF7272),
+    Color(0xff8AEDCE),
+    Color(0xff5669FF),
+    Color(0xffFFB253),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      drawer: SafeArea(
-        child: Drawer(
-          backgroundColor: AutilabColor.backgroundDrawer,
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 15,
-              ),
-              Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 104,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 24),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: AutilabColor.drawerWhite,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Alexei Oppana',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              'alexei@gmail.com',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        CustomButtonWidget(
-                          onTap: () {},
-                          width: 86,
-                          height: 31,
-                          margin: const EdgeInsets.all(0),
-                          color: AutilabColor.blue,
-                          text: 'Edit Profile',
-                          textStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: AutilabColor.white,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: CachednetworkimageWidget(
-                      imgUrl: '',
-                      img: Image.asset('assets/images/child_image.png'),
-                      isNetworkImage: false,
-                    ),
-                  ),
-                ],
-              ),
-              DrawerBoxWidget(
-                icon: icon1,
-                title: title1,
-                color: const [
-                  Color(0xffF3C58D),
-                  Color(0xff8DAFFD),
-                  Color(0xff7EECC5),
-                  Color(0xffE4D080),
-                ],
-                onTap: (index) {},
-              ),
-              DrawerBoxWidget(
-                icon: icon2,
-                title: title2,
-                color: const [
-                  Color(0xff7EC9F8),
-                  Color(0xffB4A7FF),
-                  Color(0xffEA87F5),
-                ],
-                onTap: (index) {},
-              ),
-              DrawerBoxWidget(
-                icon: icon3,
-                title: title3,
-                color: const [
-                  Color(0xffDB9088),
-                  Color(0xff3D90E0),
-                ],
-                onTap: (index) {},
-              ),
-            ],
-          ),
-        ),
-      ),
+      // key: scaffoldKey,
       body: SafeArea(
         child: CustomTabBarWidget(
-          leading: appBarWidget(context),
+          //leading: appBarWidget(context),
           tabLength: 2,
           tabBar: const [
             Text('Find Doctor'),
@@ -230,22 +112,98 @@ class _DoctorScreenState extends State<DoctorScreen>
                         const SizedBox(
                           width: 8,
                         ),
-                        SvgPicture.asset(
-                          fit: BoxFit.none,
-                          'assets/icons/sort_icon.svg',
+                        GestureDetector(
+                          onTap: () {
+                            _showCustomDialog(
+                              context,
+                              _buildDialogSortIcon(
+                                context,
+                              ),
+                            );
+                          },
+                          child: SvgPicture.asset(
+                            fit: BoxFit.none,
+                            'assets/icons/sort_icon.svg',
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.only(bottom: 10),
-                      shrinkWrap: true,
-                      itemCount: 40,
-                      itemBuilder: (context, index) => Text('data $index'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Specialties',
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _showCustomDialog(
+                              context,
+                              _buildDialogContent(
+                                context,
+                                (index) {},
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'See All',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AutilabColor.blue,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    SizedBox(
+                      height: 113,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: titleCategory.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 113,
+                            width: 132,
+                            margin: const EdgeInsets.only(right: 10),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: colorBoxCategory[index],
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(imageCategory[index]),
+                                Text(
+                                  titleCategory[index],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -254,6 +212,341 @@ class _DoctorScreenState extends State<DoctorScreen>
           ],
         ),
       ),
+    );
+  }
+
+  void _showCustomDialog(BuildContext context, Widget widget) {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: '',
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return const SizedBox.shrink();
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: Dialog(
+            backgroundColor: AutilabColor.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: widget,
+          ),
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 600),
+    );
+  }
+
+  Widget _buildDialogContent(
+    BuildContext context,
+    Function(int index) onTap,
+  ) {
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.7,
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  }
+                },
+                icon: const Icon(Icons.close_rounded),
+              ),
+              Text(
+                'All Specialties',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 14,
+              ),
+              itemCount: titleCategory.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => onTap(index),
+                  child: Container(
+                    width: 132,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: colorBoxCategory[index],
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          imageCategory[index],
+                        ),
+                        Text(
+                          titleCategory[index],
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDialogSortIcon(
+    BuildContext context,
+  ) {
+    final ValueNotifier<int?> selectedIndexNotifier = ValueNotifier<int?>(null);
+    final ValueNotifier<int?> selectedIndexSpecialty =
+        ValueNotifier<int?>(null);
+    final ValueNotifier<double?> selectedIndexrating =
+        ValueNotifier<double?>(null);
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.75,
+      padding: const EdgeInsets.all(8),
+      child: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            toolbarHeight: 35,
+            leadingWidth: double.infinity,
+            backgroundColor: AutilabColor.white,
+            leading: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    }
+                  },
+                  icon: const Icon(Icons.close_rounded),
+                ),
+                Text(
+                  'Filter',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    selectedIndexSpecialty.value = null;
+                    selectedIndexNotifier.value = null;
+                    selectedIndexrating.value = null;
+                  },
+                  child: Text(
+                    'Rest Filter',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Divider(
+              thickness: 1,
+              color: AutilabColor.gray,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Text(
+              "Doctor's specialty",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 173,
+              child: ValueListenableBuilder(
+                valueListenable: selectedIndexSpecialty,
+                builder: (context, value, child) => GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 45,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 3.5,
+                  ),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return CustomButtonWidget(
+                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      onTap: () {
+                        selectedIndexSpecialty.value = index;
+                      },
+                      height: 37,
+                      color: selectedIndexSpecialty.value == index
+                          ? AutilabColor.bb
+                          : AutilabColor.lightGray,
+                      text: titleCategory[index],
+                      textStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Divider(
+              thickness: 1,
+              color: AutilabColor.gray,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Text(
+              'Gender',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: CustomCheckbox(
+              title: 'Male',
+              index: 1,
+              selectedIndexNotifier: selectedIndexNotifier,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: CustomCheckbox(
+              title: 'Female',
+              index: 2,
+              selectedIndexNotifier: selectedIndexNotifier,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Divider(
+              thickness: 1,
+              color: AutilabColor.gray,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Text(
+              'Rating',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ValueListenableBuilder(
+              valueListenable: selectedIndexrating,
+              builder: (context, value, child) => RatingBar.builder(
+                initialRating: selectedIndexrating.value ?? 0,
+                itemCount: 5,
+                minRating: 1,
+                maxRating: 5,
+                updateOnDrag: true,
+                itemSize: 24,
+                unratedColor: AutilabColor.gray,
+                glow: false,
+                itemBuilder: (context, index) {
+                  return const Icon(
+                    Icons.star_rounded,
+                    color: AutilabColor.yellow,
+                    size: 24,
+                  );
+                },
+                onRatingUpdate: (value) {
+                  selectedIndexrating.value = value;
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomCheckbox extends StatelessWidget {
+  final String title;
+  final int index;
+  final ValueNotifier<int?> selectedIndexNotifier;
+
+  const CustomCheckbox({
+    super.key,
+    required this.title,
+    required this.index,
+    required this.selectedIndexNotifier,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int?>(
+      valueListenable: selectedIndexNotifier,
+      builder: (context, selectedIndex, child) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 52,
+              width: 40,
+              child: Checkbox(
+                activeColor: AutilabColor.blue,
+                checkColor: AutilabColor.white,
+                side: const BorderSide(width: 0.5),
+                splashRadius: 0,
+                value: selectedIndex == index,
+                onChanged: (value) {
+                  if (value == true) {
+                    selectedIndexNotifier.value = index;
+                  }
+                },
+              ),
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

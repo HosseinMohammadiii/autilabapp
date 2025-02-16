@@ -3,7 +3,7 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+//final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 PreferredSizeWidget appBarWidget(BuildContext context) {
   return AppBar(
@@ -15,7 +15,7 @@ PreferredSizeWidget appBarWidget(BuildContext context) {
         children: [
           GestureDetector(
             onTap: () {
-              scaffoldKey.currentState?.openDrawer();
+              // scaffoldKey.currentState?.openDrawer();
             },
             child: const Icon(Icons.menu),
           ),
