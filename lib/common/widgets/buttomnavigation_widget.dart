@@ -75,7 +75,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 1),
     );
     _slideTransition = Tween<Offset>(
       begin: const Offset(-1, 0),

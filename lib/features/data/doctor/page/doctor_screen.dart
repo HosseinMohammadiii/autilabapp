@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/appbar_widget.dart';
 import '../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../common/widgets/custom_tabbar_widget.dart';
 import '../../../../core/constants/color_constant.dart';
+import '../widgets/custom_checkbox_widget.dart';
 
 class DoctorScreen extends StatefulWidget {
   const DoctorScreen({super.key});
@@ -203,7 +203,7 @@ class _DoctorScreenState extends State<DoctorScreen>
                           );
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -244,10 +244,11 @@ class _DoctorScreenState extends State<DoctorScreen>
     Function(int index) onTap,
   ) {
     return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.7,
+      width: 320,
+      height: MediaQuery.of(context).size.height * 0.65,
       padding: const EdgeInsets.all(8),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
@@ -272,16 +273,17 @@ class _DoctorScreenState extends State<DoctorScreen>
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 14,
-                mainAxisSpacing: 14,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 22,
+                mainAxisExtent: 113,
               ),
               itemCount: titleCategory.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () => onTap(index),
                   child: Container(
-                    width: 132,
                     alignment: Alignment.center,
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                       color: colorBoxCategory[index],
                       borderRadius: BorderRadius.circular(16),
@@ -321,19 +323,19 @@ class _DoctorScreenState extends State<DoctorScreen>
     final ValueNotifier<double?> selectedIndexrating =
         ValueNotifier<double?>(null);
     return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.75,
-      padding: const EdgeInsets.all(8),
+      width: 320,
+      height: MediaQuery.of(context).size.height * 0.7,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
             pinned: true,
-            toolbarHeight: 35,
-            leadingWidth: double.infinity,
-            backgroundColor: AutilabColor.white,
-            leading: Row(
+            toolbarHeight: 20,
+            automaticallyImplyLeading: false,
+            flexibleSpace: Row(
               children: [
                 IconButton(
+                  padding: const EdgeInsets.all(0),
                   onPressed: () {
                     if (context.canPop()) {
                       context.pop();
@@ -357,9 +359,9 @@ class _DoctorScreenState extends State<DoctorScreen>
                   },
                   child: Text(
                     'Rest Filter',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 12,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                         ),
                   ),
                 ),
@@ -370,6 +372,11 @@ class _DoctorScreenState extends State<DoctorScreen>
             child: Divider(
               thickness: 1,
               color: AutilabColor.gray,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 8,
             ),
           ),
           SliverToBoxAdapter(
@@ -387,6 +394,7 @@ class _DoctorScreenState extends State<DoctorScreen>
               child: ValueListenableBuilder(
                 valueListenable: selectedIndexSpecialty,
                 builder: (context, value, child) => GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 45,
@@ -428,12 +436,8 @@ class _DoctorScreenState extends State<DoctorScreen>
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
+                    height: 2,
                   ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 10,
             ),
           ),
           SliverToBoxAdapter(
@@ -462,6 +466,7 @@ class _DoctorScreenState extends State<DoctorScreen>
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
+                    height: 2,
                   ),
             ),
           ),
@@ -497,56 +502,6 @@ class _DoctorScreenState extends State<DoctorScreen>
           ),
         ],
       ),
-    );
-  }
-}
-
-class CustomCheckbox extends StatelessWidget {
-  final String title;
-  final int index;
-  final ValueNotifier<int?> selectedIndexNotifier;
-
-  const CustomCheckbox({
-    super.key,
-    required this.title,
-    required this.index,
-    required this.selectedIndexNotifier,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<int?>(
-      valueListenable: selectedIndexNotifier,
-      builder: (context, selectedIndex, child) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 52,
-              width: 40,
-              child: Checkbox(
-                activeColor: AutilabColor.blue,
-                checkColor: AutilabColor.white,
-                side: const BorderSide(width: 0.5),
-                splashRadius: 0,
-                value: selectedIndex == index,
-                onChanged: (value) {
-                  if (value == true) {
-                    selectedIndexNotifier.value = index;
-                  }
-                },
-              ),
-            ),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
-          ],
-        );
-      },
     );
   }
 }
