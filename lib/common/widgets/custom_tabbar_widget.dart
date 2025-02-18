@@ -23,10 +23,6 @@ class CustomTabBarWidget extends StatelessWidget {
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            // SliverAppBar(
-            //   leading: leading,
-            //   leadingWidth: double.infinity,
-            // ),
             const SliverToBoxAdapter(
               child: SizedBox(
                 height: 40,
@@ -35,19 +31,34 @@ class CustomTabBarWidget extends StatelessWidget {
             SliverPersistentHeader(
               pinned: true,
               delegate: TabbarViewDelegate(
-                TabBar(
-                  labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                widget: Container(
+                  width: double.infinity,
+                  height: 50,
+                  color: AutilabColor.white,
+                  child: Container(
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: AutilabColor.lightGray,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: TabBar(
+                      labelStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                      dividerColor: Colors.transparent,
+                      indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: AutilabColor.bb,
                       ),
-                  dividerColor: Colors.transparent,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: AutilabColor.bb,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      tabs: tabBar,
+                    ),
                   ),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: tabBar,
                 ),
+                height: 50,
               ),
             ),
             const SliverToBoxAdapter(

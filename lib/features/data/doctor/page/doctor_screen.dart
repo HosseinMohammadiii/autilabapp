@@ -1,4 +1,6 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
+import 'package:autilab_project/features/data/doctor/widgets/button_card.dart';
+import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../common/widgets/custom_tabbar_widget.dart';
 import '../../../../core/constants/color_constant.dart';
+import '../../../../utils/tabbar_delegate.dart';
 import '../widgets/custom_checkbox_widget.dart';
 
 class DoctorScreen extends StatefulWidget {
@@ -50,10 +53,8 @@ class _DoctorScreenState extends State<DoctorScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: scaffoldKey,
       body: SafeArea(
         child: CustomTabBarWidget(
-          //leading: appBarWidget(context),
           tabLength: 2,
           tabBar: const [
             Text('Find Doctor'),
@@ -64,6 +65,7 @@ class _DoctorScreenState extends State<DoctorScreen>
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,15 +134,16 @@ class _DoctorScreenState extends State<DoctorScreen>
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Specialties',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                        Expanded(
+                          child: Text(
+                            'Specialties',
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -204,11 +207,194 @@ class _DoctorScreenState extends State<DoctorScreen>
                         },
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24),
+                      child: Text(
+                        'Expert Doctors',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                    ),
+                    ListView.builder(
+                      itemCount: 10,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return const DoctorBoxWidget();
+                      },
+                    ),
                   ],
                 ),
               ),
             ),
-            Text('data2'),
+            CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Container(
+                    width: double.infinity,
+                    height: 441,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 23, vertical: 45),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffECF0FF),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Image.asset(
+                            'assets/images/map_image.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Find Nearby centers',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          'Tap the map and select your location to see centers near you.',
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 16,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      'Suggestions',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: 445,
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 16),
+                      decoration: BoxDecoration(
+                        color: AutilabColor.primary,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                'assets/images/autism_help_center.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              // runAlignment: WrapAlignment.spaceBetween,
+                              // alignment: WrapAlignment.spaceBetween,
+                              // spacing: 8,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Autism Help Center',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ),
+                                ButtonCard(
+                                  onTap: () {},
+                                  margin: const EdgeInsets.only(right: 8),
+                                  icon: 'assets/icons/heart.svg',
+                                ),
+                                ButtonCard(
+                                  onTap: () {},
+                                  margin: const EdgeInsets.all(0),
+                                  icon: 'assets/icons/messages.svg',
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          SizedBox(
+                            height: 72,
+                            child: Text(
+                              'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontSize: 14,
+                                    overflow: TextOverflow.fade,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          CustomButtonWidget(
+                            onTap: () {},
+                            height: 50,
+                            margin: const EdgeInsets.only(bottom: 8, top: 8),
+                            color: AutilabColor.bb,
+                            text: 'See Details',
+                            textStyle:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),

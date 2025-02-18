@@ -99,8 +99,10 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
         leadingWidth: double.infinity,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Wrap(
+            runAlignment: WrapAlignment.spaceBetween,
+            alignment: WrapAlignment.center,
+            direction: Axis.vertical,
             children: [
               GestureDetector(
                 onTap: () {
