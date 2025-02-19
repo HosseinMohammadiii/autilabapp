@@ -56,9 +56,25 @@ class _DoctorScreenState extends State<DoctorScreen>
       body: SafeArea(
         child: CustomTabBarWidget(
           tabLength: 2,
-          tabBar: const [
-            Text('Find Doctor'),
-            Text('Nearby centers'),
+          tabBar: [
+            FittedBox(
+              child: Text(
+                'Find Doctor',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+            ),
+            FittedBox(
+              child: Text(
+                'Nearby centers',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+            ),
           ],
           tabBarView: [
             Padding(
@@ -309,16 +325,16 @@ class _DoctorScreenState extends State<DoctorScreen>
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        alignment: WrapAlignment.center,
+                        // spacing: 32,
+                        // crossAxisAlignment: WrapCrossAlignment.center,
+                        // alignment: WrapAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                'assets/images/autism_help_center.png',
-                                fit: BoxFit.cover,
-                              ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.asset(
+                              'assets/images/autism_help_center.png',
+                              fit: BoxFit.cover,
                             ),
                           ),
                           const SizedBox(
@@ -327,9 +343,6 @@ class _DoctorScreenState extends State<DoctorScreen>
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Row(
-                              // runAlignment: WrapAlignment.spaceBetween,
-                              // alignment: WrapAlignment.spaceBetween,
-                              // spacing: 8,
                               children: [
                                 Expanded(
                                   child: Text(
@@ -357,7 +370,7 @@ class _DoctorScreenState extends State<DoctorScreen>
                             ),
                           ),
                           const SizedBox(
-                            height: 8,
+                            height: 16,
                           ),
                           SizedBox(
                             height: 72,
@@ -372,9 +385,6 @@ class _DoctorScreenState extends State<DoctorScreen>
                                     fontWeight: FontWeight.w400,
                                   ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 8,
                           ),
                           CustomButtonWidget(
                             onTap: () {},
@@ -510,13 +520,13 @@ class _DoctorScreenState extends State<DoctorScreen>
         ValueNotifier<double?>(null);
     return Container(
       width: 320,
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: 559,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
             pinned: true,
-            toolbarHeight: 20,
+            toolbarHeight: 24,
             automaticallyImplyLeading: false,
             flexibleSpace: Row(
               children: [
@@ -560,23 +570,24 @@ class _DoctorScreenState extends State<DoctorScreen>
               color: AutilabColor.gray,
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 8,
-            ),
-          ),
           SliverToBoxAdapter(
             child: Text(
               "Doctor's specialty",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
+                    // height: 4,
                   ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 16,
             ),
           ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 173,
+              height: 140,
               child: ValueListenableBuilder(
                 valueListenable: selectedIndexSpecialty,
                 builder: (context, value, child) => GridView.builder(
@@ -586,11 +597,12 @@ class _DoctorScreenState extends State<DoctorScreen>
                     crossAxisSpacing: 45,
                     mainAxisSpacing: 8,
                     childAspectRatio: 3.5,
+                    mainAxisExtent: 37,
                   ),
                   itemCount: 6,
                   itemBuilder: (context, index) {
                     return CustomButtonWidget(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      margin: const EdgeInsets.symmetric(horizontal: 0),
                       onTap: () {
                         selectedIndexSpecialty.value = index;
                       },

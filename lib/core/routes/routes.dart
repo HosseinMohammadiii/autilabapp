@@ -20,7 +20,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const ButtomnavigationWidget(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: '/Program_Introduction',
@@ -31,19 +31,17 @@ class AutilabRouter {
         path: '/welcome',
         name: AutiLabRoutes.welcomeScreen,
         builder: (context, state) => const WelcomeScreen(),
-        routes: [
-          GoRoute(
-            path: '/login',
-            name: AutiLabRoutes.loginScreen,
-            builder: (context, state) {
-              final Map<String, dynamic> extraData =
-                  state.extra as Map<String, dynamic>;
-              return LogInScreen(
-                isSignUp: extraData['isSignUp'] as bool,
-              );
-            },
-          ),
-        ],
+      ),
+      GoRoute(
+        path: '/login',
+        name: AutiLabRoutes.loginScreen,
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+          return LogInScreen(
+            isSignUp: extraData['isSignUp'] as bool,
+          );
+        },
       ),
       GoRoute(
         path: '/send_email_code',

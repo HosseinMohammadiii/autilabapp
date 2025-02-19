@@ -38,6 +38,12 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
   }
 
   @override
+  void didUpdateWidget(covariant SendEmailCodeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    animationHelper.restartAnimation();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,

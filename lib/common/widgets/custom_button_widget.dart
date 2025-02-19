@@ -29,14 +29,17 @@ class CustomButtonWidget extends StatelessWidget {
         height: height,
         margin:
             margin ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+        padding: const EdgeInsets.symmetric(horizontal: 2),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(borderRadius ?? 8),
         ),
-        child: Text(
-          text,
-          style: textStyle,
+        child: FittedBox(
+          child: Text(
+            text,
+            style: textStyle,
+          ),
         ),
       ),
     );

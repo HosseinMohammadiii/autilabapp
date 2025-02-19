@@ -60,146 +60,155 @@ class _LogInScreenState extends State<LogInScreen>
       child: Scaffold(
         appBar: appBarWidget(context),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Center(
-                  child: widget.isSignUp
-                      ? SvgPicture.asset('assets/images/signUp_image.svg')
-                      : SvgPicture.asset('assets/images/logIn_image.svg'),
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                CustomTextfield(
-                  controller: userNameController,
-                  focusNode: userNameFocusNode,
-                  textInputAction: TextInputAction.next,
-                  label: 'UserName',
-                  maxLines: 1,
-                  borderColor: AutilabColor.blue,
-                ),
-                if (widget.isSignUp) ...[
-                  CustomTextfield(
-                    controller: emailController,
-                    focusNode: emailFocusNode,
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.emailAddress,
-                    label: 'Email',
-                    maxLines: 1,
-                    borderColor: AutilabColor.blue,
-                  ),
-                ],
-                CustomTextfield(
-                  controller: passwordController,
-                  focusNode: passwordFocusNode,
-                  textInputAction: TextInputAction.done,
-                  textInputType: TextInputType.visiblePassword,
-                  isObscureText: true,
-                  label: 'Password',
-                  maxLines: 1,
-                  borderColor: AutilabColor.blue,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (widget.isSignUp) {
-                        setState(() {
-                          widget.isSignUp = false;
-                        });
-                      } else {
-                        context.pushNamed(AutiLabRoutes.sendEmailScreen);
-                      }
-                    },
-                    child: Text(
-                      widget.isSignUp
-                          ? 'Already have an account?'
-                          : 'Forget Password?',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                CustomButtonWidget(
-                  onTap: () {},
-                  height: 50,
-                  color: AutilabColor.bb,
-                  text: widget.isSignUp ? 'Sign Up' : 'LogIn',
-                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(
-                        thickness: 3,
-                        indent: 20,
-                        color: AutilabColor.bb,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        'Or Sign up With',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 12,
-                              color: const Color(0xff555252),
-                              fontWeight: FontWeight.w400,
-                            ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Divider(
-                        thickness: 3,
-                        endIndent: 20,
-                        color: AutilabColor.bb,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    circularWidgetSignUp(
-                      image: 'assets/images/google_logo.svg',
-                      onTap: () {},
+                    Center(
+                      child: widget.isSignUp
+                          ? SvgPicture.asset('assets/images/signUp_image.svg')
+                          : SvgPicture.asset('assets/images/logIn_image.svg'),
                     ),
                     const SizedBox(
-                      width: 8,
+                      height: 32,
                     ),
-                    circularWidgetSignUp(
-                      image: 'assets/images/facbook_logo.svg',
-                      onTap: () {},
+                    CustomTextfield(
+                      controller: userNameController,
+                      focusNode: userNameFocusNode,
+                      textInputAction: TextInputAction.next,
+                      label: 'UserName',
+                      maxLines: 1,
+                      borderColor: AutilabColor.blue,
+                    ),
+                    if (widget.isSignUp) ...[
+                      CustomTextfield(
+                        controller: emailController,
+                        focusNode: emailFocusNode,
+                        textInputAction: TextInputAction.next,
+                        textInputType: TextInputType.emailAddress,
+                        label: 'Email',
+                        maxLines: 1,
+                        borderColor: AutilabColor.blue,
+                      ),
+                    ],
+                    CustomTextfield(
+                      controller: passwordController,
+                      focusNode: passwordFocusNode,
+                      textInputAction: TextInputAction.done,
+                      textInputType: TextInputType.visiblePassword,
+                      isObscureText: true,
+                      label: 'Password',
+                      maxLines: 1,
+                      borderColor: AutilabColor.blue,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (widget.isSignUp) {
+                            setState(() {
+                              widget.isSignUp = false;
+                            });
+                          } else {
+                            context.pushNamed(AutiLabRoutes.sendEmailScreen);
+                          }
+                        },
+                        child: Text(
+                          widget.isSignUp
+                              ? 'Already have an account?'
+                              : 'Forget Password?',
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                      ),
                     ),
                     const SizedBox(
-                      width: 8,
+                      height: 16,
                     ),
-                    circularWidgetSignUp(
-                      image: 'assets/images/apple_logo.svg',
+                    CustomButtonWidget(
                       onTap: () {},
+                      height: 50,
+                      color: AutilabColor.bb,
+                      text: widget.isSignUp ? 'Sign Up' : 'LogIn',
+                      textStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Divider(
+                            thickness: 3,
+                            indent: 20,
+                            color: AutilabColor.bb,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            'Or Sign up With',
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 12,
+                                      color: const Color(0xff555252),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                          ),
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            thickness: 3,
+                            endIndent: 20,
+                            color: AutilabColor.bb,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        circularWidgetSignUp(
+                          image: 'assets/images/google_logo.svg',
+                          onTap: () {},
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        circularWidgetSignUp(
+                          image: 'assets/images/facbook_logo.svg',
+                          onTap: () {},
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        circularWidgetSignUp(
+                          image: 'assets/images/apple_logo.svg',
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

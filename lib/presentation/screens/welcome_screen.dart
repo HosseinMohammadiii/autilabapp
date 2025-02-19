@@ -45,75 +45,85 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       child: Scaffold(
         appBar: AppBar(),
         body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: SvgPicture.asset(
-                  'assets/images/welcome_image.svg',
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Text(
-                'Welcome To Autilab!',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/welcome_image.svg',
+                      fit: BoxFit.contain,
                     ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      'Welcome To Autilab!',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {
+                        context.pushNamed(
+                          AutiLabRoutes.loginScreen,
+                          extra: {
+                            'isSignUp': false,
+                          },
+                        );
+                      },
+                      height: 50,
+                      color: AutilabColor.bb,
+                      text: 'Login',
+                      textStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {
+                        context.pushNamed(
+                          AutiLabRoutes.loginScreen,
+                          extra: {
+                            'isSignUp': true,
+                          },
+                        );
+                      },
+                      height: 50,
+                      color: AutilabColor.white,
+                      text: 'Sign Up',
+                      width: 70,
+                      textStyle:
+                          Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: AutilabColor.blue,
+                              ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              CustomButtonWidget(
-                onTap: () {
-                  context.goNamed(
-                    AutiLabRoutes.loginScreen,
-                    extra: {
-                      'isSignUp': false,
-                    },
-                  );
-                },
-                height: 50,
-                color: AutilabColor.bb,
-                text: 'Login',
-                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
-              ),
-              CustomButtonWidget(
-                onTap: () {
-                  context.goNamed(
-                    AutiLabRoutes.loginScreen,
-                    extra: {
-                      'isSignUp': true,
-                    },
-                  );
-                },
-                height: 50,
-                color: AutilabColor.white,
-                text: 'Sign Up',
-                width: 70,
-                textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: AutilabColor.blue,
-                    ),
               ),
             ],
           ),
