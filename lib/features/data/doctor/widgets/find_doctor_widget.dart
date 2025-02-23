@@ -257,45 +257,60 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
   ) {
     return Container(
       width: 320,
-      height: 460,
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  }
-                },
-                icon: const Icon(Icons.close_rounded),
-              ),
-              Text(
-                'All Specialties',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
-              ),
-            ],
+      height: 467,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
           ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 22,
-                mainAxisExtent: 113,
+          SliverAppBar(
+            pinned: true,
+            toolbarHeight: 18,
+            automaticallyImplyLeading: false,
+            flexibleSpace: IconButton(
+              padding: const EdgeInsets.all(0),
+              alignment: Alignment.centerLeft,
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                }
+              },
+              icon: Row(
+                children: [
+                  const Icon(
+                    Icons.close_rounded,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'All Specialties',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ],
               ),
-              itemCount: titleCategory.length,
-              itemBuilder: (context, index) {
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 12,
+            ),
+          ),
+          SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              childCount: colorBoxCategory.length,
+              (context, index) {
                 return GestureDetector(
                   onTap: () => onTap(index),
                   child: Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    margin: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
                       color: colorBoxCategory[index],
                       borderRadius: BorderRadius.circular(16),
@@ -320,6 +335,17 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 );
               },
             ),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 24,
+              mainAxisExtent: 113,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 12,
+            ),
           ),
         ],
       ),
@@ -343,7 +369,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
         slivers: [
           SliverAppBar(
             pinned: true,
-            toolbarHeight: 35,
+            toolbarHeight: 16,
             automaticallyImplyLeading: false,
             flexibleSpace: Row(
               children: [
@@ -387,6 +413,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               color: AutilabColor.gray,
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
           SliverToBoxAdapter(
             child: Text(
               "Doctor's specialty",
@@ -396,14 +427,9 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   ),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 20,
-            ),
-          ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 140,
+              height: 168,
               child: ValueListenableBuilder(
                 valueListenable: selectedIndexSpecialty,
                 builder: (context, value, child) => GridView.builder(
@@ -412,17 +438,16 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     crossAxisCount: 2,
                     crossAxisSpacing: 45,
                     mainAxisSpacing: 8,
-                    childAspectRatio: 3.5,
-                    mainAxisExtent: 37,
+                    mainAxisExtent: 40,
                   ),
                   itemCount: 6,
                   itemBuilder: (context, index) {
                     return CustomButtonWidget(
-                      margin: const EdgeInsets.symmetric(horizontal: 0),
+                      margin: const EdgeInsets.all(0),
                       onTap: () {
                         selectedIndexSpecialty.value = index;
                       },
-                      height: 37,
+                      height: 100,
                       color: selectedIndexSpecialty.value == index
                           ? AutilabColor.bb
                           : AutilabColor.lightGray,
