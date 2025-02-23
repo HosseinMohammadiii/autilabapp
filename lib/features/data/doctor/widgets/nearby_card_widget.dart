@@ -15,7 +15,7 @@ class NearbyCardWidget extends StatelessWidget {
       height: 445,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(16),

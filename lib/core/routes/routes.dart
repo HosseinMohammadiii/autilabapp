@@ -21,7 +21,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ButtomnavigationWidget(),
       ),
       GoRoute(
         path: '/Program_Introduction',

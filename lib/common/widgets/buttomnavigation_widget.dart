@@ -160,7 +160,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: AutilabColor.black.withOpacity(0.3),
+              color: AutilabColor.black.withValues(alpha: 0.3),
               blurRadius: 16,
               offset: const Offset(0, 4),
             ),
@@ -197,15 +197,15 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
             _bottomnavigationItem(
               index: 1,
               selctItems: _selectedItem,
-              lable: 'Tools',
-              icon: 'assets/icons/tools_buttomnavigation.svg',
+              lable: 'Doctor',
+              icon: 'assets/icons/doctor_buttomnavigation.svg',
               context: context,
             ),
             _bottomnavigationItem(
               index: 2,
               selctItems: _selectedItem,
-              lable: 'Doctor',
-              icon: 'assets/icons/doctor_buttomnavigation.svg',
+              lable: 'Tools',
+              icon: 'assets/icons/tools_buttomnavigation.svg',
               context: context,
             ),
             _bottomnavigationItem(
@@ -350,135 +350,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          pageViewWidget[0],
-          // SafeArea(
-          //   child: SlideTransition(
-          //     position: _slideTransition,
-          //     // alignment: Alignment.centerLeft,
-          //     // duration: Duration(milliseconds: 300),
-          //     // curve: Curves.easeInOut,
-          //     // width: isDrawerOpen ? 250 : 0,
-          //     child: Drawer(
-          //       backgroundColor: AutilabColor.backgroundDrawer,
-          //       child: ListView(
-          //         children: [
-          //           const SizedBox(
-          //             height: 15,
-          //           ),
-          //           Stack(
-          //             alignment: Alignment.topCenter,
-          //             children: [
-          //               Container(
-          //                 width: double.infinity,
-          //                 height: 104,
-          //                 margin: const EdgeInsets.symmetric(
-          //                     horizontal: 10, vertical: 24),
-          //                 padding: const EdgeInsets.symmetric(horizontal: 16),
-          //                 decoration: BoxDecoration(
-          //                   color: AutilabColor.drawerWhite,
-          //                   borderRadius: BorderRadius.circular(8),
-          //                 ),
-          //                 child: Row(
-          //                   mainAxisAlignment: MainAxisAlignment.center,
-          //                   crossAxisAlignment: CrossAxisAlignment.center,
-          //                   children: [
-          //                     Column(
-          //                       mainAxisAlignment: MainAxisAlignment.center,
-          //                       children: [
-          //                         Text(
-          //                           'Alexei Oppana',
-          //                           style: Theme.of(context)
-          //                               .textTheme
-          //                               .bodyMedium!
-          //                               .copyWith(
-          //                                 fontSize: 16,
-          //                                 fontWeight: FontWeight.w500,
-          //                               ),
-          //                         ),
-          //                         const SizedBox(
-          //                           height: 4,
-          //                         ),
-          //                         Text(
-          //                           'alexei@gmail.com',
-          //                           style: Theme.of(context)
-          //                               .textTheme
-          //                               .bodySmall!
-          //                               .copyWith(
-          //                                 fontSize: 12,
-          //                                 fontWeight: FontWeight.w400,
-          //                               ),
-          //                         ),
-          //                       ],
-          //                     ),
-          //                     const Spacer(),
-          //                     CustomButtonWidget(
-          //                       onTap: () {},
-          //                       width: 86,
-          //                       height: 31,
-          //                       margin: const EdgeInsets.all(0),
-          //                       color: AutilabColor.blue,
-          //                       text: 'Edit Profile',
-          //                       textStyle: Theme.of(context)
-          //                           .textTheme
-          //                           .bodySmall!
-          //                           .copyWith(
-          //                             fontSize: 12,
-          //                             fontWeight: FontWeight.w400,
-          //                             color: AutilabColor.white,
-          //                           ),
-          //                     ),
-          //                   ],
-          //                 ),
-          //               ),
-          //               ClipRRect(
-          //                 borderRadius: BorderRadius.circular(30),
-          //                 child: CachednetworkimageWidget(
-          //                   imgUrl: '',
-          //                   img: Image.asset('assets/images/child_image.png'),
-          //                   isNetworkImage: false,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //           DrawerBoxWidget(
-          //             icon: icon1,
-          //             title: title1,
-          //             color: const [
-          //               Color(0xffF3C58D),
-          //               Color(0xff8DAFFD),
-          //               Color(0xff7EECC5),
-          //               Color(0xffE4D080),
-          //             ],
-          //             onTap: (index) {},
-          //           ),
-          //           DrawerBoxWidget(
-          //             icon: icon2,
-          //             title: title2,
-          //             color: const [
-          //               Color(0xff7EC9F8),
-          //               Color(0xffB4A7FF),
-          //               Color(0xffEA87F5),
-          //             ],
-          //             onTap: (index) {},
-          //           ),
-          //           DrawerBoxWidget(
-          //             icon: icon3,
-          //             title: title3,
-          //             color: const [
-          //               Color(0xffDB9088),
-          //               Color(0xff3D90E0),
-          //             ],
-          //             onTap: (index) {},
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
+      body: pageViewWidget.elementAt(_selectedItem),
     );
   }
 
