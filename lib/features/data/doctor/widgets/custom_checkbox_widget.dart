@@ -42,9 +42,9 @@ class CustomCheckbox extends StatelessWidget {
             ),
             Text(
               title,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
                   ),
             ),
           ],

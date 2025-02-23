@@ -33,12 +33,6 @@ class _SendEmailScreenState extends State<SendEmailScreen>
   }
 
   @override
-  void didUpdateWidget(covariant SendEmailScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    animationHelper.restartAnimation();
-  }
-
-  @override
   void dispose() {
     animationHelper.dispose();
     emailController.dispose();
@@ -47,53 +41,62 @@ class _SendEmailScreenState extends State<SendEmailScreen>
   }
 
   @override
+  void didUpdateWidget(covariant SendEmailScreen oldWidget) {
+    animationHelper.restartAnimation();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget(context),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.asset('assets/images/enter_email_image.png'),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-                child: Text(
-                  'Enter Your Email Address',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 16,
+    return FadeTransition(
+      opacity: animationHelper.fadeAnimation,
+      child: Scaffold(
+        appBar: appBarWidget(context),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Image.asset('assets/images/enter_email_image.png'),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                  child: Text(
+                    'Enter Your Email Address',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ),
+                CustomTextfield(
+                  controller: emailController,
+                  focusNode: emailFocusNode,
+                  textInputType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.done,
+                  label: 'Email',
+                  borderColor: AutilabColor.blue,
+                ),
+                CustomButtonWidget(
+                  onTap: () {
+                    context.pushNamed(AutiLabRoutes.sendEmailCodeScreen);
+                  },
+                  height: 50,
+                  color: AutilabColor.bb,
+                  text: 'Send Code',
+                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 18,
                         fontWeight: FontWeight.w400,
                       ),
                 ),
-              ),
-              CustomTextfield(
-                controller: emailController,
-                focusNode: emailFocusNode,
-                textInputType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.done,
-                label: 'Email',
-                borderColor: AutilabColor.blue,
-              ),
-              CustomButtonWidget(
-                onTap: () {
-                  context.pushNamed(AutiLabRoutes.sendEmailCodeScreen);
-                },
-                height: 50,
-                color: AutilabColor.bb,
-                text: 'Send Code',
-                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
-              ),
-              const BubbleBackgroundWidget(),
-              const SizedBox(
-                height: 16,
-              ),
-            ],
+                const BubbleBackgroundWidget(),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            ),
           ),
         ),
       ),

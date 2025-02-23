@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../features/data/doctor/page/doctor_screen.dart';
 import '../../features/data/doctor/widgets/drawer_box_widget.dart';
-import 'appbar_widget.dart';
 import 'cached_network_image_widget.dart';
 import 'custom_button_widget.dart';
 
@@ -61,13 +60,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     'assets/icons/logout.svg',
   ];
 
-  // void toggleDrawer() {
-  //   if (_animationController.isCompleted) {
-  //     _animationController.reverse();
-  //   } else {
-  //     _animationController.forward();
-  //   }
-  // }
   bool isPlaying = false;
 
   @override
@@ -97,8 +89,13 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       key: scaffoldKey,
       appBar: AppBar(
         leadingWidth: double.infinity,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        toolbarHeight: 100,
+        automaticallyImplyLeading: false,
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
           child: Wrap(
             runAlignment: WrapAlignment.spaceBetween,
             alignment: WrapAlignment.center,
@@ -111,6 +108,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                 child: const Icon(Icons.menu),
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Current location',

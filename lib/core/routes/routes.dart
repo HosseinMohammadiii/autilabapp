@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/buttomnavigation_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
+import 'package:autilab_project/features/data/auth/page/signup_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -31,17 +32,18 @@ class AutilabRouter {
         path: '/welcome',
         name: AutiLabRoutes.welcomeScreen,
         builder: (context, state) => const WelcomeScreen(),
-      ),
-      GoRoute(
-        path: '/login',
-        name: AutiLabRoutes.loginScreen,
-        builder: (context, state) {
-          final Map<String, dynamic> extraData =
-              state.extra as Map<String, dynamic>;
-          return LogInScreen(
-            isSignUp: extraData['isSignUp'] as bool,
-          );
-        },
+        routes: [
+          GoRoute(
+            path: '/login',
+            name: AutiLabRoutes.loginScreen,
+            builder: (context, state) => const LogInScreen(),
+          ),
+          GoRoute(
+            path: '/signUp',
+            name: AutiLabRoutes.signUpScreen,
+            builder: (context, state) => const SignupScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: '/send_email_code',

@@ -25,7 +25,7 @@ class CustomTabBarWidget extends StatelessWidget {
           return [
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 40,
+                height: 8,
               ),
             ),
             SliverPersistentHeader(
@@ -63,7 +63,7 @@ class CustomTabBarWidget extends StatelessWidget {
             ),
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 40,
+                height: 24,
               ),
             ),
           ];

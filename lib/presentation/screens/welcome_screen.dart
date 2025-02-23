@@ -43,7 +43,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: PreferredSize(
+          preferredSize: const Size(0, 0),
+          child: AppBar(),
+        ),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
@@ -53,6 +56,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 64,
+                    ),
                     SvgPicture.asset(
                       'assets/images/welcome_image.svg',
                       fit: BoxFit.contain,
@@ -88,9 +94,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       onTap: () {
                         context.pushNamed(
                           AutiLabRoutes.loginScreen,
-                          extra: {
-                            'isSignUp': false,
-                          },
                         );
                       },
                       height: 50,
@@ -105,10 +108,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     CustomButtonWidget(
                       onTap: () {
                         context.pushNamed(
-                          AutiLabRoutes.loginScreen,
-                          extra: {
-                            'isSignUp': true,
-                          },
+                          AutiLabRoutes.signUpScreen,
                         );
                       },
                       height: 50,

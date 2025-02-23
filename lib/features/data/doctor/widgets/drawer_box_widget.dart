@@ -20,7 +20,7 @@ class DrawerBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 24),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         color: AutilabColor.drawerWhite,

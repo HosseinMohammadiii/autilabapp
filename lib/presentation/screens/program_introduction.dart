@@ -73,17 +73,21 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: PreferredSize(
+          preferredSize: const Size(0, 20),
+          child: AppBar(),
+        ),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,
+                fillOverscroll: false,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 540,
+                      height: 506,
                       child: PageView.builder(
                         controller: pageController,
                         itemCount: 3,
@@ -92,7 +96,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                             children: [
                               SvgPicture.asset(images[index]),
                               const SizedBox(
-                                height: 24,
+                                height: 40,
                               ),
                               Text(
                                 title[index],
@@ -124,7 +128,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                 ),
                               ),
                               const SizedBox(
-                                height: 25,
+                                height: 40,
                               ),
                               SmoothPageIndicator(
                                 controller: pageController,
@@ -147,6 +151,8 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                       height: 50,
                       color: AutilabColor.bb,
                       text: 'Next',
+                      margin:
+                          const EdgeInsets.only(right: 20, left: 20, top: 40),
                       textStyle:
                           Theme.of(context).textTheme.bodySmall!.copyWith(
                                 fontSize: 18,

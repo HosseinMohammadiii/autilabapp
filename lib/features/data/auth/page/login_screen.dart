@@ -8,14 +8,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/appbar_login_section.dart';
+import '../widgets/signup_icon_widget.dart';
 
 // ignore: must_be_immutable
 class LogInScreen extends StatefulWidget {
-  LogInScreen({
+  const LogInScreen({
     super.key,
-    required this.isSignUp,
   });
-  bool isSignUp;
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -27,11 +26,9 @@ class _LogInScreenState extends State<LogInScreen>
 
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
-  final emailController = TextEditingController();
 
   final userNameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
-  final emailFocusNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -69,9 +66,7 @@ class _LogInScreenState extends State<LogInScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                      child: widget.isSignUp
-                          ? SvgPicture.asset('assets/images/signUp_image.svg')
-                          : SvgPicture.asset('assets/images/logIn_image.svg'),
+                      child: SvgPicture.asset('assets/images/logIn_image.svg'),
                     ),
                     const SizedBox(
                       height: 32,
@@ -84,17 +79,6 @@ class _LogInScreenState extends State<LogInScreen>
                       maxLines: 1,
                       borderColor: AutilabColor.blue,
                     ),
-                    if (widget.isSignUp) ...[
-                      CustomTextfield(
-                        controller: emailController,
-                        focusNode: emailFocusNode,
-                        textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.emailAddress,
-                        label: 'Email',
-                        maxLines: 1,
-                        borderColor: AutilabColor.blue,
-                      ),
-                    ],
                     CustomTextfield(
                       controller: passwordController,
                       focusNode: passwordFocusNode,
@@ -109,18 +93,10 @@ class _LogInScreenState extends State<LogInScreen>
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: GestureDetector(
                         onTap: () {
-                          if (widget.isSignUp) {
-                            setState(() {
-                              widget.isSignUp = false;
-                            });
-                          } else {
-                            context.pushNamed(AutiLabRoutes.sendEmailScreen);
-                          }
+                          context.pushNamed(AutiLabRoutes.sendEmailScreen);
                         },
                         child: Text(
-                          widget.isSignUp
-                              ? 'Already have an account?'
-                              : 'Forget Password?',
+                          'Forget Password?',
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 14,
@@ -133,10 +109,12 @@ class _LogInScreenState extends State<LogInScreen>
                       height: 16,
                     ),
                     CustomButtonWidget(
-                      onTap: () {},
+                      onTap: () {
+                        context.goNamed(AutiLabRoutes.buttomNavigationScreen);
+                      },
                       height: 50,
                       color: AutilabColor.bb,
-                      text: widget.isSignUp ? 'Sign Up' : 'LogIn',
+                      text: 'LogIn',
                       textStyle:
                           Theme.of(context).textTheme.bodySmall!.copyWith(
                                 fontSize: 16,
@@ -211,30 +189,6 @@ class _LogInScreenState extends State<LogInScreen>
             ],
           ),
         ),
-      ),
-    );
-  }
-
-//Widget for display Icons to SignUp Account
-  Widget circularWidgetSignUp({
-    required String image,
-    required Function() onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 52,
-        height: 52,
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AutilabColor.lightGray,
-          border: Border.all(
-            color: AutilabColor.blue,
-            width: 0.5,
-          ),
-        ),
-        child: SvgPicture.asset(image),
       ),
     );
   }
