@@ -7,7 +7,7 @@ import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../widgets/appbar_login_section.dart';
+import '../../../../common/widgets/appbar_back_screen.dart';
 import '../widgets/signup_icon_widget.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -55,7 +55,7 @@ class _SignupScreenState extends State<SignupScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(context: context, title: 'Back'),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [

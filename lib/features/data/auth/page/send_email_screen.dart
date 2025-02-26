@@ -1,7 +1,7 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:autilab_project/features/data/auth/widgets/appbar_login_section.dart';
+import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -51,7 +51,7 @@ class _SendEmailScreenState extends State<SendEmailScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(context: context, title: 'Back'),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

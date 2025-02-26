@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
+import '../../../../utils/Lists/category_items.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../utils/functions/custom_dialog_function.dart';
 import 'custom_checkbox_widget.dart';
@@ -26,32 +27,6 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
   final searchFocusNode = FocusNode();
 
   bool isChecked = false;
-
-  List<String> titleCategory = [
-    'Behaviorism',
-    'Pediatrician',
-    'Physiotherapy',
-    'Consultant',
-    'Psychologist',
-    'Speech therapy',
-  ];
-
-  List<String> imageCategory = [
-    'assets/images/behaviorism_image.png',
-    'assets/images/pediatrician_image.png',
-    'assets/images/physiotherapy_image.png',
-    'assets/images/conversation_image.png',
-    'assets/images/psychologist_image.png',
-    'assets/images/speech_therapy_image.png',
-  ];
-  List<Color> colorBoxCategory = const [
-    Color(0xffC772FF),
-    Color.fromRGBO(83, 226, 255, 0.7),
-    Color(0xffFF7272),
-    Color(0xff8AEDCE),
-    Color(0xff5669FF),
-    Color(0xffFFB253),
-  ];
 
   @override
   void initState() {
@@ -263,43 +238,43 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
         slivers: [
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 5,
+              height: 24,
             ),
           ),
           SliverAppBar(
             pinned: true,
-            toolbarHeight: 18,
+            toolbarHeight: 22,
             automaticallyImplyLeading: false,
-            flexibleSpace: IconButton(
-              padding: const EdgeInsets.all(0),
-              alignment: Alignment.centerLeft,
-              onPressed: () {
-                if (context.canPop()) {
-                  context.pop();
-                }
-              },
-              icon: Row(
-                children: [
-                  const Icon(
+            leadingWidth: double.infinity,
+            leading: Row(
+              spacing: 10,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (mounted) {
+                      GoRouter.of(context).pop();
+                    }
+                    // if (context.canPop()) {
+                    //   context.pop();
+                    // }
+                  },
+                  child: const Icon(
                     Icons.close_rounded,
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'All Specialties',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                        ),
-                  ),
-                ],
-              ),
+                ),
+                Text(
+                  'All Specialties',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+              ],
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 12,
+              height: 24,
             ),
           ),
           SliverGrid(
@@ -337,14 +312,14 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
             ),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 16,
+              crossAxisSpacing: 24,
               mainAxisSpacing: 24,
               mainAxisExtent: 113,
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 12,
+              height: 8,
             ),
           ),
         ],
@@ -367,20 +342,29 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 16,
+            ),
+          ),
           SliverAppBar(
             pinned: true,
-            toolbarHeight: 16,
+            toolbarHeight: 21,
             automaticallyImplyLeading: false,
-            flexibleSpace: Row(
+            leadingWidth: double.infinity,
+            leading: Row(
+              spacing: 4,
               children: [
-                IconButton(
-                  padding: const EdgeInsets.all(0),
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     if (context.canPop()) {
                       context.pop();
                     }
                   },
-                  icon: const Icon(Icons.close_rounded),
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 8.0),
+                    child: Icon(Icons.close_rounded),
+                  ),
                 ),
                 Text(
                   'Filter',
@@ -408,6 +392,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
             ),
           ),
           const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 4,
+            ),
+          ),
+          const SliverToBoxAdapter(
             child: Divider(
               thickness: 1,
               color: AutilabColor.gray,
@@ -427,9 +416,14 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   ),
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 24,
+            ),
+          ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 168,
+              height: 140,
               child: ValueListenableBuilder(
                 valueListenable: selectedIndexSpecialty,
                 builder: (context, value, child) => GridView.builder(
@@ -438,7 +432,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     crossAxisCount: 2,
                     crossAxisSpacing: 45,
                     mainAxisSpacing: 8,
-                    mainAxisExtent: 40,
+                    mainAxisExtent: 37,
                   ),
                   itemCount: 6,
                   itemBuilder: (context, index) {
@@ -447,7 +441,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                       onTap: () {
                         selectedIndexSpecialty.value = index;
                       },
-                      height: 100,
+                      height: 0,
                       color: selectedIndexSpecialty.value == index
                           ? AutilabColor.bb
                           : AutilabColor.lightGray,
@@ -469,19 +463,23 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               color: AutilabColor.gray,
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
           SliverToBoxAdapter(
             child: Text(
               'Gender',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    height: 2,
                   ),
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 5,
+              height: 16,
             ),
           ),
           SliverToBoxAdapter(
@@ -504,19 +502,23 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               color: AutilabColor.gray,
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 5,
+            ),
+          ),
           SliverToBoxAdapter(
             child: Text(
               'Rating',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    height: 2,
                   ),
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 10,
+              height: 16,
             ),
           ),
           SliverToBoxAdapter(

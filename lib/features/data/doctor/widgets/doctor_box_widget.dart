@@ -1,4 +1,6 @@
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
@@ -53,7 +55,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               ),
               const Spacer(),
               CustomButtonWidget(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed(AutiLabRoutes.doctroInformationScreen);
+                },
                 height: 30,
                 width: 80,
                 margin: const EdgeInsets.all(0),

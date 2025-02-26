@@ -1,4 +1,6 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -27,6 +29,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     const DoctorScreen(),
     const DoctorScreen(),
     const DoctorScreen(),
+    const DoctorInfoScreen(),
   ];
   List<String> title1 = [
     'My Doctors',
@@ -168,6 +171,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
         ),
         child: BottomNavigationBar(
           showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
           elevation: 0,
           unselectedLabelStyle:
               Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -350,7 +354,10 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
           ),
         ),
       ),
-      body: pageViewWidget.elementAt(_selectedItem),
+      body: IndexedStack(
+        index: _selectedItem,
+        children: pageViewWidget,
+      ),
     );
   }
 

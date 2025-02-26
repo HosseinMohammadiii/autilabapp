@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
-import '../widgets/appbar_login_section.dart';
+import '../../../../common/widgets/appbar_back_screen.dart';
 import '../widgets/signup_icon_widget.dart';
 
 // ignore: must_be_immutable
@@ -55,7 +55,7 @@ class _LogInScreenState extends State<LogInScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(context: context, title: 'Back'),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [

@@ -23,7 +23,7 @@ class ButtonCard extends StatelessWidget {
         width: 32,
         height: 32,
         padding: const EdgeInsets.all(6),
-        margin: margin ?? const EdgeInsets.only(right: 8),
+        margin: margin ?? const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           color: AutilabColor.bb,
           borderRadius: BorderRadius.circular(8),
