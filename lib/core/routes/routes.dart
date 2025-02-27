@@ -3,6 +3,7 @@ import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
 import 'package:autilab_project/features/data/auth/page/signup_screen.dart';
+import 'package:autilab_project/features/data/community/page/doctor_socialmedia_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
@@ -68,10 +69,17 @@ class AutilabRouter {
         },
         routes: [
           GoRoute(
-            path: '/doctroInformationScreen',
-            name: AutiLabRoutes.doctroInformationScreen,
+            path: '/doctorInformationScreen',
+            name: AutiLabRoutes.doctorInformationScreen,
             builder: (context, state) {
               return const DoctorInfoScreen();
+            },
+          ),
+          GoRoute(
+            path: '/doctorSocialMediaScreen',
+            name: AutiLabRoutes.doctorSocialMediaScreen,
+            builder: (context, state) {
+              return const DoctorSocialMediaScreen();
             },
           ),
         ],

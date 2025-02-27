@@ -56,7 +56,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               const Spacer(),
               CustomButtonWidget(
                 onTap: () {
-                  context.goNamed(AutiLabRoutes.doctroInformationScreen);
+                  context.goNamed(AutiLabRoutes.doctorInformationScreen);
                 },
                 height: 30,
                 width: 80,
@@ -144,7 +144,15 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return ButtonCard(
-                                onTap: () {},
+                                onTap: () {
+                                  switch (index) {
+                                    case 0:
+                                      context.goNamed(AutiLabRoutes
+                                          .doctorSocialMediaScreen);
+
+                                    default:
+                                  }
+                                },
                                 icon: icon[index],
                               );
                             },

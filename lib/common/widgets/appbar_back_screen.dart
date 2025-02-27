@@ -20,7 +20,11 @@ PreferredSizeWidget appBarWidget({
           Visibility(
             visible: isIcon ?? false,
             replacement: GestureDetector(
-              onTap: () => context.pop(),
+              onTap: () {
+                if (context.canPop()) {
+                  context.pop();
+                }
+              },
               child: Text(
                 title,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
