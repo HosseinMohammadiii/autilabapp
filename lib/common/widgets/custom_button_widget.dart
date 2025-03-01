@@ -11,6 +11,7 @@ class CustomButtonWidget extends StatelessWidget {
     this.borderRadius,
     required this.text,
     required this.textStyle,
+    this.boxShadow,
   });
   final Function() onTap;
   final double? width;
@@ -20,6 +21,7 @@ class CustomButtonWidget extends StatelessWidget {
   final double? borderRadius;
   final String text;
   final TextStyle textStyle;
+  final List<BoxShadow>? boxShadow;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,6 +34,7 @@ class CustomButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 2),
         alignment: Alignment.center,
         decoration: BoxDecoration(
+          boxShadow: boxShadow,
           color: color,
           borderRadius: BorderRadius.circular(borderRadius ?? 8),
         ),
