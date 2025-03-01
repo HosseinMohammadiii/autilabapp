@@ -139,9 +139,9 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                 boxShadow: [
                                   BoxShadow(
                                     color: AutilabColor.black
-                                        .withValues(alpha: 0.3),
-                                    blurRadius: 12,
-                                    offset: const Offset(0, 4),
+                                        .withValues(alpha: 0.2),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 2),
                                   ),
                                 ],
                                 textStyle: Theme.of(context)
@@ -163,9 +163,9 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                 boxShadow: [
                                   BoxShadow(
                                     color: AutilabColor.black
-                                        .withValues(alpha: 0.3),
-                                    blurRadius: 12,
-                                    offset: const Offset(0, 4),
+                                        .withValues(alpha: 0.2),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 2),
                                   ),
                                 ],
                                 textStyle: Theme.of(context)
@@ -184,7 +184,7 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                           TabBar(
                             controller: _tabController,
                             dividerColor: Colors.transparent,
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
                             indicator: BoxDecoration(
                               border: const Border(
                                 bottom: BorderSide(
