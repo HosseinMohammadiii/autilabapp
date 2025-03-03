@@ -149,7 +149,12 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                     case 0:
                                       context.goNamed(AutiLabRoutes
                                           .doctorSocialMediaScreen);
-
+                                    case 1:
+                                      context.goNamed(
+                                          AutiLabRoutes.doctorMessageScreen);
+                                    case 2:
+                                      context.goNamed(AutiLabRoutes
+                                          .doctorWorkscheduleScreen);
                                     default:
                                   }
                                 },

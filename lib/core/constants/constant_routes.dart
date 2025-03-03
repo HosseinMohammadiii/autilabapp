@@ -9,4 +9,6 @@ class AutiLabRoutes {
   static const String buttomNavigationScreen = '/buttomNavigationScreen';
   static const String doctorInformationScreen = '/doctorInformationScreen';
   static const String doctorSocialMediaScreen = '/doctorSocialMediaScreen';
+  static const String doctorMessageScreen = '/doctorMessageScreen';
+  static const String doctorWorkscheduleScreen = '/doctorWorkscheduleScreen';
 }
