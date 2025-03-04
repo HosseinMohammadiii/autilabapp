@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 class AutilabIcon {
   static String backIcon = 'assets/icons/arrow_back.svg';
   static String backIconRounded = 'assets/icons/arrow_back_rounded.svg';

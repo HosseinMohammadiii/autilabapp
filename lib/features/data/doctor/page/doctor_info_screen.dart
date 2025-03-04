@@ -1,8 +1,10 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar_back_screen.dart';
+import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/Lists/category_items.dart';
 import '../widgets/button_card.dart';
 
@@ -77,7 +79,20 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   return ButtonCard(
-                                    onTap: () {},
+                                    onTap: () {
+                                      switch (index) {
+                                        case 0:
+                                          context.pushNamed(AutiLabRoutes
+                                              .doctorSocialMediaScreen);
+                                        case 1:
+                                          context.pushNamed(AutiLabRoutes
+                                              .doctorMessageScreen);
+                                        case 2:
+                                          context.pushNamed(AutiLabRoutes
+                                              .doctorWorkscheduleScreen);
+                                        default:
+                                      }
+                                    },
                                     icon: icon[index],
                                   );
                                 },

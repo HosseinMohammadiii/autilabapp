@@ -236,11 +236,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 24,
-            ),
-          ),
+          // const SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 24,
+          //   ),
+          // ),
           SliverAppBar(
             pinned: true,
             toolbarHeight: 22,
@@ -342,11 +342,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
+          // const SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 16,
+          //   ),
+          // ),
           SliverAppBar(
             pinned: true,
             toolbarHeight: 21,
@@ -416,14 +416,14 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   ),
             ),
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 24,
-            ),
-          ),
+          // const SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 24,
+          //   ),
+          // ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 140,
+              height: 150,
               child: ValueListenableBuilder(
                 valueListenable: selectedIndexSpecialty,
                 builder: (context, value, child) => GridView.builder(

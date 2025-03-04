@@ -2,6 +2,7 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
@@ -16,6 +17,8 @@ class _MessageScreenState extends State<MessageScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
+  final ScrollController _scrollController = ScrollController();
+
   final typeMessageController = TextEditingController();
 
   final typeMessageFocusNode = FocusNode();
@@ -26,11 +29,37 @@ class _MessageScreenState extends State<MessageScreen>
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
+
+//Scroll to the last item after the page is created.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToEnd();
+    });
+    typeMessageFocusNode.addListener(_scrollToEnd);
+  }
+
+//Method for scroll to latest item
+  void _scrollToEnd() {
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(
+        _scrollController.position.maxScrollExtent,
+      );
+    }
+    if (typeMessageFocusNode.hasFocus) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      });
+    }
   }
 
   @override
   void dispose() {
     animationHelper.dispose();
+    typeMessageFocusNode.removeListener(_scrollToEnd);
+    typeMessageFocusNode.dispose();
     super.dispose();
   }
 
@@ -57,9 +86,14 @@ class _MessageScreenState extends State<MessageScreen>
               padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                    AutilabIcon.backIconRounded,
-                    alignment: AlignmentDirectional.centerStart,
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: SvgPicture.asset(
+                      AutilabIcon.backIconRounded,
+                      alignment: AlignmentDirectional.centerStart,
+                    ),
                   ),
                   const SizedBox(
                     width: 16,
@@ -127,58 +161,64 @@ class _MessageScreenState extends State<MessageScreen>
             ),
           ),
         ),
-        bottomNavigationBar: Container(
-          height: 80,
-          width: double.infinity,
-          color: AutilabColor.primary,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: [
-              displayIconButton(
-                AutilabIcon.selectDocumentIcon,
-                () {},
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: TextField(
-                    focusNode: typeMessageFocusNode,
-                    controller: typeMessageController,
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      fillColor: AutilabColor.white,
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 2),
-                      suffixIcon: GestureDetector(
-                        onTap: () {},
-                        child: SvgPicture.asset(
-                          fit: BoxFit.none,
-                          AutilabIcon.recordSoundIcon,
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Container(
+            height: 80,
+            width: double.infinity,
+            color: AutilabColor.primary,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                displayIconButton(
+                  AutilabIcon.selectDocumentIcon,
+                  () {},
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: TextField(
+                      focusNode: typeMessageFocusNode,
+                      controller: typeMessageController,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        fillColor: AutilabColor.white,
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 2),
+                        suffixIcon: GestureDetector(
+                          onTap: () {},
+                          child: SvgPicture.asset(
+                            fit: BoxFit.none,
+                            AutilabIcon.recordSoundIcon,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32),
+                          borderSide: BorderSide.none,
                         ),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32),
-                        borderSide: BorderSide.none,
-                      ),
+                      onChanged: (value) {},
+                      onTapOutside: (event) {
+                        //Unfocus TextField
+                        typeMessageFocusNode.unfocus();
+                      },
                     ),
-                    onChanged: (value) {},
-                    onTapOutside: (event) {
-                      //Unfocus TextField
-                      typeMessageFocusNode.unfocus();
-                    },
                   ),
                 ),
-              ),
-              displayIconButton(
-                AutilabIcon.sendMessageIcon,
-                () {},
-              ),
-            ],
+                displayIconButton(
+                  AutilabIcon.sendMessageIcon,
+                  () {},
+                ),
+              ],
+            ),
           ),
         ),
         body: SafeArea(
           child: CustomScrollView(
+            controller: _scrollController,
             slivers: [
               const SliverToBoxAdapter(
                 child: SizedBox(

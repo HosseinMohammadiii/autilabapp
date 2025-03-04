@@ -56,7 +56,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               const Spacer(),
               CustomButtonWidget(
                 onTap: () {
-                  context.goNamed(AutiLabRoutes.doctorInformationScreen);
+                  context.pushNamed(AutiLabRoutes.doctorInformationScreen);
                 },
                 height: 30,
                 width: 80,
@@ -147,13 +147,13 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                 onTap: () {
                                   switch (index) {
                                     case 0:
-                                      context.goNamed(AutiLabRoutes
+                                      context.pushNamed(AutiLabRoutes
                                           .doctorSocialMediaScreen);
                                     case 1:
-                                      context.goNamed(
+                                      context.pushNamed(
                                           AutiLabRoutes.doctorMessageScreen);
                                     case 2:
-                                      context.goNamed(AutiLabRoutes
+                                      context.pushNamed(AutiLabRoutes
                                           .doctorWorkscheduleScreen);
                                     default:
                                   }
