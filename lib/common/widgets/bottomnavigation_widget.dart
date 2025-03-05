@@ -1,10 +1,9 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../features/data/doctor/page/doctor_screen.dart';
 import '../../features/data/doctor/widgets/drawer_box_widget.dart';
 import 'cached_network_image_widget.dart';
 import 'custom_button_widget.dart';
@@ -12,8 +11,13 @@ import 'custom_button_widget.dart';
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class ButtomnavigationWidget extends StatefulWidget {
-  const ButtomnavigationWidget({super.key});
+  const ButtomnavigationWidget({
+    Key? key,
+    required this.navigationShell,
+  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
 
+  /// The navigation shell and container for the branch Navigators.
+  final StatefulNavigationShell navigationShell;
   @override
   State<ButtomnavigationWidget> createState() => _ButtomnavigationWidgetState();
 }
@@ -22,15 +26,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _slideTransition;
-  int _selectedItem = 0;
 
-  List<Widget> pageViewWidget = [
-    const DoctorScreen(),
-    const DoctorScreen(),
-    const DoctorScreen(),
-    const DoctorScreen(),
-    const DoctorInfoScreen(),
-  ];
   List<String> title1 = [
     'My Doctors',
     'All Appointment',
@@ -86,77 +82,86 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     super.dispose();
   }
 
+  bool isMainScreen(String location) {
+    return location == '/doctorScreen';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        leadingWidth: double.infinity,
-        toolbarHeight: 100,
-        automaticallyImplyLeading: false,
-        flexibleSpace: Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-          ),
-          child: Wrap(
-            runAlignment: WrapAlignment.spaceBetween,
-            alignment: WrapAlignment.center,
-            direction: Axis.vertical,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  scaffoldKey.currentState?.openDrawer();
-                },
-                child: const Icon(Icons.menu),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Current location',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: AutilabColor.gray,
-                        ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Row(
+      appBar: isMainScreen(GoRouterState.of(context).uri.toString())
+          ? AppBar(
+              leadingWidth: double.infinity,
+              toolbarHeight: 100,
+              automaticallyImplyLeading: false,
+              flexibleSpace: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Wrap(
+                  runAlignment: WrapAlignment.spaceBetween,
+                  alignment: WrapAlignment.center,
+                  direction: Axis.vertical,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        scaffoldKey.currentState?.openDrawer();
+                      },
+                      child: const Icon(Icons.menu),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset('assets/icons/gps.svg'),
                         Text(
-                          'Toronto,Canada',
+                          'Current location',
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w400,
+                                    color: AutilabColor.gray,
                                   ),
                         ),
-                        const Icon(Icons.arrow_drop_down),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/icons/gps.svg'),
+                              Text(
+                                'Toronto,Canada',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                              ),
+                              const Icon(Icons.arrow_drop_down),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: CachednetworkimageWidget(
-                  imgUrl: '',
-                  img: Image.asset(
-                    'assets/images/child2_image.jpg',
-                    fit: BoxFit.cover,
-                    width: 52,
-                    height: 52,
-                  ),
-                  isNetworkImage: false,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: CachednetworkimageWidget(
+                        imgUrl: '',
+                        img: Image.asset(
+                          'assets/images/child2_image.jpg',
+                          fit: BoxFit.cover,
+                          width: 52,
+                          height: 52,
+                        ),
+                        isNetworkImage: false,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            )
+          : null,
       bottomNavigationBar: Container(
         height: 94,
         width: double.infinity,
@@ -184,37 +189,33 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                 fontWeight: FontWeight.w500,
                 //color: AutilabColor.black,
               ),
-          currentIndex: _selectedItem,
-          onTap: (index) {
-            setState(() {
-              _selectedItem = index;
-            });
-          },
+          currentIndex: widget.navigationShell.currentIndex,
+          onTap: (int index) => widget.navigationShell.goBranch(index),
           items: [
             _bottomnavigationItem(
               index: 0,
-              selctItems: _selectedItem,
+              selctItems: widget.navigationShell.currentIndex,
               lable: 'Home',
               icon: 'assets/icons/home_buttomnavigation.svg',
               context: context,
             ),
             _bottomnavigationItem(
               index: 1,
-              selctItems: _selectedItem,
+              selctItems: widget.navigationShell.currentIndex,
               lable: 'Doctor',
               icon: 'assets/icons/doctor_buttomnavigation.svg',
               context: context,
             ),
             _bottomnavigationItem(
               index: 2,
-              selctItems: _selectedItem,
+              selctItems: widget.navigationShell.currentIndex,
               lable: 'Tools',
               icon: 'assets/icons/tools_buttomnavigation.svg',
               context: context,
             ),
             _bottomnavigationItem(
               index: 3,
-              selctItems: _selectedItem,
+              selctItems: widget.navigationShell.currentIndex,
               lable: 'Community',
               icon: 'assets/icons/global_buttomnavigation.svg',
               context: context,
@@ -354,10 +355,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
           ),
         ),
       ),
-      body: IndexedStack(
-        index: _selectedItem,
-        children: pageViewWidget,
-      ),
+      body: widget.navigationShell,
     );
   }
 

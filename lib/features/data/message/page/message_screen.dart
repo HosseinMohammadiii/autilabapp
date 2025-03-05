@@ -24,6 +24,7 @@ class _MessageScreenState extends State<MessageScreen>
   final typeMessageFocusNode = FocusNode();
   @override
   void initState() {
+    typeMessageFocusNode.addListener(_scrollToEnd);
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
@@ -34,17 +35,11 @@ class _MessageScreenState extends State<MessageScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToEnd();
     });
-    typeMessageFocusNode.addListener(_scrollToEnd);
   }
 
 //Method for scroll to latest item
   void _scrollToEnd() {
-    if (_scrollController.hasClients) {
-      _scrollController.jumpTo(
-        _scrollController.position.maxScrollExtent,
-      );
-    }
-    if (typeMessageFocusNode.hasFocus) {
+    if (_scrollController.hasClients || typeMessageFocusNode.hasFocus) {
       Future.delayed(const Duration(milliseconds: 300), () {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,

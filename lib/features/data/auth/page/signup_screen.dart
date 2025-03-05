@@ -119,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen>
                     ),
                     CustomButtonWidget(
                       onTap: () {
-                        context.goNamed(AutiLabRoutes.buttomNavigationScreen);
+                        context.goNamed(AutiLabRoutes.doctorScreen);
                       },
                       height: 50,
                       color: AutilabColor.bb,

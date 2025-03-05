@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/data/auth/page/login_screen.dart';
+import '../../features/data/doctor/page/doctor_screen.dart';
 import '../../presentation/screens/welcome_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -20,13 +21,48 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/',
+    initialLocation: '/doctorScreen',
     routes: [
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        // builder: (context, state) => const ButtomnavigationWidget(),
         builder: (context, state) => const SplashScreen(),
+      ),
+      StatefulShellRoute.indexedStack(
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/doctorScreen',
+                name: AutiLabRoutes.doctorScreen,
+                builder: (context, state) => const DoctorScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'doctorInformationScreen',
+                    name: AutiLabRoutes.doctorInformationScreen,
+                    builder: (context, state) => const DoctorInfoScreen(),
+                  ),
+                  GoRoute(
+                    path: 'doctorSocialMediaScreen',
+                    name: AutiLabRoutes.doctorSocialMediaScreen,
+                    builder: (context, state) =>
+                        const DoctorSocialMediaScreen(),
+                  ),
+                  GoRoute(
+                    path: 'doctorWorkscheduleScreen',
+                    name: AutiLabRoutes.doctorWorkscheduleScreen,
+                    builder: (context, state) =>
+                        const DoctorWorkScheduleScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+        builder: (BuildContext context, GoRouterState state,
+            StatefulNavigationShell navigationShell) {
+          return ButtomnavigationWidget(navigationShell: navigationShell);
+        },
       ),
       GoRoute(
         path: '/Program_Introduction',
@@ -39,12 +75,12 @@ class AutilabRouter {
         builder: (context, state) => const WelcomeScreen(),
         routes: [
           GoRoute(
-            path: '/login',
+            path: 'login',
             name: AutiLabRoutes.loginScreen,
             builder: (context, state) => const LogInScreen(),
           ),
           GoRoute(
-            path: '/signUp',
+            path: 'signUp',
             name: AutiLabRoutes.signUpScreen,
             builder: (context, state) => const SignupScreen(),
           ),
@@ -53,53 +89,17 @@ class AutilabRouter {
       GoRoute(
         path: '/send_email_code',
         name: AutiLabRoutes.sendEmailCodeScreen,
-        builder: (context, state) {
-          return const SendEmailCodeScreen();
-        },
+        builder: (context, state) => const SendEmailCodeScreen(),
       ),
       GoRoute(
         path: '/send_email',
         name: AutiLabRoutes.sendEmailScreen,
-        builder: (context, state) {
-          return const SendEmailScreen();
-        },
+        builder: (context, state) => const SendEmailScreen(),
       ),
       GoRoute(
-        path: '/buttomNavigationScreen',
-        name: AutiLabRoutes.buttomNavigationScreen,
-        builder: (context, state) {
-          return const ButtomnavigationWidget();
-        },
-        routes: [
-          GoRoute(
-            path: '/doctorInformationScreen',
-            name: AutiLabRoutes.doctorInformationScreen,
-            builder: (context, state) {
-              return const DoctorInfoScreen();
-            },
-          ),
-          GoRoute(
-            path: '/doctorSocialMediaScreen',
-            name: AutiLabRoutes.doctorSocialMediaScreen,
-            builder: (context, state) {
-              return const DoctorSocialMediaScreen();
-            },
-          ),
-          GoRoute(
-            path: '/doctorMessageScreen',
-            name: AutiLabRoutes.doctorMessageScreen,
-            builder: (context, state) {
-              return const MessageScreen();
-            },
-          ),
-          GoRoute(
-            path: '/doctorWorkscheduleScreen',
-            name: AutiLabRoutes.doctorWorkscheduleScreen,
-            builder: (context, state) {
-              return const DoctorWorkScheduleScreen();
-            },
-          ),
-        ],
+        path: '/doctorMessageScreen',
+        name: AutiLabRoutes.doctorMessageScreen,
+        builder: (context, state) => const MessageScreen(),
       ),
     ],
   );
