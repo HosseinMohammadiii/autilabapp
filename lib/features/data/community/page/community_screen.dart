@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ToolsScreen extends StatefulWidget {
-  const ToolsScreen({super.key});
+class CommunityScreen extends StatefulWidget {
+  const CommunityScreen({super.key});
 
   @override
-  State<ToolsScreen> createState() => _ToolsScreenState();
+  State<CommunityScreen> createState() => _CommunityScreenState();
 }
 
-class _ToolsScreenState extends State<ToolsScreen> {
+class _CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -18,3 +18,8 @@ class AutilabTheme {
     ),
   );
 }
+
+class AutilabMargin {
+  static const EdgeInsets marginFullScreen =
+      EdgeInsets.symmetric(horizontal: 20);
+}
