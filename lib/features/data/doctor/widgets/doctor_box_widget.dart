@@ -171,7 +171,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
             ),
           ),
           CustomButtonWidget(
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(AutiLabRoutes.makeAppointmentScreen);
+            },
             height: 50,
             margin: const EdgeInsets.symmetric(vertical: 8),
             color: AutilabColor.bb,

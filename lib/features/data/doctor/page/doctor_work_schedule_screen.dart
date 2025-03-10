@@ -1,8 +1,8 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/widgets/display_title_section_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../utils/functions/animation_control.dart';
@@ -22,21 +22,6 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
   String _monthName = '';
-
-  List<String> timeAvailable = [
-    '7:00 AM',
-    '8:00 AM',
-    '9:00 AM',
-    '10:00 AM',
-    '11:00 AM',
-    '12:00 PM',
-    '13:00 PM',
-    '14:00 PM',
-    '15:00 PM',
-    '16:00 PM',
-    '17:00 PM',
-    '18:00 PM',
-  ];
 
   @override
   void initState() {
@@ -85,11 +70,10 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                     height: 48,
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: _displayTitleSections(
-                    context,
-                    'assets/icons/calendar_tick_icon.svg',
-                    'Available Date',
+                const SliverToBoxAdapter(
+                  child: DisplayTitleSection(
+                    icon: 'assets/icons/calendar_tick_icon.svg',
+                    title: 'Available Date',
                   ),
                 ),
                 const SliverToBoxAdapter(
@@ -106,7 +90,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                           _monthName,
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
                         ),
@@ -122,7 +106,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                 ),
                 SliverToBoxAdapter(
                   child: CalendarGrid(
-                    onTap: () {},
+                    onTap: (day) {},
                   ),
                 ),
                 const SliverToBoxAdapter(
@@ -162,11 +146,10 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                     height: 48,
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: _displayTitleSections(
-                    context,
-                    'assets/icons/clock_icon.svg',
-                    'Available Times',
+                const SliverToBoxAdapter(
+                  child: DisplayTitleSection(
+                    icon: 'assets/icons/clock_icon.svg',
+                    title: 'Available Times',
                   ),
                 ),
                 const SliverToBoxAdapter(
@@ -176,20 +159,8 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                 ),
                 SliverPadding(
                   padding: AutilabMargin.marginFullScreen,
-                  sliver: SliverGrid.builder(
-                    itemCount: 12,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      mainAxisExtent: 30,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 6,
-                    ),
-                    itemBuilder: (context, index) {
-                      return SelectTimeWidget(
-                        timeAvailable: timeAvailable[index],
-                      );
-                    },
+                  sliver: SelectTimeWidget(
+                    onTap: (time) {},
                   ),
                 ),
                 const SliverToBoxAdapter(
@@ -201,31 +172,6 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _displayTitleSections(
-    BuildContext context,
-    String icon,
-    String title,
-  ) {
-    return Padding(
-      padding: AutilabMargin.marginFullScreen,
-      child: Row(
-        children: [
-          SvgPicture.asset(icon),
-          const SizedBox(
-            width: 4,
-          ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-        ],
       ),
     );
   }

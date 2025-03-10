@@ -1,30 +1,62 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
+import '../../../../utils/Lists/time_list.dart';
 
-class SelectTimeWidget extends StatelessWidget {
+class SelectTimeWidget extends StatefulWidget {
   const SelectTimeWidget({
     super.key,
-    required this.timeAvailable,
+    required this.onTap,
   });
 
-  final String timeAvailable;
+  final Function(String? time) onTap;
+
+  @override
+  State<SelectTimeWidget> createState() => _SelectTimeWidgetState();
+}
+
+class _SelectTimeWidgetState extends State<SelectTimeWidget> {
+  String selectedTime = '';
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: AutilabColor.bb,
-        borderRadius: BorderRadius.circular(8),
+    return SliverGrid.builder(
+      itemCount: 12,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        mainAxisExtent: 30,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 6,
       ),
-      child: Text(
-        timeAvailable,
-        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+      itemBuilder: (context, index) {
+        String time = timeAvailable[index];
+        bool isSelected = selectedTime == time;
+
+        return GestureDetector(
+          onTap: () {
+            if (time.isNotEmpty) {
+              setState(() {
+                selectedTime = time;
+              });
+              widget.onTap(time);
+            }
+          },
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: isSelected ? AutilabColor.blue : AutilabColor.bb,
+              borderRadius: BorderRadius.circular(8),
             ),
-      ),
+            child: Text(
+              timeAvailable[index],
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -4,13 +4,21 @@ import 'package:intl/intl.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 
-class CalendarGrid extends StatelessWidget {
+class CalendarGrid extends StatefulWidget {
   const CalendarGrid({
     super.key,
     required this.onTap,
   });
 
-  final Function() onTap;
+  final Function(DateTime? day) onTap;
+
+  @override
+  State<CalendarGrid> createState() => _CalendarGridState();
+}
+
+class _CalendarGridState extends State<CalendarGrid> {
+  DateTime? selectedDate;
+
   // Generate a list of days for a given month, including empty slots for alignment
   List<DateTime?> generateMonthDays(int year, int month) {
     List<DateTime?> days = [];
@@ -100,12 +108,21 @@ class CalendarGrid extends StatelessWidget {
                 DateTime? day = days[index];
                 // Check if the day is Sunday
                 bool isSunday = day != null && day.weekday == 6;
+                bool isSelected = day != null && selectedDate == day;
+
                 return GestureDetector(
-                  onTap: onTap,
+                  onTap: () {
+                    if (!isSunday && day != null) {
+                      widget.onTap(day);
+                      setState(() {
+                        selectedDate = day;
+                      });
+                    }
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       color: (day != null && !isSunday)
-                          ? AutilabColor.bb
+                          ? (isSelected ? AutilabColor.blue : AutilabColor.bb)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
