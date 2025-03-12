@@ -6,7 +6,6 @@ import '../../utils/tabbar_delegate.dart';
 class CustomTabBarWidget extends StatelessWidget {
   const CustomTabBarWidget({
     super.key,
-    // required this.leading,
     required this.tabLength,
     required this.tabBar,
     required this.tabBarView,
@@ -33,10 +32,10 @@ class CustomTabBarWidget extends StatelessWidget {
               delegate: TabbarViewDelegate(
                 widget: Container(
                   width: double.infinity,
-                  height: 50,
                   color: AutilabColor.white,
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: Container(
-                    height: 70,
+                    height: 60,
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: AutilabColor.lightGray,
@@ -58,7 +57,7 @@ class CustomTabBarWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                height: 50,
+                height: 60,
               ),
             ),
             const SliverToBoxAdapter(
