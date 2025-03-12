@@ -36,7 +36,7 @@ class CustomTabBarWidget extends StatelessWidget {
                   height: 50,
                   color: AutilabColor.white,
                   child: Container(
-                    height: 50,
+                    height: 70,
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: AutilabColor.lightGray,

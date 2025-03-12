@@ -227,7 +227,7 @@ class _MessageScreenState extends State<MessageScreen>
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                     margin:
-                        const EdgeInsets.only(left: 14, bottom: 48, right: 30),
+                        const EdgeInsets.only(left: 14, bottom: 48, right: 70),
                     decoration: BoxDecoration(
                       color: const Color(0xffECF0FF),
                       borderRadius: BorderRadius.circular(8),
@@ -246,10 +246,11 @@ class _MessageScreenState extends State<MessageScreen>
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   return Container(
+                    width: 10,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                     margin:
-                        const EdgeInsets.only(left: 30, bottom: 48, right: 14),
+                        const EdgeInsets.only(left: 70, bottom: 48, right: 14),
                     decoration: BoxDecoration(
                       color: AutilabColor.bb,
                       borderRadius: BorderRadius.circular(8),

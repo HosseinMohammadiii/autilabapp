@@ -149,6 +149,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                     CustomButtonWidget(
                       onTap: nextPage,
                       height: 50,
+                      borderRadius: 16,
                       color: AutilabColor.bb,
                       text: 'Next',
                       margin:

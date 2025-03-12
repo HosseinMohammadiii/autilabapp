@@ -24,12 +24,11 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      height: 256,
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,10 +57,11 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 onTap: () {
                   context.pushNamed(AutiLabRoutes.doctorInformationScreen);
                 },
-                height: 30,
-                width: 80,
+                height: 32,
+                width: 100,
+                borderRadius: 12,
                 margin: const EdgeInsets.all(0),
-                color: AutilabColor.yellow,
+                color: const Color(0xffEDC757),
                 text: 'Info',
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: 14,
@@ -73,6 +73,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
           const Divider(
             thickness: 1,
             color: AutilabColor.black,
+          ),
+          const SizedBox(
+            height: 12,
           ),
           SizedBox(
             height: 103,
@@ -89,7 +92,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +124,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             ),
                             const Icon(
                               Icons.star_rounded,
-                              color: AutilabColor.yellow,
+                              color: Color(0xffEDC757),
                             ),
                             Text(
                               '5.0',
@@ -175,7 +178,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               context.pushNamed(AutiLabRoutes.makeAppointmentScreen);
             },
             height: 50,
-            margin: const EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.only(top: 24),
             color: AutilabColor.bb,
             text: 'Make Appointment',
             textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(

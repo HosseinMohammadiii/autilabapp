@@ -48,7 +48,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Back'),
+        appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -74,9 +74,9 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'example@gmail.com',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
+                    'Example@gmail.com',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 18,
                           fontWeight: FontWeight.w400,
                           color: AutilabColor.blue,
                         ),
@@ -87,13 +87,13 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 70, vertical: 14),
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 14),
                   child: PinCodeTextField(
                     appContext: context,
                     length: 4,
                     pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                       fieldHeight: 52,
                       fieldWidth: 52,
                       inactiveBorderWidth: 0.5,

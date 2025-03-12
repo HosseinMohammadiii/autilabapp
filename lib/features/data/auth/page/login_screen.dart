@@ -55,7 +55,7 @@ class _LogInScreenState extends State<LogInScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Back'),
+        appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
@@ -158,21 +158,16 @@ class _LogInScreenState extends State<LogInScreen>
                       height: 16,
                     ),
                     Row(
+                      spacing: 16,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         circularWidgetSignUp(
                           image: 'assets/images/google_logo.svg',
                           onTap: () {},
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
                         circularWidgetSignUp(
                           image: 'assets/images/facbook_logo.svg',
                           onTap: () {},
-                        ),
-                        const SizedBox(
-                          width: 8,
                         ),
                         circularWidgetSignUp(
                           image: 'assets/images/apple_logo.svg',

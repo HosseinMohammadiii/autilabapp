@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AutilabTheme {
   static ThemeData theme = ThemeData(
     scaffoldBackgroundColor: AutilabColor.white,
+    bottomNavigationBarTheme:
+        const BottomNavigationBarThemeData(backgroundColor: AutilabColor.white),
     appBarTheme: const AppBarTheme(
       backgroundColor: AutilabColor.white,
       scrolledUnderElevation: 0,

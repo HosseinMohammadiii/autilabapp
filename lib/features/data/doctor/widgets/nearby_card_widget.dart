@@ -12,23 +12,26 @@ class NearbyCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 445,
+      // height: 445,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
       ),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        runSpacing: 12,
+      child: Column(
+        // alignment: WrapAlignment.center,
+        // runSpacing: 12,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.asset(
               'assets/images/autism_help_center.png',
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
+              width: 320,
+              height: 213,
             ),
           ),
           const SizedBox(
@@ -61,7 +64,7 @@ class NearbyCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 16,
+            height: 12,
           ),
           SizedBox(
             height: 72,
@@ -77,7 +80,7 @@ class NearbyCardWidget extends StatelessWidget {
           CustomButtonWidget(
             onTap: () {},
             height: 50,
-            margin: const EdgeInsets.only(bottom: 8, top: 8),
+            margin: const EdgeInsets.only(bottom: 8, top: 24),
             color: AutilabColor.bb,
             text: 'See Details',
             textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(

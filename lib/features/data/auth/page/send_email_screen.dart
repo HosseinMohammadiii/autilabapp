@@ -51,7 +51,7 @@ class _SendEmailScreenState extends State<SendEmailScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Back'),
+        appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

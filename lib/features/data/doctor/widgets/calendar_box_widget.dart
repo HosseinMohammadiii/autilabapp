@@ -45,10 +45,10 @@ class _CalendarGridState extends State<CalendarGrid> {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    List<DateTime?> days = generateMonthDays(now.year, now.month);
+    List<DateTime?> days = generateMonthDays(now.year, 12);
 
     return Container(
-      height: 350,
+      height: 285,
       padding: const EdgeInsets.all(16),
       margin: AutilabMargin.marginFullScreen,
       decoration: BoxDecoration(
@@ -80,9 +80,8 @@ class _CalendarGridState extends State<CalendarGrid> {
                     child: Center(
                       child: Text(
                         day,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
                               color: day == 'Sun'
                                   ? Colors.red
                                   : AutilabColor.black,

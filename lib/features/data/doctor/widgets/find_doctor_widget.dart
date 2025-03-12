@@ -204,7 +204,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: colorBoxCategory[index],
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

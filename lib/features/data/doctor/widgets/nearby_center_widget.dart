@@ -47,21 +47,27 @@ class _NearbyCenterWidgetState extends State<NearbyCenterWidget>
             child: Container(
               width: double.infinity,
               height: 441,
-              padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 45),
+              padding: const EdgeInsets.only(
+                  left: 24, right: 24, top: 24, bottom: 46),
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 46),
               decoration: BoxDecoration(
                 color: const Color(0xffECF0FF),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(width: 0.1, color: AutilabColor.black),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: AutilabColor.bb),
               ),
               child: Column(
-                spacing: 8,
                 children: [
                   Expanded(
-                    child: Image.asset(
-                      'assets/images/map_image.png',
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/map_image.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 24,
                   ),
                   Text(
                     'Find Nearby centers',
@@ -69,6 +75,9 @@ class _NearbyCenterWidgetState extends State<NearbyCenterWidget>
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
+                  ),
+                  const SizedBox(
+                    height: 16,
                   ),
                   Text(
                     'Tap the map and select your location to see centers near you.',

@@ -26,7 +26,7 @@ class ButtonCard extends StatelessWidget {
         margin: margin ?? const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           color: AutilabColor.bb,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: SvgPicture.asset(
           icon,

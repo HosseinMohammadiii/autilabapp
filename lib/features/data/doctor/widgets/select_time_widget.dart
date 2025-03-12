@@ -24,7 +24,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
       itemCount: 12,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
-        mainAxisExtent: 30,
+        mainAxisExtent: 40,
         crossAxisSpacing: 12,
         mainAxisSpacing: 6,
       ),
@@ -45,7 +45,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: isSelected ? AutilabColor.blue : AutilabColor.bb,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
               timeAvailable[index],

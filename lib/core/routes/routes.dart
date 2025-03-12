@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/bottomnavigation_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/features/data/auth/page/edit_profile_screen.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
 import 'package:autilab_project/features/data/auth/page/signup_screen.dart';
@@ -136,6 +137,11 @@ class AutilabRouter {
         path: '/doctorMessageScreen',
         name: AutiLabRoutes.doctorMessageScreen,
         builder: (context, state) => const MessageScreen(),
+      ),
+      GoRoute(
+        path: '/editProfileScreen',
+        name: AutiLabRoutes.editProfileScreen,
+        builder: (context, state) => const EditProfileScreen(),
       ),
     ],
   );

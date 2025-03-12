@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -163,35 +164,23 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
             )
           : null,
       bottomNavigationBar: Container(
-        height: 94,
+        height: 95,
         width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 35),
         decoration: BoxDecoration(
+          color: AutilabColor.white,
           boxShadow: [
             BoxShadow(
-              color: AutilabColor.black.withValues(alpha: 0.3),
-              blurRadius: 16,
+              color: AutilabColor.black.withValues(alpha: 0.2),
+              blurRadius: 12,
               offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: BottomNavigationBar(
-          showUnselectedLabels: true,
-          type: BottomNavigationBarType.fixed,
-          elevation: 0,
-          unselectedLabelStyle:
-              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: AutilabColor.black,
-                  ),
-          selectedLabelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                //color: AutilabColor.black,
-              ),
-          currentIndex: widget.navigationShell.currentIndex,
-          onTap: (int index) => widget.navigationShell.goBranch(index),
-          items: [
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
             _bottomnavigationItem(
               index: 0,
               selctItems: widget.navigationShell.currentIndex,
@@ -239,28 +228,29 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
             child: ListView(
               children: [
                 const SizedBox(
-                  height: 15,
+                  height: 32,
                 ),
                 Stack(
                   alignment: Alignment.topCenter,
                   children: [
                     Container(
                       width: double.infinity,
-                      height: 104,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 24),
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      height: 124,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, top: 36, bottom: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 25),
                       decoration: BoxDecoration(
                         color: AutilabColor.drawerWhite,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
                                 'Denis Iliev',
@@ -281,7 +271,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),
@@ -289,9 +279,13 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           ),
                           const Spacer(),
                           CustomButtonWidget(
-                            onTap: () {},
-                            width: 86,
-                            height: 31,
+                            onTap: () {
+                              context
+                                  .pushNamed(AutiLabRoutes.editProfileScreen);
+                            },
+                            width: 100,
+                            height: 32,
+                            borderRadius: 12,
                             margin: const EdgeInsets.all(0),
                             color: AutilabColor.blue,
                             text: 'Edit Profile',
@@ -306,14 +300,14 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       ),
                     ),
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(100),
                       child: CachednetworkimageWidget(
                         imgUrl: '',
                         img: Image.asset(
                           'assets/images/child2_image.jpg',
                           fit: BoxFit.cover,
-                          width: 52,
-                          height: 52,
+                          width: 72,
+                          height: 72,
                         ),
                         isNetworkImage: false,
                       ),
@@ -350,6 +344,9 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   ],
                   onTap: (index) {},
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
               ],
             ),
           ),
@@ -364,31 +361,34 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
   }
 
 //This widget for set bottomnavigation items values
-  BottomNavigationBarItem _bottomnavigationItem({
+  Widget _bottomnavigationItem({
     required int index,
     required int selctItems,
     required String lable,
     required String icon,
     required BuildContext context,
   }) {
-    return BottomNavigationBarItem(
-      icon: Container(
-        width: 65,
+    return GestureDetector(
+      onTap: () => widget.navigationShell.goBranch(index),
+      child: Container(
+        width: 72,
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: setColorItems(index, selctItems),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           children: [
             SvgPicture.asset(
               icon,
             ),
-            Text(lable),
+            Text(
+              lable,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
       ),
-      label: '',
     );
   }
 }

@@ -35,12 +35,12 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
               SliverToBoxAdapter(
                 child: Container(
                   width: double.infinity,
-                  height: 144,
+                  height: 136,
                   padding: const EdgeInsets.all(16),
                   margin: const EdgeInsets.only(top: 22),
                   decoration: BoxDecoration(
                     color: AutilabColor.primary,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -48,7 +48,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     children: [
                       FittedBox(
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(16),
                           child: Image.asset(
                             'assets/images/doctor_image.png',
                             fit: BoxFit.cover,
@@ -59,7 +59,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 10,
+                          spacing: 24,
                           children: [
                             Text(
                               'Dr. Sophia Martinez',
@@ -202,11 +202,11 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     itemBuilder: (context, index) {
                       return Container(
                         width: 80,
-                        margin: const EdgeInsets.only(right: 8),
+                        margin: const EdgeInsets.only(right: 16),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: colorBoxCategory[index],
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -268,12 +268,13 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
               SliverToBoxAdapter(
                 child: Container(
                   width: double.infinity,
+                  height: MediaQuery.sizeOf(context).height / 3,
                   padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(bottom: 8),
+                  margin: const EdgeInsets.only(bottom: 48),
                   decoration: BoxDecoration(
                     color: AutilabColor.primary,
                     border: Border.all(width: 0.5, color: AutilabColor.gray),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(24),
                   ),
                   child: Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatenim ad minim veniam, quis nostrud exercitation ullamco laboris',
@@ -300,13 +301,13 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
     return SliverToBoxAdapter(
       child: Container(
         width: double.infinity,
-        height: 42,
+        height: 50,
         margin: const EdgeInsets.only(top: 8),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: const Color(0xffECF0FF),
           border: Border.all(width: 0.5, color: AutilabColor.bb),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -321,7 +322,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
             Text(
               subtitle,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
             ),

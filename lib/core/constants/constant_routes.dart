@@ -4,6 +4,7 @@ class AutiLabRoutes {
   static const String welcomeScreen = '/welcome';
   static const String loginScreen = 'login';
   static const String signUpScreen = 'signUp';
+  static const String editProfileScreen = '/editProfileScreen';
   static const String sendEmailCodeScreen = '/send_email_code';
   static const String sendEmailScreen = '/send_email';
   static const String doctorScreen = '/doctorScreen';

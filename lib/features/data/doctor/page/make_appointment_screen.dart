@@ -344,20 +344,22 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           genderType = 'Male';
                         });
                       },
-                      margin: const EdgeInsets.only(left: 20),
-                      height: 34,
-                      width: 80,
+                      height: 40,
+                      width: 100,
+                      margin: const EdgeInsets.only(left: 12),
+                      borderRadius: 12,
                       color: genderType == 'Male'
                           ? AutilabColor.blue
                           : const Color(0xff9C9595).withValues(alpha: 0.44),
                       text: 'Male',
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: genderType == 'Male'
-                                    ? AutilabColor.white
-                                    : AutilabColor.black,
+                      textStyle: genderType == 'Male'
+                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontSize: 16,
+                                color: AutilabColor.white,
+                              )
+                          : Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 16,
+                                color: AutilabColor.black,
                               ),
                     ),
                     CustomButtonWidget(
@@ -366,20 +368,22 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           genderType = 'Female';
                         });
                       },
-                      height: 34,
-                      width: 80,
+                      height: 40,
+                      width: 100,
                       margin: const EdgeInsets.only(left: 12),
+                      borderRadius: 12,
                       color: genderType == 'Female'
                           ? AutilabColor.blue
                           : const Color(0xff9C9595).withValues(alpha: 0.44),
                       text: 'Female',
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: genderType == 'Female'
-                                    ? AutilabColor.white
-                                    : AutilabColor.black,
+                      textStyle: genderType == 'Female'
+                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                fontSize: 16,
+                                color: AutilabColor.white,
+                              )
+                          : Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 16,
+                                color: AutilabColor.black,
                               ),
                     ),
                   ],
@@ -416,17 +420,58 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   ),
                 ),
               ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 24,
+                ),
+              ),
               SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: textFieldWidget(
-                    context: context,
-                    title: '',
-                    controller: descriptionController,
-                    focusNode: descriptionFocusNode,
-                    lineCount: 6,
-                    backgroundColor: AutilabColor.primary,
-                    hintText: 'Enter your Problem here...',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
+                    children: [
+                      TextField(
+                        controller: descriptionController,
+                        focusNode: descriptionFocusNode,
+                        cursorColor: Colors.black,
+                        maxLines: 6,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your Problem here...',
+                          hintStyle:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    height: 4,
+                                    color: AutilabColor.gray,
+                                  ),
+                          fillColor: AutilabColor.primary,
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 2),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                              color: AutilabColor.gray,
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24),
+                            borderSide: const BorderSide(
+                              color: AutilabColor.gray,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        onChanged: (value) {},
+                        onTapOutside: (event) {
+                          //Unfocus TextField
+                          descriptionFocusNode.unfocus();
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -499,11 +544,12 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide.none,
             ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(
                 color: AutilabColor.bb,
                 width: 0.5,
               ),

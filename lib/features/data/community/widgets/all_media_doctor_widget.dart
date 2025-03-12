@@ -18,7 +18,7 @@ class DisplayAllDoctorMediaWidget extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           child: Image.asset(
             'assets/images/child2_image.jpg',
             fit: BoxFit.cover,

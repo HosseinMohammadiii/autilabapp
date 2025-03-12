@@ -97,6 +97,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         );
                       },
                       height: 50,
+                      borderRadius: 16,
                       color: AutilabColor.bb,
                       text: 'Login',
                       textStyle:
@@ -104,6 +105,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
                               ),
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                     CustomButtonWidget(
                       onTap: () {
@@ -115,10 +119,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       color: AutilabColor.white,
                       text: 'Sign Up',
                       width: 70,
+                      margin: const EdgeInsets.all(0),
                       textStyle:
                           Theme.of(context).textTheme.bodyMedium!.copyWith(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: AutilabColor.blue,
                               ),
                     ),

@@ -36,7 +36,7 @@ class CustomButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: boxShadow,
           color: color,
-          borderRadius: BorderRadius.circular(borderRadius ?? 8),
+          borderRadius: BorderRadius.circular(borderRadius ?? 16),
         ),
         child: FittedBox(
           child: Text(

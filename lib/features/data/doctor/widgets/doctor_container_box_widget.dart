@@ -21,13 +21,13 @@ class DoctorBox extends StatelessWidget {
       margin: AutilabMargin.marginFullScreen,
       decoration: BoxDecoration(
         color: AutilabColor.primary,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(16),
             child: Image.asset(
               'assets/images/doctor_image.png',
               fit: BoxFit.cover,
@@ -73,10 +73,11 @@ class DoctorBox extends StatelessWidget {
                           context
                               .pushNamed(AutiLabRoutes.doctorInformationScreen);
                         },
-                        height: 30,
-                        width: 80,
+                        height: 32,
+                        width: 100,
+                        borderRadius: 12,
                         margin: const EdgeInsets.all(0),
-                        color: AutilabColor.yellow,
+                        color: AutilabColor.yellow2,
                         text: 'Info',
                         textStyle:
                             Theme.of(context).textTheme.bodySmall!.copyWith(
