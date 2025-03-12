@@ -31,6 +31,15 @@ class _MessageScreenState extends State<MessageScreen>
 
     animationHelper.animationController.forward();
 
+//Scroll to the last message after the textfield focus.
+    typeMessageFocusNode.addListener(() {
+      if (typeMessageFocusNode.hasFocus) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToEnd();
+        });
+      }
+    });
+
 //Scroll to the last item after the page is created.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToEnd();
@@ -39,7 +48,7 @@ class _MessageScreenState extends State<MessageScreen>
 
 //Method for scroll to latest item
   void _scrollToEnd() {
-    if (_scrollController.hasClients || typeMessageFocusNode.hasFocus) {
+    if (_scrollController.hasClients) {
       Future.delayed(const Duration(milliseconds: 300), () {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -69,6 +78,7 @@ class _MessageScreenState extends State<MessageScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 118),
           child: AppBar(
@@ -221,13 +231,13 @@ class _MessageScreenState extends State<MessageScreen>
                 ),
               ),
               SliverList.builder(
-                itemCount: 2,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                     margin:
-                        const EdgeInsets.only(left: 14, bottom: 48, right: 70),
+                        const EdgeInsets.only(left: 14, bottom: 16, right: 70),
                     decoration: BoxDecoration(
                       color: const Color(0xffECF0FF),
                       borderRadius: BorderRadius.circular(8),
@@ -242,15 +252,20 @@ class _MessageScreenState extends State<MessageScreen>
                   );
                 },
               ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 16,
+                ),
+              ),
               SliverList.builder(
-                itemCount: 3,
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   return Container(
                     width: 10,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                     margin:
-                        const EdgeInsets.only(left: 70, bottom: 48, right: 14),
+                        const EdgeInsets.only(left: 70, bottom: 16, right: 14),
                     decoration: BoxDecoration(
                       color: AutilabColor.bb,
                       borderRadius: BorderRadius.circular(8),
