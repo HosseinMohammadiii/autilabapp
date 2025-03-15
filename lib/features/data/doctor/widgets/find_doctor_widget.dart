@@ -231,37 +231,27 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
     Function(int index) onTap,
   ) {
     return Container(
-      width: 320,
-      height: 467,
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.7,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CustomScrollView(
         slivers: [
-          // const SliverToBoxAdapter(
-          //   child: SizedBox(
-          //     height: 24,
-          //   ),
-          // ),
           SliverAppBar(
             pinned: true,
             toolbarHeight: 22,
             automaticallyImplyLeading: false,
             leadingWidth: double.infinity,
             leading: Row(
-              spacing: 10,
               children: [
                 GestureDetector(
                   onTap: () {
                     if (mounted) {
                       GoRouter.of(context).pop();
                     }
-                    // if (context.canPop()) {
-                    //   context.pop();
-                    // }
                   },
-                  child: const Icon(
-                    Icons.close_rounded,
-                  ),
+                  child: const Icon(Icons.close_rounded),
                 ),
+                const SizedBox(width: 8),
                 Text(
                   'All Specialties',
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -273,9 +263,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 24,
-            ),
+            child: SizedBox(height: 16),
           ),
           SliverGrid(
             delegate: SliverChildBuilderDelegate(
@@ -285,24 +273,34 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   onTap: () => onTap(index),
                   child: Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: colorBoxCategory[index],
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          imageCategory[index],
+                        Flexible(
+                          child: Image.asset(
+                            imageCategory[index],
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            height: MediaQuery.of(context).size.width * 0.15,
+                            fit: BoxFit.contain,
+                          ),
                         ),
+                        const SizedBox(height: 8),
                         Text(
                           titleCategory[index],
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.035,
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ],
                     ),
@@ -310,17 +308,15 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 );
               },
             ),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 24,
-              mainAxisSpacing: 24,
-              mainAxisExtent: 113,
+              crossAxisSpacing: MediaQuery.of(context).size.width * 0.06,
+              mainAxisSpacing: MediaQuery.of(context).size.width * 0.06,
+              mainAxisExtent: MediaQuery.of(context).size.width * 0.3,
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 8,
-            ),
+            child: SizedBox(height: 8),
           ),
         ],
       ),
@@ -336,17 +332,16 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
         ValueNotifier<int?>(null);
     final ValueNotifier<double?> selectedIndexrating =
         ValueNotifier<double?>(null);
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      width: 320,
-      height: 530,
+      width: screenWidth * 0.85,
+      height: screenHeight * 0.7,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: CustomScrollView(
         slivers: [
-          // const SliverToBoxAdapter(
-          //   child: SizedBox(
-          //     height: 16,
-          //   ),
-          // ),
           SliverAppBar(
             pinned: true,
             toolbarHeight: 21,
@@ -416,11 +411,6 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   ),
             ),
           ),
-          // const SliverToBoxAdapter(
-          //   child: SizedBox(
-          //     height: 24,
-          //   ),
-          // ),
           SliverToBoxAdapter(
             child: SizedBox(
               height: 150,
@@ -428,11 +418,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 valueListenable: selectedIndexSpecialty,
                 builder: (context, value, child) => GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 45,
-                    mainAxisSpacing: 8,
-                    mainAxisExtent: 37,
+                    crossAxisSpacing: screenWidth * 0.05,
+                    mainAxisSpacing: screenHeight * 0.01,
+                    mainAxisExtent: screenHeight * 0.05,
                   ),
                   itemCount: 6,
                   itemBuilder: (context, index) {

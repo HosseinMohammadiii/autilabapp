@@ -162,6 +162,18 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                   padding: AutilabMargin.marginFullScreen,
                   sliver: SelectTimeWidget(
                     onTap: (time) {},
+                    isSelect: false,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    spacing: 8,
+                    children: [
+                      _displayIsAvailableWidget(
+                          context, 'Available', AutilabColor.bb),
+                      _displayIsAvailableWidget(
+                          context, 'Not Available', AutilabColor.lightGray),
+                    ],
                   ),
                 ),
                 const SliverToBoxAdapter(

@@ -4,7 +4,6 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -230,43 +229,43 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   focusNode: emailFocusNode,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: CustomTextfield(
-                  textInputAction: TextInputAction.next,
-                  textInputType: TextInputType.emailAddress,
-                  borderColor: AutilabColor.bb,
-                  borderRaduis: 16,
-                  backgroundColor: const Color(0xffECF0FF),
-                  lblColor: AutilabColor.gray,
-                  label: 'What is your date of birth?',
-                  controller: birthdayController,
-                  focusNode: birthdayFocusNode,
-                  suffixIcon: GestureDetector(
-                    onTap: () {},
-                    child: SvgPicture.asset(
-                      'assets/icons/calendar_tick_icon.svg',
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: CustomTextfield(
-                  textInputAction: TextInputAction.next,
-                  textInputType: TextInputType.emailAddress,
-                  borderColor: AutilabColor.bb,
-                  borderRaduis: 16,
-                  backgroundColor: const Color(0xffECF0FF),
-                  lblColor: AutilabColor.gray,
-                  label: 'Select your gender',
-                  controller: emailController,
-                  focusNode: emailFocusNode,
-                  suffixIcon: GestureDetector(
-                    onTap: () {},
-                    child: const Icon(Icons.keyboard_arrow_down_rounded),
-                  ),
-                ),
-              ),
+              // SliverToBoxAdapter(
+              //   child: CustomTextfield(
+              //     textInputAction: TextInputAction.next,
+              //     textInputType: TextInputType.emailAddress,
+              //     borderColor: AutilabColor.bb,
+              //     borderRaduis: 16,
+              //     backgroundColor: const Color(0xffECF0FF),
+              //     lblColor: AutilabColor.gray,
+              //     label: 'What is your date of birth?',
+              //     controller: birthdayController,
+              //     focusNode: birthdayFocusNode,
+              //     suffixIcon: GestureDetector(
+              //       onTap: () {},
+              //       child: SvgPicture.asset(
+              //         'assets/icons/calendar_tick_icon.svg',
+              //         fit: BoxFit.scaleDown,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SliverToBoxAdapter(
+              //   child: CustomTextfield(
+              //     textInputAction: TextInputAction.next,
+              //     textInputType: TextInputType.emailAddress,
+              //     borderColor: AutilabColor.bb,
+              //     borderRaduis: 16,
+              //     backgroundColor: const Color(0xffECF0FF),
+              //     lblColor: AutilabColor.gray,
+              //     label: 'Select your gender',
+              //     controller: emailController,
+              //     focusNode: emailFocusNode,
+              //     suffixIcon: GestureDetector(
+              //       onTap: () {},
+              //       child: const Icon(Icons.keyboard_arrow_down_rounded),
+              //     ),
+              //   ),
+              // ),
               SliverToBoxAdapter(
                 child: CustomButtonWidget(
                   onTap: () {},

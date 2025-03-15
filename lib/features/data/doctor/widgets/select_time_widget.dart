@@ -7,9 +7,11 @@ class SelectTimeWidget extends StatefulWidget {
   const SelectTimeWidget({
     super.key,
     required this.onTap,
+    this.isSelect = true,
   });
 
   final Function(String? time) onTap;
+  final bool? isSelect;
 
   @override
   State<SelectTimeWidget> createState() => _SelectTimeWidgetState();
@@ -41,6 +43,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
         return GestureDetector(
           onTap: () {
             if (time.isNotEmpty &&
+                widget.isSelect == true &&
                 notAvailable.contains(timeAvailable[index])) {
               setState(() {
                 selectedTime = time;
