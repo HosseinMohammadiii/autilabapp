@@ -20,6 +20,12 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> notAvailable = [
+      '10:00 AM',
+      '11:00 AM',
+      '13:00 PM',
+      '18:00 PM',
+    ];
     return SliverGrid.builder(
       itemCount: 12,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -34,7 +40,8 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
 
         return GestureDetector(
           onTap: () {
-            if (time.isNotEmpty) {
+            if (time.isNotEmpty &&
+                notAvailable.contains(timeAvailable[index])) {
               setState(() {
                 selectedTime = time;
               });
@@ -44,7 +51,11 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected ? AutilabColor.blue : AutilabColor.bb,
+              color: isSelected
+                  ? AutilabColor.blue
+                  : (notAvailable.contains(timeAvailable[index]))
+                      ? AutilabColor.bb
+                      : AutilabColor.lightGray,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(

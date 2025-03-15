@@ -107,6 +107,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                 SliverToBoxAdapter(
                   child: CalendarGrid(
                     onTap: (day) {},
+                    isSelect: false,
                   ),
                 ),
                 const SliverToBoxAdapter(

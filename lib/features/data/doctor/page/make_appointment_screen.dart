@@ -130,56 +130,54 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   height: 24,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    _displayIsAvailableWidget(
-                        context, 'Available', AutilabColor.bb),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    _displayIsAvailableWidget(
-                        context, 'Not Available', const Color(0xffFBE4E4)),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    _displayIsAvailableWidget(
-                        context, 'Non-working day', AutilabColor.lightGray),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Visibility(
-                        visible: selectDate.isNotEmpty,
-                        child: Row(
-                          children: [
-                            Text(
-                              'You selected , ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            Text(
-                              selectDate,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: AutilabColor.bb,
-                                  ),
-                            ),
-                          ],
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    spacing: 8,
+                    children: [
+                      _displayIsAvailableWidget(
+                          context, 'Available', AutilabColor.bb),
+                      _displayIsAvailableWidget(
+                          context, 'Not Available', AutilabColor.lightGray),
+                      _displayIsAvailableWidget(
+                          context, 'Non-working day', const Color(0xffFBE4E4)),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Visibility(
+                          visible: selectDate.isNotEmpty,
+                          child: Row(
+                            children: [
+                              Text(
+                                'You selected , ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                              ),
+                              Text(
+                                selectDate,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: AutilabColor.bb,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SliverToBoxAdapter(
@@ -230,29 +228,42 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
               SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Visibility(
-                    visible: selectTime.isNotEmpty,
-                    child: Row(
-                      children: [
-                        Text(
-                          'You selected , ',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                  child: Column(
+                    spacing: 8,
+                    children: [
+                      _displayIsAvailableWidget(
+                          context, 'Available', AutilabColor.bb),
+                      _displayIsAvailableWidget(
+                          context, 'Not Available', AutilabColor.lightGray),
+                      Visibility(
+                        visible: selectTime.isNotEmpty,
+                        child: Row(
+                          children: [
+                            Text(
+                              'You selected , ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                   ),
-                        ),
-                        Text(
-                          selectTime,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            ),
+                            Text(
+                              selectTime,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: AutilabColor.bb,
                                   ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -346,7 +357,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                       },
                       height: 40,
                       width: 100,
-                      margin: const EdgeInsets.only(left: 12),
+                      margin: const EdgeInsets.only(left: 20),
                       borderRadius: 12,
                       color: genderType == 'Male'
                           ? AutilabColor.blue
@@ -443,13 +454,12 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
-                                    height: 4,
                                     color: AutilabColor.gray,
                                   ),
                           fillColor: AutilabColor.primary,
                           filled: true,
                           contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 2),
+                              horizontal: 15, vertical: 22),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(24),
                             borderSide: const BorderSide(
@@ -487,7 +497,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   width: double.infinity,
                   color: AutilabColor.bb,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
-                  text: 'Appointment booking',
+                  text: 'Appointment Booking',
                   textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -571,28 +581,25 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
     String title,
     Color color,
   ) {
-    return Padding(
-      padding: AutilabMargin.marginFullScreen,
-      child: Row(
-        children: [
-          Container(
-            width: 20,
-            height: 20,
-            margin: const EdgeInsets.only(right: 4),
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+    return Row(
+      children: [
+        Container(
+          width: 20,
+          height: 20,
+          margin: const EdgeInsets.only(right: 4),
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
           ),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-          ),
-        ],
-      ),
+        ),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+        ),
+      ],
     );
   }
 }
