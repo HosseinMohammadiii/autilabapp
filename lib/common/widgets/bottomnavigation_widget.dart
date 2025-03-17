@@ -166,7 +166,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       bottomNavigationBar: Container(
         height: 95,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 35),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
           color: AutilabColor.white,
           boxShadow: [

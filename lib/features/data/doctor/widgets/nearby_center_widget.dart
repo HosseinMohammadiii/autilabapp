@@ -51,7 +51,7 @@ class _NearbyCenterWidgetState extends State<NearbyCenterWidget>
                   left: 24, right: 24, top: 24, bottom: 46),
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 46),
               decoration: BoxDecoration(
-                color: const Color(0xffECF0FF),
+                color: AutilabColor.white,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(color: AutilabColor.bb),
               ),

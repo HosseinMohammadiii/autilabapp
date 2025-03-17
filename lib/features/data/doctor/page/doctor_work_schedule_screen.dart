@@ -165,6 +165,11 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                     isSelect: false,
                   ),
                 ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 16,
+                  ),
+                ),
                 SliverToBoxAdapter(
                   child: Column(
                     spacing: 8,

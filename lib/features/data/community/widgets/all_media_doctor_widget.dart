@@ -8,7 +8,7 @@ class DisplayAllDoctorMediaWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: 9,
+      itemCount: 15,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,

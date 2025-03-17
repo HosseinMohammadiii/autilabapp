@@ -232,7 +232,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
   ) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height * 0.68,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CustomScrollView(
         slivers: [
@@ -284,8 +284,8 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                         Flexible(
                           child: Image.asset(
                             imageCategory[index],
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            height: MediaQuery.of(context).size.width * 0.15,
+                            width: 56,
+                            height: 56,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -293,14 +293,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                         Text(
                           titleCategory[index],
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.035,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                       ],
                     ),
@@ -422,7 +419,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     crossAxisCount: 2,
                     crossAxisSpacing: screenWidth * 0.05,
                     mainAxisSpacing: screenHeight * 0.01,
-                    mainAxisExtent: screenHeight * 0.05,
+                    mainAxisExtent: 37,
                   ),
                   itemCount: 6,
                   itemBuilder: (context, index) {
@@ -445,6 +442,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   },
                 ),
               ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
             ),
           ),
           const SliverToBoxAdapter(

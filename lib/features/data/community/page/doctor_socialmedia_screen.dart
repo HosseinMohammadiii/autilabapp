@@ -48,152 +48,178 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
       child: Scaffold(
         appBar: appBarWidget(
             context: context, title: 'Doctor’s Social media', isIcon: true),
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 665,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 48),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffECF0FF),
-                        borderRadius: BorderRadius.circular(24),
+        body: DefaultTabController(
+          length: 4,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    left: 20, right: 20, top: 48, bottom: 20),
+                decoration: BoxDecoration(
+                  color: const Color(0xffECF0FF),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: NestedScrollView(
+                  headerSliverBuilder: (context, innerBoxIsScrolled) {
+                    return [
+                      SliverToBoxAdapter(
+                        child: Stack(
+                          alignment: Alignment.topCenter,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              constraints: BoxConstraints(
+                                maxHeight: MediaQuery.of(context).size.height,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xffECF0FF),
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30, vertical: 12),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        displayFollowersAndFollowing(
+                                          count: '1 k',
+                                          title: 'Followers',
+                                        ),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: SizedBox(
+                                            width: 100,
+                                            height: 100,
+                                            child: Image.asset(
+                                              'assets/images/doctor_image.png',
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        displayFollowersAndFollowing(
+                                          count: '342',
+                                          title: 'Following',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 24),
+                                  Text(
+                                    'Dr. Sophia Martinez',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                  Text(
+                                    '@sophia_mz',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AutilabColor.gray,
+                                        ),
+                                  ),
+                                  const SizedBox(height: 24),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 30),
+                                    child: Text(
+                                      'I am dr sophia martinez, I like dancing in the rain and travelling all around the world.',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 24),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CustomButtonWidget(
+                                        onTap: () {},
+                                        height: 41,
+                                        width: 120,
+                                        borderRadius: 16,
+                                        color: AutilabColor.bb,
+                                        margin:
+                                            const EdgeInsets.only(right: 30),
+                                        text: 'Follow',
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AutilabColor.black
+                                                .withOpacity(0.2),
+                                            blurRadius: 10,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                      ),
+                                      CustomButtonWidget(
+                                        onTap: () {},
+                                        height: 41,
+                                        width: 120,
+                                        borderRadius: 16,
+                                        color: AutilabColor.white,
+                                        margin: const EdgeInsets.only(left: 30),
+                                        text: 'Message',
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AutilabColor.black
+                                                .withOpacity(0.2),
+                                            blurRadius: 10,
+                                            offset: const Offset(0, 2),
+                                          ),
+                                        ],
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 34),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                displayFollowersAndFollowing(
-                                  count: '1 k',
-                                  title: 'Followers',
-                                ),
-                                displayFollowersAndFollowing(
-                                  count: '342',
-                                  title: 'Following',
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Text(
-                            'Dr. Sophia Martinez',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          Text(
-                            '@sophia_mz',
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: AutilabColor.gray,
-                                    ),
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Text(
-                              'I am dr sophia martinez, I like dancing in the rain and travelling all around the world.',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomButtonWidget(
-                                onTap: () {},
-                                height: 41,
-                                width: 120,
-                                borderRadius: 16,
-                                color: AutilabColor.bb,
-                                margin: const EdgeInsets.only(left: 30),
-                                text: 'Follow',
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AutilabColor.black
-                                        .withValues(alpha: 0.2),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                              ),
-                              CustomButtonWidget(
-                                onTap: () {},
-                                height: 41,
-                                width: 120,
-                                borderRadius: 16,
-                                color: AutilabColor.white,
-                                margin: const EdgeInsets.only(right: 30),
-                                text: 'Message',
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AutilabColor.black
-                                        .withValues(alpha: 0.2),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 34,
-                          ),
+                      SliverPersistentHeader(
+                        floating: true,
+                        pinned: true,
+                        delegate: TabbarViewDelegate(
                           TabBar(
+                            indicatorColor: AutilabColor.gray,
+                            dividerHeight: 0,
                             controller: _tabController,
-                            dividerColor: Colors.transparent,
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            indicator: BoxDecoration(
-                              border: const Border(
-                                bottom: BorderSide(
-                                  width: 2,
-                                  color: AutilabColor.gray,
-                                ),
-                              ),
-                              borderRadius: BorderRadius.circular(2),
-                            ),
                             tabs: [
                               _titleTabBar(context, 'All'),
                               _titleTabBar(context, 'Photos'),
@@ -201,52 +227,35 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                               _titleTabBar(context, 'Article'),
                             ],
                           ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          Expanded(
-                            child: TabBarView(
-                              controller: _tabController,
-                              children: const [
-                                DisplayAllDoctorMediaWidget(),
-                                SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 2,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: Image.asset(
-                            'assets/images/doctor_image.png',
-                            fit: BoxFit.fill,
-                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ];
+                  },
+                  body: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      DisplayAllDoctorMediaWidget(),
+                      SizedBox(height: 100),
+                      SizedBox(height: 100),
+                      SizedBox(height: 100),
+                    ],
+                  ),
                 ),
               ),
+              // Positioned(
+              //   top: 0,
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.circular(100),
+              //     child: SizedBox(
+              //       width: 100,
+              //       height: 100,
+              //       child: Image.asset(
+              //         'assets/images/doctor_image.png',
+              //         fit: BoxFit.fill,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -292,5 +301,33 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
         ),
       ],
     );
+  }
+}
+
+class TabbarViewDelegate extends SliverPersistentHeaderDelegate {
+  TabbarViewDelegate(this._tabbar);
+  final TabBar _tabbar;
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        color: const Color(0xffECF0FF),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: _tabbar,
+    );
+  }
+
+  @override
+  double get maxExtent => _tabbar.preferredSize.height;
+
+  @override
+  double get minExtent => _tabbar.preferredSize.height;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }
