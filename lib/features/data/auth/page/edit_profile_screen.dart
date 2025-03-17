@@ -97,18 +97,74 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   //   setState(() {});
   // }
 
-  Future<void> pickImage() async {
-    var status = await Permission.storage.status;
-    //Permission controller to access storage for file upload
-    if (status.isDenied) {
-      //  return;
-      print('object');
-    }
+  Future<void> pickImage({required Permission permission}) async {
+    var status = await permission.status;
     final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      // Process the picked image (display, upload, etc.)
-    }
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: const Icon(Icons.photo_library),
+            title: Text(
+              'Gallery',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            onTap: () async {
+              //Permission controller to access storage for file upload
+              if (status.isGranted) {
+                final pickedFile =
+                    await imagePicker.pickImage(source: ImageSource.gallery);
+              } else if (status.isDenied) {
+                if (await permission.request().isGranted) {
+                  final pickedFile =
+                      await imagePicker.pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {}
+                } else {
+                  return;
+                }
+              } else {}
+
+              Navigator.of(context).pop();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_camera),
+            title: Text(
+              'Camera',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            onTap: () async {
+              //Permission controller to access storage for file upload
+              if (status.isGranted) {
+                final pickedFile =
+                    await imagePicker.pickImage(source: ImageSource.camera);
+              } else if (status.isDenied) {
+                if (await permission.request().isGranted) {
+                  final pickedFile =
+                      await imagePicker.pickImage(source: ImageSource.camera);
+                  if (pickedFile != null) {}
+                } else {
+                  return;
+                }
+              } else {
+                return;
+              }
+
+              setState(() {});
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -152,7 +208,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                           GestureDetector(
                             onTap: () {
                               // insertFile();
-                              pickImage();
+                              pickImage(permission: Permission.storage);
                             },
                             child: Container(
                               width: 30,
