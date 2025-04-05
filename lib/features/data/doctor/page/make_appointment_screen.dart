@@ -3,6 +3,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
@@ -443,43 +444,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
                     children: [
-                      TextField(
-                        controller: descriptionController,
-                        focusNode: descriptionFocusNode,
-                        cursorColor: Colors.black,
-                        maxLines: 6,
-                        decoration: InputDecoration(
-                          hintText: 'Enter your Problem here...',
-                          hintStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AutilabColor.gray,
-                                  ),
-                          fillColor: AutilabColor.primary,
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 22),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(24),
-                            borderSide: const BorderSide(
-                              color: AutilabColor.gray,
-                              width: 1,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(24),
-                            borderSide: const BorderSide(
-                              color: AutilabColor.gray,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        onChanged: (value) {},
-                        onTapOutside: (event) {
-                          //Unfocus TextField
-                          descriptionFocusNode.unfocus();
-                        },
+                      TextFieldBoxEnterDescription(
+                        hintText: 'Enter your Problem here...',
+                        descriptionController: descriptionController,
+                        descriptionFocusNode: descriptionFocusNode,
                       ),
                     ],
                   ),
