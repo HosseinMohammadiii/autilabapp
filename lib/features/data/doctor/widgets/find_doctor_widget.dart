@@ -332,10 +332,9 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
+    final showFullScreenDialog = MediaQuery.sizeOf(context).width < 600;
     return Container(
-      width: screenWidth * 0.85,
-      height: screenHeight * 0.7,
+      constraints: const BoxConstraints(maxWidth: 320, maxHeight: 559),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: CustomScrollView(
         slivers: [
@@ -385,7 +384,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 4,
+              height: 10,
             ),
           ),
           const SliverToBoxAdapter(
@@ -396,7 +395,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 5,
+              height: 16,
             ),
           ),
           SliverToBoxAdapter(
@@ -408,45 +407,47 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   ),
             ),
           ),
+          // const SliverToBoxAdapter(
+          //   child: SizedBox(
+          //     height: 5,
+          //   ),
+          // ),
           SliverToBoxAdapter(
-            child: SizedBox(
-              height: 150,
-              child: ValueListenableBuilder(
-                valueListenable: selectedIndexSpecialty,
-                builder: (context, value, child) => GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: screenWidth * 0.05,
-                    mainAxisSpacing: screenHeight * 0.01,
-                    mainAxisExtent: 37,
-                  ),
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return CustomButtonWidget(
-                      margin: const EdgeInsets.all(0),
-                      onTap: () {
-                        selectedIndexSpecialty.value = index;
-                      },
-                      height: 0,
-                      color: selectedIndexSpecialty.value == index
-                          ? AutilabColor.bb
-                          : AutilabColor.lightGray,
-                      text: titleCategory[index],
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                    );
-                  },
+            child: ValueListenableBuilder(
+              valueListenable: selectedIndexSpecialty,
+              builder: (context, value, child) => GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 8,
+                  mainAxisExtent: 37,
                 ),
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return CustomButtonWidget(
+                    margin: const EdgeInsets.all(0),
+                    onTap: () {
+                      selectedIndexSpecialty.value = index;
+                    },
+                    height: 0,
+                    color: selectedIndexSpecialty.value == index
+                        ? AutilabColor.bb
+                        : AutilabColor.lightGray,
+                    text: titleCategory[index],
+                    textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  );
+                },
               ),
             ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 20,
+              height: 16,
             ),
           ),
           const SliverToBoxAdapter(
@@ -457,7 +458,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 5,
+              height: 16,
             ),
           ),
           SliverToBoxAdapter(
@@ -496,7 +497,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
           ),
           const SliverToBoxAdapter(
             child: SizedBox(
-              height: 5,
+              height: 16,
             ),
           ),
           SliverToBoxAdapter(
