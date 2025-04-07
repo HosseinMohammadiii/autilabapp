@@ -4,7 +4,7 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:flutter/foundation.dart';
+import 'package:autilab_project/utils/functions/custom_dialog_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,12 +43,18 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   File? pickedFileGallery;
   XFile? pickedFile;
 
-  bool isImage = true;
+  final bool isImage = true;
+  bool isSelectedDate = false;
 
   DateTime? _focusedDay;
-  ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
-  String dateOfBirth = '';
 
+  final ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
+
+  final String dateOfBirth = '';
+
+  final List<String> genderOptions = ['Male', 'Female', 'Others'];
+  String? selectedGender;
+  bool isDropdownOpen = false;
   @override
   void initState() {
     super.initState();
@@ -70,10 +76,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     animationHelper.restartAnimation();
   }
 
+//Methode pickImage for select image from gallery or camera for profile image
   Future<void> pickImage({required Permission permission}) async {
+    // Check the permission status
     var status = await permission.status;
     final imagePicker = ImagePicker();
 
+    // Show modal bottom sheet to choose image source
     showModalBottomSheet(
       context: context,
       builder: (context) => Wrap(
@@ -88,22 +97,25 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
             ),
             onTap: () async {
-              //Permission controller to access storage for file upload
-
+              // Handle gallery image picking with permission
               if (status.isGranted) {
+                // If permission already granted, pick image from gallery
                 pickedFile =
                     await imagePicker.pickImage(source: ImageSource.gallery);
               } else if (status.isDenied) {
+                // If permission is denied, request it
                 if (await permission.request().isGranted) {
+                  // If user grants permission, pick image
                   pickedFile =
                       await imagePicker.pickImage(source: ImageSource.gallery);
-                  if (pickedFile != null) {}
                 } else {
+                  // If permission still denied, exit
                   return;
                 }
-              } else {}
+              }
+
               setState(() {});
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); // Close bottom sheet
             },
           ),
           ListTile(
@@ -116,16 +128,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
             ),
             onTap: () async {
-              //Permission controller to access storage for file upload
+              // Handle camera image picking with permission
               if (status.isGranted) {
+                // If permission already granted, pick image from camera
                 pickedFile =
                     await imagePicker.pickImage(source: ImageSource.camera);
               } else if (status.isDenied) {
+                // If permission is denied, request it
                 if (await permission.request().isGranted) {
+                  // If user grants permission, pick image
                   pickedFile =
                       await imagePicker.pickImage(source: ImageSource.camera);
-
-                  if (pickedFile != null) {}
                 } else {
                   return;
                 }
@@ -134,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               }
 
               setState(() {});
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); // Close bottom sheet
             },
           ),
         ],
@@ -271,49 +284,122 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
               _boxSelectDateAndGender(
                 context: context,
-                listenable: selectedDate,
-                title: _focusedDay == null
-                    ? 'What is your date of birth?'
-                    : DateFormat.MMMM().format(selectedDate.value),
+                widget: ValueListenableBuilder<DateTime>(
+                  valueListenable: selectedDate,
+                  builder: (context, value, child) {
+                    return Text(
+                      !isSelectedDate
+                          ? 'What is your date of birth?'
+                          : DateFormat.yMd().format(value),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AutilabColor.gray,
+                          ),
+                    );
+                  },
+                ),
                 icon: 'assets/icons/calendar_tick_icon.svg',
                 onTap: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                        child: StatefulBuilder(
-                          builder: (context, setState) {
-                            return TableCalendar(
-                              currentDay: _focusedDay,
-                              focusedDay: _focusedDay ?? DateTime.now(),
-                              firstDay: DateTime.now(),
-                              lastDay: DateTime(2030),
-                              onDaySelected: (selectedDay, focusedDay) {
-                                setState(() {
-                                  _focusedDay = selectedDay;
-                                  selectedDate.value = _focusedDay!;
-                                  dateOfBirth = DateFormat.MMMM()
-                                      .format(selectedDate.value);
+                  //Display dialog for show table calendar
 
-                                  print(_focusedDay);
-                                });
-                              },
-                            );
+                  showCustomDialog(
+                    context,
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TableCalendar(
+                          currentDay: _focusedDay,
+                          focusedDay: _focusedDay ?? DateTime.now(),
+                          firstDay: DateTime(1900),
+                          lastDay: DateTime(2030),
+                          headerVisible: true,
+                          calendarStyle: const CalendarStyle(
+                            outsideDaysVisible: false,
+                          ),
+                          availableCalendarFormats: const {
+                            CalendarFormat.month: '',
+                          },
+                          onDaySelected: (selectedDay, focusedDay) {
+                            setState(() {
+                              //Change isSelectedDate variable for display date
+                              isSelectedDate = true;
+                              //Initialize _focusedDay variable value with selectedDay
+                              _focusedDay = selectedDay;
+                              //Initialize selectedDate variable value with _focusedDay
+                              selectedDate.value = _focusedDay!;
+                            });
                           },
                         ),
-                      );
-                    },
+                      ],
+                    ),
                   );
                 },
               ),
-              // _boxSelectDateAndGender(
-              //   context: context,
-              //   title: 'Select your gender',
-              //   icon: 'assets/icons/arrow_down.svg',
-              //   onTap: () {
-              //     print('object2');
-              //   },
-              // ),
+              _boxSelectDateAndGender(
+                context: context,
+                widget: Text(
+                  selectedGender ?? 'Select your gender',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AutilabColor.gray,
+                      ),
+                ),
+                icon: isDropdownOpen
+                    ? 'assets/icons/arrow_up.svg'
+                    : 'assets/icons/arrow_down.svg',
+                onTap: () {
+                  setState(() {
+                    isDropdownOpen = !isDropdownOpen;
+                  });
+                },
+              ),
+              SliverToBoxAdapter(
+                child: Visibility(
+                  visible: isDropdownOpen,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AutilabColor.bb),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: genderOptions.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  genderOptions[index],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: AutilabColor.gray,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              setState(() {
+                                selectedGender = genderOptions[index];
+                                isDropdownOpen = false;
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SliverPadding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
@@ -366,10 +452,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 //Widget for display box select date of birth & select gender
   Widget _boxSelectDateAndGender({
     required BuildContext context,
-    required String title,
+    required Widget widget,
     required Function() onTap,
     required String icon,
-    ValueListenable<DateTime>? listenable,
   }) {
     return SliverToBoxAdapter(
       child: Container(
@@ -384,20 +469,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ValueListenableBuilder<DateTime>(
-              valueListenable: listenable!,
-              builder: (context, value, child) {
-                dateOfBirth = DateFormat.MMMM().format(selectedDate.value);
-                return Text(
-                  DateFormat.MEd.(selectedDate.value),
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AutilabColor.gray,
-                      ),
-                );
-              },
-            ),
+            widget,
             GestureDetector(
               onTap: onTap,
               child: SvgPicture.asset(
