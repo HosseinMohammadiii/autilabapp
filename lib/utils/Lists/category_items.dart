@@ -1,27 +1,24 @@
 import 'dart:ui';
 
-List<String> titleCategory = [
-  'Behaviorism',
-  'Pediatrician',
-  'Physiotherapy',
-  'Consultant',
-  'Psychologist',
-  'Speech therapy',
-];
+class CategoryItems {
+  String title;
+  String image;
+  Color color;
+  CategoryItems(this.title, this.image, this.color);
+}
 
-List<String> imageCategory = [
-  'assets/images/behaviorism_image.png',
-  'assets/images/pediatrician_image.png',
-  'assets/images/physiotherapy_image.png',
-  'assets/images/conversation_image.png',
-  'assets/images/psychologist_image.png',
-  'assets/images/speech_therapy_image.png',
-];
-List<Color> colorBoxCategory = const [
-  Color(0xffC772FF),
-  Color.fromRGBO(83, 226, 255, 0.7),
-  Color(0xffFF7272),
-  Color(0xff8AEDCE),
-  Color(0xff5669FF),
-  Color(0xffFFB253),
+//Category list for display Specialties items
+List<CategoryItems> categoryItemsList = [
+  CategoryItems('Behaviorism', 'assets/images/behaviorism_image.png',
+      const Color(0xffC772FF)),
+  CategoryItems('Pediatrician', 'assets/images/pediatrician_image.png',
+      const Color.fromRGBO(83, 226, 255, 0.7)),
+  CategoryItems('Physiotherapy', 'assets/images/physiotherapy_image.png',
+      const Color(0xffFF7272)),
+  CategoryItems('Consultant', 'assets/images/conversation_image.png',
+      const Color(0xff8AEDCE)),
+  CategoryItems('Psychologist', 'assets/images/psychologist_image.png',
+      const Color(0xff5669FF)),
+  CategoryItems('Speech therapy', 'assets/images/speech_therapy_image.png',
+      const Color(0xffFFB253)),
 ];

@@ -195,7 +195,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
       height: 113,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: titleCategory.length,
+        itemCount: categoryItemsList.length,
         itemBuilder: (context, index) {
           return Container(
             height: 113,
@@ -203,15 +203,15 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
             margin: const EdgeInsets.only(right: 10),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: colorBoxCategory[index],
+              color: categoryItemsList[index].color,
               borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(imageCategory[index]),
+                Image.asset(categoryItemsList[index].image),
                 Text(
-                  titleCategory[index],
+                  categoryItemsList[index].title,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -231,51 +231,49 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
     Function(int index) onTap,
   ) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.68,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            toolbarHeight: 22,
-            automaticallyImplyLeading: false,
-            leadingWidth: double.infinity,
-            leading: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (mounted) {
-                      GoRouter.of(context).pop();
-                    }
-                  },
-                  child: const Icon(Icons.close_rounded),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  'All Specialties',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-              ],
-            ),
+      constraints: const BoxConstraints(
+        maxWidth: 320,
+        maxHeight: 470,
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => GoRouter.of(context).pop(),
+                child: const Icon(Icons.close_rounded),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'All Specialties',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+            ],
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 16),
-          ),
-          SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              childCount: colorBoxCategory.length,
-              (context, index) {
+          // const SizedBox(height: 24),
+          Expanded(
+            child: GridView.builder(
+              itemCount: categoryItemsList.length,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 24,
+                mainAxisSpacing: 24,
+                mainAxisExtent: 113,
+              ),
+              itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () => onTap(index),
                   child: Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: colorBoxCategory[index],
+                      color: categoryItemsList[index].color,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
@@ -283,7 +281,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                       children: [
                         Flexible(
                           child: Image.asset(
-                            imageCategory[index],
+                            categoryItemsList[index].image,
                             width: 56,
                             height: 56,
                             fit: BoxFit.contain,
@@ -291,13 +289,13 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          titleCategory[index],
+                          categoryItemsList[index].title,
                           textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -305,15 +303,6 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 );
               },
             ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: MediaQuery.of(context).size.width * 0.06,
-              mainAxisSpacing: MediaQuery.of(context).size.width * 0.06,
-              mainAxisExtent: MediaQuery.of(context).size.width * 0.3,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
           ),
         ],
       ),
@@ -330,9 +319,6 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
     final ValueNotifier<double?> selectedIndexrating =
         ValueNotifier<double?>(null);
 
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    final showFullScreenDialog = MediaQuery.sizeOf(context).width < 600;
     return Container(
       constraints: const BoxConstraints(maxWidth: 320, maxHeight: 559),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -407,11 +393,6 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                   ),
             ),
           ),
-          // const SliverToBoxAdapter(
-          //   child: SizedBox(
-          //     height: 5,
-          //   ),
-          // ),
           SliverToBoxAdapter(
             child: ValueListenableBuilder(
               valueListenable: selectedIndexSpecialty,
@@ -435,7 +416,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     color: selectedIndexSpecialty.value == index
                         ? AutilabColor.bb
                         : AutilabColor.lightGray,
-                    text: titleCategory[index],
+                    text: categoryItemsList[index].title,
                     textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,

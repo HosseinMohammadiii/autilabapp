@@ -197,7 +197,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                 child: SizedBox(
                   height: 80,
                   child: ListView.builder(
-                    itemCount: colorBoxCategory.length,
+                    itemCount: categoryItemsList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Container(
@@ -205,7 +205,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                         margin: const EdgeInsets.only(right: 16),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: colorBoxCategory[index],
+                          color: categoryItemsList[index].color,
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(
@@ -214,12 +214,12 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                           spacing: 8,
                           children: [
                             Image.asset(
-                              imageCategory[index],
+                              categoryItemsList[index].image,
                               width: 32,
                               height: 32,
                             ),
                             Text(
-                              titleCategory[index],
+                              categoryItemsList[index].title,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
