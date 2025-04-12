@@ -27,37 +27,56 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _slideTransition;
-
-  List<String> title1 = [
-    'My Doctors',
-    'All Appointment',
-    'Messages',
-    'My Subscribtion',
+  List<DrawerItemClass> firstDrawerItemList = [
+    DrawerItemClass(
+      'My Doctors',
+      'assets/icons/doctor_buttomnavigation.svg',
+      const Color(0xffF3C58D),
+    ),
+    DrawerItemClass(
+      'All Appointment',
+      'assets/icons/calendar.svg',
+      const Color(0xff8DAFFD),
+    ),
+    DrawerItemClass(
+      'Messages',
+      'assets/icons/messages.svg',
+      const Color(0xff7EECC5),
+    ),
+    DrawerItemClass(
+      'My Subscribtion',
+      'assets/icons/crown.svg',
+      const Color(0xffE4D080),
+    ),
   ];
-  List<String> icon1 = [
-    'assets/icons/doctor_buttomnavigation.svg',
-    'assets/icons/calendar.svg',
-    'assets/icons/messages.svg',
-    'assets/icons/crown.svg',
+  List<DrawerItemClass> secondDrawerItemList = [
+    DrawerItemClass(
+      'Notification',
+      'assets/icons/notification_icon.svg',
+      const Color(0xff7EC9F8),
+    ),
+    DrawerItemClass(
+      'Test History',
+      'assets/icons/archive_icon.svg',
+      const Color(0xffB4A7FF),
+    ),
+    DrawerItemClass(
+      'My Favorite',
+      'assets/icons/heart.svg',
+      const Color(0xffEA87F5),
+    ),
   ];
-
-  List<String> title2 = [
-    'Notification',
-    'Test History',
-    'My Favorite',
-  ];
-  List<String> icon2 = [
-    'assets/icons/notification_icon.svg',
-    'assets/icons/archive_icon.svg',
-    'assets/icons/heart.svg',
-  ];
-  List<String> title3 = [
-    'About AutiLab',
-    'Log Out',
-  ];
-  List<String> icon3 = [
-    'assets/icons/lamp_charge_icon.svg',
-    'assets/icons/logout.svg',
+  List<DrawerItemClass> thirdDrawerItemList = [
+    DrawerItemClass(
+      'About AutiLab',
+      'assets/icons/lamp_charge_icon.svg',
+      const Color(0xffDB9088),
+    ),
+    DrawerItemClass(
+      'Log Out',
+      'assets/icons/logout.svg',
+      const Color(0xff3D90E0),
+    ),
   ];
 
   bool isPlaying = false;
@@ -315,33 +334,15 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   ],
                 ),
                 DrawerBoxWidget(
-                  icon: icon1,
-                  title: title1,
-                  color: const [
-                    Color(0xffF3C58D),
-                    Color(0xff8DAFFD),
-                    Color(0xff7EECC5),
-                    Color(0xffE4D080),
-                  ],
+                  drawerItem: firstDrawerItemList,
                   onTap: (index) {},
                 ),
                 DrawerBoxWidget(
-                  icon: icon2,
-                  title: title2,
-                  color: const [
-                    Color(0xff7EC9F8),
-                    Color(0xffB4A7FF),
-                    Color(0xffEA87F5),
-                  ],
+                  drawerItem: secondDrawerItemList,
                   onTap: (index) {},
                 ),
                 DrawerBoxWidget(
-                  icon: icon3,
-                  title: title3,
-                  color: const [
-                    Color(0xffDB9088),
-                    Color(0xff3D90E0),
-                  ],
+                  drawerItem: thirdDrawerItemList,
                   onTap: (index) {},
                 ),
                 const SizedBox(

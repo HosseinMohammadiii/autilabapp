@@ -6,14 +6,11 @@ import '../../../../core/constants/color_constant.dart';
 class DrawerBoxWidget extends StatelessWidget {
   const DrawerBoxWidget({
     super.key,
-    required this.icon,
-    required this.title,
-    required this.color,
+    required this.drawerItem,
     required this.onTap,
   });
-  final List<String> icon;
-  final List<String> title;
-  final List<Color> color;
+
+  final List<DrawerItemClass> drawerItem;
   final Function(int index) onTap;
 
   @override
@@ -27,7 +24,7 @@ class DrawerBoxWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListView.builder(
-        itemCount: title.length,
+        itemCount: drawerItem.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
@@ -44,14 +41,14 @@ class DrawerBoxWidget extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 6),
                       decoration: BoxDecoration(
-                        color: color[index],
+                        color: drawerItem[index].backgroundColor,
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset(icon[index]),
+                      child: SvgPicture.asset(drawerItem[index].icon),
                     ),
                     Expanded(
                       child: Text(
-                        title[index],
+                        drawerItem[index].title,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -61,7 +58,7 @@ class DrawerBoxWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              if (index != title.length - 1)
+              if (index != drawerItem.length - 1)
                 const Divider(
                   thickness: 0.5,
                   color: AutilabColor.bb,
@@ -72,4 +69,11 @@ class DrawerBoxWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class DrawerItemClass {
+  String title;
+  String icon;
+  Color backgroundColor;
+  DrawerItemClass(this.title, this.icon, this.backgroundColor);
 }
