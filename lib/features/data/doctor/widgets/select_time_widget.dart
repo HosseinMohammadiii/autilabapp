@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/theme_constant.dart' show AutilabTextStyle;
 import '../../../../utils/Lists/time_list.dart';
 
 class SelectTimeWidget extends StatefulWidget {
@@ -63,10 +64,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
             ),
             child: Text(
               timeAvailable[index],
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
+              style: AutilabTextStyle.small14_400,
             ),
           ),
         );

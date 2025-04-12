@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/Lists/category_items.dart';
 
 class SpecialtyItemWidget extends StatelessWidget {
@@ -30,10 +31,7 @@ class SpecialtyItemWidget extends StatelessWidget {
           ),
           Text(
             categoryItemsList[index].title,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                ),
+            style: AutilabTextStyle.small10_400,
           ),
         ],
       ),

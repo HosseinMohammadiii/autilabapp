@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/appbar_back_screen.dart';
@@ -112,41 +113,25 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                     ),
                                   ),
                                   const SizedBox(height: 24),
-                                  Text(
+                                  const Text(
                                     'Dr. Sophia Martinez',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                    style: AutilabTextStyle.medium16_500,
                                   ),
                                   Text(
                                     '@sophia_mz',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: AutilabColor.gray,
-                                        ),
+                                    style:
+                                        AutilabTextStyle.small12_400.copyWith(
+                                      color: AutilabColor.gray,
+                                    ),
                                   ),
                                   const SizedBox(height: 24),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 30),
                                     child: Text(
                                       'I am dr sophia martinez, I like dancing in the rain and travelling all around the world.',
                                       textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                      style: AutilabTextStyle.small14_400,
                                     ),
                                   ),
                                   const SizedBox(height: 24),
@@ -171,13 +156,7 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                             offset: const Offset(0, 2),
                                           ),
                                         ],
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                        textStyle: AutilabTextStyle.small16_400,
                                       ),
                                       CustomButtonWidget(
                                         onTap: () {},
@@ -195,13 +174,7 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                             offset: const Offset(0, 2),
                                           ),
                                         ],
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                        textStyle: AutilabTextStyle.small16_400,
                                       ),
                                     ],
                                   ),
@@ -268,10 +241,7 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
     return FittedBox(
       child: Text(
         title,
-        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
+        style: AutilabTextStyle.small14_400,
       ),
     );
   }
@@ -286,18 +256,13 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
       children: [
         Text(
           count,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+          style: AutilabTextStyle.medium16_400,
         ),
         Text(
           title,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                overflow: TextOverflow.ellipsis,
-              ),
+          style: AutilabTextStyle.small14_400.copyWith(
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );

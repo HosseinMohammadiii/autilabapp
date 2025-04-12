@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -104,13 +105,9 @@ class _SignupScreenState extends State<SignupScreen>
                         onTap: () {
                           context.goNamed(AutiLabRoutes.loginScreen);
                         },
-                        child: Text(
+                        child: const Text(
                           'Already have an account?',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          style: AutilabTextStyle.small14_400,
                         ),
                       ),
                     ),
@@ -124,11 +121,7 @@ class _SignupScreenState extends State<SignupScreen>
                       height: 50,
                       color: AutilabColor.bb,
                       text: 'Sign Up',
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
+                      textStyle: AutilabTextStyle.small16_400,
                     ),
                     const SizedBox(
                       height: 16,
@@ -146,12 +139,9 @@ class _SignupScreenState extends State<SignupScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             'Or Sign up With',
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 12,
-                                      color: const Color(0xff555252),
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                            style: AutilabTextStyle.small12_400.copyWith(
+                              color: const Color(0xff555252),
+                            ),
                           ),
                         ),
                         const Expanded(

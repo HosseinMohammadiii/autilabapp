@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/color_constant.dart';
@@ -42,11 +43,9 @@ class CustomTabBarWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: TabBar(
-                      labelStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
+                      labelStyle: AutilabTextStyle.small18_400.copyWith(
+                        color: Colors.black,
+                      ),
                       dividerColor: Colors.transparent,
                       indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),

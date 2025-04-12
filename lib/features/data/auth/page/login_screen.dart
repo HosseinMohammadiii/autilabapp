@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -95,13 +96,9 @@ class _LogInScreenState extends State<LogInScreen>
                         onTap: () {
                           context.pushNamed(AutiLabRoutes.sendEmailScreen);
                         },
-                        child: Text(
+                        child: const Text(
                           'Forget Password?',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                          style: AutilabTextStyle.small14_400,
                         ),
                       ),
                     ),
@@ -115,18 +112,14 @@ class _LogInScreenState extends State<LogInScreen>
                       height: 50,
                       color: AutilabColor.bb,
                       text: 'LogIn',
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
+                      textStyle: AutilabTextStyle.small16_400,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    Row(
+                    const Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Divider(
                             thickness: 3,
                             indent: 20,
@@ -134,18 +127,13 @@ class _LogInScreenState extends State<LogInScreen>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             'Or Sign up With',
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 12,
-                                      color: const Color(0xff555252),
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                            style: AutilabTextStyle.small12_400,
                           ),
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Divider(
                             thickness: 3,
                             endIndent: 20,

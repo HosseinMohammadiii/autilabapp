@@ -121,12 +121,9 @@ class _CalendarGridState extends State<CalendarGrid> {
                     child: Center(
                       child: Text(
                         day,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 14,
-                              color: day == 'Sun'
-                                  ? Colors.red
-                                  : AutilabColor.black,
-                            ),
+                        style: AutilabTextStyle.medium14_500.copyWith(
+                          color: day == 'Sun' ? Colors.red : AutilabColor.black,
+                        ),
                       ),
                     ),
                   ),
@@ -180,13 +177,11 @@ class _CalendarGridState extends State<CalendarGrid> {
                   child: Center(
                     child: Text(
                       day != null ? DateFormat('d').format(day) : '',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: (day != null && !isSunday)
-                                ? AutilabColor.black
-                                : Colors.red,
-                          ),
+                      style: AutilabTextStyle.small16_400.copyWith(
+                        color: (day != null && !isSunday)
+                            ? AutilabColor.black
+                            : Colors.red,
+                      ),
                     ),
                   ),
                 ),

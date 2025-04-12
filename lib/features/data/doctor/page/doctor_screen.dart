@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_tabbar_widget.dart';
 
+import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/nearby_center_widget.dart';
 
@@ -41,7 +42,7 @@ class _DoctorScreenState extends State<DoctorScreen>
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
+      child: const Scaffold(
         body: SafeArea(
           child: CustomTabBarWidget(
             tabLength: 2,
@@ -49,23 +50,17 @@ class _DoctorScreenState extends State<DoctorScreen>
               FittedBox(
                 child: Text(
                   'Find Doctor',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  style: AutilabTextStyle.small18_400,
                 ),
               ),
               FittedBox(
                 child: Text(
                   'Nearby centers',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  style: AutilabTextStyle.small18_400,
                 ),
               ),
             ],
-            tabBarView: const [
+            tabBarView: [
               FindDoctorWidget(),
               NearbyCenterWidget(),
             ],

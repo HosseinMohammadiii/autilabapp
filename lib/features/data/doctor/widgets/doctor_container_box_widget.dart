@@ -41,25 +41,19 @@ class DoctorBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FittedBox(
                       child: Text(
                         'Dr. Sophia Martinez',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style: AutilabTextStyle.medium18_500,
                       ),
                     ),
                     FittedBox(
                       child: Text(
                         'Psychotherapy',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: AutilabTextStyle.small16_400,
                       ),
                     ),
                   ],
@@ -79,11 +73,7 @@ class DoctorBox extends StatelessWidget {
                         margin: const EdgeInsets.all(0),
                         color: AutilabColor.yellow2,
                         text: 'Info',
-                        textStyle:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                        textStyle: AutilabTextStyle.small14_400,
                       ),
                     ),
                     const Spacer(),

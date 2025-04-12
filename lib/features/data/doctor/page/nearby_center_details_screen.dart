@@ -77,12 +77,9 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                       const SizedBox(
                         width: 4,
                       ),
-                      Text(
+                      const Text(
                         'Public Details',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style: AutilabTextStyle.medium18_500,
                       ),
                     ],
                   ),
@@ -136,15 +133,12 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   height: 32,
                 ),
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(
                     'Specialty',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: AutilabTextStyle.medium18_500,
                   ),
                 ),
               ),
@@ -191,15 +185,12 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   height: 32,
                 ),
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(
                     'Address',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: AutilabTextStyle.medium18_500,
                   ),
                 ),
               ),

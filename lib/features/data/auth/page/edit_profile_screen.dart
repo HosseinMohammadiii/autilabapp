@@ -4,6 +4,7 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/utils/functions/custom_dialog_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -89,12 +90,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         children: <Widget>[
           ListTile(
             leading: const Icon(Icons.photo_library),
-            title: Text(
+            title: const Text(
               'Gallery',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: AutilabTextStyle.medium16_500,
             ),
             onTap: () async {
               // Handle gallery image picking with permission
@@ -120,12 +118,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           ),
           ListTile(
             leading: const Icon(Icons.photo_camera),
-            title: Text(
+            title: const Text(
               'Camera',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: AutilabTextStyle.medium16_500,
             ),
             onTap: () async {
               // Handle camera image picking with permission
@@ -223,19 +218,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         ],
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Denis Iliev',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: AutilabTextStyle.medium16_500,
                     ),
-                    Text(
+                    const Text(
                       'Denis@gmail.com',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: AutilabTextStyle.small18_400,
                     ),
                   ],
                 ),
@@ -291,11 +280,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       !isSelectedDate
                           ? 'What is your date of birth?'
                           : DateFormat.yMd().format(value),
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AutilabColor.gray,
-                          ),
+                      style: AutilabTextStyle.small14_400.copyWith(
+                        color: AutilabColor.gray,
+                      ),
                     );
                   },
                 ),
@@ -340,11 +327,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 context: context,
                 widget: Text(
                   selectedGender ?? 'Select your gender',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AutilabColor.gray,
-                      ),
+                  style: AutilabTextStyle.small14_400.copyWith(
+                    color: AutilabColor.gray,
+                  ),
                 ),
                 icon: isDropdownOpen
                     ? 'assets/icons/arrow_up.svg'
@@ -376,14 +361,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                               children: [
                                 Text(
                                   genderOptions[index],
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: AutilabColor.gray,
-                                      ),
+                                  style: AutilabTextStyle.small14_400.copyWith(
+                                    color: AutilabColor.gray,
+                                  ),
                                 ),
                               ],
                             ),
@@ -408,12 +388,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 16,
                     children: [
-                      Text(
+                      const Text(
                         'More Detail About You',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        style: AutilabTextStyle.medium18_500,
                       ),
                       TextFieldBoxEnterDescription(
                         hintText: 'Enter Your Info Here...',
@@ -436,10 +413,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   margin:
                       const EdgeInsets.only(left: 16, right: 16, bottom: 40),
                   text: 'Update Profile',
-                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  textStyle: AutilabTextStyle.small18_400,
                 ),
               ),
             ],

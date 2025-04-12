@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldBoxEnterDescription extends StatelessWidget {
@@ -28,11 +29,9 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
       maxLines: maxLine ?? 6,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: AutilabColor.gray,
-            ),
+        hintStyle: AutilabTextStyle.small14_400.copyWith(
+          color: AutilabColor.gray,
+        ),
         fillColor: AutilabColor.primary,
         filled: true,
         contentPadding:

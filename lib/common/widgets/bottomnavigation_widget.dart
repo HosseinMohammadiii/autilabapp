@@ -1,5 +1,6 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -146,27 +147,18 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       children: [
                         Text(
                           'Current location',
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: AutilabColor.gray,
-                                  ),
+                          style: AutilabTextStyle.small16_400.copyWith(
+                            color: AutilabColor.gray,
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {},
                           child: Row(
                             children: [
                               SvgPicture.asset('assets/icons/gps.svg'),
-                              Text(
+                              const Text(
                                 'Toronto,Canada',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                style: AutilabTextStyle.small18_400,
                               ),
                               const Icon(Icons.arrow_drop_down),
                             ],
@@ -277,32 +269,20 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Column(
+                          const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
                                 'Denis Iliev',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                style: AutilabTextStyle.medium16_500,
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 height: 4,
                               ),
                               Text(
                                 'denis@gmail.com',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                style: AutilabTextStyle.small14_400,
                               ),
                             ],
                           ),
@@ -318,12 +298,9 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                             margin: const EdgeInsets.all(0),
                             color: AutilabColor.blue,
                             text: 'Edit Profile',
-                            textStyle:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: AutilabColor.white,
-                                    ),
+                            textStyle: AutilabTextStyle.small12_400.copyWith(
+                              color: AutilabColor.white,
+                            ),
                           ),
                         ],
                       ),

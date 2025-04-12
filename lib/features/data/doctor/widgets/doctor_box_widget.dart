@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -37,20 +38,16 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
             children: [
               Text(
                 'Male',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: AutilabColor.gray,
-                    ),
+                style: AutilabTextStyle.medium14_500.copyWith(
+                  color: AutilabColor.gray,
+                ),
               ),
               const Text(' | '),
               Text(
                 'Female',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: AutilabColor.blue,
-                    ),
+                style: AutilabTextStyle.medium14_500.copyWith(
+                  color: AutilabColor.blue,
+                ),
               ),
               const Spacer(),
               CustomButtonWidget(
@@ -63,10 +60,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 margin: const EdgeInsets.all(0),
                 color: const Color(0xffEDC757),
                 text: 'Info',
-                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
+                textStyle: AutilabTextStyle.small14_400,
               ),
             ],
           ),
@@ -99,25 +93,17 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                       children: [
                         Text(
                           'Dr. Sophia Martinez',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                          style: AutilabTextStyle.medium18_400.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         Row(
                           children: [
                             Text(
                               'Psychotherapy',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                              style: AutilabTextStyle.small14_400.copyWith(
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             const SizedBox(
                               width: 16,
@@ -126,15 +112,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                               Icons.star_rounded,
                               color: Color(0xffEDC757),
                             ),
-                            Text(
+                            const Text(
                               '5.0',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                              style: AutilabTextStyle.small14_400,
                             ),
                           ],
                         ),
@@ -181,10 +161,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
             margin: const EdgeInsets.only(top: 24),
             color: AutilabColor.bb,
             text: 'Make Appointment',
-            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                ),
+            textStyle: AutilabTextStyle.small18_400,
           ),
         ],
       ),

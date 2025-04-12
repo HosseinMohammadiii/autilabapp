@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/theme_constant.dart';
 
 class DrawerBoxWidget extends StatelessWidget {
   const DrawerBoxWidget({
@@ -49,10 +50,7 @@ class DrawerBoxWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         drawerItem[index].title,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: AutilabTextStyle.small14_400,
                       ),
                     ),
                   ],

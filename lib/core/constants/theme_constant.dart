@@ -25,3 +25,76 @@ class AutilabMargin {
   static const EdgeInsets marginFullScreen =
       EdgeInsets.symmetric(horizontal: 20);
 }
+
+class AutilabTextStyle {
+  static const TextStyle medium12_500 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle medium14_500 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle medium16_400 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle medium16_500 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle medium18_400 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle medium18_500 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle medium20_500 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle small10_400 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle small12_400 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle small14_400 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle small14_500 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+  static const TextStyle small16_400 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle small18_400 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle small24_400 = TextStyle(
+    fontFamily: 'Fredoka-Regular',
+    fontSize: 24,
+    fontWeight: FontWeight.w400,
+  );
+}

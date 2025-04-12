@@ -99,10 +99,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     children: [
                       Text(
                         _monthName,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: AutilabTextStyle.small18_400,
                       ),
                       const Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -152,26 +149,15 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           visible: selectDate.isNotEmpty,
                           child: Row(
                             children: [
-                              Text(
+                              const Text(
                                 'You selected , ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                style: AutilabTextStyle.small16_400,
                               ),
                               Text(
                                 selectDate,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: AutilabColor.bb,
-                                    ),
+                                style: AutilabTextStyle.medium16_500.copyWith(
+                                  color: AutilabColor.bb,
+                                ),
                               ),
                             ],
                           ),
@@ -240,26 +226,15 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                         visible: selectTime.isNotEmpty,
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               'You selected , ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                              style: AutilabTextStyle.small16_400,
                             ),
                             Text(
                               selectTime,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: AutilabColor.bb,
-                                  ),
+                              style: AutilabTextStyle.medium16_500.copyWith(
+                                color: AutilabColor.bb,
+                              ),
                             ),
                           ],
                         ),
@@ -330,15 +305,12 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   height: 16,
                 ),
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(
                     'Gender',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    style: AutilabTextStyle.small14_400,
                   ),
                 ),
               ),
@@ -365,14 +337,12 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           : const Color(0xff9C9595).withValues(alpha: 0.44),
                       text: 'Male',
                       textStyle: genderType == 'Male'
-                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
-                                color: AutilabColor.white,
-                              )
-                          : Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 16,
-                                color: AutilabColor.black,
-                              ),
+                          ? AutilabTextStyle.medium16_500.copyWith(
+                              color: AutilabColor.white,
+                            )
+                          : AutilabTextStyle.small16_400.copyWith(
+                              color: AutilabColor.black,
+                            ),
                     ),
                     CustomButtonWidget(
                       onTap: () {
@@ -389,14 +359,12 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           : const Color(0xff9C9595).withValues(alpha: 0.44),
                       text: 'Female',
                       textStyle: genderType == 'Female'
-                          ? Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                fontSize: 16,
-                                color: AutilabColor.white,
-                              )
-                          : Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 16,
-                                color: AutilabColor.black,
-                              ),
+                          ? AutilabTextStyle.medium16_500.copyWith(
+                              color: AutilabColor.white,
+                            )
+                          : AutilabTextStyle.small16_400.copyWith(
+                              color: AutilabColor.black,
+                            ),
                     ),
                   ],
                 ),
@@ -420,15 +388,12 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   height: 48,
                 ),
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(
                     'Describe your problem',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: AutilabTextStyle.medium18_500,
                   ),
                 ),
               ),
@@ -466,10 +431,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   color: AutilabColor.bb,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   text: 'Appointment Booking',
-                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  textStyle: AutilabTextStyle.small18_400,
                 ),
               ),
               const SliverToBoxAdapter(
@@ -500,10 +462,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+          style: AutilabTextStyle.small14_400,
         ),
         TextField(
           controller: controller,
@@ -512,11 +471,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
           maxLines: lineCount ?? 1,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  color: AutilabColor.gray,
-                ),
+            hintStyle: AutilabTextStyle.small10_400.copyWith(
+              color: AutilabColor.gray,
+            ),
             fillColor: backgroundColor ?? const Color(0xffECF0FF),
             filled: true,
             contentPadding:
@@ -562,10 +519,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
         ),
         Text(
           title,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+          style: AutilabTextStyle.small14_400,
         ),
       ],
     );

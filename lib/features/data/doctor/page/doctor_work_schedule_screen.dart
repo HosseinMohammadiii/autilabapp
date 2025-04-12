@@ -88,11 +88,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                       children: [
                         Text(
                           _monthName,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: AutilabTextStyle.medium16_500,
                         ),
                         const Icon(Icons.keyboard_arrow_down_rounded),
                       ],
@@ -215,10 +211,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
           ),
           Text(
             title,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
+            style: AutilabTextStyle.small14_400,
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -60,15 +61,11 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                 Center(
                   child: Image.asset('assets/images/enter_email_image.png'),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
                   child: Text(
                     'Enter Your Email Address',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    style: AutilabTextStyle.small16_400,
                   ),
                 ),
                 CustomTextfield(
@@ -86,10 +83,7 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                   height: 50,
                   color: AutilabColor.bb,
                   text: 'Send Code',
-                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  textStyle: AutilabTextStyle.small18_400,
                 ),
                 const BubbleBackgroundWidget(),
                 const SizedBox(

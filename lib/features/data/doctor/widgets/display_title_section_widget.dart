@@ -24,10 +24,7 @@ class DisplayTitleSection extends StatelessWidget {
           ),
           Text(
             title,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
+            style: AutilabTextStyle.medium18_500,
           ),
         ],
       ),

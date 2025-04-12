@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatelessWidget {
@@ -47,22 +48,18 @@ class CustomTextfield extends StatelessWidget {
           obscureText: isObscureText ?? false,
           maxLines: maxLines,
           cursorColor: Colors.black,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: AutilabColor.gray,
-              ),
+          style: AutilabTextStyle.small14_400.copyWith(
+            color: AutilabColor.gray,
+          ),
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             filled: true,
             fillColor: backgroundColor ?? Colors.transparent,
             label: Text(label),
             hintText: label,
-            labelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: lblColor ?? Colors.grey,
-                ),
+            labelStyle: AutilabTextStyle.small14_400.copyWith(
+              color: lblColor ?? Colors.grey,
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(borderRaduis ?? 16),

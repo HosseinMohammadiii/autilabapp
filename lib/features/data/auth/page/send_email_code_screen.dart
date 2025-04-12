@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/bubble_background_widget.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -61,25 +62,20 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                 const SizedBox(
                   height: 16,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     'We will send you one time password to',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    style: AutilabTextStyle.small16_400,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     'Example@gmail.com',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: AutilabColor.blue,
-                        ),
+                    style: AutilabTextStyle.medium18_400.copyWith(
+                      color: AutilabColor.blue,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -113,10 +109,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                   height: 50,
                   color: AutilabColor.bb,
                   text: 'Send Code',
-                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  textStyle: AutilabTextStyle.small18_400,
                 ),
                 const SizedBox(
                   height: 8,

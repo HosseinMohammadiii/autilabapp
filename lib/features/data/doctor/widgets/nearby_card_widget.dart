@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/button_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -40,13 +41,10 @@ class NearbyCardWidget extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Text(
                     'Autism Help Center',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: AutilabTextStyle.medium18_500,
                   ),
                 ),
                 ButtonCard(
@@ -69,11 +67,9 @@ class NearbyCardWidget extends StatelessWidget {
             height: 72,
             child: Text(
               'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                    fontWeight: FontWeight.w400,
-                  ),
+              style: AutilabTextStyle.small14_400.copyWith(
+                overflow: TextOverflow.fade,
+              ),
             ),
           ),
           CustomButtonWidget(
@@ -84,10 +80,7 @@ class NearbyCardWidget extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 8, top: 24),
             color: AutilabColor.bb,
             text: 'See Details',
-            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                ),
+            textStyle: AutilabTextStyle.small18_400,
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
@@ -42,10 +43,7 @@ class CustomCheckbox extends StatelessWidget {
             ),
             Text(
               title,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
+              style: AutilabTextStyle.small14_400,
             ),
           ],
         );

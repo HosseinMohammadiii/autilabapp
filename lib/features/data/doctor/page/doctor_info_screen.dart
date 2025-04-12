@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -62,15 +63,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           spacing: 24,
                           children: [
-                            Text(
+                            const Text(
                               'Dr. Sophia Martinez',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                              style: AutilabTextStyle.medium18_500,
                             ),
                             SizedBox(
                               height: 32,
@@ -129,12 +124,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     const SizedBox(
                       width: 4,
                     ),
-                    Text(
+                    const Text(
                       'Personal Details',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      style: AutilabTextStyle.medium18_500,
                     ),
                   ],
                 ),
@@ -176,13 +168,10 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   height: 32,
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Text(
                   'Specialty',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: AutilabTextStyle.medium18_500,
                 ),
               ),
               const SliverToBoxAdapter(
@@ -197,8 +186,13 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     itemCount: categoryItemsList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return SpecialtyItemWidget(
-                        index: index,
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          right: index == categoryItemsList.length - 1 ? 0 : 16,
+                        ),
+                        child: SpecialtyItemWidget(
+                          index: index,
+                        ),
                       );
                     },
                   ),
@@ -220,13 +214,10 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   height: 32,
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Text(
                   'More details',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: AutilabTextStyle.medium18_500,
                 ),
               ),
               const SliverToBoxAdapter(
@@ -245,12 +236,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     border: Border.all(width: 0.5, color: AutilabColor.gray),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatenim ad minim veniam, quis nostrud exercitation ullamco laboris',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    style: AutilabTextStyle.small14_400,
                   ),
                 ),
               ),
@@ -289,17 +277,11 @@ class BoxDetailNearbyCenterAndDoctorInfo extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
+              style: AutilabTextStyle.small14_400,
             ),
             Text(
               subtitle,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: AutilabTextStyle.medium16_500,
             ),
           ],
         ),

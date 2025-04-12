@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -115,7 +116,7 @@ class _MessageScreenState extends State<MessageScreen>
                   const SizedBox(
                     width: 16,
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -124,26 +125,16 @@ class _MessageScreenState extends State<MessageScreen>
                         FittedBox(
                           child: Text(
                             'Dr. Sophia Martinez',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style: AutilabTextStyle.medium14_500,
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 8,
                         ),
                         FittedBox(
                           child: Text(
                             'Psychotherapy',
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                            style: AutilabTextStyle.small14_400,
                           ),
                         ),
                       ],
@@ -242,12 +233,9 @@ class _MessageScreenState extends State<MessageScreen>
                       color: const Color(0xffECF0FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
+                    child: const Text(
                       "I don't know why people are so anti pineapple pizza. I kind of like it.",
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: AutilabTextStyle.small12_400,
                     ),
                   );
                 },
@@ -270,12 +258,9 @@ class _MessageScreenState extends State<MessageScreen>
                       color: AutilabColor.bb,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(
+                    child: const Text(
                       "That's perfect. There's a new place on Main St I've been wanting to check out. I hear their hawaiian pizza is awesome!",
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: AutilabTextStyle.small12_400,
                     ),
                   );
                 },

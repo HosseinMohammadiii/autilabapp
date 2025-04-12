@@ -1,4 +1,5 @@
 //Widget appBar for login section
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -27,10 +28,7 @@ PreferredSizeWidget appBarWidget({
               },
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
+                style: AutilabTextStyle.small18_400,
               ),
             ),
             child: Row(
@@ -44,10 +42,7 @@ PreferredSizeWidget appBarWidget({
                 ),
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  style: AutilabTextStyle.small18_400,
                 ),
               ],
             ),

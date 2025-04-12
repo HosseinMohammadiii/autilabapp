@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -130,13 +131,10 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               ),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       'Specialties',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: AutilabTextStyle.small24_400,
                     ),
                   ),
                   GestureDetector(
@@ -151,11 +149,9 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     },
                     child: Text(
                       'See All',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AutilabColor.blue,
-                          ),
+                      style: AutilabTextStyle.medium14_500.copyWith(
+                        color: AutilabColor.blue,
+                      ),
                     ),
                   ),
                 ],
@@ -164,14 +160,11 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 height: 24,
               ),
               _listCategory(),
-              Padding(
-                padding: const EdgeInsets.only(top: 48, bottom: 8),
+              const Padding(
+                padding: EdgeInsets.only(top: 48, bottom: 8),
                 child: Text(
                   'Expert Doctors',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  style: AutilabTextStyle.small24_400,
                 ),
               ),
               ListView.builder(
@@ -212,10 +205,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 Image.asset(categoryItemsList[index].image),
                 Text(
                   categoryItemsList[index].title,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: AutilabTextStyle.medium14_500,
                 ),
               ],
             ),
@@ -246,12 +236,9 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                 child: const Icon(Icons.close_rounded),
               ),
               const SizedBox(width: 8),
-              Text(
+              const Text(
                 'All Specialties',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
+                style: AutilabTextStyle.small18_400,
               ),
             ],
           ),
@@ -291,11 +278,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                         Text(
                           categoryItemsList[index].title,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.w500),
+                          style: AutilabTextStyle.medium14_500,
                         ),
                       ],
                     ),
@@ -343,12 +326,9 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     child: Icon(Icons.close_rounded),
                   ),
                 ),
-                Text(
+                const Text(
                   'Filter',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  style: AutilabTextStyle.small18_400,
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -357,12 +337,9 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                     selectedIndexNotifier.value = null;
                     selectedIndexrating.value = null;
                   },
-                  child: Text(
+                  child: const Text(
                     'Rest Filter',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: AutilabTextStyle.medium12_500,
                   ),
                 ),
               ],
@@ -387,10 +364,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
           SliverToBoxAdapter(
             child: Text(
               "Doctor's specialty",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: AutilabTextStyle.medium18_500,
             ),
           ),
           SliverToBoxAdapter(
@@ -417,10 +391,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
                         ? AutilabColor.bb
                         : AutilabColor.lightGray,
                     text: categoryItemsList[index].title,
-                    textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    textStyle: AutilabTextStyle.small14_500,
                   );
                 },
               ),
@@ -442,13 +413,10 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               height: 16,
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Text(
               'Gender',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: AutilabTextStyle.medium18_500,
             ),
           ),
           const SliverToBoxAdapter(
@@ -481,13 +449,10 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               height: 16,
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Text(
               'Rating',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: AutilabTextStyle.medium18_500,
             ),
           ),
           const SliverToBoxAdapter(
