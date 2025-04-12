@@ -27,7 +27,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/doctorScreen',
+    initialLocation: '/homeScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -36,6 +36,15 @@ class AutilabRouter {
       ),
       StatefulShellRoute.indexedStack(
         branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/homeScreen',
+                name: AutiLabRoutes.homeScreen,
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
+          ),
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -72,15 +81,6 @@ class AutilabRouter {
                         const NearbyCenterDetailsScreen(),
                   ),
                 ],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/homeScreen',
-                name: AutiLabRoutes.homeScreen,
-                builder: (context, state) => const HomeScreen(),
               ),
             ],
           ),
