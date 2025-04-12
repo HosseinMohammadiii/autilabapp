@@ -102,15 +102,25 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     super.dispose();
   }
 
-  bool isMainScreen(String location) {
-    return location == '/doctorScreen';
+  bool isMainScreen() {
+    List<String> locationList = [
+      '/homeScreen',
+      '/doctorScreen',
+      '/toolsScreen',
+      '/communityScreen',
+    ];
+    if (locationList.contains(GoRouterState.of(context).uri.toString())) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: isMainScreen(GoRouterState.of(context).uri.toString())
+      appBar: isMainScreen()
           ? AppBar(
               leadingWidth: double.infinity,
               toolbarHeight: 100,
