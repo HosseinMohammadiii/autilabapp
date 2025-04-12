@@ -7,6 +7,7 @@ import '../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/Lists/category_items.dart';
 import '../widgets/button_card.dart';
+import '../widgets/specialty_item_widget.dart';
 
 class DoctorInfoScreen extends StatefulWidget {
   const DoctorInfoScreen({super.key});
@@ -143,23 +144,19 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   height: 24,
                 ),
               ),
-              _personalDetailsCardWidget(
-                context: context,
+              const BoxDetailNearbyCenterAndDoctorInfo(
                 title: 'Full Name',
                 subtitle: 'Dr. Sophia Martinez',
               ),
-              _personalDetailsCardWidget(
-                context: context,
+              const BoxDetailNearbyCenterAndDoctorInfo(
                 title: "Doctor's Degree",
                 subtitle: 'Phd',
               ),
-              _personalDetailsCardWidget(
-                context: context,
+              const BoxDetailNearbyCenterAndDoctorInfo(
                 title: 'Age',
                 subtitle: '30',
               ),
-              _personalDetailsCardWidget(
-                context: context,
+              const BoxDetailNearbyCenterAndDoctorInfo(
                 title: 'Gender',
                 subtitle: 'ّFemale',
               ),
@@ -200,36 +197,8 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     itemCount: categoryItemsList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Container(
-                        width: 80,
-                        margin: const EdgeInsets.only(right: 16),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: categoryItemsList[index].color,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 8,
-                          children: [
-                            Image.asset(
-                              categoryItemsList[index].image,
-                              width: 32,
-                              height: 32,
-                            ),
-                            Text(
-                              categoryItemsList[index].title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                          ],
-                        ),
+                      return SpecialtyItemWidget(
+                        index: index,
                       );
                     },
                   ),
@@ -291,13 +260,19 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
       ),
     );
   }
+}
 
-//Widget for display Personal Details Card
-  Widget _personalDetailsCardWidget({
-    required BuildContext context,
-    required String title,
-    required String subtitle,
-  }) {
+class BoxDetailNearbyCenterAndDoctorInfo extends StatelessWidget {
+  const BoxDetailNearbyCenterAndDoctorInfo({
+    super.key,
+    required this.title,
+    required this.subtitle,
+  });
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
         width: double.infinity,

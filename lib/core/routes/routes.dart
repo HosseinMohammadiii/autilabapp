@@ -9,6 +9,7 @@ import 'package:autilab_project/features/data/community/page/doctor_socialmedia_
 import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/doctor_work_schedule_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/make_appointment_screen.dart';
+import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
@@ -63,6 +64,12 @@ class AutilabRouter {
                     path: 'makeAppointmentScreen',
                     name: AutiLabRoutes.makeAppointmentScreen,
                     builder: (context, state) => const MakeAppointmentScreen(),
+                  ),
+                  GoRoute(
+                    path: 'nearbyCenterDetailScreen',
+                    name: AutiLabRoutes.nearbyCenterDetailScreen,
+                    builder: (context, state) =>
+                        const NearbyCenterDetailsScreen(),
                   ),
                 ],
               ),

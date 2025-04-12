@@ -1,6 +1,8 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/doctor/widgets/button_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
 
@@ -12,7 +14,6 @@ class NearbyCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 445,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -21,8 +22,6 @@ class NearbyCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
-        // alignment: WrapAlignment.center,
-        // runSpacing: 12,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
@@ -78,7 +77,9 @@ class NearbyCardWidget extends StatelessWidget {
             ),
           ),
           CustomButtonWidget(
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(AutiLabRoutes.nearbyCenterDetailScreen);
+            },
             height: 50,
             margin: const EdgeInsets.only(bottom: 8, top: 24),
             color: AutilabColor.bb,

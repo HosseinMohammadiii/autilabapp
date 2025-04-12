@@ -9,6 +9,7 @@ class AutiLabRoutes {
   static const String sendEmailScreen = '/send_email';
   static const String doctorScreen = '/doctorScreen';
   static const String doctorInformationScreen = 'doctorInformationScreen';
+  static const String nearbyCenterDetailScreen = 'nearbyCenterDetailScreen';
   static const String doctorSocialMediaScreen = 'doctorSocialMediaScreen';
   static const String doctorMessageScreen = '/doctorMessageScreen';
   static const String doctorWorkscheduleScreen = 'doctorWorkscheduleScreen';
