@@ -11,6 +11,7 @@ import '../../../../utils/functions/animation_control.dart';
 import '../../../../utils/functions/custom_dialog_function.dart';
 import 'custom_checkbox_widget.dart';
 import 'doctor_box_widget.dart';
+import 'specialty_list_widget.dart';
 
 class FindDoctorWidget extends StatefulWidget {
   const FindDoctorWidget({super.key});
@@ -159,7 +160,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
               const SizedBox(
                 height: 24,
               ),
-              _listCategory(),
+              const SpecialtiesListWidget(),
               const Padding(
                 padding: EdgeInsets.only(top: 48, bottom: 8),
                 child: Text(
@@ -178,39 +179,6 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
             ],
           ),
         ),
-      ),
-    );
-  }
-
-//Widget for display Specialties category list
-  Widget _listCategory() {
-    return SizedBox(
-      height: 113,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryItemsList.length,
-        itemBuilder: (context, index) {
-          return Container(
-            height: 113,
-            width: 132,
-            margin: const EdgeInsets.only(right: 10),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: categoryItemsList[index].color,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(categoryItemsList[index].image),
-                Text(
-                  categoryItemsList[index].title,
-                  style: AutilabTextStyle.medium14_500,
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

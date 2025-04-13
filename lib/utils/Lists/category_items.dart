@@ -9,10 +9,10 @@ class CategoryItems {
 
 //Category list for display Specialties items
 List<CategoryItems> categoryItemsList = [
-  CategoryItems('Behaviorism', 'assets/images/behaviorism_image.png',
-      const Color(0xffC772FF)),
   CategoryItems('Pediatrician', 'assets/images/pediatrician_image.png',
       const Color.fromRGBO(83, 226, 255, 0.7)),
+  CategoryItems('Behaviorism', 'assets/images/behaviorism_image.png',
+      const Color(0xffC772FF)),
   CategoryItems('Physiotherapy', 'assets/images/physiotherapy_image.png',
       const Color(0xffFF7272)),
   CategoryItems('Consultant', 'assets/images/conversation_image.png',
