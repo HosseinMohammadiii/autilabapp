@@ -135,8 +135,225 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 24,
               ),
             ),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 231,
+                margin: AutilabMargin.marginFullScreen,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xffECF0FF),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AutilabColor.black.withValues(alpha: 0.2),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  spacing: 24,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 187,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'AutiLab test',
+                                style: AutilabTextStyle.medium20_500.copyWith(
+                                  color: AutilabColor.blue,
+                                ),
+                              ),
+                              const Text(
+                                'Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment',
+                                style: AutilabTextStyle.small14_400,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        Image.asset('assets/images/autilab_test_image.png'),
+                      ],
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {},
+                      height: 50,
+                      margin: const EdgeInsets.all(0),
+                      color: AutilabColor.bb,
+                      text: 'Take A Test',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 48,
+              ),
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Talent Result',
+                  style: AutilabTextStyle.small20_400,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                margin: AutilabMargin.marginFullScreen,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
+                decoration: BoxDecoration(
+                  color: AutilabColor.primary,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    Text(
+                      'Artistic',
+                      style: AutilabTextStyle.small14_400,
+                    ),
+                    TalentResultLinerWidget(
+                      gradient1: Color(0xff5b9fc8),
+                      gradient2: Color(0xff5b9fc8),
+                      activeLine: 13,
+                    ),
+                    Text(
+                      'Enterprising',
+                      style: AutilabTextStyle.small14_400,
+                    ),
+                    TalentResultLinerWidget(
+                      gradient1: Color(0xffFF9364),
+                      gradient2: Color(0xffF25F33),
+                      activeLine: 16,
+                    ),
+                    Text(
+                      'Investigator',
+                      style: AutilabTextStyle.small14_400,
+                    ),
+                    TalentResultLinerWidget(
+                      gradient1: Color(0xffB09FFF),
+                      gradient2: Color(0xff8D79F6),
+                      activeLine: 8,
+                    ),
+                    Text(
+                      'Social',
+                      style: AutilabTextStyle.small14_400,
+                    ),
+                    TalentResultLinerWidget(
+                      gradient1: Color(0xffFE6C6C),
+                      gradient2: Color(0xffFE464B),
+                      activeLine: 11,
+                    ),
+                    Text(
+                      'Realistic',
+                      style: AutilabTextStyle.small14_400,
+                    ),
+                    TalentResultLinerWidget(
+                      gradient1: Color(0xff99FFA3),
+                      gradient2: Color(0xff68EE76),
+                      activeLine: 5,
+                    ),
+                    Text(
+                      'Conventional',
+                      style: AutilabTextStyle.small14_400,
+                    ),
+                    TalentResultLinerWidget(
+                      gradient1: Color(0xffFFD572),
+                      gradient2: Color(0xffFEBD38),
+                      activeLine: 14,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TalentResultLinerWidget extends StatelessWidget {
+  const TalentResultLinerWidget({
+    super.key,
+    required this.gradient1,
+    required this.gradient2,
+    required this.activeLine,
+  });
+  final Color gradient1;
+  final Color gradient2;
+  final double activeLine;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 17,
+      decoration: BoxDecoration(
+        color: const Color(0xffc0bdaa),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Stack(
+        children: [
+          ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 25,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            itemBuilder: (context, index) {
+              return Container(
+                height: 4,
+                width: 4,
+                margin: const EdgeInsets.only(right: 14),
+                decoration: const BoxDecoration(
+                  color: Color(0xff454459),
+                  shape: BoxShape.circle,
+                ),
+              );
+            },
+          ),
+          Row(
+            children: [
+              Container(
+                height: 17,
+                width: (14 + 4) * (activeLine),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      gradient1,
+                      gradient2,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              Container(
+                height: 6,
+                width: 4,
+                decoration: BoxDecoration(
+                  color: AutilabColor.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
