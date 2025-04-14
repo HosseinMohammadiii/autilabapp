@@ -326,7 +326,8 @@ class TalentResultLinerWidget extends StatelessWidget {
               );
             },
           ),
-          Row(
+          Stack(
+            alignment: Alignment.centerRight,
             children: [
               Container(
                 height: 17,
@@ -341,11 +342,13 @@ class TalentResultLinerWidget extends StatelessWidget {
                     ],
                   ),
                   borderRadius: BorderRadius.circular(30),
+                  border: Border.all(color: AutilabColor.white, width: 0.5),
                 ),
               ),
               Container(
                 height: 6,
-                width: 4,
+                width: 2,
+                margin: const EdgeInsets.only(right: 6),
                 decoration: BoxDecoration(
                   color: AutilabColor.white,
                   borderRadius: BorderRadius.circular(30),
