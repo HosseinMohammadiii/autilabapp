@@ -1,10 +1,12 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/home/widgets/new_appointment_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../doctor/widgets/specialty_list_widget.dart';
+import '../widgets/talent_result_widget.dart';
 
 class StatusClass {
   Color statusColor;
@@ -89,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: statusList[index].title,
                       statusIcon: statusList[index].statusIcon,
                       margin: index == statusList.length - 1 ? 0 : 16,
+                      onTap: () {},
                     );
                   },
                 ),
@@ -425,235 +428,6 @@ class _HomeScreenState extends State<HomeScreen> {
           style: AutilabTextStyle.small14_400,
         ),
       ],
-    );
-  }
-}
-
-class TalentResultLinerWidget extends StatelessWidget {
-  const TalentResultLinerWidget({
-    super.key,
-    required this.gradient1,
-    required this.gradient2,
-    required this.activeLine,
-  });
-  final Color gradient1;
-  final Color gradient2;
-  final double activeLine;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 17,
-      decoration: BoxDecoration(
-        color: const Color(0xffc0bdaa),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Stack(
-        children: [
-          ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 25,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            itemBuilder: (context, index) {
-              return Container(
-                height: 4,
-                width: 4,
-                margin: const EdgeInsets.only(right: 14),
-                decoration: const BoxDecoration(
-                  color: Color(0xff454459),
-                  shape: BoxShape.circle,
-                ),
-              );
-            },
-          ),
-          Stack(
-            alignment: Alignment.centerRight,
-            children: [
-              Container(
-                height: 17,
-                width: (14 + 4) * (activeLine),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      gradient1,
-                      gradient2,
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: AutilabColor.white, width: 0.5),
-                ),
-              ),
-              Container(
-                height: 6,
-                width: 2,
-                margin: const EdgeInsets.only(right: 6),
-                decoration: BoxDecoration(
-                  color: AutilabColor.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class NewAppointmentsCardWidget extends StatelessWidget {
-  const NewAppointmentsCardWidget({
-    super.key,
-    required this.color,
-    required this.title,
-    required this.statusIcon,
-    required this.margin,
-  });
-  final Color color;
-  final String title;
-  final String statusIcon;
-  final double margin;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 350,
-      padding: const EdgeInsets.all(16),
-      alignment: Alignment.center,
-      margin: EdgeInsets.only(right: margin),
-      decoration: BoxDecoration(
-        color: AutilabColor.primary,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Column(
-        spacing: 16,
-        children: [
-          Row(
-            spacing: 4,
-            children: [
-              Container(
-                height: 24,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
-                child: SvgPicture.asset(
-                  statusIcon,
-                  height: 24,
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-              const Text(
-                'Status :',
-                style: AutilabTextStyle.medium14_500,
-              ),
-              Text(
-                title,
-                style: AutilabTextStyle.medium14_500,
-              ),
-            ],
-          ),
-          const Divider(
-            thickness: 1,
-            color: AutilabColor.black,
-          ),
-          Row(
-            spacing: 12,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset('assets/images/doctor_image.png'),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 12,
-                children: [
-                  const Text(
-                    'Dr. Sophia Martinez',
-                    style: AutilabTextStyle.medium18_500,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Psychotherapy',
-                        style: AutilabTextStyle.small14_400.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      const Icon(
-                        Icons.star_rounded,
-                        color: Color(0xffEDC757),
-                      ),
-                      const Text(
-                        '5.0',
-                        style: AutilabTextStyle.small14_400,
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 32,
-                    width: 186,
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: const Color(0xffECF0FF),
-                      border: Border.all(color: AutilabColor.bb),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/calendar.svg',
-                          colorFilter: const ColorFilter.mode(
-                            AutilabColor.blue,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        const Text(
-                          ' Tues 03 March ',
-                          style: AutilabTextStyle.medium12_500,
-                        ),
-                        Container(
-                          height: 16,
-                          width: 2,
-                          decoration: const BoxDecoration(
-                            color: AutilabColor.bb,
-                          ),
-                        ),
-                        SvgPicture.asset(
-                          'assets/icons/clock_icon.svg',
-                          colorFilter: const ColorFilter.mode(
-                            AutilabColor.blue,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        const Text(
-                          '13:30',
-                          style: AutilabTextStyle.medium12_500,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          CustomButtonWidget(
-            onTap: () {},
-            height: 50,
-            margin: const EdgeInsets.all(0),
-            color: AutilabColor.bb,
-            text: 'Detail Appointment',
-            textStyle: AutilabTextStyle.small18_400,
-          ),
-        ],
-      ),
     );
   }
 }
