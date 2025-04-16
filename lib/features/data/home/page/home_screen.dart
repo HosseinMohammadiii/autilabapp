@@ -1,8 +1,10 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/home/widgets/new_appointment_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../doctor/widgets/specialty_list_widget.dart';
@@ -66,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: AutilabColor.blue,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(AutiLabRoutes.allAppointmentScreen);
+                      },
                     ),
                   ],
                 ),
@@ -90,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: statusList[index].statusColor,
                       title: statusList[index].title,
                       statusIcon: statusList[index].statusIcon,
-                      margin: index == statusList.length - 1 ? 0 : 16,
+                      image: 'assets/images/doctor_image.png',
+                      margin: EdgeInsets.only(
+                          right: index == statusList.length - 1 ? 0 : 16),
                       onTap: () {},
                     );
                   },

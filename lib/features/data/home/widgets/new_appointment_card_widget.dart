@@ -13,12 +13,14 @@ class NewAppointmentsCardWidget extends StatelessWidget {
     required this.statusIcon,
     required this.margin,
     required this.onTap,
+    required this.image,
   });
   final Function() onTap;
+  final String image;
   final Color color;
   final String title;
   final String statusIcon;
-  final double margin;
+  final EdgeInsetsGeometry margin;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
       width: 350,
       padding: const EdgeInsets.all(16),
       alignment: Alignment.center,
-      margin: EdgeInsets.only(right: margin),
+      margin: margin,
       decoration: BoxDecoration(
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),
@@ -69,7 +71,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset('assets/images/doctor_image.png'),
+                child: Image.asset(image),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
