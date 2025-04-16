@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Pending',
     ),
   ];
+  List<String> titlePlanList = ['Free Plan', "299\$/Years", '99\$/Month'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,11 +82,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemCount: 3,
+                  padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return NewAppointmentsCardWidget(
                       color: statusList[index].statusColor,
                       title: statusList[index].title,
                       statusIcon: statusList[index].statusIcon,
+                      margin: index == statusList.length - 1 ? 0 : 16,
                     );
                   },
                 ),
@@ -280,9 +283,148 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 48,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 430,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  padding: AutilabMargin.marginFullScreen,
+                  itemCount: titlePlanList.length,
+                  itemBuilder: (context, index) => planBoxWidget(
+                    title: titlePlanList[index],
+                    margin: index == titlePlanList.length - 1 ? 0 : 16,
+                  ),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 48,
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget planBoxWidget({
+    required String title,
+    required double margin,
+  }) {
+    return Container(
+      width: 350,
+      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(right: margin),
+      decoration: BoxDecoration(
+        color: AutilabColor.white,
+        border: Border.all(color: AutilabColor.bb),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          titlePlanWidget(
+            title: title,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          const Divider(
+            thickness: 0.5,
+            color: AutilabColor.black,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          const Text(
+            'An Initial Test To Determine How Much You Are At Risk Of Cancer Based Dr. Mitchell H',
+            style: AutilabTextStyle.small16_400,
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          descriptionPlanWidget(),
+          const SizedBox(
+            height: 8,
+          ),
+          descriptionPlanWidget(),
+          const SizedBox(
+            height: 8,
+          ),
+          descriptionPlanWidget(),
+          const SizedBox(
+            height: 8,
+          ),
+          descriptionPlanWidget(),
+          CustomButtonWidget(
+            onTap: () {},
+            height: 50,
+            margin: const EdgeInsets.only(top: 32),
+            color: AutilabColor.bb,
+            text: 'See Advance Package',
+            textStyle: AutilabTextStyle.small18_400,
+          ),
+        ],
+      ),
+    );
+  }
+
+//Widget for display plans title
+  Widget titlePlanWidget({
+    required String title,
+  }) {
+    return Row(
+      children: [
+        Container(
+          height: 40,
+          width: 40,
+          margin: const EdgeInsets.only(right: 10),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: AutilabColor.yellow,
+          ),
+          child: SvgPicture.asset(
+            'assets/icons/crown_icon.svg',
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        Text(
+          title,
+          style: AutilabTextStyle.medium24_500,
+        ),
+      ],
+    );
+  }
+
+//Display description plans cards
+  Widget descriptionPlanWidget() {
+    return Row(
+      children: [
+        Container(
+          width: 23,
+          height: 23,
+          margin: const EdgeInsets.only(right: 4),
+          decoration: const BoxDecoration(
+            color: AutilabColor.yellow,
+            shape: BoxShape.circle,
+          ),
+          child: SvgPicture.asset(
+            'assets/icons/tick_icon.svg',
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        const Text(
+          ' Initial Test To Determine How Much You Are',
+          style: AutilabTextStyle.small14_400,
+        ),
+      ],
     );
   }
 }
@@ -368,10 +510,12 @@ class NewAppointmentsCardWidget extends StatelessWidget {
     required this.color,
     required this.title,
     required this.statusIcon,
+    required this.margin,
   });
   final Color color;
   final String title;
   final String statusIcon;
+  final double margin;
 
   @override
   Widget build(BuildContext context) {
@@ -379,7 +523,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
       width: 350,
       padding: const EdgeInsets.all(16),
       alignment: Alignment.center,
-      margin: AutilabMargin.marginFullScreen,
+      margin: EdgeInsets.only(right: margin),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),
@@ -458,6 +602,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                     width: 186,
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
+                      color: const Color(0xffECF0FF),
                       border: Border.all(color: AutilabColor.bb),
                       borderRadius: BorderRadius.circular(12),
                     ),

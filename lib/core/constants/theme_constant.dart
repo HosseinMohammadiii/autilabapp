@@ -62,6 +62,11 @@ class AutilabTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.w500,
   );
+  static const TextStyle medium24_500 = TextStyle(
+    fontFamily: 'Fredoka-Medium',
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+  );
   static const TextStyle small10_400 = TextStyle(
     fontFamily: 'Fredoka-Regular',
     fontSize: 10,
