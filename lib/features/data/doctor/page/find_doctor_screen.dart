@@ -9,18 +9,19 @@ import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/Lists/category_items.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../utils/functions/custom_dialog_function.dart';
-import 'custom_checkbox_widget.dart';
-import 'doctor_box_widget.dart';
-import 'specialty_list_widget.dart';
+import '../widgets/custom_checkbox_widget.dart';
+import '../widgets/doctor_box_widget.dart';
+import '../widgets/search_textfield_widget.dart';
+import '../widgets/specialty_list_widget.dart';
 
-class FindDoctorWidget extends StatefulWidget {
-  const FindDoctorWidget({super.key});
+class FindDoctorScreen extends StatefulWidget {
+  const FindDoctorScreen({super.key});
 
   @override
-  State<FindDoctorWidget> createState() => _FindDoctorWidgetState();
+  State<FindDoctorScreen> createState() => _FindDoctorScreenState();
 }
 
-class _FindDoctorWidgetState extends State<FindDoctorWidget>
+class _FindDoctorScreenState extends State<FindDoctorScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
@@ -46,7 +47,7 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
   }
 
   @override
-  void didUpdateWidget(covariant FindDoctorWidget oldWidget) {
+  void didUpdateWidget(covariant FindDoctorScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
   }
@@ -56,60 +57,22 @@ class _FindDoctorWidgetState extends State<FindDoctorWidget>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: AutilabMargin.marginFullScreen,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 8,
                 children: [
                   Expanded(
                     child: SizedBox(
                       height: 40,
-                      child: TextField(
-                        focusNode: searchFocusNode,
-                        controller: searchController,
-                        cursorColor: Colors.black,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 2),
-                          prefixIcon: SvgPicture.asset(
-                            fit: BoxFit.none,
-                            'assets/icons/search_icon.svg',
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32),
-                            borderSide: const BorderSide(
-                              color: AutilabColor.black,
-                              width: 1,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32),
-                            borderSide: const BorderSide(
-                              color: AutilabColor.black,
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32),
-                            borderSide: const BorderSide(
-                              color: AutilabColor.black,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        onChanged: (value) {},
-                        onTapOutside: (event) {
-                          //Unfocus TextField
-                          searchFocusNode.unfocus();
-                        },
+                      child: SearchTextFieldWidget(
+                        searchFocusNode: searchFocusNode,
+                        searchController: searchController,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8,
                   ),
                   GestureDetector(
                     onTap: () {

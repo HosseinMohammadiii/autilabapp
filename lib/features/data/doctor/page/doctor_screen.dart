@@ -1,11 +1,11 @@
-import 'package:autilab_project/features/data/doctor/widgets/find_doctor_widget.dart';
+import 'package:autilab_project/features/data/doctor/page/find_doctor_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/custom_tabbar_widget.dart';
 
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../widgets/nearby_center_widget.dart';
+import 'nearby_center_screen.dart';
 
 class DoctorScreen extends StatefulWidget {
   const DoctorScreen({super.key});
@@ -61,8 +61,8 @@ class _DoctorScreenState extends State<DoctorScreen>
               ),
             ],
             tabBarView: [
-              FindDoctorWidget(),
-              NearbyCenterWidget(),
+              FindDoctorScreen(),
+              NearbyCenterScreen(),
             ],
           ),
         ),

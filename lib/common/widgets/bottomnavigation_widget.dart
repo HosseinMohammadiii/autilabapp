@@ -109,6 +109,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       '/doctorScreen',
       '/toolsScreen',
       '/communityScreen',
+      '/doctorSpecialityScreen',
     ];
     if (locationList.contains(GoRouterState.of(context).uri.toString())) {
       return true;

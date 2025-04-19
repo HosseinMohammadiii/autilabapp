@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
-class NearbyCenterWidget extends StatefulWidget {
-  const NearbyCenterWidget({
+class NearbyCenterScreen extends StatefulWidget {
+  const NearbyCenterScreen({
     super.key,
   });
 
   @override
-  State<NearbyCenterWidget> createState() => _NearbyCenterWidgetState();
+  State<NearbyCenterScreen> createState() => _NearbyCenterScreenState();
 }
 
-class _NearbyCenterWidgetState extends State<NearbyCenterWidget>
+class _NearbyCenterScreenState extends State<NearbyCenterScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
   @override
@@ -33,7 +33,7 @@ class _NearbyCenterWidgetState extends State<NearbyCenterWidget>
   }
 
   @override
-  void didUpdateWidget(covariant NearbyCenterWidget oldWidget) {
+  void didUpdateWidget(covariant NearbyCenterScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
   }
