@@ -1,12 +1,12 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/textfiledbox_description.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
-import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../utils/Lists/category_items.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../widgets/box_detail_widget.dart';
 import '../widgets/nearby_card_widget.dart';
 import '../widgets/specialty_item_widget.dart';
 
@@ -92,7 +92,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: BoxDetailNearbyCenterAndDoctorInfo(
+                sliver: BoxDetailWidget(
                     title: 'Full Name', subtitle: 'Autism Help Center'),
               ),
               const SliverToBoxAdapter(
@@ -102,8 +102,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: BoxDetailNearbyCenterAndDoctorInfo(
-                    title: 'Age', subtitle: '6-18'),
+                sliver: BoxDetailWidget(title: 'Age', subtitle: '6-18'),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -112,8 +111,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: BoxDetailNearbyCenterAndDoctorInfo(
-                    title: 'Gender', subtitle: 'both'),
+                sliver: BoxDetailWidget(title: 'Gender', subtitle: 'both'),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(

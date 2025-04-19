@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/theme_constant.dart';
+
+class TimeBoxDoctorCard extends StatelessWidget {
+  const TimeBoxDoctorCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 32,
+      width: 186,
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: const Color(0xffECF0FF),
+        border: Border.all(color: AutilabColor.bb),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            'assets/icons/calendar.svg',
+            colorFilter: const ColorFilter.mode(
+              AutilabColor.blue,
+              BlendMode.srcIn,
+            ),
+          ),
+          const Text(
+            ' Tues 03 March ',
+            style: AutilabTextStyle.medium12_500,
+          ),
+          Container(
+            height: 16,
+            width: 2,
+            decoration: const BoxDecoration(
+              color: AutilabColor.bb,
+            ),
+          ),
+          SvgPicture.asset(
+            'assets/icons/clock_icon.svg',
+            colorFilter: const ColorFilter.mode(
+              AutilabColor.blue,
+              BlendMode.srcIn,
+            ),
+          ),
+          const Text(
+            '13:30',
+            style: AutilabTextStyle.medium12_500,
+          ),
+        ],
+      ),
+    );
+  }
+}

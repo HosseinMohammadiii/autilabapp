@@ -1,13 +1,15 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/Lists/category_items.dart';
+import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
+import '../widgets/container_more_detail_widget.dart';
+import '../widgets/personal_detail_widget.dart';
 import '../widgets/specialty_item_widget.dart';
 
 class DoctorInfoScreen extends StatefulWidget {
@@ -117,40 +119,36 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   height: 16,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/profile_icon.svg'),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    const Text(
-                      'Personal Details',
-                      style: AutilabTextStyle.medium18_500,
-                    ),
-                  ],
-                ),
+              const SliverToBoxAdapter(
+                child: PersonalDetailWidget(),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
                   height: 24,
                 ),
               ),
-              const BoxDetailNearbyCenterAndDoctorInfo(
-                title: 'Full Name',
-                subtitle: 'Dr. Sophia Martinez',
-              ),
-              const BoxDetailNearbyCenterAndDoctorInfo(
-                title: "Doctor's Degree",
-                subtitle: 'Phd',
-              ),
-              const BoxDetailNearbyCenterAndDoctorInfo(
-                title: 'Age',
-                subtitle: '30',
-              ),
-              const BoxDetailNearbyCenterAndDoctorInfo(
-                title: 'Gender',
-                subtitle: 'ّFemale',
+              const SliverToBoxAdapter(
+                child: Column(
+                  spacing: 12,
+                  children: [
+                    BoxDetailWidget(
+                      title: 'Full Name',
+                      subtitle: 'Dr. Sophia Martinez',
+                    ),
+                    BoxDetailWidget(
+                      title: "Doctor's Degree",
+                      subtitle: 'Phd',
+                    ),
+                    BoxDetailWidget(
+                      title: 'Age',
+                      subtitle: '30',
+                    ),
+                    BoxDetailWidget(
+                      title: 'Gender',
+                      subtitle: 'ّFemale',
+                    ),
+                  ],
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -225,65 +223,14 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   height: 24,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Container(
-                  width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height / 3,
-                  padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(bottom: 48),
-                  decoration: BoxDecoration(
-                    color: AutilabColor.primary,
-                    border: Border.all(width: 0.5, color: AutilabColor.gray),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: const Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatenim ad minim veniam, quis nostrud exercitation ullamco laboris',
-                    style: AutilabTextStyle.small14_400,
-                  ),
+              const SliverToBoxAdapter(
+                child: ContainerDetailBox(
+                  detail:
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatenim ad minim veniam, quis nostrud exercitation ullamco laboris',
                 ),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class BoxDetailNearbyCenterAndDoctorInfo extends StatelessWidget {
-  const BoxDetailNearbyCenterAndDoctorInfo({
-    super.key,
-    required this.title,
-    required this.subtitle,
-  });
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(
-        width: double.infinity,
-        height: 50,
-        margin: const EdgeInsets.only(top: 8),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: const Color(0xffECF0FF),
-          border: Border.all(width: 0.5, color: AutilabColor.bb),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: AutilabTextStyle.small14_400,
-            ),
-            Text(
-              subtitle,
-              style: AutilabTextStyle.medium16_500,
-            ),
-          ],
         ),
       ),
     );

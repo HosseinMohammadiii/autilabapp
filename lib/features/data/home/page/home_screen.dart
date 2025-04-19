@@ -97,7 +97,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       image: 'assets/images/doctor_image.png',
                       margin: EdgeInsets.only(
                           right: index == statusList.length - 1 ? 0 : 16),
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(
+                          AutiLabRoutes.detailAppointmentScreen,
+                          extra: {
+                            'status': statusList[index],
+                          },
+                        );
+                      },
                     );
                   },
                 ),

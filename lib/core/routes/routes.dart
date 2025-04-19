@@ -11,6 +11,7 @@ import 'package:autilab_project/features/data/doctor/page/doctor_work_schedule_s
 import 'package:autilab_project/features/data/doctor/page/make_appointment_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
 import 'package:autilab_project/features/data/home/page/all_appointment_screen.dart';
+import 'package:autilab_project/features/data/home/page/detail_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
@@ -49,6 +50,16 @@ class AutilabRouter {
                     name: AutiLabRoutes.allAppointmentScreen,
                     builder: (context, state) => const AllAppointmentScreen(),
                   ),
+                  GoRoute(
+                      path: 'detailAppointmentScreen',
+                      name: AutiLabRoutes.detailAppointmentScreen,
+                      builder: (context, state) {
+                        final Map<String, dynamic> extraData =
+                            state.extra as Map<String, dynamic>;
+                        return DetailAppointmentScreen(
+                          status: extraData['status'] as StatusClass,
+                        );
+                      }),
                 ],
               ),
             ],
