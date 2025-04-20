@@ -15,6 +15,7 @@ import 'package:autilab_project/features/data/home/page/all_appointment_screen.d
 import 'package:autilab_project/features/data/home/page/detail_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
+import 'package:autilab_project/features/data/profile/Page/user_message_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
@@ -100,11 +101,6 @@ class AutilabRouter {
                     builder: (context, state) =>
                         const NearbyCenterDetailsScreen(),
                   ),
-                  // GoRoute(
-                  //   path: '/doctorSpecialityScreen',
-                  //   name: AutiLabRoutes.doctorSpecialityScreen,
-                  //   builder: (context, state) => const DoctorSpecialityScreen(),
-                  // ),
                 ],
               ),
               GoRoute(
@@ -179,6 +175,11 @@ class AutilabRouter {
         path: '/editProfileScreen',
         name: AutiLabRoutes.editProfileScreen,
         builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: '/messageProfileScreen',
+        name: AutiLabRoutes.messageProfileScreen,
+        builder: (context, state) => const UserMessageScreen(),
       ),
     ],
   );

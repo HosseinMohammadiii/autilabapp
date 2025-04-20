@@ -20,7 +20,7 @@ class SpecialtiesListWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              context.goNamed(AutiLabRoutes.doctorSpecialityScreen);
+              context.pushNamed(AutiLabRoutes.doctorSpecialityScreen);
             },
             child: Container(
               height: 113,

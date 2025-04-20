@@ -80,8 +80,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     ),
   ];
 
-  bool canBack = false;
-
   bool isPlaying = false;
 
   @override
@@ -127,12 +125,11 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
           GoRouterState.of(context).uri.path != '/homeScreen' ? false : true,
       onPopInvokedWithResult: (didPop, result) {
         if (GoRouterState.of(context).uri.path != '/homeScreen') {
-          setState(() {
-            context.go('/homeScreen');
-          });
+          context.go('/homeScreen');
         }
       },
       child: Scaffold(
+        // drawerScrimColor: Colors.transparent,
         key: scaffoldKey,
         appBar: isMainScreen()
             ? AppBar(
@@ -259,6 +256,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
             position: _slideTransition,
             child: Drawer(
               backgroundColor: AutilabColor.backgroundDrawer,
+              elevation: 0,
               child: ListView(
                 children: [
                   const SizedBox(
@@ -268,7 +266,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                     alignment: Alignment.topCenter,
                     children: [
                       Container(
-                        width: double.infinity,
+                        // width: double.infinity,
                         height: 124,
                         margin: const EdgeInsets.only(
                             left: 20, right: 20, top: 36, bottom: 8),
@@ -335,7 +333,17 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   ),
                   DrawerBoxWidget(
                     drawerItem: firstDrawerItemList,
-                    onTap: (index) {},
+                    onTap: (index) {
+                      context.pop();
+
+                      switch (index) {
+                        case 1:
+                          context.pushNamed(AutiLabRoutes.allAppointmentScreen);
+                        case 2:
+                          context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                        default:
+                      }
+                    },
                   ),
                   DrawerBoxWidget(
                     drawerItem: secondDrawerItemList,
