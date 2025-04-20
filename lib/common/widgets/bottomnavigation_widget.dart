@@ -80,6 +80,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     ),
   ];
 
+  bool canBack = false;
+
   bool isPlaying = false;
 
   @override
@@ -111,7 +113,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       '/communityScreen',
       '/doctorSpecialityScreen',
     ];
-    if (locationList.contains(GoRouterState.of(context).uri.toString())) {
+    if (locationList.contains(GoRouterState.of(context).uri.path)) {
       return true;
     } else {
       return false;
@@ -120,228 +122,239 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: isMainScreen()
-          ? AppBar(
-              leadingWidth: double.infinity,
-              toolbarHeight: 100,
-              automaticallyImplyLeading: false,
-              flexibleSpace: Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                ),
-                child: Wrap(
-                  runAlignment: WrapAlignment.spaceBetween,
-                  alignment: WrapAlignment.center,
-                  direction: Axis.vertical,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        scaffoldKey.currentState?.openDrawer();
-                      },
-                      child: const Icon(Icons.menu),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Current location',
-                          style: AutilabTextStyle.small16_400.copyWith(
-                            color: AutilabColor.gray,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            children: [
-                              SvgPicture.asset('assets/icons/gps.svg'),
-                              const Text(
-                                'Toronto,Canada',
-                                style: AutilabTextStyle.small18_400,
-                              ),
-                              const Icon(Icons.arrow_drop_down),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: CachednetworkimageWidget(
-                        imgUrl: '',
-                        img: Image.asset(
-                          'assets/images/child2_image.jpg',
-                          fit: BoxFit.cover,
-                          width: 52,
-                          height: 52,
-                        ),
-                        isNetworkImage: false,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          : null,
-      bottomNavigationBar: Container(
-        height: 95,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
-          color: AutilabColor.white,
-          boxShadow: [
-            BoxShadow(
-              color: AutilabColor.black.withValues(alpha: 0.2),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _bottomnavigationItem(
-              index: 0,
-              selctItems: widget.navigationShell.currentIndex,
-              lable: 'Home',
-              icon: 'assets/icons/home_buttomnavigation.svg',
-              context: context,
-            ),
-            _bottomnavigationItem(
-              index: 1,
-              selctItems: widget.navigationShell.currentIndex,
-              lable: 'Doctor',
-              icon: 'assets/icons/doctor_buttomnavigation.svg',
-              context: context,
-            ),
-            _bottomnavigationItem(
-              index: 2,
-              selctItems: widget.navigationShell.currentIndex,
-              lable: 'Tools',
-              icon: 'assets/icons/tools_buttomnavigation.svg',
-              context: context,
-            ),
-            _bottomnavigationItem(
-              index: 3,
-              selctItems: widget.navigationShell.currentIndex,
-              lable: 'Community',
-              icon: 'assets/icons/global_buttomnavigation.svg',
-              context: context,
-            ),
-          ],
-        ),
-      ),
-      onDrawerChanged: (isOpened) {
-        setState(() {
-          isPlaying = isOpened;
-          isOpened
-              ? _animationController.forward()
-              : _animationController.reverse();
-        });
+    return PopScope(
+      canPop:
+          GoRouterState.of(context).uri.path != '/homeScreen' ? false : true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (GoRouterState.of(context).uri.path != '/homeScreen') {
+          setState(() {
+            context.go('/homeScreen');
+          });
+        }
       },
-      drawer: SafeArea(
-        child: SlideTransition(
-          position: _slideTransition,
-          child: Drawer(
-            backgroundColor: AutilabColor.backgroundDrawer,
-            child: ListView(
-              children: [
-                const SizedBox(
-                  height: 32,
-                ),
-                Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 124,
-                      margin: const EdgeInsets.only(
-                          left: 20, right: 20, top: 36, bottom: 8),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 25),
-                      decoration: BoxDecoration(
-                        color: AutilabColor.drawerWhite,
-                        borderRadius: BorderRadius.circular(16),
+      child: Scaffold(
+        key: scaffoldKey,
+        appBar: isMainScreen()
+            ? AppBar(
+                leadingWidth: double.infinity,
+                toolbarHeight: 100,
+                automaticallyImplyLeading: false,
+                flexibleSpace: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Wrap(
+                    runAlignment: WrapAlignment.spaceBetween,
+                    alignment: WrapAlignment.center,
+                    direction: Axis.vertical,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          scaffoldKey.currentState?.openDrawer();
+                        },
+                        child: const Icon(Icons.menu),
                       ),
-                      child: Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                'Denis Iliev',
-                                style: AutilabTextStyle.medium16_500,
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                'denis@gmail.com',
-                                style: AutilabTextStyle.small14_400,
-                              ),
-                            ],
+                          Text(
+                            'Current location',
+                            style: AutilabTextStyle.small16_400.copyWith(
+                              color: AutilabColor.gray,
+                            ),
                           ),
-                          const Spacer(),
-                          CustomButtonWidget(
-                            onTap: () {
-                              context
-                                  .pushNamed(AutiLabRoutes.editProfileScreen);
-                            },
-                            width: 100,
-                            height: 32,
-                            borderRadius: 12,
-                            margin: const EdgeInsets.all(0),
-                            color: AutilabColor.blue,
-                            text: 'Edit Profile',
-                            textStyle: AutilabTextStyle.small12_400.copyWith(
-                              color: AutilabColor.white,
+                          GestureDetector(
+                            onTap: () {},
+                            child: Row(
+                              children: [
+                                SvgPicture.asset('assets/icons/gps.svg'),
+                                const Text(
+                                  'Toronto,Canada',
+                                  style: AutilabTextStyle.small18_400,
+                                ),
+                                const Icon(Icons.arrow_drop_down),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: CachednetworkimageWidget(
-                        imgUrl: '',
-                        img: Image.asset(
-                          'assets/images/child2_image.jpg',
-                          fit: BoxFit.cover,
-                          width: 72,
-                          height: 72,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: CachednetworkimageWidget(
+                          imgUrl: '',
+                          img: Image.asset(
+                            'assets/images/child2_image.jpg',
+                            fit: BoxFit.cover,
+                            width: 52,
+                            height: 52,
+                          ),
+                          isNetworkImage: false,
                         ),
-                        isNetworkImage: false,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                DrawerBoxWidget(
-                  drawerItem: firstDrawerItemList,
-                  onTap: (index) {},
-                ),
-                DrawerBoxWidget(
-                  drawerItem: secondDrawerItemList,
-                  onTap: (index) {},
-                ),
-                DrawerBoxWidget(
-                  drawerItem: thirdDrawerItemList,
-                  onTap: (index) {},
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
+              )
+            : null,
+        bottomNavigationBar: Container(
+          height: 95,
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            color: AutilabColor.white,
+            boxShadow: [
+              BoxShadow(
+                color: AutilabColor.black.withValues(alpha: 0.2),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _bottomnavigationItem(
+                index: 0,
+                selctItems: widget.navigationShell.currentIndex,
+                lable: 'Home',
+                icon: 'assets/icons/home_buttomnavigation.svg',
+                context: context,
+              ),
+              _bottomnavigationItem(
+                index: 1,
+                selctItems: widget.navigationShell.currentIndex,
+                lable: 'Doctor',
+                icon: 'assets/icons/doctor_buttomnavigation.svg',
+                context: context,
+              ),
+              _bottomnavigationItem(
+                index: 2,
+                selctItems: widget.navigationShell.currentIndex,
+                lable: 'Tools',
+                icon: 'assets/icons/tools_buttomnavigation.svg',
+                context: context,
+              ),
+              _bottomnavigationItem(
+                index: 3,
+                selctItems: widget.navigationShell.currentIndex,
+                lable: 'Community',
+                icon: 'assets/icons/global_buttomnavigation.svg',
+                context: context,
+              ),
+            ],
+          ),
+        ),
+        onDrawerChanged: (isOpened) {
+          setState(() {
+            isPlaying = isOpened;
+            isOpened
+                ? _animationController.forward()
+                : _animationController.reverse();
+          });
+        },
+        drawer: SafeArea(
+          child: SlideTransition(
+            position: _slideTransition,
+            child: Drawer(
+              backgroundColor: AutilabColor.backgroundDrawer,
+              child: ListView(
+                children: [
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 124,
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, top: 36, bottom: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 25),
+                        decoration: BoxDecoration(
+                          color: AutilabColor.drawerWhite,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Denis Iliev',
+                                  style: AutilabTextStyle.medium16_500,
+                                ),
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  'denis@gmail.com',
+                                  style: AutilabTextStyle.small14_400,
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            CustomButtonWidget(
+                              onTap: () {
+                                context
+                                    .pushNamed(AutiLabRoutes.editProfileScreen);
+                              },
+                              width: 100,
+                              height: 32,
+                              borderRadius: 12,
+                              margin: const EdgeInsets.all(0),
+                              color: AutilabColor.blue,
+                              text: 'Edit Profile',
+                              textStyle: AutilabTextStyle.small12_400.copyWith(
+                                color: AutilabColor.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachednetworkimageWidget(
+                          imgUrl: '',
+                          img: Image.asset(
+                            'assets/images/child2_image.jpg',
+                            fit: BoxFit.cover,
+                            width: 72,
+                            height: 72,
+                          ),
+                          isNetworkImage: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                  DrawerBoxWidget(
+                    drawerItem: firstDrawerItemList,
+                    onTap: (index) {},
+                  ),
+                  DrawerBoxWidget(
+                    drawerItem: secondDrawerItemList,
+                    onTap: (index) {},
+                  ),
+                  DrawerBoxWidget(
+                    drawerItem: thirdDrawerItemList,
+                    onTap: (index) {},
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+        body: widget.navigationShell,
       ),
-      body: widget.navigationShell,
     );
   }
 
