@@ -341,6 +341,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           context.pushNamed(AutiLabRoutes.allAppointmentScreen);
                         case 2:
                           context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                        case 3:
+                          context.pushNamed(AutiLabRoutes.subscribtionScreen);
                         default:
                       }
                     },

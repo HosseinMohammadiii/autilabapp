@@ -20,8 +20,6 @@ class _UserMessageScreenState extends State<UserMessageScreen>
 
   final searchFocusNode = FocusNode();
 
-  bool isChecked = false;
-
   @override
   void initState() {
     super.initState();
