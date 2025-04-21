@@ -15,6 +15,7 @@ import 'package:autilab_project/features/data/home/page/all_appointment_screen.d
 import 'package:autilab_project/features/data/home/page/detail_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
+import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/my_subscribtion_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/user_message_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
@@ -186,6 +187,11 @@ class AutilabRouter {
         path: '/subscribtionScreen',
         name: AutiLabRoutes.subscribtionScreen,
         builder: (context, state) => const MySubscribtionScreen(),
+      ),
+      GoRoute(
+        path: '/notificationScreen',
+        name: AutiLabRoutes.notificationScreen,
+        builder: (context, state) => const NotificationScreen(),
       ),
     ],
   );

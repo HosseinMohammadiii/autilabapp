@@ -349,7 +349,19 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   ),
                   DrawerBoxWidget(
                     drawerItem: secondDrawerItemList,
-                    onTap: (index) {},
+                    onTap: (index) {
+                      context.pop();
+
+                      switch (index) {
+                        case 0:
+                          context.pushNamed(AutiLabRoutes.notificationScreen);
+                        case 2:
+                          context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                        case 3:
+                          context.pushNamed(AutiLabRoutes.subscribtionScreen);
+                        default:
+                      }
+                    },
                   ),
                   DrawerBoxWidget(
                     drawerItem: thirdDrawerItemList,
