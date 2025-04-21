@@ -14,6 +14,7 @@ import 'package:autilab_project/features/data/doctor/page/nearby_center_details_
 import 'package:autilab_project/features/data/home/page/all_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/detail_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
+import 'package:autilab_project/features/data/home/page/my_favorite_screen.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/my_subscribtion_screen.dart';
@@ -198,6 +199,11 @@ class AutilabRouter {
         path: '/testHistoryScreen',
         name: AutiLabRoutes.testHistoryScreen,
         builder: (context, state) => const TestHistoryScreen(),
+      ),
+      GoRoute(
+        path: '/myFavoriteScreen',
+        name: AutiLabRoutes.myFavoriteScreen,
+        builder: (context, state) => const MyFavoriteScreen(),
       ),
     ],
   );

@@ -343,7 +343,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           context.pushNamed(AutiLabRoutes.messageProfileScreen);
                         case 3:
                           context.pushNamed(AutiLabRoutes.subscribtionScreen);
-                        default:
                       }
                     },
                   ),
@@ -357,9 +356,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           context.pushNamed(AutiLabRoutes.notificationScreen);
                         case 1:
                           context.pushNamed(AutiLabRoutes.testHistoryScreen);
-                        case 3:
-                          context.pushNamed(AutiLabRoutes.subscribtionScreen);
-                        default:
+                        case 2:
+                          context.pushNamed(AutiLabRoutes.myFavoriteScreen);
                       }
                     },
                   ),
