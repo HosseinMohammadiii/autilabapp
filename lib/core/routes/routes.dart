@@ -17,6 +17,7 @@ import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/my_subscribtion_screen.dart';
+import 'package:autilab_project/features/data/profile/Page/test_history_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/user_message_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
@@ -192,6 +193,11 @@ class AutilabRouter {
         path: '/notificationScreen',
         name: AutiLabRoutes.notificationScreen,
         builder: (context, state) => const NotificationScreen(),
+      ),
+      GoRoute(
+        path: '/testHistoryScreen',
+        name: AutiLabRoutes.testHistoryScreen,
+        builder: (context, state) => const TestHistoryScreen(),
       ),
     ],
   );

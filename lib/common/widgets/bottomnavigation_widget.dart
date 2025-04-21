@@ -355,8 +355,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       switch (index) {
                         case 0:
                           context.pushNamed(AutiLabRoutes.notificationScreen);
-                        case 2:
-                          context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                        case 1:
+                          context.pushNamed(AutiLabRoutes.testHistoryScreen);
                         case 3:
                           context.pushNamed(AutiLabRoutes.subscribtionScreen);
                         default:
