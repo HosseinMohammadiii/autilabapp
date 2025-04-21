@@ -24,6 +24,9 @@ class AutilabTheme {
 class AutilabMargin {
   static const EdgeInsets marginFullScreen =
       EdgeInsets.symmetric(horizontal: 20);
+
+  static const EdgeInsets marginVertical_48 =
+      EdgeInsets.symmetric(vertical: 48);
 }
 
 class AutilabTextStyle {

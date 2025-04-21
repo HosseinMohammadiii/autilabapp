@@ -19,6 +19,7 @@ class MesseageBoxProfile extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       margin: AutilabMargin.marginFullScreen,
       decoration: BoxDecoration(
+        color: Colors.white,
         border: Border.all(color: AutilabColor.bb),
         borderRadius: BorderRadius.circular(16),
       ),

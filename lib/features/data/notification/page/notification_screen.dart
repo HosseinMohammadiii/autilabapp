@@ -1,7 +1,9 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../widgets/notification_box_widget.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -45,7 +47,20 @@ class _NotificationScreenState extends State<NotificationScreen>
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-              children: [],
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 8,
+                  padding: AutilabMargin.marginVertical_48,
+                  itemBuilder: (context, index) {
+                    return const Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: NotificationBoxWidget(),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),

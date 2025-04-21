@@ -50,7 +50,6 @@ class _UserMessageScreenState extends State<UserMessageScreen>
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-              // spacing: 16,
               children: [
                 const SizedBox(
                   height: 48,
