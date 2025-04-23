@@ -292,7 +292,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               height: 16,
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Text(
               "Doctor's specialty",
               style: AutilabTextStyle.medium18_500,
