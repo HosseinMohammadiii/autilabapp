@@ -78,7 +78,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                           : const Icon(
                               Icons.favorite_border_rounded,
                             ),
-                    )
+                    ),
                   ],
                 ),
               ],
