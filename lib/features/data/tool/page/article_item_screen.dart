@@ -1,5 +1,7 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
@@ -136,9 +138,14 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 16),
-                        child: ArticleBoxWidget(),
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: GestureDetector(
+                          onTap: () {
+                            context.pushNamed(AutiLabRoutes.mainContentScreen);
+                          },
+                          child: const ArticleBoxWidget(),
+                        ),
                       );
                     },
                   ),

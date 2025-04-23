@@ -21,6 +21,7 @@ import 'package:autilab_project/features/data/profile/Page/my_subscribtion_scree
 import 'package:autilab_project/features/data/profile/Page/test_history_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/user_message_screen.dart';
 import 'package:autilab_project/features/data/tool/page/article_item_screen.dart';
+import 'package:autilab_project/features/data/tool/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
@@ -126,6 +127,13 @@ class AutilabRouter {
                 path: '/articleItemScreen',
                 name: AutiLabRoutes.articleItemScreen,
                 builder: (context, state) => const ArticleItemScreen(),
+                routes: [
+                  GoRoute(
+                    path: '/mainContentScreen',
+                    name: AutiLabRoutes.mainContentScreen,
+                    builder: (context, state) => const MainContentScreen(),
+                  ),
+                ],
               ),
             ],
           ),
