@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/custom_dialog_function.dart';
 
 class DoctorSpecialityScreen extends StatefulWidget {
   const DoctorSpecialityScreen({super.key});

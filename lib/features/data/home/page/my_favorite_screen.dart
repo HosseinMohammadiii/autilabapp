@@ -83,7 +83,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                             child: ArticleBoxWidget(),
                           );
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),
