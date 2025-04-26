@@ -92,8 +92,10 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: BoxDetailWidget(
-                    title: 'Full Name', subtitle: 'Autism Help Center'),
+                sliver: SliverToBoxAdapter(
+                  child: BoxDetailWidget(
+                      title: 'Full Name', subtitle: 'Autism Help Center'),
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -102,7 +104,9 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: BoxDetailWidget(title: 'Age', subtitle: '6-18'),
+                sliver: SliverToBoxAdapter(
+                  child: BoxDetailWidget(title: 'Age', subtitle: '6-18'),
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -111,7 +115,9 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: BoxDetailWidget(title: 'Gender', subtitle: 'both'),
+                sliver: SliverToBoxAdapter(
+                  child: BoxDetailWidget(title: 'Gender', subtitle: 'both'),
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -152,6 +158,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                     itemCount: categoryItemsList.length,
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(
