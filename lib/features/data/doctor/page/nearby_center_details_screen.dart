@@ -211,6 +211,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                     maxLine: 4,
                     descriptionController: TextEditingController(),
                     descriptionFocusNode: FocusNode(),
+                    isEnable: false,
                     hintText:
                         'Lorem Ipsum Dolor _ Sit Amet, Consectetur _ Adipiscing Elit_ 14',
                   ),

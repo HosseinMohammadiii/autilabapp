@@ -7,6 +7,7 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
     super.key,
     required this.descriptionController,
     required this.descriptionFocusNode,
+    this.isEnable,
     required this.hintText,
     this.bordeColor,
     this.borderRadius,
@@ -15,6 +16,7 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
 
   final TextEditingController descriptionController;
   final FocusNode descriptionFocusNode;
+  final bool? isEnable;
   final String hintText;
   final Color? bordeColor;
   final double? borderRadius;
@@ -25,6 +27,7 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
     return TextField(
       controller: descriptionController,
       focusNode: descriptionFocusNode,
+      enabled: isEnable,
       cursorColor: Colors.black,
       maxLines: maxLine ?? 6,
       decoration: InputDecoration(
