@@ -107,7 +107,7 @@ class _LogInScreenState extends State<LogInScreen>
                     ),
                     CustomButtonWidget(
                       onTap: () {
-                        context.goNamed(AutiLabRoutes.doctorScreen);
+                        context.goNamed(AutiLabRoutes.homeScreen);
                       },
                       height: 50,
                       color: AutilabColor.bb,

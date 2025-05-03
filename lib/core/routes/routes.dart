@@ -23,6 +23,7 @@ import 'package:autilab_project/features/data/profile/Page/user_message_screen.d
 import 'package:autilab_project/features/data/tool/page/article_item_screen.dart';
 import 'package:autilab_project/features/data/tool/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
+import 'package:autilab_project/presentation/screens/choserole_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/homeScreen',
+    initialLocation: '/',
     routes: [
       GoRoute(
         path: '/',
@@ -156,6 +157,11 @@ class AutilabRouter {
         path: '/Program_Introduction',
         name: AutiLabRoutes.programIntroductionScreen,
         builder: (context, state) => const ProgramIntroductionScreen(),
+      ),
+      GoRoute(
+        path: '/choseRoleScreen',
+        name: AutiLabRoutes.choseRoleScreen,
+        builder: (context, state) => const ChoseRoleScreen(),
       ),
       GoRoute(
         path: '/welcome',

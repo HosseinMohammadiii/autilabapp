@@ -64,7 +64,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
         curve: Curves.easeInOut,
       );
     } else {
-      context.goNamed(AutiLabRoutes.welcomeScreen);
+      context.goNamed(AutiLabRoutes.choseRoleScreen);
     }
   }
 
@@ -162,7 +162,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                     ),
                     CustomButtonWidget(
                       onTap: () {
-                        context.goNamed(AutiLabRoutes.welcomeScreen);
+                        context.goNamed(AutiLabRoutes.choseRoleScreen);
                       },
                       height: 50,
                       width: 50,
