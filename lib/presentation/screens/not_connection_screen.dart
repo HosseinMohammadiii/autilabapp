@@ -77,7 +77,8 @@ class _NotConnectionInternetScreenState
                       onTap: () {},
                       height: 50,
                       color: AutilabColor.bb,
-                      margin: AutilabMargin.marginFullScreen,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 32),
                       text: 'Try Again',
                       textStyle: AutilabTextStyle.small18_400,
                     )

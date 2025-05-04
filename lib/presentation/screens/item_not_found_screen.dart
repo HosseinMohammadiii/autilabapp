@@ -78,7 +78,8 @@ class _ItemNotFoundScreenState extends State<ItemNotFoundScreen>
                     CustomButtonWidget(
                       onTap: () {},
                       height: 50,
-                      margin: AutilabMargin.marginFullScreen,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 32),
                       color: AutilabColor.bb,
                       text: 'Search Something Else',
                       textStyle: AutilabTextStyle.small18_400,

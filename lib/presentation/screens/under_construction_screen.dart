@@ -70,13 +70,11 @@ class _UnderConstructionScreenState extends State<UnderConstructionScreen>
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(
-                      height: 32,
-                    ),
                     CustomButtonWidget(
                       onTap: () {},
                       height: 50,
-                      margin: AutilabMargin.marginFullScreen,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 32),
                       color: AutilabColor.bb,
                       text: 'Get Home',
                       textStyle: AutilabTextStyle.small18_400,
