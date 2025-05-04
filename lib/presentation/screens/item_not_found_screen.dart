@@ -1,3 +1,4 @@
+import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -42,6 +43,8 @@ class _ItemNotFoundScreenState extends State<ItemNotFoundScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
+        appBar: appBarWidget(
+            context: context, title: 'Dr Zhale Freit', isIcon: true),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
@@ -60,21 +63,24 @@ class _ItemNotFoundScreenState extends State<ItemNotFoundScreen>
                       style: AutilabTextStyle.medium20_500,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 32,
                     ),
-                    const Text(
+                    Text(
                       'Try Searching The Item With A Different\nKeyword.',
-                      style: AutilabTextStyle.small14_400,
+                      style: AutilabTextStyle.small16_400.copyWith(
+                        color: AutilabColor.gray,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 32,
                     ),
                     CustomButtonWidget(
                       onTap: () {},
                       height: 50,
+                      margin: AutilabMargin.marginFullScreen,
                       color: AutilabColor.bb,
-                      text: 'Try Again',
+                      text: 'Search Something Else',
                       textStyle: AutilabTextStyle.small18_400,
                     )
                   ],

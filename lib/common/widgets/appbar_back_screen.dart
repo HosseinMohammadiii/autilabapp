@@ -34,7 +34,11 @@ PreferredSizeWidget appBarWidget({
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () => context.pop(),
+                  onTap: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    }
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: SvgPicture.asset('assets/icons/arrow_back.svg'),

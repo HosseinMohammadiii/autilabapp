@@ -61,20 +61,23 @@ class _NotConnectionInternetScreenState
                       style: AutilabTextStyle.medium20_500,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 32,
                     ),
-                    const Text(
+                    Text(
                       'Your Internet Connection Is Currently\nNot Available Please Check Or Try Again.',
-                      style: AutilabTextStyle.small14_400,
+                      style: AutilabTextStyle.small16_400.copyWith(
+                        color: AutilabColor.gray,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 16,
+                      height: 32,
                     ),
                     CustomButtonWidget(
                       onTap: () {},
                       height: 50,
                       color: AutilabColor.bb,
+                      margin: AutilabMargin.marginFullScreen,
                       text: 'Try Again',
                       textStyle: AutilabTextStyle.small18_400,
                     )
