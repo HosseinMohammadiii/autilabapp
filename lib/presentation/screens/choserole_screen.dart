@@ -90,10 +90,13 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
                 ),
                 CustomButtonWidget(
                   onTap: () {
-                    context.goNamed(AutiLabRoutes.welcomeScreen);
+                    if (selectedIndexNotifier.value != null) {
+                      context.goNamed(AutiLabRoutes.welcomeScreen);
+                    }
                   },
                   height: 50,
-                  margin: AutilabMargin.marginFullScreen,
+                  margin:
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 32),
                   color: AutilabColor.bb,
                   text: 'Get Start',
                   textStyle: AutilabTextStyle.small18_400,
@@ -138,7 +141,7 @@ class ChoseRoleWidget extends StatelessWidget {
             Container(
               // width: double.infinity,
               height: 110,
-              margin: const EdgeInsets.only(left: 20, right: 20, top: 40),
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 80),
               padding: padding,
               alignment: textAlignment,
               decoration: BoxDecoration(
