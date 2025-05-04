@@ -95,7 +95,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                 hasScrollBody: false,
                 fillOverscroll: false,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
                       height: 506,
