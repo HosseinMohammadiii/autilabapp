@@ -1,8 +1,12 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
+import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/widgets/custom_checkbox_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../utils/functions/animation_control.dart';
 
@@ -16,6 +20,10 @@ class ChoseRoleScreen extends StatefulWidget {
 class _ChoseRoleScreenState extends State<ChoseRoleScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+
+  bool isDoctorRole = false;
+  bool isClientRole = false;
+  final ValueNotifier<int?> selectedIndexNotifier = ValueNotifier<int?>(null);
 
   @override
   void initState() {
@@ -45,37 +53,115 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
       child: Scaffold(
         appBar: appBarWidget(context: context, title: 'Choose Your Role Below'),
         body: SafeArea(
-          child: Column(
-            children: [
-              Stack(
-                alignment: Alignment.centerRight,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 110,
-                    margin: const EdgeInsets.only(left: 20, right: 20, top: 90),
-                    padding: const EdgeInsets.only(left: 24),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                      color: AutilabColor.bb,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Text(
-                      'Occupational \n Therapist',
-                      style: AutilabTextStyle.medium18_500,
-                    ),
+          child: SingleChildScrollView(
+            child: Column(
+              spacing: 56,
+              children: [
+                const SizedBox(),
+                ChoseRoleWidget(
+                  stackAlignment: Alignment.centerRight,
+                  textAlignment: Alignment.centerLeft,
+                  image: 'occupational_role.svg',
+                  title1: 'Occupational\nTherapist',
+                  margin: const EdgeInsets.only(right: 35),
+                  padding: const EdgeInsets.only(left: 24),
+                  checkBox: CustomCheckbox(
+                    title:
+                        'Provider Of Specialized Treatment And\nEducation Services',
+                    index: 1,
+                    selectedIndexNotifier: selectedIndexNotifier,
+                    textStyle: AutilabTextStyle.small16_400,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 35),
-                    child:
-                        SvgPicture.asset('assets/icons/occupational_role.svg'),
+                ),
+                ChoseRoleWidget(
+                  stackAlignment: Alignment.centerLeft,
+                  textAlignment: Alignment.centerRight,
+                  image: 'client_role.svg',
+                  title1: 'Occupational\nTherapy\nClient',
+                  margin: const EdgeInsets.only(left: 35),
+                  padding: const EdgeInsets.only(right: 24),
+                  checkBox: CustomCheckbox(
+                    title:
+                        'User Of Medical Staff Services And\nSpecialist Training',
+                    index: 2,
+                    selectedIndexNotifier: selectedIndexNotifier,
+                    textStyle: AutilabTextStyle.small16_400,
                   ),
-                ],
-              ),
-            ],
+                ),
+                CustomButtonWidget(
+                  onTap: () {
+                    context.goNamed(AutiLabRoutes.welcomeScreen);
+                  },
+                  height: 50,
+                  margin: AutilabMargin.marginFullScreen,
+                  color: AutilabColor.bb,
+                  text: 'Get Start',
+                  textStyle: AutilabTextStyle.small18_400,
+                ),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class ChoseRoleWidget extends StatelessWidget {
+  const ChoseRoleWidget({
+    super.key,
+    required this.stackAlignment,
+    required this.textAlignment,
+    required this.image,
+    required this.title1,
+    required this.margin,
+    required this.padding,
+    required this.checkBox,
+  });
+
+  final AlignmentGeometry stackAlignment;
+  final AlignmentGeometry textAlignment;
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
+  final String image;
+  final String title1;
+  final Widget checkBox;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 12,
+      children: [
+        Stack(
+          alignment: stackAlignment,
+          children: [
+            Container(
+              // width: double.infinity,
+              height: 110,
+              margin: const EdgeInsets.only(left: 20, right: 20, top: 40),
+              padding: padding,
+              alignment: textAlignment,
+              decoration: BoxDecoration(
+                color: AutilabColor.bb,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Text(
+                title1,
+                style: AutilabTextStyle.medium18_500,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: margin,
+              child: SvgPicture.asset('assets/icons/$image'),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: checkBox,
+        ),
+      ],
     );
   }
 }

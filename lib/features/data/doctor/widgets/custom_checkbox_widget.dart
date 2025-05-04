@@ -7,12 +7,14 @@ class CustomCheckbox extends StatelessWidget {
   final String title;
   final int index;
   final ValueNotifier<int?> selectedIndexNotifier;
+  final TextStyle? textStyle;
 
   const CustomCheckbox({
     super.key,
     required this.title,
     required this.index,
     required this.selectedIndexNotifier,
+    this.textStyle,
   });
 
   @override
@@ -39,11 +41,11 @@ class CustomCheckbox extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 8,
+              width: 12,
             ),
             Text(
               title,
-              style: AutilabTextStyle.small14_400,
+              style: textStyle ?? AutilabTextStyle.small14_400,
             ),
           ],
         );
