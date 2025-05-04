@@ -4,6 +4,7 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/bubble_background_widget.dart';
@@ -54,43 +55,52 @@ class _SendEmailScreenState extends State<SendEmailScreen>
       child: Scaffold(
         appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Image.asset('assets/images/enter_email_image.png'),
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: SvgPicture.asset(
+                          'assets/images/enter_email_image.svg'),
+                    ),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                      child: Text(
+                        'Enter Your Email Address',
+                        style: AutilabTextStyle.small16_400,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    CustomTextfield(
+                      controller: emailController,
+                      focusNode: emailFocusNode,
+                      textInputType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.done,
+                      label: 'Email',
+                      borderColor: AutilabColor.blue,
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {
+                        context.pushNamed(AutiLabRoutes.sendEmailCodeScreen);
+                      },
+                      height: 50,
+                      color: AutilabColor.bb,
+                      text: 'Send Code',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                    const BubbleBackgroundWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-                  child: Text(
-                    'Enter Your Email Address',
-                    style: AutilabTextStyle.small16_400,
-                  ),
-                ),
-                CustomTextfield(
-                  controller: emailController,
-                  focusNode: emailFocusNode,
-                  textInputType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.done,
-                  label: 'Email',
-                  borderColor: AutilabColor.blue,
-                ),
-                CustomButtonWidget(
-                  onTap: () {
-                    context.pushNamed(AutiLabRoutes.sendEmailCodeScreen);
-                  },
-                  height: 50,
-                  color: AutilabColor.bb,
-                  text: 'Send Code',
-                  textStyle: AutilabTextStyle.small18_400,
-                ),
-                const BubbleBackgroundWidget(),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
