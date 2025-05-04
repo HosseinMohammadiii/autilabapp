@@ -28,6 +28,7 @@ import 'package:autilab_project/presentation/screens/item_not_found_screen.dart'
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
+import 'package:autilab_project/presentation/screens/under_construction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,7 +46,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const ItemNotFoundScreen(),
+        builder: (context, state) => const UnderConstructionScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [
@@ -236,6 +237,11 @@ class AutilabRouter {
         path: 'itemNotFoundScreen',
         name: AutiLabRoutes.itemNotFoundScreen,
         builder: (context, state) => const ItemNotFoundScreen(),
+      ),
+      GoRoute(
+        path: 'underConstructionScreen',
+        name: AutiLabRoutes.underConstructionScreen,
+        builder: (context, state) => const UnderConstructionScreen(),
       ),
     ],
   );

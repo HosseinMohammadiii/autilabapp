@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../common/widgets/custom_button_widget.dart';
+import '../../core/constants/color_constant.dart';
+import '../../core/constants/theme_constant.dart';
+import '../../utils/functions/animation_control.dart';
+
+class UnderConstructionScreen extends StatefulWidget {
+  const UnderConstructionScreen({super.key});
+
+  @override
+  State<UnderConstructionScreen> createState() =>
+      _UnderConstructionScreenState();
+}
+
+class _UnderConstructionScreenState extends State<UnderConstructionScreen>
+    with TickerProviderStateMixin {
+  late AnimationHelper animationHelper;
+  @override
+  void initState() {
+    super.initState();
+    animationHelper = AnimationHelper(
+        vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
+
+    animationHelper.animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    animationHelper.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant UnderConstructionScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    animationHelper.restartAnimation();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: animationHelper.fadeAnimation,
+      child: Scaffold(
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/icons/under_construction.svg'),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    const Text(
+                      'Under Construction',
+                      style: AutilabTextStyle.medium20_500,
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Text(
+                      "Work In Progress\nWe're Building Something Amazing",
+                      style: AutilabTextStyle.small16_400.copyWith(
+                        color: AutilabColor.gray,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {},
+                      height: 50,
+                      margin: AutilabMargin.marginFullScreen,
+                      color: AutilabColor.bb,
+                      text: 'Get Home',
+                      textStyle: AutilabTextStyle.small18_400,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
