@@ -6,6 +6,7 @@ class AutiLabRoutes {
   static const String notConnectionScreen = '/notConnectionScreen';
   static const String itemNotFoundScreen = '/itemNotFoundScreen';
   static const String underConstructionScreen = '/underConstructionScreen';
+  static const String successfulPaymentScreen = '/successfulPaymentScreen';
   static const String loginScreen = 'login';
   static const String signUpScreen = 'signUp';
   static const String editProfileScreen = '/editProfileScreen';
