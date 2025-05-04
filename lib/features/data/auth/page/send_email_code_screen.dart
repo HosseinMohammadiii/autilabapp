@@ -51,75 +51,82 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
       child: Scaffold(
         appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: SvgPicture.asset(
-                      'assets/images/enter_code_email_image.svg'),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'We will send you one time password to',
-                    style: AutilabTextStyle.small16_400,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Example@gmail.com',
-                    style: AutilabTextStyle.medium18_400.copyWith(
-                      color: AutilabColor.blue,
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: SvgPicture.asset(
+                          'assets/images/enter_code_email_image.svg'),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 60, vertical: 14),
-                  child: PinCodeTextField(
-                    appContext: context,
-                    length: 4,
-                    pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(12),
-                      fieldHeight: 52,
-                      fieldWidth: 52,
-                      inactiveBorderWidth: 0.5,
-                      activeColor: AutilabColor.blue,
-                      inactiveColor: AutilabColor.black,
+                    const SizedBox(
+                      height: 16,
                     ),
-                    cursorColor: AutilabColor.black,
-                    onCompleted: (v) {
-                      FocusScope.of(context).unfocus();
-                    },
-                  ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'We will send you one time password to',
+                        style: AutilabTextStyle.small16_400,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Example@gmail.com',
+                        style: AutilabTextStyle.medium18_400.copyWith(
+                          color: AutilabColor.blue,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 60, vertical: 14),
+                      child: PinCodeTextField(
+                        appContext: context,
+                        length: 4,
+                        pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(12),
+                          fieldHeight: 52,
+                          fieldWidth: 52,
+                          inactiveBorderWidth: 0.5,
+                          activeColor: AutilabColor.blue,
+                          inactiveColor: AutilabColor.black,
+                        ),
+                        cursorColor: AutilabColor.black,
+                        onCompleted: (v) {
+                          FocusScope.of(context).unfocus();
+                        },
+                      ),
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {
+                        context
+                            .pushReplacementNamed(AutiLabRoutes.doctorScreen);
+                      },
+                      height: 50,
+                      color: AutilabColor.bb,
+                      text: 'Send Code',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const BubbleBackgroundWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
                 ),
-                CustomButtonWidget(
-                  onTap: () {
-                    context.pushReplacementNamed(AutiLabRoutes.doctorScreen);
-                  },
-                  height: 50,
-                  color: AutilabColor.bb,
-                  text: 'Send Code',
-                  textStyle: AutilabTextStyle.small18_400,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const BubbleBackgroundWidget(),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
