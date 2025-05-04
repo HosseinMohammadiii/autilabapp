@@ -8,6 +8,14 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/functions/animation_control.dart';
 
+class ProgramIntroduction {
+  String image;
+  String title;
+  String description;
+  ProgramIntroduction(
+      {required this.image, required this.title, required this.description});
+}
+
 class ProgramIntroductionScreen extends StatefulWidget {
   const ProgramIntroductionScreen({super.key});
 
@@ -22,22 +30,25 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
 
   final pageController = PageController();
   //Image list for pageView builder
-  List<String> images = [
-    'assets/images/spech_therapy_image.svg',
-    'assets/images/Occupational_Therapy_image.svg',
-    'assets/images/family_support_image.svg',
-  ];
-  //Title list for pageView builder
-  List<String> title = [
-    'Speech Therapy',
-    'Occupational Therapy',
-    'Family Support',
-  ];
-  //Description list for pageView builder
-  List<String> description = [
-    'Assisting children who have difficulties in learning to speak and social communication.',
-    'Enhancing motor skills and muscle coordination for children with autism.',
-    'Supporting and educating parents to manage behaviors and stress related to autism.',
+  List<ProgramIntroduction> programIntroductionList = [
+    ProgramIntroduction(
+      image: 'assets/images/spech_therapy_image.svg',
+      title: 'Speech Therapy',
+      description:
+          'Assisting children who have difficulties in learning to speak and social communication.',
+    ),
+    ProgramIntroduction(
+      image: 'assets/images/Occupational_Therapy_image.svg',
+      title: 'Occupational Therapy',
+      description:
+          'Enhancing motor skills and muscle coordination for children with autism.',
+    ),
+    ProgramIntroduction(
+      image: 'assets/images/family_support_image.svg',
+      title: 'Family Support',
+      description:
+          'Supporting and educating parents to manage behaviors and stress related to autism.',
+    ),
   ];
 
   @override
@@ -94,12 +105,13 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
-                              SvgPicture.asset(images[index]),
+                              SvgPicture.asset(
+                                  programIntroductionList[index].image),
                               const SizedBox(
                                 height: 40,
                               ),
                               Text(
-                                title[index],
+                                programIntroductionList[index].title,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
@@ -116,7 +128,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
-                                  description[index],
+                                  programIntroductionList[index].description,
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
