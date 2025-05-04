@@ -24,6 +24,8 @@ import 'package:autilab_project/features/data/tool/page/article_item_screen.dart
 import 'package:autilab_project/features/data/tool/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
+import 'package:autilab_project/presentation/screens/item_not_found_screen.dart';
+import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
 import 'package:autilab_project/presentation/screens/program_introduction.dart';
 import 'package:autilab_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ItemNotFoundScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [
@@ -224,6 +226,16 @@ class AutilabRouter {
         path: '/myFavoriteScreen',
         name: AutiLabRoutes.myFavoriteScreen,
         builder: (context, state) => const MyFavoriteScreen(),
+      ),
+      GoRoute(
+        path: 'notConnectionScreen',
+        name: AutiLabRoutes.notConnectionScreen,
+        builder: (context, state) => const NotConnectionInternetScreen(),
+      ),
+      GoRoute(
+        path: 'itemNotFoundScreen',
+        name: AutiLabRoutes.itemNotFoundScreen,
+        builder: (context, state) => const ItemNotFoundScreen(),
       ),
     ],
   );

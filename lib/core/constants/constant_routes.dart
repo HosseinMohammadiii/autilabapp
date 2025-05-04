@@ -3,6 +3,8 @@ class AutiLabRoutes {
   static const String programIntroductionScreen = '/Program_Introduction';
   static const String welcomeScreen = '/welcome';
   static const String choseRoleScreen = '/choseRoleScreen';
+  static const String notConnectionScreen = '/notConnectionScreen';
+  static const String itemNotFoundScreen = '/itemNotFoundScreen';
   static const String loginScreen = 'login';
   static const String signUpScreen = 'signUp';
   static const String editProfileScreen = '/editProfileScreen';
