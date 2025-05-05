@@ -9,6 +9,7 @@ class AutiLabRoutes {
   static const String successfulPaymentScreen = '/successfulPaymentScreen';
   static const String notSuccessfulPaymentScreen =
       '/notSuccessfulPaymentScreen';
+  static const String payPackagesScreen = '/payPackagesScreen';
   static const String loginScreen = 'login';
   static const String signUpScreen = 'signUp';
   static const String editProfileScreen = '/editProfileScreen';

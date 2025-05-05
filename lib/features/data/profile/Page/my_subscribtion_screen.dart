@@ -55,6 +55,7 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
                 child: Center(
                   child: PlanBoxWidget(
                     title: 'Free Plan',
+                    titleButton: 'See Advance Package',
                     margin: 0,
                     onTap: () {},
                   ),

@@ -10,6 +10,7 @@ import '../../../../common/widgets/test_result_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../doctor/widgets/specialty_list_widget.dart';
+import '../widgets/plan_item_widget.dart';
 
 class StatusClass {
   Color statusColor;
@@ -275,6 +276,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     itemCount: titlePlanList.length,
                     itemBuilder: (context, index) => PlanBoxWidget(
                       title: titlePlanList[index],
+                      titleButton: 'See Advance Package',
+                      widget: const Column(
+                        spacing: 8,
+                        children: [
+                          PalnItemWidget(),
+                          PalnItemWidget(),
+                          PalnItemWidget(),
+                          PalnItemWidget(),
+                        ],
+                      ),
                       margin: index == titlePlanList.length - 1 ? 0 : 16,
                       onTap: () {},
                     ),
@@ -291,5 +302,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  //Display description plans cards
+  Widget descriptionPlanWidget() {
+    return PalnItemWidget();
   }
 }
