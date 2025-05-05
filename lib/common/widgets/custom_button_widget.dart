@@ -8,6 +8,7 @@ class CustomButtonWidget extends StatelessWidget {
     required this.height,
     this.margin,
     required this.color,
+    this.bordeColor,
     this.borderRadius,
     required this.text,
     required this.textStyle,
@@ -18,6 +19,7 @@ class CustomButtonWidget extends StatelessWidget {
   final double height;
   final EdgeInsetsGeometry? margin;
   final Color color;
+  final Color? bordeColor;
   final double? borderRadius;
   final String text;
   final TextStyle textStyle;
@@ -36,6 +38,7 @@ class CustomButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: boxShadow,
           color: color,
+          border: Border.all(color: bordeColor ?? Colors.transparent),
           borderRadius: BorderRadius.circular(borderRadius ?? 16),
         ),
         child: FittedBox(

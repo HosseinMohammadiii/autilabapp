@@ -19,6 +19,7 @@ import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
 import 'package:autilab_project/features/data/payment/page/not_successful_payment_screen.dart';
 import 'package:autilab_project/features/data/payment/page/pay_package_screen.dart';
+import 'package:autilab_project/features/data/payment/page/personal_detail_payment_screen.dart';
 import 'package:autilab_project/features/data/payment/page/successful_payment_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/my_subscribtion_screen.dart';
 import 'package:autilab_project/features/data/profile/Page/test_history_screen.dart';
@@ -49,7 +50,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const PayPackageScreen(),
+        builder: (context, state) => const PersonalDetailPaymentScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [
@@ -260,6 +261,11 @@ class AutilabRouter {
         path: 'payPackagesScreen',
         name: AutiLabRoutes.payPackagesScreen,
         builder: (context, state) => const PayPackageScreen(),
+      ),
+      GoRoute(
+        path: 'personalDetailPaymentScreen',
+        name: AutiLabRoutes.personalDetailPaymentScreen,
+        builder: (context, state) => const PersonalDetailPaymentScreen(),
       ),
     ],
   );
