@@ -303,9 +303,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
-
-  //Display description plans cards
-  Widget descriptionPlanWidget() {
-    return PalnItemWidget();
-  }
 }
