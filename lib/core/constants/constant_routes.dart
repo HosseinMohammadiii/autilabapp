@@ -12,6 +12,7 @@ class AutiLabRoutes {
   static const String payPackagesScreen = '/payPackagesScreen';
   static const String personalDetailPaymentScreen =
       '/personalDetailPaymentScreen';
+  static const String paymentMethodScreen = '/paymentMethodScreen';
   static const String loginScreen = 'login';
   static const String signUpScreen = 'signUp';
   static const String editProfileScreen = '/editProfileScreen';
