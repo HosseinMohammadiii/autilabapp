@@ -4,9 +4,10 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../widgets/selectmethodpaymentbox_widget.dart';
+import '../widgets/text_field_card_info_widget.dart';
 
 //TextInputFormatter for enter bank card number
 class CardNumberFormatter extends TextInputFormatter {
@@ -158,7 +159,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                       const SizedBox(
                         height: 32,
                       ),
-                      TextFieldCardnfo(
+                      TextFieldCardInfo(
                         textEditingController: bankCardNumberController,
                         focusNode: bankCardNumberFocusNode,
                         title: 'Card Number',
@@ -174,7 +175,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                       const SizedBox(
                         height: 24,
                       ),
-                      TextFieldCardnfo(
+                      TextFieldCardInfo(
                         textEditingController: bankCardNameController,
                         focusNode: bankCardNameFocusNode,
                         title: 'Name On Card',
@@ -188,7 +189,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextFieldCardnfo(
+                          TextFieldCardInfo(
                             textEditingController: bankCardCVVController,
                             focusNode: bankCardCVVFocusNode,
                             title: 'CVV',
@@ -197,7 +198,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                             maxLength: 4,
                             keyboardType: TextInputType.number,
                           ),
-                          TextFieldCardnfo(
+                          TextFieldCardInfo(
                             textEditingController: bankCardExpireDateController,
                             focusNode: bankCardExpireDateFocusNode,
                             title: 'Expire Date',
@@ -227,173 +228,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class TextFieldCardnfo extends StatelessWidget {
-  const TextFieldCardnfo({
-    super.key,
-    required this.title,
-    required this.width,
-    required this.textEditingController,
-    required this.focusNode,
-    this.maxLength,
-    required this.hint,
-    required this.keyboardType,
-    this.textInputFormat,
-  });
-  final String title;
-
-  final double width;
-  final TextEditingController textEditingController;
-  final FocusNode focusNode;
-  final int? maxLength;
-  final String hint;
-  final TextInputType keyboardType;
-  final List<TextInputFormatter>? textInputFormat;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: AutilabTextStyle.small16_400,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        SizedBox(
-          height: 55,
-          width: width,
-          child: TextField(
-            controller: textEditingController,
-            focusNode: focusNode,
-            cursorColor: Colors.black,
-            keyboardType: keyboardType,
-            inputFormatters: textInputFormat,
-            maxLength: maxLength,
-            buildCounter: (context,
-                {required currentLength,
-                required isFocused,
-                required maxLength}) {
-              return const SizedBox();
-            },
-            decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-              hintText: hint,
-              hintStyle: AutilabTextStyle.small12_400
-                  .copyWith(color: AutilabColor.gray),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: AutilabColor.black,
-                  width: 0.5,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: AutilabColor.black,
-                  width: 0.5,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
-                  color: AutilabColor.black,
-                  width: 0.5,
-                ),
-              ),
-            ),
-            onChanged: (value) {
-              value.replaceAll(" ", "");
-            },
-            onTapOutside: (event) {
-              //Unfocus TextField
-              focusNode.unfocus();
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SelectMethodPayBoxWidget extends StatelessWidget {
-  const SelectMethodPayBoxWidget({
-    super.key,
-    required this.selectedIndexNotifier,
-    this.isBorder = true,
-    required this.title,
-    required this.logo,
-    required this.index,
-  });
-
-  final ValueNotifier<int?> selectedIndexNotifier;
-  final bool isBorder;
-  final String title;
-  final String logo;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      padding: EdgeInsets.all(isBorder ? 16 : 0),
-      margin: isBorder ? AutilabMargin.marginFullScreen : null,
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: isBorder ? AutilabColor.black : Colors.transparent),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Row(
-        children: [
-          ValueListenableBuilder<int?>(
-            valueListenable: selectedIndexNotifier,
-            builder: (context, selectedIndex, child) {
-              return GestureDetector(
-                onTap: () {
-                  selectedIndexNotifier.value = index;
-                },
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  margin: const EdgeInsets.only(right: 8),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AutilabColor.black),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: selectedIndex == index
-                      ? const Icon(
-                          Icons.done_rounded,
-                          size: 16,
-                        )
-                      : const SizedBox(),
-                ),
-              );
-            },
-          ),
-          Text(
-            title,
-            style: AutilabTextStyle.medium16_500,
-          ),
-          const Spacer(),
-          isBorder
-              ? SvgPicture.asset(logo)
-              : Row(
-                  spacing: 8,
-                  children: [
-                    SvgPicture.asset('assets/icons/discover_logo.svg'),
-                    SvgPicture.asset('assets/icons/visa_logo.svg'),
-                    SvgPicture.asset('assets/icons/mastercard_logo.svg'),
-                  ],
-                ),
-        ],
       ),
     );
   }
