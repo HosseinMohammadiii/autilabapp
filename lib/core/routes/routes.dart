@@ -28,6 +28,7 @@ import 'package:autilab_project/features/data/profile/Page/user_message_screen.d
 import 'package:autilab_project/features/data/article/page/article_item_screen.dart';
 import 'package:autilab_project/features/data/article/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/article/page/tools_screen.dart';
+import 'package:autilab_project/features/data/test/page/aptitude_test_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
 import 'package:autilab_project/presentation/screens/item_not_found_screen.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
@@ -51,7 +52,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const PaymentMethodScreen(),
+        builder: (context, state) => const AptitudeTestScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [
@@ -272,6 +273,11 @@ class AutilabRouter {
         path: 'paymentMethodScreen',
         name: AutiLabRoutes.paymentMethodScreen,
         builder: (context, state) => const PaymentMethodScreen(),
+      ),
+      GoRoute(
+        path: 'aptitudeTestScreen',
+        name: AutiLabRoutes.aptitudeTestScreen,
+        builder: (context, state) => const AptitudeTestScreen(),
       ),
     ],
   );
