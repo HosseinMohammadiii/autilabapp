@@ -94,7 +94,9 @@ class _ToolsScreenState extends State<ToolsScreen>
                           case 0:
                             context.pushNamed(AutiLabRoutes.articleItemScreen);
                             break;
-                          default:
+                          case 2:
+                            context.pushNamed(AutiLabRoutes.aptitudeTestScreen);
+                            break;
                         }
                       },
                     ),
