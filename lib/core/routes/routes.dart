@@ -29,6 +29,7 @@ import 'package:autilab_project/features/data/article/page/article_item_screen.d
 import 'package:autilab_project/features/data/article/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/article/page/tools_screen.dart';
 import 'package:autilab_project/features/data/test/page/aptitude_test_screen.dart';
+import 'package:autilab_project/features/data/test/page/quiz_multiselect_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
 import 'package:autilab_project/presentation/screens/item_not_found_screen.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
@@ -235,49 +236,56 @@ class AutilabRouter {
         builder: (context, state) => const MyFavoriteScreen(),
       ),
       GoRoute(
-        path: 'notConnectionScreen',
+        path: '/notConnectionScreen',
         name: AutiLabRoutes.notConnectionScreen,
         builder: (context, state) => const NotConnectionInternetScreen(),
       ),
       GoRoute(
-        path: 'itemNotFoundScreen',
+        path: '/itemNotFoundScreen',
         name: AutiLabRoutes.itemNotFoundScreen,
         builder: (context, state) => const ItemNotFoundScreen(),
       ),
       GoRoute(
-        path: 'underConstructionScreen',
+        path: '/underConstructionScreen',
         name: AutiLabRoutes.underConstructionScreen,
         builder: (context, state) => const UnderConstructionScreen(),
       ),
       GoRoute(
-        path: 'successfulPaymentScreen',
+        path: '/successfulPaymentScreen',
         name: AutiLabRoutes.successfulPaymentScreen,
         builder: (context, state) => const SuccessfulPaymentScreen(),
       ),
       GoRoute(
-        path: 'notSuccessfulPaymentScreen',
+        path: '/notSuccessfulPaymentScreen',
         name: AutiLabRoutes.notSuccessfulPaymentScreen,
         builder: (context, state) => const NotSuccessfulPaymentScreen(),
       ),
       GoRoute(
-        path: 'payPackagesScreen',
+        path: '/payPackagesScreen',
         name: AutiLabRoutes.payPackagesScreen,
         builder: (context, state) => const PayPackageScreen(),
       ),
       GoRoute(
-        path: 'personalDetailPaymentScreen',
+        path: '/personalDetailPaymentScreen',
         name: AutiLabRoutes.personalDetailPaymentScreen,
         builder: (context, state) => const PersonalDetailPaymentScreen(),
       ),
       GoRoute(
-        path: 'paymentMethodScreen',
+        path: '/paymentMethodScreen',
         name: AutiLabRoutes.paymentMethodScreen,
         builder: (context, state) => const PaymentMethodScreen(),
       ),
       GoRoute(
-        path: 'aptitudeTestScreen',
+        path: '/aptitudeTestScreen',
         name: AutiLabRoutes.aptitudeTestScreen,
         builder: (context, state) => const AptitudeTestScreen(),
+        routes: [
+          GoRoute(
+            path: 'quizScreen',
+            name: AutiLabRoutes.quizScreen,
+            builder: (context, state) => const QuizScreen(),
+          ),
+        ],
       ),
     ],
   );

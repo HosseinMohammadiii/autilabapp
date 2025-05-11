@@ -1,9 +1,11 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
@@ -70,7 +72,9 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
                     style: AutilabTextStyle.medium20_500,
                   ),
                   CustomButtonWidget(
-                    onTap: () {},
+                    onTap: () {
+                      context.pushNamed(AutiLabRoutes.quizScreen);
+                    },
                     height: 50,
                     margin: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 60),
