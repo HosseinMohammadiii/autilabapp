@@ -108,8 +108,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                     ),
                     CustomButtonWidget(
                       onTap: () {
-                        context
-                            .pushReplacementNamed(AutiLabRoutes.doctorScreen);
+                        context.pushReplacementNamed(AutiLabRoutes.homeScreen);
                       },
                       height: 50,
                       color: AutilabColor.bb,
