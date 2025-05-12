@@ -1,16 +1,26 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
 class AptitudeTestScreen extends StatefulWidget {
-  const AptitudeTestScreen({super.key});
+  const AptitudeTestScreen({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    required this.description,
+    required this.onTap,
+  });
+  final String image;
+  final String title;
+  final String subTitle;
+  final String description;
+  final Function() onTap;
 
   @override
   State<AptitudeTestScreen> createState() => _AptitudeTestScreenState();
@@ -44,8 +54,7 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          appBarWidget(context: context, title: 'Aptitude Test', isIcon: true),
+      appBar: appBarWidget(context: context, title: widget.title, isIcon: true),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -55,26 +64,25 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset('assets/icons/aptitudetest.svg'),
+                  // SvgPicture.asset('assets/icons/aptitudetest.svg'),
+                  SvgPicture.asset(widget.image),
                   const SizedBox(
                     height: 60,
                   ),
-                  const Text(
-                    'Talent Identification Test',
+                  Text(
+                    widget.subTitle,
                     style: AutilabTextStyle.medium20_500,
                   ),
                   const SizedBox(
                     height: 40,
                   ),
-                  const Text(
-                    'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                  Text(
+                    widget.description,
                     textAlign: TextAlign.center,
                     style: AutilabTextStyle.medium20_500,
                   ),
                   CustomButtonWidget(
-                    onTap: () {
-                      context.pushNamed(AutiLabRoutes.quizMultiSelectScreen);
-                    },
+                    onTap: () => widget.onTap(),
                     height: 50,
                     margin: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 60),

@@ -53,7 +53,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const AptitudeTestScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [
@@ -278,7 +278,17 @@ class AutilabRouter {
       GoRoute(
         path: '/aptitudeTestScreen',
         name: AutiLabRoutes.aptitudeTestScreen,
-        builder: (context, state) => const AptitudeTestScreen(),
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+          return AptitudeTestScreen(
+            image: extraData['image'],
+            title: extraData['title'],
+            subTitle: extraData['subTitle'],
+            description: extraData['description'],
+            onTap: extraData['onTap'],
+          );
+        },
         routes: [
           GoRoute(
             path: 'quizMultiSelectScreen',

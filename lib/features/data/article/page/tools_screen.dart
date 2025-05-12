@@ -95,7 +95,33 @@ class _ToolsScreenState extends State<ToolsScreen>
                             context.pushNamed(AutiLabRoutes.articleItemScreen);
                             break;
                           case 2:
-                            context.pushNamed(AutiLabRoutes.aptitudeTestScreen);
+                            context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
+                                extra: {
+                                  'image': 'assets/images/talent_image.svg',
+                                  'title': 'Aptitude Test',
+                                  'subTitle': 'Talent Identification Test',
+                                  'description':
+                                      'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                                  'onTap': () {
+                                    context.pushNamed(
+                                        AutiLabRoutes.quizMultiSelectScreen);
+                                  },
+                                });
+                            break;
+                          case 3:
+                            context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
+                                extra: {
+                                  'image':
+                                      'assets/images/personality_image.svg',
+                                  'title': 'Personality Test',
+                                  'subTitle': 'Personality Test',
+                                  'description':
+                                      'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                                  'onTap': () {
+                                    context.pushNamed(
+                                        AutiLabRoutes.quizMultiSelectScreen);
+                                  },
+                                });
                             break;
                         }
                       },
