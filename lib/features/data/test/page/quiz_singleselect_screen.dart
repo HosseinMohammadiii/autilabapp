@@ -1,30 +1,26 @@
-import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
-import 'package:autilab_project/common/widgets/custom_button_widget.dart';
-import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:autilab_project/core/constants/constant_routes.dart';
-import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/appbar_back_screen.dart';
+import '../../../../common/widgets/custom_button_widget.dart';
+import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/constant_routes.dart';
+import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 
-class QuizClass {
-  String title;
-  bool value;
-  QuizClass(this.title, this.value);
-}
-
-class QuizMultiSelectAnswerScreen extends StatefulWidget {
-  const QuizMultiSelectAnswerScreen({super.key});
+class QuizSingleselectScreen extends StatefulWidget {
+  const QuizSingleselectScreen({super.key});
 
   @override
-  State<QuizMultiSelectAnswerScreen> createState() =>
-      _QuizMultiSelectAnswerScreenState();
+  State<QuizSingleselectScreen> createState() => _QuizSingleselectScreenState();
 }
 
-class _QuizMultiSelectAnswerScreenState
-    extends State<QuizMultiSelectAnswerScreen> with TickerProviderStateMixin {
+class _QuizSingleselectScreenState extends State<QuizSingleselectScreen>
+    with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+
+  bool isSelected = false;
+  List<bool> selectedItems = [];
 
   @override
   void initState() {
@@ -33,6 +29,7 @@ class _QuizMultiSelectAnswerScreenState
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
+    selectedItems = List<bool>.filled(4, false);
   }
 
   @override
@@ -42,17 +39,11 @@ class _QuizMultiSelectAnswerScreenState
   }
 
   @override
-  void didUpdateWidget(covariant QuizMultiSelectAnswerScreen oldWidget) {
+  void didUpdateWidget(covariant QuizSingleselectScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
   }
 
-  List<QuizClass> quizList = [
-    QuizClass('Answer', false),
-    QuizClass('Answer', false),
-    QuizClass('Answer', false),
-    QuizClass('Answer', false),
-  ];
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -84,7 +75,9 @@ class _QuizMultiSelectAnswerScreenState
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                              quizList[index].value = !quizList[index].value;
+                              for (int i = 0; i < selectedItems.length; i++) {
+                                selectedItems[i] = i == index;
+                              }
                             });
                           },
                           child: Container(
@@ -92,31 +85,16 @@ class _QuizMultiSelectAnswerScreenState
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: const Color(0xffECF0FF),
+                              color: selectedItems[index]
+                                  ? AutilabColor.bb
+                                  : const Color(0xffECF0FF),
                               border: Border.all(
                                   color: AutilabColor.bb, width: 0.5),
                               borderRadius: BorderRadius.circular(16),
                             ),
-                            child: Row(
-                              spacing: 12,
-                              children: [
-                                SizedBox(
-                                  width: 15,
-                                  height: 15,
-                                  child: Checkbox(
-                                    value: quizList[index].value,
-                                    activeColor: AutilabColor.blue,
-                                    checkColor: AutilabColor.white,
-                                    side: const BorderSide(width: 1),
-                                    splashRadius: 0,
-                                    onChanged: (value) {},
-                                  ),
-                                ),
-                                Text(
-                                  quizList[index].title,
-                                  style: AutilabTextStyle.small18_400,
-                                ),
-                              ],
+                            child: const Text(
+                              'Answer',
+                              style: AutilabTextStyle.small18_400,
                             ),
                           ),
                         );
@@ -144,9 +122,7 @@ class _QuizMultiSelectAnswerScreenState
                       textStyle: AutilabTextStyle.small18_400,
                     ),
                     CustomButtonWidget(
-                      onTap: () {
-                        context.pushNamed(AutiLabRoutes.quizSingleSelectScreen);
-                      },
+                      onTap: () {},
                       width: 166,
                       height: 50,
                       margin: const EdgeInsets.only(right: 20, bottom: 40),

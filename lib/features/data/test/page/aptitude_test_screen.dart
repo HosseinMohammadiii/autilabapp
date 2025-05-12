@@ -73,7 +73,7 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
                   ),
                   CustomButtonWidget(
                     onTap: () {
-                      context.pushNamed(AutiLabRoutes.quizScreen);
+                      context.pushNamed(AutiLabRoutes.quizMultiSelectScreen);
                     },
                     height: 50,
                     margin: const EdgeInsets.symmetric(
