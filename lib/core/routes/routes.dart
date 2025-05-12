@@ -30,7 +30,6 @@ import 'package:autilab_project/features/data/article/page/main_content_screen.d
 import 'package:autilab_project/features/data/article/page/tools_screen.dart';
 import 'package:autilab_project/features/data/test/page/aptitude_test_screen.dart';
 import 'package:autilab_project/features/data/test/page/quiz_multiselect_screen.dart';
-import 'package:autilab_project/features/data/test/page/quiz_singleselect_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
 import 'package:autilab_project/presentation/screens/item_not_found_screen.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
@@ -285,11 +284,6 @@ class AutilabRouter {
             path: 'quizMultiSelectScreen',
             name: AutiLabRoutes.quizMultiSelectScreen,
             builder: (context, state) => const QuizMultiSelectAnswerScreen(),
-          ),
-          GoRoute(
-            path: 'quizSingleSelectScreen',
-            name: AutiLabRoutes.quizSingleSelectScreen,
-            builder: (context, state) => const QuizSingleselectScreen(),
           ),
         ],
       ),

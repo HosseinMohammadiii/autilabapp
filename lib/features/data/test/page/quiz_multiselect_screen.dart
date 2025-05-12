@@ -1,10 +1,10 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
-import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/test/widgets/multiselectanswer_widget.dart';
+import 'package:autilab_project/features/data/test/widgets/singleselctedanswer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
@@ -26,6 +26,8 @@ class _QuizMultiSelectAnswerScreenState
     extends State<QuizMultiSelectAnswerScreen> with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
+  final pageController = PageController();
+  List<bool> selectedItems = [];
   @override
   void initState() {
     super.initState();
@@ -33,6 +35,7 @@ class _QuizMultiSelectAnswerScreenState
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
+    selectedItems = List<bool>.filled(4, false);
   }
 
   @override
@@ -74,53 +77,25 @@ class _QuizMultiSelectAnswerScreenState
                         ),
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 4,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 16),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              quizList[index].value = !quizList[index].value;
-                            });
-                          },
-                          child: Container(
-                            height: 50,
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: const Color(0xffECF0FF),
-                              border: Border.all(
-                                  color: AutilabColor.bb, width: 0.5),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Row(
-                              spacing: 12,
-                              children: [
-                                SizedBox(
-                                  width: 15,
-                                  height: 15,
-                                  child: Checkbox(
-                                    value: quizList[index].value,
-                                    activeColor: AutilabColor.blue,
-                                    checkColor: AutilabColor.white,
-                                    side: const BorderSide(width: 1),
-                                    splashRadius: 0,
-                                    onChanged: (value) {},
-                                  ),
-                                ),
-                                Text(
-                                  quizList[index].title,
-                                  style: AutilabTextStyle.small18_400,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
+                    SizedBox(
+                      height: 500,
+                      child: PageView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: pageController,
+                        itemCount: 2,
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
+                            return MultiSelectAnswerWidget(
+                              quizList: quizList,
+                            );
+                          } else {
+                            return SingleSelctedAnswerWidget(
+                              quizList: quizList,
+                              selectedItems: selectedItems,
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -133,7 +108,12 @@ class _QuizMultiSelectAnswerScreenState
                   children: [
                     CustomButtonWidget(
                       onTap: () {
-                        context.canPop() ? context.pop() : null;
+                        //Previous page
+                        pageController.animateToPage(
+                          pageController.page!.toInt() - 1,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
                       },
                       width: 166,
                       height: 50,
@@ -145,7 +125,12 @@ class _QuizMultiSelectAnswerScreenState
                     ),
                     CustomButtonWidget(
                       onTap: () {
-                        context.pushNamed(AutiLabRoutes.quizSingleSelectScreen);
+                        //Next page
+                        pageController.animateToPage(
+                          pageController.page!.toInt() + 1,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
                       },
                       width: 166,
                       height: 50,
