@@ -293,7 +293,7 @@ class AutilabRouter {
           GoRoute(
             path: 'quizMultiSelectScreen',
             name: AutiLabRoutes.quizMultiSelectScreen,
-            builder: (context, state) => const QuizMultiSelectAnswerScreen(),
+            builder: (context, state) => const QuizAndSelectAnswerScreen(),
           ),
         ],
       ),

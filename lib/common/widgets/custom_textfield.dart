@@ -6,6 +6,7 @@ class CustomTextfield extends StatelessWidget {
   const CustomTextfield({
     super.key,
     required this.label,
+    this.textStyle,
     this.padding,
     this.maxLines,
     this.controller,
@@ -20,6 +21,7 @@ class CustomTextfield extends StatelessWidget {
     this.suffixIcon,
   });
   final String label;
+  final TextStyle? textStyle;
   final EdgeInsetsGeometry? padding;
   final int? maxLines;
   final double? borderRaduis;
@@ -48,9 +50,10 @@ class CustomTextfield extends StatelessWidget {
           obscureText: isObscureText ?? false,
           maxLines: maxLines,
           cursorColor: Colors.black,
-          style: AutilabTextStyle.small14_400.copyWith(
-            color: AutilabColor.gray,
-          ),
+          style: textStyle ??
+              AutilabTextStyle.small14_400.copyWith(
+                color: AutilabColor.gray,
+              ),
           decoration: InputDecoration(
             suffixIcon: suffixIcon,
             filled: true,

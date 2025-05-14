@@ -15,16 +15,16 @@ class QuizClass {
   QuizClass(this.title, this.value);
 }
 
-class QuizMultiSelectAnswerScreen extends StatefulWidget {
-  const QuizMultiSelectAnswerScreen({super.key});
+class QuizAndSelectAnswerScreen extends StatefulWidget {
+  const QuizAndSelectAnswerScreen({super.key});
 
   @override
-  State<QuizMultiSelectAnswerScreen> createState() =>
-      _QuizMultiSelectAnswerScreenState();
+  State<QuizAndSelectAnswerScreen> createState() =>
+      _QuizAndSelectAnswerScreenState();
 }
 
-class _QuizMultiSelectAnswerScreenState
-    extends State<QuizMultiSelectAnswerScreen> with TickerProviderStateMixin {
+class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
+    with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
   final pageController = PageController();
@@ -49,7 +49,7 @@ class _QuizMultiSelectAnswerScreenState
   }
 
   @override
-  void didUpdateWidget(covariant QuizMultiSelectAnswerScreen oldWidget) {
+  void didUpdateWidget(covariant QuizAndSelectAnswerScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
   }
@@ -105,6 +105,8 @@ class _QuizMultiSelectAnswerScreenState
                                 controller: textEditingController,
                                 focusNode: textFocusNode,
                                 maxLines: 12,
+                                textStyle: AutilabTextStyle.small18_400,
+                                lblColor: AutilabColor.black,
                                 backgroundColor: const Color(0xffECF0FF),
                                 borderColor: AutilabColor.bb,
                                 textInputAction: TextInputAction.done,
