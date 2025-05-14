@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
+import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/test/widgets/multiselectanswer_widget.dart';
@@ -27,6 +28,9 @@ class _QuizMultiSelectAnswerScreenState
   late AnimationHelper animationHelper;
 
   final pageController = PageController();
+
+  final textEditingController = TextEditingController();
+  final textFocusNode = FocusNode();
   List<bool> selectedItems = [];
   @override
   void initState() {
@@ -78,20 +82,34 @@ class _QuizMultiSelectAnswerScreenState
                       ),
                     ),
                     SizedBox(
-                      height: 500,
+                      height: 400,
                       child: PageView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         controller: pageController,
-                        itemCount: 2,
+                        itemCount: 3,
                         itemBuilder: (context, index) {
                           if (index == 0) {
                             return MultiSelectAnswerWidget(
                               quizList: quizList,
                             );
-                          } else {
+                          } else if (index == 1) {
                             return SingleSelctedAnswerWidget(
                               quizList: quizList,
                               selectedItems: selectedItems,
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: CustomTextfield(
+                                label: 'Answer',
+                                controller: textEditingController,
+                                focusNode: textFocusNode,
+                                maxLines: 12,
+                                backgroundColor: const Color(0xffECF0FF),
+                                borderColor: AutilabColor.bb,
+                                textInputAction: TextInputAction.done,
+                                textInputType: TextInputType.text,
+                              ),
                             );
                           }
                         },
