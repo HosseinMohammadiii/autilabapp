@@ -53,7 +53,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const ToolsScreen(),
+        builder: (context, state) => const HomeScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [

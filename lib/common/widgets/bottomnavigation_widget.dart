@@ -301,6 +301,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                             const Spacer(),
                             CustomButtonWidget(
                               onTap: () {
+                                context.pop();
                                 context
                                     .pushNamed(AutiLabRoutes.editProfileScreen);
                               },
