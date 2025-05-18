@@ -111,7 +111,6 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                   crossAxisCount: 3,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  // mainAxisExtent: 37,
                 ),
                 itemCount: 9,
                 itemBuilder: (context, index) {
