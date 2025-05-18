@@ -22,9 +22,9 @@ import 'package:autilab_project/features/data/payment/page/pay_package_screen.da
 import 'package:autilab_project/features/data/payment/page/payment_method_screen.dart';
 import 'package:autilab_project/features/data/payment/page/personal_detail_payment_screen.dart';
 import 'package:autilab_project/features/data/payment/page/successful_payment_screen.dart';
-import 'package:autilab_project/features/data/profile/Page/my_subscribtion_screen.dart';
-import 'package:autilab_project/features/data/profile/Page/test_history_screen.dart';
-import 'package:autilab_project/features/data/profile/Page/user_message_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/my_subscribtion_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/test_history_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/user_message_screen.dart';
 import 'package:autilab_project/features/data/article/page/article_item_screen.dart';
 import 'package:autilab_project/features/data/article/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/article/page/tools_screen.dart';
@@ -41,6 +41,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/data/auth/page/login_screen.dart';
 import '../../features/data/doctor/page/doctor_screen.dart';
+import '../../features/data/menu/widgets/packagessubscribtion.dart';
 import '../../presentation/screens/welcome_screen.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -219,6 +220,13 @@ class AutilabRouter {
         path: '/subscribtionScreen',
         name: AutiLabRoutes.subscribtionScreen,
         builder: (context, state) => const MySubscribtionScreen(),
+        routes: [
+          GoRoute(
+            path: 'subscribtionPackagesScreen',
+            name: AutiLabRoutes.subscribtionPackagesScreen,
+            builder: (context, state) => const PackagesSubscribtion(),
+          ),
+        ],
       ),
       GoRoute(
         path: '/notificationScreen',
@@ -263,12 +271,27 @@ class AutilabRouter {
       GoRoute(
         path: '/payPackagesScreen',
         name: AutiLabRoutes.payPackagesScreen,
-        builder: (context, state) => const PayPackageScreen(),
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+          return PayPackageScreen(
+            title: extraData['title'],
+            description: extraData['description'],
+            options: extraData['options'],
+          );
+        },
       ),
       GoRoute(
         path: '/personalDetailPaymentScreen',
         name: AutiLabRoutes.personalDetailPaymentScreen,
-        builder: (context, state) => const PersonalDetailPaymentScreen(),
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+          return PersonalDetailPaymentScreen(
+            title: extraData['title'],
+            description: extraData['description'],
+          );
+        },
       ),
       GoRoute(
         path: '/paymentMethodScreen',

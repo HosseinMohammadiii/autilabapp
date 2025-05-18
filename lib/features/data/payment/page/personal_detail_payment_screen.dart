@@ -1,15 +1,23 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/cart_item_widget.dart';
 
 class PersonalDetailPaymentScreen extends StatefulWidget {
-  const PersonalDetailPaymentScreen({super.key});
+  const PersonalDetailPaymentScreen({
+    super.key,
+    required this.title,
+    required this.description,
+  });
+  final String title;
+  final String? description;
 
   @override
   State<PersonalDetailPaymentScreen> createState() =>
@@ -88,16 +96,17 @@ class _PersonalDetailPaymentScreenState
                           fit: BoxFit.scaleDown,
                         ),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '299\$/Years',
+                              widget.title,
                               style: AutilabTextStyle.medium16_500,
                             ),
                             Text(
-                              'An Initial Test To Determine How Much You Are At Risk Of Cancer Based.',
+                              widget.description ??
+                                  'An Initial Test To Determine How Much You Are At Risk Of Cancer Based.',
                               style: AutilabTextStyle.small14_400,
                               softWrap: true,
                               overflow: TextOverflow.visible,
@@ -264,7 +273,9 @@ class _PersonalDetailPaymentScreenState
                   height: 48,
                 ),
                 CustomButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(AutiLabRoutes.paymentMethodScreen);
+                  },
                   height: 50,
                   margin: AutilabMargin.marginFullScreen,
                   color: AutilabColor.bb,
@@ -275,7 +286,9 @@ class _PersonalDetailPaymentScreenState
                   height: 16,
                 ),
                 CustomButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    context.pop();
+                  },
                   height: 50,
                   margin: AutilabMargin.marginFullScreen,
                   color: const Color(0xffECF0FF),

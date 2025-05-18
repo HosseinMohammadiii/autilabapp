@@ -1,5 +1,7 @@
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
@@ -71,7 +73,10 @@ class _NotSuccessfulPaymentScreenState extends State<NotSuccessfulPaymentScreen>
                       textAlign: TextAlign.center,
                     ),
                     CustomButtonWidget(
-                      onTap: () {},
+                      onTap: () {
+                        context
+                            .pushNamed(AutiLabRoutes.successfulPaymentScreen);
+                      },
                       height: 50,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 32),

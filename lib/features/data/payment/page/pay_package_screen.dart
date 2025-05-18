@@ -1,15 +1,25 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/plan_box_widget.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/home/widgets/plan_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 
 class PayPackageScreen extends StatefulWidget {
-  const PayPackageScreen({super.key});
+  const PayPackageScreen({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.options,
+  });
+  final String title;
+  final String? description;
+  final Widget? options;
 
   @override
   State<PayPackageScreen> createState() => _PayPackageScreenState();
@@ -68,7 +78,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                   child: Padding(
                     padding: AutilabMargin.marginFullScreen,
                     child: PlanBoxWidget(
-                      title: "299\$/Years",
+                      title: widget.title,
                       titleButton: 'Pay',
                       description:
                           "An Initial Test To Determine How Much You Are At Risk Of Cancer Based.",
@@ -105,7 +115,16 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                         ],
                       ),
                       margin: 0,
-                      onTap: () {},
+                      onTap: () {
+                        if (widget.title == 'Free Plan') {
+                          context.goNamed(AutiLabRoutes.homeScreen);
+                        } else {
+                          context.pushNamed(
+                            AutiLabRoutes.personalDetailPaymentScreen,
+                            extra: {'title': widget.title},
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),

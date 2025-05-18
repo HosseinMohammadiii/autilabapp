@@ -1,9 +1,11 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/selectmethodpaymentbox_widget.dart';
@@ -217,7 +219,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                   ),
                 ),
                 CustomButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(AutiLabRoutes.notSuccessfulPaymentScreen);
+                  },
                   height: 50,
                   margin: AutilabMargin.marginFullScreen,
                   color: AutilabColor.bb,
