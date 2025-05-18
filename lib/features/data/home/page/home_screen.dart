@@ -208,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'AutiLab test',
+                                  'AutiLab Test',
                                   style: AutilabTextStyle.medium20_500.copyWith(
                                     color: AutilabColor.blue,
                                   ),
@@ -225,7 +225,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ],
                       ),
                       CustomButtonWidget(
-                        onTap: () {},
+                        onTap: () {
+                          context.goNamed(AutiLabRoutes.toolsScreen);
+                        },
                         height: 50,
                         margin: const EdgeInsets.all(0),
                         color: AutilabColor.bb,
