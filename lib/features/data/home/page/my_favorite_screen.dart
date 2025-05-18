@@ -1,10 +1,12 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
 import 'package:autilab_project/features/data/home/widgets/article_box_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../../doctor/widgets/nearby_card_widget.dart';
 
 class MyFavoriteScreen extends StatefulWidget {
   const MyFavoriteScreen({super.key});
@@ -88,17 +90,39 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                   ),
                 ),
               ),
-              const Text(
-                'Doctor',
-                style: AutilabTextStyle.small16_400,
+              ListView.builder(
+                itemCount: 6,
+                padding: AutilabMargin.marginFullScreen,
+                itemBuilder: (context, index) {
+                  return const DoctorBoxWidget();
+                },
               ),
-              const Text(
-                'Center',
-                style: AutilabTextStyle.small16_400,
+              ListView.builder(
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return const NearbyCardWidget();
+                },
               ),
-              const Text(
-                'Post',
-                style: AutilabTextStyle.small16_400,
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: AutilabMargin.marginFullScreen,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  // mainAxisExtent: 37,
+                ),
+                itemCount: 9,
+                itemBuilder: (context, index) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      'assets/images/child2_image.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
               ),
             ],
           ),
