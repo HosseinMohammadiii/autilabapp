@@ -339,6 +339,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       context.pop();
 
                       switch (index) {
+                        case 0:
+                          context.pushNamed(AutiLabRoutes.myDoctorScreen);
                         case 1:
                           context.pushNamed(AutiLabRoutes.allAppointmentScreen);
                         case 2:

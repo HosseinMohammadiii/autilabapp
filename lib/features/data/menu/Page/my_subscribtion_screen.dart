@@ -1,6 +1,5 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
-import 'package:autilab_project/common/widgets/plan_box_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../../home/widgets/plan_item_widget.dart';
 
 class MySubscribtionScreen extends StatefulWidget {
   const MySubscribtionScreen({super.key});
@@ -65,7 +63,6 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/crown_icon.svg',
-                  // fit: BoxFit.scaleDown,
                 ),
               ),
               const Text(
