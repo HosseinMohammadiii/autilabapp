@@ -1,7 +1,5 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
-import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
-import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -42,9 +40,6 @@ class _MydoctorScreenState extends State<MydoctorScreen>
     animationHelper.restartAnimation();
   }
 
-  List<Color> statusColor = [
-    const Color(0xff50DD81),
-  ];
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -55,7 +50,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
         body: SafeArea(
           child: CustomTabBarWidget(
             tabLength: 2,
-            tabBar: [
+            tabBar: const [
               Text(
                 'Valid Appointment',
                 style: AutilabTextStyle.small16_400,
@@ -77,7 +72,6 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                     margin:
                         const EdgeInsets.only(right: 20, left: 20, bottom: 16),
                     onTap: () {
-                      print(statusColor[0]);
                       context.pushNamed(
                         AutiLabRoutes.detailAppointmentScreen,
                         extra: {
@@ -90,9 +84,37 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                   );
                 },
               ),
-              Text(
-                'Expired Appointment',
-                style: AutilabTextStyle.small16_400,
+              Stack(
+                children: [
+                  ListView.builder(
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return NewAppointmentsCardWidget(
+                        color: const Color(0xff50DD81),
+                        title: 'Approved',
+                        statusIcon: 'assets/icons/done_icon.svg',
+                        image: 'assets/images/doctor_image.png',
+                        margin: const EdgeInsets.only(
+                            right: 20, left: 20, bottom: 16),
+                        onTap: () {
+                          context.pushNamed(
+                            AutiLabRoutes.detailAppointmentScreen,
+                            extra: {
+                              'statusColor': const Color(0xff50DD81),
+                              'statusIcon': 'assets/icons/done_icon.svg',
+                              'title': 'Approved',
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.white.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
