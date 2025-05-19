@@ -1,9 +1,14 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
+import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
+import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/constant_routes.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../home/widgets/new_appointment_card_widget.dart';
 
 class MydoctorScreen extends StatefulWidget {
   const MydoctorScreen({super.key});
@@ -37,6 +42,9 @@ class _MydoctorScreenState extends State<MydoctorScreen>
     animationHelper.restartAnimation();
   }
 
+  List<Color> statusColor = [
+    const Color(0xff50DD81),
+  ];
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -58,9 +66,29 @@ class _MydoctorScreenState extends State<MydoctorScreen>
               ),
             ],
             tabBarView: [
-              Text(
-                'Valid Appointment',
-                style: AutilabTextStyle.small16_400,
+              ListView.builder(
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return NewAppointmentsCardWidget(
+                    color: const Color(0xff50DD81),
+                    title: 'Approved',
+                    statusIcon: 'assets/icons/done_icon.svg',
+                    image: 'assets/images/doctor_image.png',
+                    margin:
+                        const EdgeInsets.only(right: 20, left: 20, bottom: 16),
+                    onTap: () {
+                      print(statusColor[0]);
+                      context.pushNamed(
+                        AutiLabRoutes.detailAppointmentScreen,
+                        extra: {
+                          'statusColor': const Color(0xff50DD81),
+                          'statusIcon': 'assets/icons/done_icon.svg',
+                          'title': 'Approved',
+                        },
+                      );
+                    },
+                  );
+                },
               ),
               Text(
                 'Expired Appointment',

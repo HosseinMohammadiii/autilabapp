@@ -128,7 +128,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,
                             extra: {
-                              'status': statusList[index],
+                              'statusColor': statusList[index].statusColor,
+                              'statusIcon': statusList[index].statusIcon,
+                              'title': statusList[index].title,
                             },
                           );
                         },

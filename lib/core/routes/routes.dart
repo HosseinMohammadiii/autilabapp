@@ -71,16 +71,6 @@ class AutilabRouter {
                     name: AutiLabRoutes.allAppointmentScreen,
                     builder: (context, state) => const AllAppointmentScreen(),
                   ),
-                  GoRoute(
-                      path: 'detailAppointmentScreen',
-                      name: AutiLabRoutes.detailAppointmentScreen,
-                      builder: (context, state) {
-                        final Map<String, dynamic> extraData =
-                            state.extra as Map<String, dynamic>;
-                        return DetailAppointmentScreen(
-                          status: extraData['status'] as StatusClass,
-                        );
-                      }),
                 ],
               ),
             ],
@@ -165,6 +155,18 @@ class AutilabRouter {
           return ButtomnavigationWidget(navigationShell: navigationShell);
         },
       ),
+      GoRoute(
+          path: '/detailAppointmentScreen',
+          name: AutiLabRoutes.detailAppointmentScreen,
+          builder: (context, state) {
+            final Map<String, dynamic> extraData =
+                state.extra as Map<String, dynamic>;
+            return DetailAppointmentScreen(
+              statusColor: extraData['statusColor'],
+              statusIcon: extraData['statusIcon'],
+              title: extraData['title'],
+            );
+          }),
       GoRoute(
         path: '/Program_Introduction',
         name: AutiLabRoutes.programIntroductionScreen,

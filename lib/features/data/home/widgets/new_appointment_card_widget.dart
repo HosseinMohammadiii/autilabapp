@@ -97,7 +97,9 @@ class NewAppointmentsCardWidget extends StatelessWidget {
             ],
           ),
           CustomButtonWidget(
-            onTap: () => onTap(),
+            onTap: () {
+              onTap();
+            },
             height: 50,
             margin: const EdgeInsets.all(0),
             color: AutilabColor.bb,
