@@ -10,7 +10,9 @@ import '../../../../core/constants/color_constant.dart';
 class NearbyCardWidget extends StatelessWidget {
   const NearbyCardWidget({
     super.key,
+    this.isShowButton,
   });
+  final bool? isShowButton;
 
   @override
   Widget build(BuildContext context) {
@@ -67,19 +69,24 @@ class NearbyCardWidget extends StatelessWidget {
             child: Text(
               'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
               style: AutilabTextStyle.small14_400.copyWith(
-                overflow: TextOverflow.fade,
+                overflow: isShowButton == false
+                    ? TextOverflow.visible
+                    : TextOverflow.fade,
               ),
             ),
           ),
-          CustomButtonWidget(
-            onTap: () {
-              context.pushNamed(AutiLabRoutes.nearbyCenterDetailScreen);
-            },
-            height: 50,
-            margin: const EdgeInsets.only(bottom: 8, top: 24),
-            color: AutilabColor.bb,
-            text: 'See Details',
-            textStyle: AutilabTextStyle.small18_400,
+          Visibility(
+            visible: isShowButton ?? true,
+            child: CustomButtonWidget(
+              onTap: () {
+                context.pushNamed(AutiLabRoutes.nearbyCenterDetailScreen);
+              },
+              height: 50,
+              margin: const EdgeInsets.only(bottom: 8, top: 24),
+              color: AutilabColor.bb,
+              text: 'See Details',
+              textStyle: AutilabTextStyle.small18_400,
+            ),
           ),
         ],
       ),

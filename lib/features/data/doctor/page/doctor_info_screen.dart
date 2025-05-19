@@ -190,6 +190,10 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                         ),
                         child: SpecialtyItemWidget(
                           index: index,
+                          onTap: () {
+                            context.pushNamed(
+                                AutiLabRoutes.doctorSpecialityScreen);
+                          },
                         ),
                       );
                     },

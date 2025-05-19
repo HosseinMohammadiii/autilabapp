@@ -104,12 +104,6 @@ class AutilabRouter {
                     name: AutiLabRoutes.makeAppointmentScreen,
                     builder: (context, state) => const MakeAppointmentScreen(),
                   ),
-                  GoRoute(
-                    path: 'nearbyCenterDetailScreen',
-                    name: AutiLabRoutes.nearbyCenterDetailScreen,
-                    builder: (context, state) =>
-                        const NearbyCenterDetailsScreen(),
-                  ),
                 ],
               ),
               GoRoute(
@@ -154,6 +148,17 @@ class AutilabRouter {
             StatefulNavigationShell navigationShell) {
           return ButtomnavigationWidget(navigationShell: navigationShell);
         },
+      ),
+
+      GoRoute(
+        path: '/nearbyCenterDetailScreen',
+        name: AutiLabRoutes.nearbyCenterDetailScreen,
+        builder: (context, state) => const NearbyCenterDetailsScreen(),
+      ),
+      GoRoute(
+        path: '/myFavoriteScreen',
+        name: AutiLabRoutes.myFavoriteScreen,
+        builder: (context, state) => const MyFavoriteScreen(),
       ),
       GoRoute(
           path: '/detailAppointmentScreen',
@@ -241,11 +246,11 @@ class AutilabRouter {
         name: AutiLabRoutes.testHistoryScreen,
         builder: (context, state) => const TestHistoryScreen(),
       ),
-      GoRoute(
-        path: '/myFavoriteScreen',
-        name: AutiLabRoutes.myFavoriteScreen,
-        builder: (context, state) => const MyFavoriteScreen(),
-      ),
+      // GoRoute(
+      //   path: '/myFavoriteScreen',
+      //   name: AutiLabRoutes.myFavoriteScreen,
+      //   builder: (context, state) => const MyFavoriteScreen(),
+      // ),
       GoRoute(
         path: '/notConnectionScreen',
         name: AutiLabRoutes.notConnectionScreen,

@@ -1,8 +1,10 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/textfiledbox_description.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/Lists/category_items.dart';
 import '../../../../utils/functions/animation_control.dart';
@@ -48,7 +50,9 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
           child: CustomScrollView(
             slivers: [
               const SliverToBoxAdapter(
-                child: NearbyCardWidget(),
+                child: NearbyCardWidget(
+                  isShowButton: false,
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -166,6 +170,11 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                         ),
                         child: SpecialtyItemWidget(
                           index: index,
+                          onTap: () {
+                            context.go(
+                              AutiLabRoutes.doctorSpecialityScreen,
+                            );
+                          },
                         ),
                       );
                     },
