@@ -26,9 +26,9 @@ import 'package:autilab_project/features/data/payment/page/successful_payment_sc
 import 'package:autilab_project/features/data/menu/Page/my_subscribtion_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/test_history_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/user_message_screen.dart';
-import 'package:autilab_project/features/data/article/page/article_item_screen.dart';
-import 'package:autilab_project/features/data/article/page/main_content_screen.dart';
-import 'package:autilab_project/features/data/article/page/tools_screen.dart';
+import 'package:autilab_project/features/data/tool/page/article_item_screen.dart';
+import 'package:autilab_project/features/data/tool/page/main_content_screen.dart';
+import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/features/data/test/page/aptitude_test_screen.dart';
 import 'package:autilab_project/features/data/test/page/quiz_multiselect_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
