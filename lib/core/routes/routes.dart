@@ -31,6 +31,7 @@ import 'package:autilab_project/features/data/tool/page/main_content_screen.dart
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/features/data/test/page/aptitude_test_screen.dart';
 import 'package:autilab_project/features/data/test/page/quiz_multiselect_screen.dart';
+import 'package:autilab_project/features/data/tool/page/whiteboard_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
 import 'package:autilab_project/presentation/screens/item_not_found_screen.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
@@ -149,7 +150,11 @@ class AutilabRouter {
           return ButtomnavigationWidget(navigationShell: navigationShell);
         },
       ),
-
+      GoRoute(
+        path: '/whiteBoardScreen',
+        name: AutiLabRoutes.whiteBoardScreen,
+        builder: (context, state) => const WhiteboardScreen(),
+      ),
       GoRoute(
         path: '/nearbyCenterDetailScreen',
         name: AutiLabRoutes.nearbyCenterDetailScreen,
