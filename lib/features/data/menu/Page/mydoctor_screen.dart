@@ -110,8 +110,10 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                     },
                   ),
                   Positioned.fill(
-                    child: Container(
-                      color: Colors.white.withValues(alpha: 0.3),
+                    child: IgnorePointer(
+                      child: Container(
+                        color: Colors.white.withValues(alpha: 0.3),
+                      ),
                     ),
                   ),
                 ],
