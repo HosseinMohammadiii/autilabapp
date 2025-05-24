@@ -130,7 +130,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
         }
       },
       child: Scaffold(
-        // drawerScrimColor: Colors.transparent,
         key: scaffoldKey,
         appBar: isMainScreen()
             ? AppBar(
