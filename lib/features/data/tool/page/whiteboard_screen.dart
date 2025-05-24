@@ -4,6 +4,7 @@ import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.d
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
@@ -51,6 +52,22 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
     ),
   ];
 
+  List<String> drawTools = [
+    'undo.svg',
+    'redo.svg',
+    'brush_draw.svg',
+    'text.svg',
+    'crop.svg',
+    'eraser.svg',
+    'shapes.svg',
+    'trash.svg',
+  ];
+  List<Color> drawColor = [
+    AutilabColor.black,
+    const Color(0xff1D2DBD),
+    const Color(0xffDE372B),
+    const Color(0xffFFFFFF),
+  ];
   bool isShowMenu = false;
   @override
   void initState() {
@@ -124,7 +141,9 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                             ),
                           ),
                           CustomButtonWhiteBoardWidget(
-                            onTap: () {},
+                            onTap: () {
+                              context.pop();
+                            },
                             width: 81,
                             height: 24,
                             color: const Color(0xffE74747),
@@ -219,9 +238,47 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                 width: 40,
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(right: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 decoration: BoxDecoration(
                   color: AutilabColor.bb,
                   borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: drawTools.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              bottom: drawTools.length - 1 == index ? 0 : 10),
+                          child: SvgPicture.asset(
+                              'assets/icons/${drawTools[index]}'),
+                        );
+                      },
+                    ),
+                    ListView.builder(
+                      itemCount: drawColor.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 20,
+                          height: 20,
+                          margin: EdgeInsets.only(
+                              bottom: drawColor.length - 1 == index ? 0 : 8),
+                          decoration: BoxDecoration(
+                            color: drawColor[index],
+                            shape: BoxShape.circle,
+                          ),
+                        );
+                      },
+                    )
+                  ],
                 ),
               ),
             ],
