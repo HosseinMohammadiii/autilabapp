@@ -1,12 +1,18 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
+import 'package:autilab_project/features/data/message/page/class/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../widgets/boxwhiteboard_widget.dart';
+import '../widgets/chatlistwhiteboard_widget.dart';
+import '../widgets/custombuttonwhitboard_widget.dart';
+import '../widgets/settingmenuwhiteboard_widget.dart';
 
 class WhiteboardScreen extends StatefulWidget {
   const WhiteboardScreen({super.key});
@@ -18,7 +24,12 @@ class WhiteboardScreen extends StatefulWidget {
 class _WhiteboardScreenState extends State<WhiteboardScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+  final ScrollController _scrollController = ScrollController();
 
+  final sendMessageController = TextEditingController();
+  final sendMessageFocusNode = FocusNode();
+
+//Menu list
   List<DrawerItemClass> settingItems = [
     DrawerItemClass(
       'Full Screen',
@@ -52,6 +63,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
     ),
   ];
 
+//Paiting tools
   List<String> drawTools = [
     'undo.svg',
     'redo.svg',
@@ -62,13 +74,28 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
     'shapes.svg',
     'trash.svg',
   ];
+  //Paiting colors
   List<Color> drawColor = [
     AutilabColor.black,
     const Color(0xff1D2DBD),
     const Color(0xffDE372B),
     const Color(0xffFFFFFF),
   ];
+  //Message item
+  List<Message> messageItems = [
+    Message(
+        "That's perfect. There's a new place on Main St I've been wanting There's a new place?",
+        '1'),
+    Message("That's perfect. There's a new place on Main St I've been wanting.",
+        '2'),
+    Message("That's perfect. There's a new place on Main St I've been wanting?",
+        '1'),
+    Message("That's perfect. There's a newe!", '2'),
+  ];
   bool isShowMenu = false;
+  bool isShowChat = false;
+
+  bool animatedWidth = false;
   @override
   void initState() {
     super.initState();
@@ -80,6 +107,32 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
+//Scroll to the last message after the textfield focus.
+    sendMessageFocusNode.addListener(() {
+      if (sendMessageFocusNode.hasFocus) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToEnd();
+        });
+      }
+    });
+
+//Scroll to the last item after the page is created.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToEnd();
+    });
+  }
+
+  //Method for scroll to latest item
+  void _scrollToEnd() {
+    if (_scrollController.hasClients || isShowChat) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      });
+    }
   }
 
   @override
@@ -89,6 +142,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    sendMessageFocusNode.removeListener(_scrollToEnd);
+    sendMessageFocusNode.dispose();
     super.dispose();
   }
 
@@ -104,366 +159,326 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
         body: SafeArea(
-          child: Row(
-            spacing: 17,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        spacing: 4,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isShowMenu = !isShowMenu;
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Setting',
-                                  style: AutilabTextStyle.small12_400,
-                                ),
-                                isShowMenu
-                                    ? SvgPicture.asset(
-                                        'assets/icons/arrow_up.svg',
-                                        width: 16,
-                                        height: 16,
-                                      )
-                                    : SvgPicture.asset(
-                                        'assets/icons/arrow_down.svg',
-                                      ),
-                              ],
-                            ),
-                          ),
-                          CustomButtonWhiteBoardWidget(
-                            onTap: () {
-                              context.pop();
-                            },
-                            width: 81,
-                            height: 24,
-                            color: const Color(0xffE74747),
-                            icon: 'logout.svg',
-                            title: 'End',
-                          ),
-                        ],
-                      ),
-                      CustomButtonWhiteBoardWidget(
-                        onTap: () {},
-                        width: 150,
-                        height: 30,
-                        color: AutilabColor.yellow,
-                        icon: 'messages.svg',
-                        title: 'Chat',
-                      ),
-                      BoxWhiteBoardWidget(
-                        onTapOne: () {},
-                        colorOne: AutilabColor.lightGray,
-                        iconOne: 'download.svg',
-                        titleOne: 'Download',
-                        onTapSecond: () {},
-                        colorSecond: AutilabColor.lightGray,
-                        iconSecond: 'upload.svg',
-                        titleSecond: 'Upload File',
-                      ),
-                      BoxWhiteBoardWidget(
-                        onTapOne: () {},
-                        colorOne: AutilabColor.bb,
-                        iconOne: 'video_call_icon.svg',
-                        titleOne: 'Webcam',
-                        onTapSecond: () {},
-                        colorSecond: AutilabColor.lightGray,
-                        iconSecond: 'brush.svg',
-                        titleSecond: 'Whiteboard',
-                      ),
-                      BoxWhiteBoardWidget(
-                        onTapOne: () {},
-                        colorOne: AutilabColor.lightGray,
-                        iconOne: 'screenmirroring.svg',
-                        titleOne: 'Share Screen',
-                        onTapSecond: () {},
-                        colorSecond: AutilabColor.bb,
-                        iconSecond: 'microphone.svg',
-                        titleSecond: 'Voice',
-                      ),
-                      Row(
-                        spacing: 8,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              'assets/images/doctor_image.png',
-                              fit: BoxFit.cover,
-                              width: 72,
-                              height: 83,
-                            ),
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              'assets/images/child2_image.jpg',
-                              fit: BoxFit.cover,
-                              width: 72,
-                              height: 83,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Visibility(
-                    visible: isShowMenu,
-                    child: SettingMenuWidget(settingItems: settingItems),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xffF5F0CD),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Image.asset(
-                    'assets/images/whiteboardBackground.png',
-                    fit: BoxFit.cover,
-                    opacity: const AlwaysStoppedAnimation(.3),
-                  ),
-                ),
-              ),
-              Container(
-                width: 40,
-                alignment: Alignment.centerLeft,
-                margin: const EdgeInsets.only(right: 10),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                  color: AutilabColor.bb,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              spacing: 17,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stack(
                   children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: drawTools.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                              bottom: drawTools.length - 1 == index ? 0 : 10),
-                          child: SvgPicture.asset(
-                              'assets/icons/${drawTools[index]}'),
-                        );
-                      },
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          spacing: 4,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isShowMenu = !isShowMenu;
+                                });
+                              },
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Setting',
+                                    style: AutilabTextStyle.small12_400,
+                                  ),
+                                  isShowMenu
+                                      ? SvgPicture.asset(
+                                          'assets/icons/arrow_up.svg',
+                                          width: 16,
+                                          height: 16,
+                                        )
+                                      : SvgPicture.asset(
+                                          'assets/icons/arrow_down.svg',
+                                        ),
+                                ],
+                              ),
+                            ),
+                            CustomButtonWhiteBoardWidget(
+                              onTap: () {
+                                context.pop();
+                              },
+                              width: 81,
+                              height: 24,
+                              color: const Color(0xffE74747),
+                              icon: 'logout.svg',
+                              title: 'End',
+                            ),
+                          ],
+                        ),
+                        CustomButtonWhiteBoardWidget(
+                          onTap: () {
+                            setState(() {
+                              isShowChat = !isShowChat;
+                              //Scrolling to last chat list items
+                              Future.delayed(const Duration(milliseconds: 50),
+                                  () {
+                                _scrollController.jumpTo(
+                                    _scrollController.position.maxScrollExtent);
+                              });
+                            });
+                          },
+                          width: 150,
+                          height: 30,
+                          color: AutilabColor.yellow,
+                          icon: 'messages.svg',
+                          title: 'Chat',
+                        ),
+                        BoxWhiteBoardWidget(
+                          onTapOne: () {},
+                          colorOne: AutilabColor.lightGray,
+                          iconOne: 'download.svg',
+                          titleOne: 'Download',
+                          onTapSecond: () {},
+                          colorSecond: AutilabColor.lightGray,
+                          iconSecond: 'upload.svg',
+                          titleSecond: 'Upload File',
+                        ),
+                        BoxWhiteBoardWidget(
+                          onTapOne: () {},
+                          colorOne: AutilabColor.bb,
+                          iconOne: 'video_call_icon.svg',
+                          titleOne: 'Webcam',
+                          onTapSecond: () {},
+                          colorSecond: AutilabColor.lightGray,
+                          iconSecond: 'brush.svg',
+                          titleSecond: 'Whiteboard',
+                        ),
+                        BoxWhiteBoardWidget(
+                          onTapOne: () {},
+                          colorOne: AutilabColor.lightGray,
+                          iconOne: 'screenmirroring.svg',
+                          titleOne: 'Share Screen',
+                          onTapSecond: () {},
+                          colorSecond: AutilabColor.bb,
+                          iconSecond: 'microphone.svg',
+                          titleSecond: 'Voice',
+                        ),
+                        Row(
+                          spacing: 8,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/images/doctor_image.png',
+                                fit: BoxFit.cover,
+                                width: 72,
+                                height: 83,
+                              ),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/images/child2_image.jpg',
+                                fit: BoxFit.cover,
+                                width: 72,
+                                height: 83,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    ListView.builder(
-                      itemCount: drawColor.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          width: 20,
-                          height: 20,
-                          margin: EdgeInsets.only(
-                              bottom: drawColor.length - 1 == index ? 0 : 8),
-                          decoration: BoxDecoration(
-                            color: drawColor[index],
-                            shape: BoxShape.circle,
-                          ),
-                        );
-                      },
-                    )
+                    Visibility(
+                      visible: isShowChat,
+                      child: Container(
+                        width: 241,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: AutilabColor.primary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            ChatListWhiteboardWidget(
+                              scrollController: _scrollController,
+                              message: messageItems,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              color: AutilabColor.primary,
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Row(
+                                spacing: 7,
+                                children: [
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 32,
+                                      child: TextField(
+                                        focusNode: sendMessageFocusNode,
+                                        controller: sendMessageController,
+                                        cursorColor: Colors.black,
+                                        decoration: InputDecoration(
+                                          fillColor: AutilabColor.white,
+                                          filled: true,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 15, vertical: 5),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: AutilabColor.bb,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(
+                                              color: AutilabColor.bb,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                        ),
+                                        onChanged: (value) {},
+                                        onTapOutside: (event) {
+                                          //Unfocus TextField
+                                          sendMessageFocusNode.unfocus();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      width: 35,
+                                      height: 35,
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: const BoxDecoration(
+                                        color: AutilabColor.bb,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: SvgPicture.asset(
+                                          AutilabIcon.sendMessageIcon),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 0,
+                              child: Container(
+                                height: 30,
+                                width: 221,
+                                color: AutilabColor.primary,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isShowChat = false;
+                                        });
+                                      },
+                                      child: Row(
+                                        spacing: 8,
+                                        children: [
+                                          SvgPicture.asset(
+                                            AutilabIcon.backIconRounded,
+                                            width: 16,
+                                            height: 16,
+                                          ),
+                                          const Text(
+                                            'Chatroom',
+                                            style:
+                                                AutilabTextStyle.medium12_500,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    SvgPicture.asset(
+                                      'assets/icons/profile_icon.svg',
+                                      width: 16,
+                                      height: 16,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isShowMenu,
+                      child: SettingMenuWidget(settingItems: settingItems),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SettingMenuWidget extends StatelessWidget {
-  const SettingMenuWidget({
-    super.key,
-    required this.settingItems,
-  });
-
-  final List<DrawerItemClass> settingItems;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 32,
-      child: Container(
-        width: 152,
-        padding: const EdgeInsets.symmetric(vertical: 7),
-        decoration: BoxDecoration(
-          color: AutilabColor.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: settingItems.length,
-          itemBuilder: (context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 24,
-                        height: 24,
-                        padding: const EdgeInsets.all(4),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: settingItems[index].backgroundColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: SvgPicture.asset(
-                            'assets/icons/${settingItems[index].icon}'),
-                      ),
-                      Text(
-                        settingItems[index].title,
-                        style: AutilabTextStyle.small14_400,
-                      ),
-                    ],
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xffF5F0CD),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Image.asset(
+                      'assets/images/whiteboardBackground.png',
+                      fit: BoxFit.fill,
+                      opacity: const AlwaysStoppedAnimation(.3),
+                    ),
                   ),
                 ),
-                if (index < settingItems.length - 1)
-                  const Divider(
-                    thickness: .5,
-                    endIndent: 14,
-                    indent: 14,
-                    color: AutilabColor.bb,
+                FittedBox(
+                  child: Container(
+                    width: 40,
+                    alignment: Alignment.centerLeft,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: AutilabColor.bb,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: drawTools.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: SvgPicture.asset(
+                                  'assets/icons/${drawTools[index]}'),
+                            );
+                          },
+                        ),
+                        ListView.builder(
+                          itemCount: drawColor.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              width: 20,
+                              height: 20,
+                              margin: EdgeInsets.only(
+                                  bottom:
+                                      drawColor.length - 1 == index ? 0 : 8),
+                              decoration: BoxDecoration(
+                                color: drawColor[index],
+                                shape: BoxShape.circle,
+                              ),
+                            );
+                          },
+                        )
+                      ],
+                    ),
                   ),
+                ),
               ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class BoxWhiteBoardWidget extends StatelessWidget {
-  const BoxWhiteBoardWidget({
-    super.key,
-    required this.onTapOne,
-    required this.colorOne,
-    required this.iconOne,
-    required this.titleOne,
-    required this.onTapSecond,
-    required this.colorSecond,
-    required this.iconSecond,
-    required this.titleSecond,
-  });
-  final Function() onTapOne;
-  final Color colorOne;
-  final String iconOne;
-  final String titleOne;
-  final Function() onTapSecond;
-  final Color colorSecond;
-  final String iconSecond;
-  final String titleSecond;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      spacing: 8,
-      children: [
-        Container(
-          width: 72,
-          height: 56,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: colorOne,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 2,
-            children: [
-              SvgPicture.asset('assets/icons/$iconOne'),
-              Text(
-                titleOne,
-                style: AutilabTextStyle.small10_400,
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: 72,
-          height: 56,
-          decoration: BoxDecoration(
-            color: colorSecond,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 2,
-            children: [
-              SvgPicture.asset('assets/icons/$iconSecond'),
-              Text(
-                titleSecond,
-                style: AutilabTextStyle.small10_400,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CustomButtonWhiteBoardWidget extends StatelessWidget {
-  const CustomButtonWhiteBoardWidget({
-    super.key,
-    required this.onTap,
-    this.width,
-    required this.height,
-    required this.color,
-    required this.icon,
-    required this.title,
-  });
-  final Function() onTap;
-  final double? width;
-  final double height;
-  final Color color;
-  final String icon;
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(),
-      child: Container(
-        width: width,
-        height: height,
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          spacing: 4,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset('assets/icons/$icon'),
-            Text(
-              title,
-              style: AutilabTextStyle.small12_400,
             ),
-          ],
+          ),
         ),
       ),
     );
