@@ -3,7 +3,11 @@ import 'package:autilab_project/features/data/tool/model/whiteboard/sketch.dart'
 import 'package:flutter/material.dart';
 
 class WhiteboardtestScreen extends StatefulWidget {
-  const WhiteboardtestScreen({super.key});
+  const WhiteboardtestScreen({
+    super.key,
+    required this.selectedColor,
+  });
+  final ValueNotifier<Color> selectedColor;
 
   @override
   State<WhiteboardtestScreen> createState() => _WhiteboardtestScreenState();
@@ -64,7 +68,10 @@ class _WhiteboardtestScreenState extends State<WhiteboardtestScreen> {
             final box = context.findRenderObject() as RenderBox;
             final offset = box.globalToLocal(event.position);
 
-            currentStroke.value = LineStroke(points: [offset]);
+            currentStroke.value = LineStroke(
+              points: [offset],
+              color: widget.selectedColor.value,
+            );
           },
           onPointerMove: (event) {
             final box = context.findRenderObject() as RenderBox;
@@ -72,7 +79,10 @@ class _WhiteboardtestScreenState extends State<WhiteboardtestScreen> {
             final points = List<Offset>.from(currentStroke.value?.points ?? [])
               ..add(offset);
 
-            currentStroke.value = LineStroke(points: points);
+            currentStroke.value = LineStroke(
+              points: points,
+              color: widget.selectedColor.value,
+            );
           },
           onPointerUp: (event) {
             allStrokes.value = List<Stroke>.from(allStrokes.value)
@@ -109,7 +119,7 @@ class SketchPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     for (Stroke stroke in strokers) {
       final paint = Paint()
-        ..color = Colors.black
+        ..color = stroke.color
         ..strokeWidth = strokeSize.value
         ..strokeCap = StrokeCap.round
         ..style = PaintingStyle.stroke;

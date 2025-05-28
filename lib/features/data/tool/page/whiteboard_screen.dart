@@ -29,6 +29,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
 
   final sendMessageController = TextEditingController();
   final sendMessageFocusNode = FocusNode();
+  Color strokeColor = const Color(0xffFFFFFF);
 
 //Menu list
   List<DrawerItemClass> settingItems = [
@@ -416,8 +417,10 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                     ),
                   ],
                 ),
-                const Expanded(
-                  child: WhiteboardtestScreen(),
+                Expanded(
+                  child: WhiteboardtestScreen(
+                    selectedColor: ValueNotifier(strokeColor),
+                  ),
                 ),
                 FittedBox(
                   child: Container(
@@ -450,15 +453,23 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return Container(
-                              width: 20,
-                              height: 20,
-                              margin: EdgeInsets.only(
-                                  bottom:
-                                      drawColor.length - 1 == index ? 0 : 8),
-                              decoration: BoxDecoration(
-                                color: drawColor[index],
-                                shape: BoxShape.circle,
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  strokeColor = drawColor[index];
+                                  print(strokeColor);
+                                });
+                              },
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                margin: EdgeInsets.only(
+                                    bottom:
+                                        drawColor.length - 1 == index ? 0 : 8),
+                                decoration: BoxDecoration(
+                                  color: drawColor[index],
+                                  shape: BoxShape.circle,
+                                ),
                               ),
                             );
                           },
