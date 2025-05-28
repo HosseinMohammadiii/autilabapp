@@ -3,6 +3,7 @@ import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
 import 'package:autilab_project/features/data/message/page/class/message.dart';
+import 'package:autilab_project/features/data/tool/page/whiteboardtest_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -415,18 +416,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF5F0CD),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Image.asset(
-                      'assets/images/whiteboardBackground.png',
-                      fit: BoxFit.fill,
-                      opacity: const AlwaysStoppedAnimation(.3),
-                    ),
-                  ),
+                const Expanded(
+                  child: WhiteboardtestScreen(),
                 ),
                 FittedBox(
                   child: Container(
