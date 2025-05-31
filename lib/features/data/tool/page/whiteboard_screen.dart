@@ -3,6 +3,7 @@ import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
 import 'package:autilab_project/features/data/message/page/class/message.dart';
+import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/current_stroke_value_notifier.dart';
 import 'package:autilab_project/features/data/tool/page/whiteboardwork_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +31,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   final sendMessageController = TextEditingController();
   final sendMessageFocusNode = FocusNode();
   Color strokeColor = AutilabColor.black;
+
+  final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
 
 //Menu list
   List<DrawerItemClass> settingItems = [
@@ -96,8 +99,9 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   ];
   bool isShowMenu = false;
   bool isShowChat = false;
-
+  bool isEraser = false;
   bool animatedWidth = false;
+  bool isBrush = true;
   @override
   void initState() {
     super.initState();
@@ -171,6 +175,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      spacing: 8,
                       children: [
                         Row(
                           spacing: 4,
@@ -259,28 +264,30 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           iconSecond: 'microphone.svg',
                           titleSecond: 'Voice',
                         ),
-                        Row(
-                          spacing: 8,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/doctor_image.png',
-                                fit: BoxFit.cover,
-                                width: 72,
-                                height: 83,
+                        Expanded(
+                          child: Row(
+                            spacing: 8,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  'assets/images/doctor_image.png',
+                                  fit: BoxFit.cover,
+                                  width: 72,
+                                  height: 83,
+                                ),
                               ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/child2_image.jpg',
-                                fit: BoxFit.cover,
-                                width: 72,
-                                height: 83,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.asset(
+                                  'assets/images/child2_image.jpg',
+                                  fit: BoxFit.cover,
+                                  width: 72,
+                                  height: 83,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -420,6 +427,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                 Expanded(
                   child: WhiteboardWorkScreen(
                     selectedColor: ValueNotifier(strokeColor),
+                    isEraserMode: ValueNotifier(isEraser),
+                    isNormal: ValueNotifier(isBrush),
                   ),
                 ),
                 FittedBox(
@@ -443,8 +452,23 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 8),
-                              child: SvgPicture.asset(
-                                  'assets/icons/${drawTools[index]}'),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    switch (index) {
+                                      case 2:
+                                        isBrush = true;
+                                        isEraser = false;
+                                        break;
+                                      case 5:
+                                        isEraser = true;
+                                        break;
+                                    }
+                                  });
+                                },
+                                child: SvgPicture.asset(
+                                    'assets/icons/${drawTools[index]}'),
+                              ),
                             );
                           },
                         ),

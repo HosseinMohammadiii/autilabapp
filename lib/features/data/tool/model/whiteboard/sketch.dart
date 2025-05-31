@@ -7,6 +7,7 @@ abstract class Stroke {
   final Color color;
   final double size;
   final double opacity;
+  final String text;
   final StrokeType strokeType;
   final DateTime createdAt = DateTime.now();
   Stroke({
@@ -14,6 +15,7 @@ abstract class Stroke {
     this.color = AutilabColor.black,
     this.size = 5,
     this.opacity = 1,
+    this.text = '',
     this.strokeType = StrokeType.normal,
   });
 
@@ -26,6 +28,32 @@ abstract class Stroke {
   bool get isEraser => strokeType == StrokeType.eraser;
   bool get isLine => strokeType == StrokeType.line;
   bool get isNormal => strokeType == StrokeType.normal;
+}
+
+class TextItem extends Stroke {
+  TextItem({
+    required super.points,
+    super.color,
+    super.size,
+    super.opacity,
+    super.text,
+  }) : super(strokeType: StrokeType.normal);
+  @override
+  TextItem copyWith({
+    List<Offset>? points,
+    Color? color,
+    double? size,
+    double? opacity,
+    String? text,
+  }) {
+    return TextItem(
+      points: points ?? this.points,
+      color: color ?? this.color,
+      size: size ?? this.size,
+      opacity: opacity ?? this.opacity,
+      text: text ?? this.text,
+    );
+  }
 }
 
 class NormalStroke extends Stroke {

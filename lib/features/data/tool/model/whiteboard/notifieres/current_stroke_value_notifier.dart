@@ -77,11 +77,6 @@ class CurrentStrokeValueNotifier extends ValueNotifier<Stroke?> {
     }();
   }
 
-  void addPoint(Offset point) {
-    final points = List<Offset>.from(value?.points ?? [])..add(point);
-    value = value?.copyWith(points: points);
-  }
-
   void clear() {
     value = null;
   }
