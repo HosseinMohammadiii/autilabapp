@@ -3,7 +3,7 @@ import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
 import 'package:autilab_project/features/data/message/page/class/message.dart';
-import 'package:autilab_project/features/data/tool/page/whiteboardtest_screen.dart';
+import 'package:autilab_project/features/data/tool/page/whiteboardwork_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +29,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
 
   final sendMessageController = TextEditingController();
   final sendMessageFocusNode = FocusNode();
-  Color strokeColor = const Color(0xffFFFFFF);
+  Color strokeColor = AutilabColor.black;
 
 //Menu list
   List<DrawerItemClass> settingItems = [
@@ -418,7 +418,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                   ],
                 ),
                 Expanded(
-                  child: WhiteboardtestScreen(
+                  child: WhiteboardWorkScreen(
                     selectedColor: ValueNotifier(strokeColor),
                   ),
                 ),
@@ -457,7 +457,6 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                               onTap: () {
                                 setState(() {
                                   strokeColor = drawColor[index];
-                                  print(strokeColor);
                                 });
                               },
                               child: Container(

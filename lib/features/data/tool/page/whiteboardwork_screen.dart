@@ -2,19 +2,18 @@ import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/c
 import 'package:autilab_project/features/data/tool/model/whiteboard/sketch.dart';
 import 'package:flutter/material.dart';
 
-class WhiteboardtestScreen extends StatefulWidget {
-  const WhiteboardtestScreen({
+class WhiteboardWorkScreen extends StatefulWidget {
+  const WhiteboardWorkScreen({
     super.key,
     required this.selectedColor,
   });
   final ValueNotifier<Color> selectedColor;
 
   @override
-  State<WhiteboardtestScreen> createState() => _WhiteboardtestScreenState();
+  State<WhiteboardWorkScreen> createState() => _WhiteboardWorkScreenState();
 }
 
-class _WhiteboardtestScreenState extends State<WhiteboardtestScreen> {
-  final ValueNotifier<Color> selectedColor = ValueNotifier(Colors.black);
+class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
   final ValueNotifier<double> strokeSize = ValueNotifier(10.0);
   final ValueNotifier<double> eraserSize = ValueNotifier(30.0);
   final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
@@ -140,7 +139,7 @@ class SketchPainter extends CustomPainter {
         );
       }
 
-      canvas.drawPath(path, paint); // فقط بعد از کامل شدن مسیر
+      canvas.drawPath(path, paint);
     }
   }
 
