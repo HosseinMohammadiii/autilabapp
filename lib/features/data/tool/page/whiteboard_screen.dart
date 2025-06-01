@@ -3,7 +3,6 @@ import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
 import 'package:autilab_project/features/data/message/page/class/message.dart';
-import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/current_stroke_value_notifier.dart';
 import 'package:autilab_project/features/data/tool/page/whiteboardwork_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../model/whiteboard/drawing_tool.dart';
 import '../widgets/boxwhiteboard_widget.dart';
 import '../widgets/chatlistwhiteboard_widget.dart';
 import '../widgets/custombuttonwhitboard_widget.dart';
@@ -32,7 +32,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   final sendMessageFocusNode = FocusNode();
   Color strokeColor = AutilabColor.black;
 
-  final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
+  final ValueNotifier<StrokeType> strokeType = ValueNotifier(StrokeType.normal);
 
 //Menu list
   List<DrawerItemClass> settingItems = [
@@ -102,6 +102,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   bool isEraser = false;
   bool animatedWidth = false;
   bool isBrush = true;
+  bool isCircle = false;
   @override
   void initState() {
     super.initState();
@@ -427,8 +428,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                 Expanded(
                   child: WhiteboardWorkScreen(
                     selectedColor: ValueNotifier(strokeColor),
-                    isEraserMode: ValueNotifier(isEraser),
-                    isNormal: ValueNotifier(isBrush),
+                    strokeType: ValueNotifier(strokeType.value),
                   ),
                 ),
                 FittedBox(
@@ -457,11 +457,16 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                   setState(() {
                                     switch (index) {
                                       case 2:
-                                        isBrush = true;
-                                        isEraser = false;
+                                        strokeType.value = StrokeType.normal;
                                         break;
                                       case 5:
-                                        isEraser = true;
+                                        strokeType.value = StrokeType.eraser;
+                                        break;
+                                      case 6:
+                                        strokeType.value = StrokeType.circle;
+                                        break;
+                                      case 7:
+                                        strokeType.value = StrokeType.deleteAll;
                                         break;
                                     }
                                   });
@@ -481,6 +486,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                               onTap: () {
                                 setState(() {
                                   strokeColor = drawColor[index];
+                                  strokeType.value = StrokeType.normal;
                                 });
                               },
                               child: Container(

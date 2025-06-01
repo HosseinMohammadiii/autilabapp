@@ -7,13 +7,12 @@ class WhiteboardWorkScreen extends StatefulWidget {
   const WhiteboardWorkScreen({
     super.key,
     required this.selectedColor,
-    required this.isEraserMode,
-    required this.isNormal,
+    required this.strokeType,
     // required this.isLine,
   });
   final ValueNotifier<Color> selectedColor;
-  final ValueNotifier<bool> isEraserMode;
-  final ValueNotifier<bool> isNormal;
+
+  final ValueNotifier<StrokeType> strokeType;
   // final ValueNotifier<bool> isLine;
 
   @override
@@ -21,14 +20,24 @@ class WhiteboardWorkScreen extends StatefulWidget {
 }
 
 class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
-  final ValueNotifier<double> strokeSize = ValueNotifier(10.0);
-  final ValueNotifier<double> eraserSize = ValueNotifier(30.0);
   final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
   final ValueNotifier<List<Stroke>> allStrokes = ValueNotifier([]);
   final ValueNotifier<List<TextItem>> texts = ValueNotifier([]);
 
+// Position and controller for adding text input
   Offset? textInputPosition;
   TextEditingController textController = TextEditingController();
+
+  @override
+  void didUpdateWidget(covariant WhiteboardWorkScreen oldWidget) {
+    if (widget.strokeType.value == StrokeType.deleteAll) {
+      setState(() {
+        allStrokes.value.clear();
+        currentStroke.value = null;
+      });
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +62,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
     );
   }
 
+// Paint all completed strokes and text items
   Widget buildAllStroke() {
     return SizedBox.expand(
       child: ValueListenableBuilder(
@@ -73,6 +83,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
     );
   }
 
+// Handle user interaction for drawing on the canvas
   Widget buildCurrentPath(BuildContext context) {
     return MouseRegion(
       child: SizedBox.expand(
@@ -80,43 +91,71 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
           onPointerDown: (event) {
             final box = context.findRenderObject() as RenderBox;
             final offset = box.globalToLocal(event.position);
-            textInputPosition = offset;
-            if (widget.isEraserMode.value) {
-              currentStroke.value = EraserStroke(
-                points: [offset],
-              );
-            } else {
-              currentStroke.value = LineStroke(
-                points: [offset],
-                color: widget.selectedColor.value,
-              );
+
+            // Initialize stroke when user starts drawing
+            switch (widget.strokeType.value) {
+              case StrokeType.normal:
+                currentStroke.value = NormalStroke(
+                  points: [offset],
+                  color: widget.selectedColor.value,
+                );
+                break;
+              case StrokeType.eraser:
+                currentStroke.value = EraserStroke(
+                  points: [offset],
+                );
+                break;
+
+              default:
+                currentStroke.value = NormalStroke(
+                  points: [offset],
+                  color: widget.selectedColor.value,
+                );
             }
           },
           onPointerMove: (event) {
             final box = context.findRenderObject() as RenderBox;
             final offset = box.globalToLocal(event.position);
+
+            // Add new point to current stroke
             final points = List<Offset>.from(currentStroke.value?.points ?? [])
               ..add(offset);
 
-            if (widget.isNormal.value) {
-              currentStroke.value = NormalStroke(
-                points: points,
-                color: widget.selectedColor.value,
-              );
-            }
-            // } else if (widget.isLine.value) {
-            //   currentStroke.value = LineStroke(
-            //     points: points,
-            //     color: widget.selectedColor.value,
-            //   );
-            // }
-            if (widget.isEraserMode.value) {
-              currentStroke.value = EraserStroke(
-                points: points,
-              );
+            // Update current stroke with accumulated points
+            switch (widget.strokeType.value) {
+              case StrokeType.normal:
+                currentStroke.value = NormalStroke(
+                  points: points,
+                  color: widget.selectedColor.value,
+                );
+                break;
+              case StrokeType.eraser:
+                currentStroke.value = EraserStroke(
+                  points: points,
+                );
+                break;
+              case StrokeType.circle:
+                currentStroke.value = CircleStroke(
+                  points: points,
+                  color: widget.selectedColor.value,
+                );
+                break;
+              case StrokeType.polygon:
+                currentStroke.value = PolygonStroke(
+                  sides: 4,
+                  points: points,
+                  color: widget.selectedColor.value,
+                );
+                break;
+              default:
+                currentStroke.value = NormalStroke(
+                  points: points,
+                  color: widget.selectedColor.value,
+                );
             }
           },
           onPointerUp: (event) {
+            // Save finished stroke to list and reset current stroke
             allStrokes.value = List<Stroke>.from(allStrokes.value)
               ..add(currentStroke.value!);
           },
@@ -159,6 +198,8 @@ class SketchPainter extends CustomPainter {
         ..strokeWidth = 5.0
         ..strokeCap = StrokeCap.round
         ..style = PaintingStyle.stroke;
+
+      // Configure paint for eraser or drawing
       if (stroke.isEraser) {
         paint.blendMode = BlendMode.clear;
       } else {
@@ -170,6 +211,7 @@ class SketchPainter extends CustomPainter {
       final path = Path();
       path.moveTo(points.first.dx, points.first.dy);
 
+      // Smooth curve using quadratic Bezier
       for (var i = 1; i < points.length - 1; ++i) {
         final p0 = points[i];
         final p1 = points[i + 1];
@@ -182,7 +224,9 @@ class SketchPainter extends CustomPainter {
       }
       Offset firstPoint = stroke.points.first;
       Offset lastPoint = stroke.points.last;
+      Rect rect = Rect.fromPoints(firstPoint, lastPoint);
 
+      // Draw different shapes based on stroke type
       switch (stroke.strokeType) {
         case StrokeType.normal:
           canvas.drawPath(path, paint);
@@ -190,25 +234,33 @@ class SketchPainter extends CustomPainter {
         case StrokeType.line:
           canvas.drawLine(firstPoint, lastPoint, paint);
           break;
+        case StrokeType.circle:
+          canvas.drawOval(rect, paint);
+          break;
+        case StrokeType.polygon:
+          canvas.drawRect(rect, paint);
+          break;
+
         default:
           canvas.drawPath(path, paint);
       }
     }
     canvas.restore();
-    for (final textItem in texts) {
-      final textSpan = TextSpan(
-        text: textItem.text,
-        style: TextStyle(
-          color: textItem.color,
-        ),
-      );
-      final tp = TextPainter(
-        text: textSpan,
-        textDirection: TextDirection.ltr,
-      );
-      tp.layout();
-      tp.paint(canvas, textItem.points.first);
-    }
+    // for (final textItem in texts) {
+    //   final textSpan = TextSpan(
+    //     text: textItem.text,
+    //     style: TextStyle(
+    //       color: textItem.color,
+    //     ),
+    //   );
+    //   final tp = TextPainter(
+    //     text: textSpan,
+    //     textDirection: TextDirection.ltr,
+    //   );
+    //   tp.layout();
+    //   tp.paint(canvas, textItem.points.first);
+
+    // }
   }
 
   @override

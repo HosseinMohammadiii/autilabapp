@@ -11,15 +11,14 @@ enum DrawingTool {
   bool get isCircle => this == DrawingTool.circle;
 }
 
-extension DrawingToolExtentions on DrawingTool {}
-
 enum StrokeType {
   normal,
   eraser,
   line,
   polygon,
   square,
-  circle;
+  circle,
+  deleteAll;
 
   static StrokeType fromString(String value) {
     switch (value) {
@@ -35,6 +34,8 @@ enum StrokeType {
         return StrokeType.square;
       case 'circle':
         return StrokeType.circle;
+      case 'deleteAll':
+        return StrokeType.deleteAll;
       default:
         return StrokeType.normal;
     }
@@ -55,6 +56,8 @@ enum StrokeType {
         return 'square';
       case StrokeType.circle:
         return 'circle';
+      case StrokeType.deleteAll:
+        return 'deleteAll';
     }
   }
 }
