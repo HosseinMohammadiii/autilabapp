@@ -34,7 +34,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
 
   final ValueNotifier<StrokeType> strokeType = ValueNotifier(StrokeType.normal);
 
-//Menu list
+  //Menu list
   List<DrawerItemClass> settingItems = [
     DrawerItemClass(
       'Full Screen',
@@ -68,7 +68,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
     ),
   ];
 
-//Paiting tools
+  //Paiting tools
   List<String> drawTools = [
     'undo.svg',
     'redo.svg',
@@ -183,6 +183,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           children: [
                             GestureDetector(
                               onTap: () {
+                                //control for display setting menu
                                 setState(() {
                                   isShowMenu = !isShowMenu;
                                 });
@@ -454,8 +455,15 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                               padding: const EdgeInsets.only(bottom: 8),
                               child: GestureDetector(
                                 onTap: () {
+                                  // Control for selecting the drawing tool
                                   setState(() {
                                     switch (index) {
+                                      case 0:
+                                        strokeType.value = StrokeType.undo;
+                                        break;
+                                      case 1:
+                                        strokeType.value = StrokeType.redo;
+                                        break;
                                       case 2:
                                         strokeType.value = StrokeType.normal;
                                         break;
@@ -468,11 +476,16 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                       case 7:
                                         strokeType.value = StrokeType.deleteAll;
                                         break;
+
+                                      default:
+                                        strokeType.value = StrokeType.normal;
+                                        break;
                                     }
                                   });
                                 },
                                 child: SvgPicture.asset(
-                                    'assets/icons/${drawTools[index]}'),
+                                  'assets/icons/${drawTools[index]}',
+                                ),
                               ),
                             );
                           },
@@ -485,8 +498,14 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
+                                  //Initialize strokeColor with drawColor item
                                   strokeColor = drawColor[index];
-                                  strokeType.value = StrokeType.normal;
+
+                                  // Control for selecting the brush tool when using it after deleting all drawings
+                                  if (strokeType.value ==
+                                      StrokeType.deleteAll) {
+                                    strokeType.value = StrokeType.normal;
+                                  }
                                 });
                               },
                               child: Container(
@@ -502,7 +521,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                               ),
                             );
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),

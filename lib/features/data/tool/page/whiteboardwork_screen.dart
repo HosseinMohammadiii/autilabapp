@@ -22,6 +22,7 @@ class WhiteboardWorkScreen extends StatefulWidget {
 class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
   final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
   final ValueNotifier<List<Stroke>> allStrokes = ValueNotifier([]);
+  final ValueNotifier<List<Stroke>> restoreStrokes = ValueNotifier([]);
   final ValueNotifier<List<TextItem>> texts = ValueNotifier([]);
 
 // Position and controller for adding text input
@@ -30,13 +31,32 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
 
   @override
   void didUpdateWidget(covariant WhiteboardWorkScreen oldWidget) {
-    if (widget.strokeType.value == StrokeType.deleteAll) {
-      setState(() {
-        allStrokes.value.clear();
-        currentStroke.value = null;
-      });
-    }
     super.didUpdateWidget(oldWidget);
+
+    if (widget.strokeType.value == StrokeType.deleteAll) {
+      allStrokes.value.clear();
+      restoreStrokes.value.clear();
+      currentStroke.value = null;
+    } else if (widget.strokeType.value == StrokeType.undo) {
+      _handleUndo();
+    } else if (widget.strokeType.value == StrokeType.redo) {
+      _handleRedo();
+    }
+  }
+
+  void _handleUndo() {
+    if (allStrokes.value.isNotEmpty) {
+      final lastStroke = allStrokes.value.removeLast();
+      restoreStrokes.value = List.from(restoreStrokes.value)..add(lastStroke);
+      currentStroke.value = null;
+    }
+  }
+
+  void _handleRedo() {
+    if (restoreStrokes.value.isNotEmpty) {
+      final lastRestore = restoreStrokes.value.removeLast();
+      allStrokes.value = List.from(allStrokes.value)..add(lastRestore);
+    }
   }
 
   @override
@@ -155,9 +175,14 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
             }
           },
           onPointerUp: (event) {
-            // Save finished stroke to list and reset current stroke
-            allStrokes.value = List<Stroke>.from(allStrokes.value)
-              ..add(currentStroke.value!);
+            if (currentStroke.value != null) {
+              allStrokes.value = List<Stroke>.from(allStrokes.value)
+                ..add(currentStroke.value!);
+
+              // Clear redo history when new stroke added
+              restoreStrokes.value = [];
+              currentStroke.value = null;
+            }
           },
           child: ValueListenableBuilder(
             valueListenable: currentStroke,

@@ -12,6 +12,8 @@ enum DrawingTool {
 }
 
 enum StrokeType {
+  undo,
+  redo,
   normal,
   eraser,
   line,
@@ -22,6 +24,10 @@ enum StrokeType {
 
   static StrokeType fromString(String value) {
     switch (value) {
+      case 'undo':
+        return StrokeType.undo;
+      case 'redo':
+        return StrokeType.redo;
       case 'normal':
         return StrokeType.normal;
       case 'eraser':
@@ -44,6 +50,10 @@ enum StrokeType {
   @override
   String toString() {
     switch (this) {
+      case StrokeType.undo:
+        return 'undo';
+      case StrokeType.redo:
+        return 'redo';
       case StrokeType.normal:
         return 'normal';
       case StrokeType.eraser:
