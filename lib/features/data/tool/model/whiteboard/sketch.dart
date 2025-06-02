@@ -37,7 +37,7 @@ class TextItem extends Stroke {
     super.size,
     super.opacity,
     super.text,
-  }) : super(strokeType: StrokeType.normal);
+  }) : super(strokeType: StrokeType.text);
   @override
   TextItem copyWith({
     List<Offset>? points,
@@ -50,7 +50,6 @@ class TextItem extends Stroke {
       points: points ?? this.points,
       color: color ?? this.color,
       size: size ?? this.size,
-      opacity: opacity ?? this.opacity,
       text: text ?? this.text,
     );
   }

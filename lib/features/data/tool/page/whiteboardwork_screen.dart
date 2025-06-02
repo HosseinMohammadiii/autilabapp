@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/tool/model/whiteboard/drawing_tool.dart';
 import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/current_stroke_value_notifier.dart';
 import 'package:autilab_project/features/data/tool/model/whiteboard/sketch.dart';
@@ -23,7 +24,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
   final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
   final ValueNotifier<List<Stroke>> allStrokes = ValueNotifier([]);
   final ValueNotifier<List<Stroke>> restoreStrokes = ValueNotifier([]);
-  final ValueNotifier<List<TextItem>> texts = ValueNotifier([]);
+  final ValueNotifier<List<Stroke>> texts = ValueNotifier([]);
 
 // Position and controller for adding text input
   Offset? textInputPosition;
@@ -33,17 +34,23 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
   void didUpdateWidget(covariant WhiteboardWorkScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    // Handle deleteAll: clear all strokes and reset state
     if (widget.strokeType.value == StrokeType.deleteAll) {
       allStrokes.value.clear();
       restoreStrokes.value.clear();
       currentStroke.value = null;
+
+      // Handle undo: move last stroke to restore list
     } else if (widget.strokeType.value == StrokeType.undo) {
       _handleUndo();
+
+      // Handle redo: move last restored stroke back to strokes list
     } else if (widget.strokeType.value == StrokeType.redo) {
       _handleRedo();
     }
   }
 
+// Remove last stroke and store it in restore list for redo
   void _handleUndo() {
     if (allStrokes.value.isNotEmpty) {
       final lastStroke = allStrokes.value.removeLast();
@@ -52,11 +59,58 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
     }
   }
 
+// Restore last undone stroke back to strokes list
   void _handleRedo() {
     if (restoreStrokes.value.isNotEmpty) {
       final lastRestore = restoreStrokes.value.removeLast();
       allStrokes.value = List.from(allStrokes.value)..add(lastRestore);
     }
+  }
+
+  void _showTextInputDialog(BuildContext context, List<Offset> position) {
+    // Clear the text field before showing the dialog
+    textController.clear();
+
+    // Show an alert dialog with a TextField for entering text
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "Enter Text",
+            style: AutilabTextStyle.small20_400,
+          ),
+          content: TextField(
+            controller: textController,
+            autofocus: true,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // If text is not empty, create a TextItem and add it to the strokes list
+                if (textController.text.isNotEmpty) {
+                  allStrokes.value = List.from(allStrokes.value)
+                    ..add(
+                      TextItem(
+                        points: position,
+                        text: textController.text,
+                        color: widget.selectedColor.value,
+                      ),
+                    );
+                }
+
+                // Close the dialog
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Add',
+                style: AutilabTextStyle.small18_400,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -93,7 +147,6 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
               child: CustomPaint(
                 painter: SketchPainter(
                   strokers: allStrokes.value,
-                  texts: texts.value,
                 ),
               ),
             ),
@@ -107,10 +160,21 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
   Widget buildCurrentPath(BuildContext context) {
     return MouseRegion(
       child: SizedBox.expand(
-        child: Listener(
-          onPointerDown: (event) {
+        child: GestureDetector(
+          onTapDown: (event) {
             final box = context.findRenderObject() as RenderBox;
-            final offset = box.globalToLocal(event.position);
+            final offset = box.globalToLocal(event.globalPosition);
+
+            final points = List<Offset>.from(currentStroke.value?.points ?? [])
+              ..add(offset);
+            //If strokeType is text display _showTextInputDialog method
+            if (widget.strokeType.value == StrokeType.text) {
+              _showTextInputDialog(context, points);
+            }
+          },
+          onPanDown: (event) {
+            final box = context.findRenderObject() as RenderBox;
+            final offset = box.globalToLocal(event.globalPosition);
 
             // Initialize stroke when user starts drawing
             switch (widget.strokeType.value) {
@@ -133,9 +197,9 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                 );
             }
           },
-          onPointerMove: (event) {
+          onPanUpdate: (event) {
             final box = context.findRenderObject() as RenderBox;
-            final offset = box.globalToLocal(event.position);
+            final offset = box.globalToLocal(event.globalPosition);
 
             // Add new point to current stroke
             final points = List<Offset>.from(currentStroke.value?.points ?? [])
@@ -167,6 +231,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                   color: widget.selectedColor.value,
                 );
                 break;
+
               default:
                 currentStroke.value = NormalStroke(
                   points: points,
@@ -174,7 +239,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                 );
             }
           },
-          onPointerUp: (event) {
+          onPanEnd: (event) {
             if (currentStroke.value != null) {
               allStrokes.value = List<Stroke>.from(allStrokes.value)
                 ..add(currentStroke.value!);
@@ -194,7 +259,6 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                       strokers: currentStroke.value == null
                           ? []
                           : [currentStroke.value!],
-                      texts: texts.value,
                     ),
                   ),
                 ),
@@ -209,12 +273,13 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
 
 class SketchPainter extends CustomPainter {
   final List<Stroke> strokers;
-  final List<TextItem> texts;
-  SketchPainter({required this.strokers, required this.texts});
+
+  SketchPainter({required this.strokers});
 
   @override
   void paint(Canvas canvas, Size size) {
     final bounds = Offset.zero & size;
+
     canvas.saveLayer(bounds, Paint());
 
     for (Stroke stroke in strokers) {
@@ -265,31 +330,44 @@ class SketchPainter extends CustomPainter {
         case StrokeType.polygon:
           canvas.drawRect(rect, paint);
           break;
+        case StrokeType.text:
+          inputText(canvas);
+          break;
 
         default:
           canvas.drawPath(path, paint);
       }
     }
     canvas.restore();
-    // for (final textItem in texts) {
-    //   final textSpan = TextSpan(
-    //     text: textItem.text,
-    //     style: TextStyle(
-    //       color: textItem.color,
-    //     ),
-    //   );
-    //   final tp = TextPainter(
-    //     text: textSpan,
-    //     textDirection: TextDirection.ltr,
-    //   );
-    //   tp.layout();
-    //   tp.paint(canvas, textItem.points.first);
-
-    // }
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+
+//Method inputText for
+  void inputText(Canvas canvas) {
+    // Loop through each text item in the list of strokes
+    for (final textItem in strokers) {
+      // Create a TextSpan with the text content, color, and font size
+      final textSpan = TextSpan(
+        text: textItem.text,
+        style: TextStyle(
+          color: textItem.color,
+          fontSize: 18.0,
+        ),
+      );
+
+      // Create a TextPainter to layout and paint the text
+      final tp = TextPainter(
+        text: textSpan,
+        textDirection: TextDirection.ltr,
+      );
+      tp.layout();
+
+      // Paint the text at the specified position
+      tp.paint(canvas, textItem.points.first);
+    }
   }
 }

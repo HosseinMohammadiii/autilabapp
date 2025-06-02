@@ -467,6 +467,9 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                       case 2:
                                         strokeType.value = StrokeType.normal;
                                         break;
+                                      case 3:
+                                        strokeType.value = StrokeType.text;
+                                        break;
                                       case 5:
                                         strokeType.value = StrokeType.eraser;
                                         break;

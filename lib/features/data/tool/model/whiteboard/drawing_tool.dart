@@ -15,6 +15,7 @@ enum StrokeType {
   undo,
   redo,
   normal,
+  text,
   eraser,
   line,
   polygon,
@@ -30,6 +31,8 @@ enum StrokeType {
         return StrokeType.redo;
       case 'normal':
         return StrokeType.normal;
+      case 'text':
+        return StrokeType.text;
       case 'eraser':
         return StrokeType.eraser;
       case 'line':
@@ -56,6 +59,8 @@ enum StrokeType {
         return 'redo';
       case StrokeType.normal:
         return 'normal';
+      case StrokeType.text:
+        return 'text';
       case StrokeType.eraser:
         return 'eraser';
       case StrokeType.line:
