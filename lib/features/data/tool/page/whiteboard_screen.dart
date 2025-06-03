@@ -1,14 +1,22 @@
+import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/icon_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
 import 'package:autilab_project/features/data/message/page/class/message.dart';
 import 'package:autilab_project/features/data/tool/page/whiteboardwork_screen.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../model/whiteboard/drawing_tool.dart';
 import '../widgets/boxwhiteboard_widget.dart';
@@ -99,10 +107,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   ];
   bool isShowMenu = false;
   bool isShowChat = false;
-  bool isEraser = false;
-  bool animatedWidth = false;
-  bool isBrush = true;
-  bool isCircle = false;
+
   @override
   void initState() {
     super.initState();
@@ -158,6 +163,76 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   void didUpdateWidget(covariant WhiteboardScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
+  }
+
+  void _saveDrawing() async {
+    try {
+      // Step 1: Request permission based on platform and Android version
+      bool permissionGranted = false;
+
+      if (Platform.isAndroid) {
+        final androidInfo = await DeviceInfoPlugin().androidInfo;
+
+        if (androidInfo.version.sdkInt >= 33) {
+          // Android 13 (API 33) and above: Request access to photos
+          final status = await Permission.photos.request();
+          permissionGranted = status.isGranted;
+        } else {
+          // Android below 13: Request storage access
+          final status = await Permission.storage.request();
+          permissionGranted = status.isGranted;
+        }
+      } else {
+        // iOS or other platforms: Request storage permission
+        final status = await Permission.storage.request();
+        permissionGranted = status.isGranted;
+      }
+
+      // Step 2: If permission is granted, capture the image from RepaintBoundary
+      if (permissionGranted) {
+        RenderRepaintBoundary boundary =
+            key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+
+        // Convert the boundary to image
+        ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+
+        // Convert image to PNG byte data
+        ByteData? byteData =
+            await image.toByteData(format: ui.ImageByteFormat.png);
+
+        if (byteData != null) {
+          // Step 3: Save image to external storage
+          Uint8List pngBytes = byteData.buffer.asUint8List();
+          final directory = await getExternalStorageDirectory();
+          String filePath =
+              '${directory!.path}/drawing_${DateTime.now().millisecondsSinceEpoch}.png';
+
+          File file = File(filePath);
+          await file.writeAsBytes(pngBytes);
+
+          // Show success message
+          displaySnackBar(
+            context,
+            'Image saved in gallery:\n$filePath',
+            AutilabColor.bb,
+          );
+        }
+      } else {
+        // Permission denied: Show error message
+        displaySnackBar(
+          context,
+          'Memory access permission denied.',
+          AutilabColor.bb,
+        );
+      }
+    } catch (e) {
+      // Catch any unexpected errors and show message
+      displaySnackBar(
+        context,
+        'Error while saving: $e',
+        AutilabColor.bb,
+      );
+    }
   }
 
   @override
@@ -237,7 +312,10 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           title: 'Chat',
                         ),
                         BoxWhiteBoardWidget(
-                          onTapOne: () {},
+                          onTapOne: () {
+                            //Call method for drawing download
+                            _saveDrawing();
+                          },
                           colorOne: AutilabColor.lightGray,
                           iconOne: 'download.svg',
                           titleOne: 'Download',
@@ -430,6 +508,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                   child: WhiteboardWorkScreen(
                     selectedColor: ValueNotifier(strokeColor),
                     strokeType: ValueNotifier(strokeType.value),
+                    onChanged: () {},
                   ),
                 ),
                 FittedBox(

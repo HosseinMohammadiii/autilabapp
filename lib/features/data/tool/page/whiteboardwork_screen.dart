@@ -4,23 +4,28 @@ import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/c
 import 'package:autilab_project/features/data/tool/model/whiteboard/sketch.dart';
 import 'package:flutter/material.dart';
 
+final key = GlobalKey();
+
 class WhiteboardWorkScreen extends StatefulWidget {
   const WhiteboardWorkScreen({
     super.key,
     required this.selectedColor,
     required this.strokeType,
-    // required this.isLine,
+    required this.onChanged,
   });
   final ValueNotifier<Color> selectedColor;
 
   final ValueNotifier<StrokeType> strokeType;
-  // final ValueNotifier<bool> isLine;
+
+  final Function() onChanged;
 
   @override
   State<WhiteboardWorkScreen> createState() => _WhiteboardWorkScreenState();
 }
 
 class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
+  // Key for accessing RepaintBoundary
+
   final CurrentStrokeValueNotifier currentStroke = CurrentStrokeValueNotifier();
   final ValueNotifier<List<Stroke>> allStrokes = ValueNotifier([]);
   final ValueNotifier<List<Stroke>> restoreStrokes = ValueNotifier([]);
@@ -115,24 +120,27 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox.expand(
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xffF5F0CD),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Image.asset(
-              'assets/images/whiteboardBackground.png',
-              fit: BoxFit.fill,
-              opacity: const AlwaysStoppedAnimation(.3),
+    return RepaintBoundary(
+      key: key,
+      child: Stack(
+        children: [
+          SizedBox.expand(
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xffF5F0CD),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Image.asset(
+                'assets/images/whiteboardBackground.png',
+                fit: BoxFit.fill,
+                opacity: const AlwaysStoppedAnimation(.3),
+              ),
             ),
           ),
-        ),
-        buildAllStroke(),
-        buildCurrentPath(context),
-      ],
+          buildAllStroke(),
+          buildCurrentPath(context),
+        ],
+      ),
     );
   }
 
@@ -143,11 +151,9 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
         valueListenable: allStrokes,
         builder: (context, value, child) {
           return ClipRect(
-            child: RepaintBoundary(
-              child: CustomPaint(
-                painter: SketchPainter(
-                  strokers: allStrokes.value,
-                ),
+            child: CustomPaint(
+              painter: SketchPainter(
+                strokers: allStrokes.value,
               ),
             ),
           );
@@ -171,6 +177,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
             if (widget.strokeType.value == StrokeType.text) {
               _showTextInputDialog(context, points);
             }
+            return;
           },
           onPanDown: (event) {
             final box = context.findRenderObject() as RenderBox;
@@ -197,7 +204,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                 );
             }
           },
-          onPanUpdate: (event) {
+          onPanUpdate: (event) async {
             final box = context.findRenderObject() as RenderBox;
             final offset = box.globalToLocal(event.globalPosition);
 
@@ -223,6 +230,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                   points: points,
                   color: widget.selectedColor.value,
                 );
+
                 break;
               case StrokeType.polygon:
                 currentStroke.value = PolygonStroke(
@@ -253,13 +261,11 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
             valueListenable: currentStroke,
             builder: (context, value, child) {
               return ClipRRect(
-                child: RepaintBoundary(
-                  child: CustomPaint(
-                    painter: SketchPainter(
-                      strokers: currentStroke.value == null
-                          ? []
-                          : [currentStroke.value!],
-                    ),
+                child: CustomPaint(
+                  painter: SketchPainter(
+                    strokers: currentStroke.value == null
+                        ? []
+                        : [currentStroke.value!],
                   ),
                 ),
               );

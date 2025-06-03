@@ -21,6 +21,7 @@ enum StrokeType {
   polygon,
   square,
   circle,
+  download,
   deleteAll;
 
   static StrokeType fromString(String value) {
@@ -43,6 +44,8 @@ enum StrokeType {
         return StrokeType.square;
       case 'circle':
         return StrokeType.circle;
+      case 'download':
+        return StrokeType.download;
       case 'deleteAll':
         return StrokeType.deleteAll;
       default:
@@ -71,6 +74,8 @@ enum StrokeType {
         return 'square';
       case StrokeType.circle:
         return 'circle';
+      case StrokeType.download:
+        return 'download';
       case StrokeType.deleteAll:
         return 'deleteAll';
     }

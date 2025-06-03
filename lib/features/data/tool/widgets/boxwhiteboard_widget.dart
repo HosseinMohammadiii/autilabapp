@@ -37,16 +37,19 @@ class BoxWhiteBoardWidget extends StatelessWidget {
             color: colorOne,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 2,
-            children: [
-              SvgPicture.asset('assets/icons/$iconOne'),
-              Text(
-                titleOne,
-                style: AutilabTextStyle.small10_400,
-              ),
-            ],
+          child: GestureDetector(
+            onTap: () => onTapOne(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 2,
+              children: [
+                SvgPicture.asset('assets/icons/$iconOne'),
+                Text(
+                  titleOne,
+                  style: AutilabTextStyle.small10_400,
+                ),
+              ],
+            ),
           ),
         ),
         Container(
