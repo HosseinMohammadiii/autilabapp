@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/tool/model/whiteboard/drawing_tool.dart';
 import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/current_stroke_value_notifier.dart';
@@ -7,15 +9,20 @@ import 'package:flutter/material.dart';
 final key = GlobalKey();
 
 class WhiteboardWorkScreen extends StatefulWidget {
-  const WhiteboardWorkScreen({
+  WhiteboardWorkScreen({
     super.key,
     required this.selectedColor,
     required this.strokeType,
     required this.onChanged,
+    required this.isUpload,
+    required this.image,
   });
   final ValueNotifier<Color> selectedColor;
 
   final ValueNotifier<StrokeType> strokeType;
+
+  final bool isUpload;
+  File? image;
 
   final Function() onChanged;
 
@@ -44,7 +51,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
       allStrokes.value.clear();
       restoreStrokes.value.clear();
       currentStroke.value = null;
-
+      // widget.image = null;
       // Handle undo: move last stroke to restore list
     } else if (widget.strokeType.value == StrokeType.undo) {
       _handleUndo();
@@ -131,12 +138,21 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Image.asset(
-                'assets/images/whiteboardBackground.png',
+                widget.isUpload
+                    ? 'assets/images/upload_image_background.png'
+                    : 'assets/images/whiteboardBackground.png',
                 fit: BoxFit.fill,
                 opacity: const AlwaysStoppedAnimation(.3),
               ),
             ),
           ),
+          widget.image?.path != null && widget.isUpload
+              ? Center(
+                  child: Image.file(
+                    widget.image!,
+                  ),
+                )
+              : const SizedBox(),
           buildAllStroke(),
           buildCurrentPath(context),
         ],

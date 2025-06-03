@@ -13,6 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -107,6 +108,9 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
   ];
   bool isShowMenu = false;
   bool isShowChat = false;
+  bool isUpload = false;
+
+  File? image;
 
   @override
   void initState() {
@@ -319,8 +323,26 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           colorOne: AutilabColor.lightGray,
                           iconOne: 'download.svg',
                           titleOne: 'Download',
-                          onTapSecond: () {},
-                          colorSecond: AutilabColor.lightGray,
+                          onTapSecond: () async {
+                            setState(() {
+                              isUpload = true;
+                            });
+                            try {
+                              final pickedFile = await ImagePicker()
+                                  .pickImage(source: ImageSource.gallery);
+                              if (pickedFile?.path == null) {
+                                return;
+                              } else {
+                                image = File(pickedFile!.path);
+                                setState(() {});
+                              }
+                            } catch (e) {
+                              print("error: $e");
+                            }
+                          },
+                          colorSecond: isUpload
+                              ? AutilabColor.bb
+                              : AutilabColor.lightGray,
                           iconSecond: 'upload.svg',
                           titleSecond: 'Upload File',
                         ),
@@ -329,8 +351,14 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                           colorOne: AutilabColor.bb,
                           iconOne: 'video_call_icon.svg',
                           titleOne: 'Webcam',
-                          onTapSecond: () {},
-                          colorSecond: AutilabColor.lightGray,
+                          onTapSecond: () {
+                            setState(() {
+                              isUpload = false;
+                            });
+                          },
+                          colorSecond: !isUpload
+                              ? AutilabColor.bb
+                              : AutilabColor.lightGray,
                           iconSecond: 'brush.svg',
                           titleSecond: 'Whiteboard',
                         ),
@@ -508,6 +536,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                   child: WhiteboardWorkScreen(
                     selectedColor: ValueNotifier(strokeColor),
                     strokeType: ValueNotifier(strokeType.value),
+                    isUpload: isUpload,
+                    image: image,
                     onChanged: () {},
                   ),
                 ),

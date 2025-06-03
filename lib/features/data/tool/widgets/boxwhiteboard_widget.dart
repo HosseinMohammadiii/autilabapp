@@ -29,16 +29,16 @@ class BoxWhiteBoardWidget extends StatelessWidget {
     return Row(
       spacing: 8,
       children: [
-        Container(
-          width: 72,
-          height: 56,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: colorOne,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: GestureDetector(
-            onTap: () => onTapOne(),
+        GestureDetector(
+          onTap: () => onTapOne(),
+          child: Container(
+            width: 72,
+            height: 56,
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: colorOne,
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 2,
@@ -52,23 +52,26 @@ class BoxWhiteBoardWidget extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          width: 72,
-          height: 56,
-          decoration: BoxDecoration(
-            color: colorSecond,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 2,
-            children: [
-              SvgPicture.asset('assets/icons/$iconSecond'),
-              Text(
-                titleSecond,
-                style: AutilabTextStyle.small10_400,
-              ),
-            ],
+        GestureDetector(
+          onTap: () => onTapSecond(),
+          child: Container(
+            width: 72,
+            height: 56,
+            decoration: BoxDecoration(
+              color: colorSecond,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 2,
+              children: [
+                SvgPicture.asset('assets/icons/$iconSecond'),
+                Text(
+                  titleSecond,
+                  style: AutilabTextStyle.small10_400,
+                ),
+              ],
+            ),
           ),
         ),
       ],
