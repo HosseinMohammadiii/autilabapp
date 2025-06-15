@@ -39,6 +39,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
 
   final sendMessageController = TextEditingController();
   final sendMessageFocusNode = FocusNode();
+  File? pickedFile;
   Color strokeColor = AutilabColor.black;
 
   final ValueNotifier<StrokeType> strokeType = ValueNotifier(StrokeType.normal);
@@ -253,127 +254,134 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
               children: [
                 Stack(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      spacing: 8,
-                      children: [
-                        Row(
-                          spacing: 4,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                //control for display setting menu
-                                setState(() {
-                                  isShowMenu = !isShowMenu;
-                                });
-                              },
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Setting',
-                                    style: AutilabTextStyle.small12_400,
-                                  ),
-                                  isShowMenu
-                                      ? SvgPicture.asset(
-                                          'assets/icons/arrow_up.svg',
-                                          width: 16,
-                                          height: 16,
-                                        )
-                                      : SvgPicture.asset(
-                                          'assets/icons/arrow_down.svg',
-                                        ),
-                                ],
+                    FittedBox(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        spacing: 10,
+                        children: [
+                          Row(
+                            spacing: 4,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  //control for display setting menu
+                                  setState(() {
+                                    isShowMenu = !isShowMenu;
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    const Text(
+                                      'Setting',
+                                      style: AutilabTextStyle.small12_400,
+                                    ),
+                                    isShowMenu
+                                        ? SvgPicture.asset(
+                                            'assets/icons/arrow_up.svg',
+                                            width: 16,
+                                            height: 16,
+                                          )
+                                        : SvgPicture.asset(
+                                            'assets/icons/arrow_down.svg',
+                                          ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            CustomButtonWhiteBoardWidget(
-                              onTap: () {
-                                context.pop();
-                              },
-                              width: 81,
-                              height: 24,
-                              color: const Color(0xffE74747),
-                              icon: 'logout.svg',
-                              title: 'End',
-                            ),
-                          ],
-                        ),
-                        CustomButtonWhiteBoardWidget(
-                          onTap: () {
-                            setState(() {
-                              isShowChat = !isShowChat;
-                              //Scrolling to last chat list items
-                              Future.delayed(const Duration(milliseconds: 50),
-                                  () {
-                                _scrollController.jumpTo(
-                                    _scrollController.position.maxScrollExtent);
+                              const SizedBox(
+                                width: 6,
+                              ),
+                              CustomButtonWhiteBoardWidget(
+                                onTap: () {
+                                  context.pop();
+                                },
+                                width: 81,
+                                height: 24,
+                                color: const Color(0xffE74747),
+                                icon: 'logout.svg',
+                                title: 'End',
+                              ),
+                            ],
+                          ),
+                          CustomButtonWhiteBoardWidget(
+                            onTap: () {
+                              setState(() {
+                                isShowChat = !isShowChat;
+                                //Scrolling to last chat list items
+                                Future.delayed(const Duration(milliseconds: 50),
+                                    () {
+                                  _scrollController.jumpTo(_scrollController
+                                      .position.maxScrollExtent);
+                                });
                               });
-                            });
-                          },
-                          width: 150,
-                          height: 30,
-                          color: AutilabColor.yellow,
-                          icon: 'messages.svg',
-                          title: 'Chat',
-                        ),
-                        BoxWhiteBoardWidget(
-                          onTapOne: () {
-                            //Call method for drawing download
-                            _saveDrawing();
-                          },
-                          colorOne: AutilabColor.lightGray,
-                          iconOne: 'download.svg',
-                          titleOne: 'Download',
-                          onTapSecond: () async {
-                            setState(() {
-                              isUpload = true;
-                            });
-                            try {
-                              final pickedFile = await ImagePicker()
+                            },
+                            width: 150,
+                            height: 30,
+                            color: AutilabColor.yellow,
+                            icon: 'messages.svg',
+                            title: 'Chat',
+                          ),
+                          BoxWhiteBoardWidget(
+                            onTapOne: () {
+                              //Call method for drawing download
+                              _saveDrawing();
+                            },
+                            colorOne: AutilabColor.lightGray,
+                            iconOne: 'download.svg',
+                            titleOne: 'Download',
+                            onTapSecond: () async {
+                              final imagePicker = await ImagePicker()
                                   .pickImage(source: ImageSource.gallery);
-                              if (pickedFile?.path == null) {
-                                return;
-                              } else {
-                                image = File(pickedFile!.path);
-                                setState(() {});
+
+                              try {
+                                if (imagePicker?.path == null) {
+                                  return;
+                                } else {
+                                  pickedFile = File(imagePicker!.path);
+                                  setState(() {
+                                    isUpload = true;
+                                  });
+                                }
+                              } catch (e) {
+                                displaySnackBar(
+                                  context,
+                                  'Please try again',
+                                  AutilabColor.bb,
+                                );
                               }
-                            } catch (e) {
-                              print("error: $e");
-                            }
-                          },
-                          colorSecond: isUpload
-                              ? AutilabColor.bb
-                              : AutilabColor.lightGray,
-                          iconSecond: 'upload.svg',
-                          titleSecond: 'Upload File',
-                        ),
-                        BoxWhiteBoardWidget(
-                          onTapOne: () {},
-                          colorOne: AutilabColor.bb,
-                          iconOne: 'video_call_icon.svg',
-                          titleOne: 'Webcam',
-                          onTapSecond: () {
-                            setState(() {
-                              isUpload = false;
-                            });
-                          },
-                          colorSecond: !isUpload
-                              ? AutilabColor.bb
-                              : AutilabColor.lightGray,
-                          iconSecond: 'brush.svg',
-                          titleSecond: 'Whiteboard',
-                        ),
-                        BoxWhiteBoardWidget(
-                          onTapOne: () {},
-                          colorOne: AutilabColor.lightGray,
-                          iconOne: 'screenmirroring.svg',
-                          titleOne: 'Share Screen',
-                          onTapSecond: () {},
-                          colorSecond: AutilabColor.bb,
-                          iconSecond: 'microphone.svg',
-                          titleSecond: 'Voice',
-                        ),
-                        Expanded(
-                          child: Row(
+                            },
+                            colorSecond: isUpload
+                                ? AutilabColor.bb
+                                : AutilabColor.lightGray,
+                            iconSecond: 'upload.svg',
+                            titleSecond: 'Upload File',
+                          ),
+                          BoxWhiteBoardWidget(
+                            onTapOne: () {},
+                            colorOne: AutilabColor.bb,
+                            iconOne: 'video_call_icon.svg',
+                            titleOne: 'Webcam',
+                            onTapSecond: () {
+                              setState(() {
+                                isUpload = false;
+                              });
+                            },
+                            colorSecond: !isUpload
+                                ? AutilabColor.bb
+                                : AutilabColor.lightGray,
+                            iconSecond: 'brush.svg',
+                            titleSecond: 'Whiteboard',
+                          ),
+                          BoxWhiteBoardWidget(
+                            onTapOne: () {},
+                            colorOne: AutilabColor.lightGray,
+                            iconOne: 'screenmirroring.svg',
+                            titleOne: 'Share Screen',
+                            onTapSecond: () {},
+                            colorSecond: AutilabColor.bb,
+                            iconSecond: 'microphone.svg',
+                            titleSecond: 'Voice',
+                          ),
+                          Row(
                             spacing: 8,
                             children: [
                               ClipRRect(
@@ -396,8 +404,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Visibility(
                       visible: isShowChat,
@@ -537,16 +545,15 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                     selectedColor: ValueNotifier(strokeColor),
                     strokeType: ValueNotifier(strokeType.value),
                     isUpload: isUpload,
-                    image: image,
+                    image: pickedFile,
                     onChanged: () {},
                   ),
                 ),
                 FittedBox(
                   child: Container(
                     width: 40,
-                    alignment: Alignment.centerLeft,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 16),
                     decoration: BoxDecoration(
                       color: AutilabColor.bb,
                       borderRadius: BorderRadius.circular(12),
@@ -587,6 +594,10 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                         break;
                                       case 7:
                                         strokeType.value = StrokeType.deleteAll;
+                                        setState(() {
+                                          pickedFile = null;
+                                          isUpload = false;
+                                        });
                                         break;
 
                                       default:

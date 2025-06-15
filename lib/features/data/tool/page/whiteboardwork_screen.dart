@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 final key = GlobalKey();
 
+// ignore: must_be_immutable
 class WhiteboardWorkScreen extends StatefulWidget {
   WhiteboardWorkScreen({
     super.key,
@@ -87,39 +88,41 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            "Enter Text",
-            style: AutilabTextStyle.small20_400,
-          ),
-          content: TextField(
-            controller: textController,
-            autofocus: true,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // If text is not empty, create a TextItem and add it to the strokes list
-                if (textController.text.isNotEmpty) {
-                  allStrokes.value = List.from(allStrokes.value)
-                    ..add(
-                      TextItem(
-                        points: position,
-                        text: textController.text,
-                        color: widget.selectedColor.value,
-                      ),
-                    );
-                }
-
-                // Close the dialog
-                Navigator.of(context).pop();
-              },
-              child: const Text(
-                'Add',
-                style: AutilabTextStyle.small18_400,
-              ),
+        return FittedBox(
+          child: AlertDialog(
+            title: const Text(
+              "Enter Text",
+              style: AutilabTextStyle.small20_400,
             ),
-          ],
+            content: TextField(
+              controller: textController,
+              autofocus: true,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  // If text is not empty, create a TextItem and add it to the strokes list
+                  if (textController.text.isNotEmpty) {
+                    allStrokes.value = List.from(allStrokes.value)
+                      ..add(
+                        TextItem(
+                          points: position,
+                          text: textController.text,
+                          color: widget.selectedColor.value,
+                        ),
+                      );
+                  }
+
+                  // Close the dialog
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'Add',
+                  style: AutilabTextStyle.small18_400,
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
