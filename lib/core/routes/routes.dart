@@ -56,7 +56,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const HomeScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       StatefulShellRoute.indexedStack(
         branches: [
@@ -82,30 +82,6 @@ class AutilabRouter {
                 path: '/doctorScreen',
                 name: AutiLabRoutes.doctorScreen,
                 builder: (context, state) => const DoctorScreen(),
-                routes: [
-                  GoRoute(
-                    path: 'doctorInformationScreen',
-                    name: AutiLabRoutes.doctorInformationScreen,
-                    builder: (context, state) => const DoctorInfoScreen(),
-                  ),
-                  GoRoute(
-                    path: 'doctorSocialMediaScreen',
-                    name: AutiLabRoutes.doctorSocialMediaScreen,
-                    builder: (context, state) =>
-                        const DoctorSocialMediaScreen(),
-                  ),
-                  GoRoute(
-                    path: 'doctorWorkscheduleScreen',
-                    name: AutiLabRoutes.doctorWorkscheduleScreen,
-                    builder: (context, state) =>
-                        const DoctorWorkScheduleScreen(),
-                  ),
-                  GoRoute(
-                    path: 'makeAppointmentScreen',
-                    name: AutiLabRoutes.makeAppointmentScreen,
-                    builder: (context, state) => const MakeAppointmentScreen(),
-                  ),
-                ],
               ),
               GoRoute(
                 path: '/doctorSpecialityScreen',
@@ -218,6 +194,26 @@ class AutilabRouter {
         path: '/doctorMessageScreen',
         name: AutiLabRoutes.doctorMessageScreen,
         builder: (context, state) => const MessageScreen(),
+      ),
+      GoRoute(
+        path: '/makeAppointmentScreen',
+        name: AutiLabRoutes.makeAppointmentScreen,
+        builder: (context, state) => const MakeAppointmentScreen(),
+      ),
+      GoRoute(
+        path: '/doctorInformationScreen',
+        name: AutiLabRoutes.doctorInformationScreen,
+        builder: (context, state) => const DoctorInfoScreen(),
+      ),
+      GoRoute(
+        path: '/doctorSocialMediaScreen',
+        name: AutiLabRoutes.doctorSocialMediaScreen,
+        builder: (context, state) => const DoctorSocialMediaScreen(),
+      ),
+      GoRoute(
+        path: '/doctorWorkscheduleScreen',
+        name: AutiLabRoutes.doctorWorkscheduleScreen,
+        builder: (context, state) => const DoctorWorkScheduleScreen(),
       ),
       GoRoute(
         path: '/editProfileScreen',

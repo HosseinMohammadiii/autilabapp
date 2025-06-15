@@ -29,12 +29,12 @@ class AutiLabRoutes {
   static const String mainContentScreen = 'mainContentScreen';
   static const String doctorScreen = '/doctorScreen';
   static const String doctorSpecialityScreen = '/doctorSpecialityScreen';
-  static const String doctorInformationScreen = 'doctorInformationScreen';
+  static const String doctorInformationScreen = '/doctorInformationScreen';
   static const String nearbyCenterDetailScreen = '/nearbyCenterDetailScreen';
-  static const String doctorSocialMediaScreen = 'doctorSocialMediaScreen';
+  static const String doctorSocialMediaScreen = '/doctorSocialMediaScreen';
   static const String doctorMessageScreen = '/doctorMessageScreen';
-  static const String doctorWorkscheduleScreen = 'doctorWorkscheduleScreen';
-  static const String makeAppointmentScreen = 'makeAppointmentScreen';
+  static const String doctorWorkscheduleScreen = '/doctorWorkscheduleScreen';
+  static const String makeAppointmentScreen = '/makeAppointmentScreen';
   static const String homeScreen = '/homeScreen';
   static const String allAppointmentScreen = 'allAppointmentScreen';
   static const String detailAppointmentScreen = '/detailAppointmentScreen';
