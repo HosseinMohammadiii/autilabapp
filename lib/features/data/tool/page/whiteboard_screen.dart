@@ -170,31 +170,33 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
     animationHelper.restartAnimation();
   }
 
+  Future<bool> isPermissionGranted() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+
+      if (androidInfo.version.sdkInt >= 33) {
+        // For Android 13 (API 33) and above: request photo access permission
+        var status = await Permission.photos.request();
+        return status.isGranted;
+      } else {
+        // For Android versions below 13: request storage access permission
+        var status = await Permission.storage.request();
+        return status.isGranted;
+      }
+    } else if (Platform.isIOS) {
+      // For iOS: request photo access permission
+      var status = await Permission.photos.request();
+      return status.isGranted;
+    }
+
+    // For other platforms: deny by default
+    return false;
+  }
+
   void _saveDrawing() async {
     try {
-      // Step 1: Request permission based on platform and Android version
-      bool permissionGranted = false;
-
-      if (Platform.isAndroid) {
-        final androidInfo = await DeviceInfoPlugin().androidInfo;
-
-        if (androidInfo.version.sdkInt >= 33) {
-          // Android 13 (API 33) and above: Request access to photos
-          final status = await Permission.photos.request();
-          permissionGranted = status.isGranted;
-        } else {
-          // Android below 13: Request storage access
-          final status = await Permission.storage.request();
-          permissionGranted = status.isGranted;
-        }
-      } else {
-        // iOS or other platforms: Request storage permission
-        final status = await Permission.storage.request();
-        permissionGranted = status.isGranted;
-      }
-
-      // Step 2: If permission is granted, capture the image from RepaintBoundary
-      if (permissionGranted) {
+      // If permission is granted, capture the image from RepaintBoundary
+      if (await isPermissionGranted()) {
         RenderRepaintBoundary boundary =
             key.currentContext!.findRenderObject() as RenderRepaintBoundary;
 
@@ -329,22 +331,31 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                             iconOne: 'download.svg',
                             titleOne: 'Download',
                             onTapSecond: () async {
-                              final imagePicker = await ImagePicker()
-                                  .pickImage(source: ImageSource.gallery);
+                              if (await isPermissionGranted()) {
+                                final imagePicker = await ImagePicker()
+                                    .pickImage(source: ImageSource.gallery);
 
-                              try {
-                                if (imagePicker?.path == null) {
-                                  return;
-                                } else {
-                                  pickedFile = File(imagePicker!.path);
-                                  setState(() {
-                                    isUpload = true;
-                                  });
+                                try {
+                                  if (imagePicker?.path == null) {
+                                    return;
+                                  } else {
+                                    pickedFile = File(imagePicker!.path);
+                                    setState(() {
+                                      isUpload = true;
+                                    });
+                                  }
+                                } catch (e) {
+                                  displaySnackBar(
+                                    context,
+                                    'Please try again',
+                                    AutilabColor.bb,
+                                  );
                                 }
-                              } catch (e) {
+                              } else {
+                                // Permission denied: Show error message
                                 displaySnackBar(
                                   context,
-                                  'Please try again',
+                                  'Memory access permission denied.',
                                   AutilabColor.bb,
                                 );
                               }
