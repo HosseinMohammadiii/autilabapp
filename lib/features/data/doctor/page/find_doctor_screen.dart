@@ -62,6 +62,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 12,
+              ),
               Row(
                 spacing: 8,
                 children: [

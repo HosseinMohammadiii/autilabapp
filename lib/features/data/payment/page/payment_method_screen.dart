@@ -223,7 +223,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                     context.pushNamed(AutiLabRoutes.notSuccessfulPaymentScreen);
                   },
                   height: 50,
-                  margin: AutilabMargin.marginFullScreen,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   color: AutilabColor.bb,
                   text: 'Pay 1235',
                   textStyle: AutilabTextStyle.small18_400,
