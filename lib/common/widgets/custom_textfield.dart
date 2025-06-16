@@ -38,68 +38,63 @@ class CustomTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: SizedBox(
-        height: 50,
-        child: TextField(
-          controller: controller,
-          focusNode: focusNode,
-          keyboardType: textInputType,
-          textInputAction: textInputAction,
-          textAlign: TextAlign.justify,
-          obscuringCharacter: '*',
-          obscureText: isObscureText ?? false,
-          maxLines: maxLines,
-          cursorColor: Colors.black,
-          style: textStyle ??
-              AutilabTextStyle.small14_400.copyWith(
-                color: AutilabColor.gray,
-              ),
-          decoration: InputDecoration(
-            suffixIcon: suffixIcon,
-            filled: true,
-            fillColor: backgroundColor ?? Colors.transparent,
-            label: Text(label),
-            hintText: label,
-            labelStyle: AutilabTextStyle.small14_400.copyWith(
-              color: lblColor ?? Colors.grey,
+      child: TextField(
+        controller: controller,
+        focusNode: focusNode,
+        keyboardType: textInputType,
+        textInputAction: textInputAction,
+        textAlign: TextAlign.justify,
+        obscuringCharacter: '*',
+        obscureText: isObscureText ?? false,
+        maxLines: maxLines,
+        cursorColor: Colors.black,
+        style: textStyle ??
+            AutilabTextStyle.small14_400.copyWith(
+              color: AutilabColor.gray,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRaduis ?? 16),
-              ),
-              borderSide: BorderSide(
-                color: borderColor ??
-                    Colors.grey, // Change this to your desired color
-                width: 1,
-              ),
+        decoration: InputDecoration(
+          suffixIcon: suffixIcon,
+          filled: true,
+          fillColor: backgroundColor ?? Colors.transparent,
+          label: Text(label),
+          labelStyle: AutilabTextStyle.small14_400.copyWith(
+            color: lblColor ?? Colors.grey,
+            fontSize: 18,
+          ),
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(borderRaduis ?? 16),
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRaduis ?? 8),
-              ),
-              borderSide: BorderSide(
-                color: borderColor ??
-                    Colors.grey, // Change this to your desired color
-                width: 1,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRaduis ?? 8),
-              ),
-              gapPadding: 0,
-              borderSide: BorderSide(
-                color: borderColor ??
-                    Colors.grey, // Change this to your desired color
-                width: 1,
-              ),
+            borderSide: BorderSide(
+              color: borderColor ?? Colors.grey,
+              width: 1,
             ),
           ),
-          onTapOutside: (event) {
-            //TextField unfocus
-            focusNode?.unfocus();
-          },
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(borderRaduis ?? 8),
+            ),
+            borderSide: BorderSide(
+              color: borderColor ?? Colors.grey,
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(borderRaduis ?? 8),
+            ),
+            gapPadding: 4, // کمی فاصله بین لیبل و کادر ایجاد می‌کند
+            borderSide: BorderSide(
+              color: borderColor ?? Colors.grey,
+              width: 1,
+            ),
+          ),
         ),
+        onTapOutside: (event) {
+          //TextField unfocus
+          focusNode?.unfocus();
+        },
       ),
     );
   }
