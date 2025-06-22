@@ -53,56 +53,66 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
       child: Scaffold(
         appBar: appBarWidget(context: context, title: 'Choose Your Role Below'),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              spacing: 56,
-              children: [
-                const SizedBox(),
-                ChoseRoleWidget(
-                  stackAlignment: Alignment.centerRight,
-                  textAlignment: Alignment.centerLeft,
-                  image: 'occupational_role.svg',
-                  title1: 'Occupational\nTherapist',
-                  margin: const EdgeInsets.only(right: 35),
-                  padding: const EdgeInsets.only(left: 24),
-                  checkBox: CustomCheckbox(
-                    title:
-                        'Provider Of Specialized Treatment And\nEducation Services',
-                    index: 1,
-                    selectedIndexNotifier: selectedIndexNotifier,
-                    textStyle: AutilabTextStyle.small16_400,
-                  ),
+          child: CustomScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            slivers: [
+              SliverFillRemaining(
+                fillOverscroll: false,
+                hasScrollBody: false,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ChoseRoleWidget(
+                      stackAlignment: Alignment.centerRight,
+                      textAlignment: Alignment.centerLeft,
+                      image: 'occupational_role.svg',
+                      title1: 'Occupational\nTherapist',
+                      margin: const EdgeInsets.only(right: 35),
+                      padding: const EdgeInsets.only(left: 24),
+                      checkBox: CustomCheckbox(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(8)),
+                        title:
+                            'Provider Of Specialized Treatment And\nEducation Services',
+                        index: 1,
+                        selectedIndexNotifier: selectedIndexNotifier,
+                        textStyle: AutilabTextStyle.small16_400,
+                      ),
+                    ),
+                    ChoseRoleWidget(
+                      stackAlignment: Alignment.centerLeft,
+                      textAlignment: Alignment.centerRight,
+                      image: 'client_role.svg',
+                      title1: 'Occupational\nTherapy\nClient',
+                      margin: const EdgeInsets.only(left: 35),
+                      padding: const EdgeInsets.only(right: 24),
+                      checkBox: CustomCheckbox(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(8)),
+                        title:
+                            'User Of Medical Staff Services And\nSpecialist Training',
+                        index: 2,
+                        selectedIndexNotifier: selectedIndexNotifier,
+                        textStyle: AutilabTextStyle.small16_400,
+                      ),
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {
+                        if (selectedIndexNotifier.value != null) {
+                          context.goNamed(AutiLabRoutes.welcomeScreen);
+                        }
+                      },
+                      height: 50,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 32),
+                      color: AutilabColor.bb,
+                      text: 'Get Start',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ],
                 ),
-                ChoseRoleWidget(
-                  stackAlignment: Alignment.centerLeft,
-                  textAlignment: Alignment.centerRight,
-                  image: 'client_role.svg',
-                  title1: 'Occupational\nTherapy\nClient',
-                  margin: const EdgeInsets.only(left: 35),
-                  padding: const EdgeInsets.only(right: 24),
-                  checkBox: CustomCheckbox(
-                    title:
-                        'User Of Medical Staff Services And\nSpecialist Training',
-                    index: 2,
-                    selectedIndexNotifier: selectedIndexNotifier,
-                    textStyle: AutilabTextStyle.small16_400,
-                  ),
-                ),
-                CustomButtonWidget(
-                  onTap: () {
-                    if (selectedIndexNotifier.value != null) {
-                      context.goNamed(AutiLabRoutes.welcomeScreen);
-                    }
-                  },
-                  height: 50,
-                  margin:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 32),
-                  color: AutilabColor.bb,
-                  text: 'Get Start',
-                  textStyle: AutilabTextStyle.small18_400,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -139,7 +149,6 @@ class ChoseRoleWidget extends StatelessWidget {
           alignment: stackAlignment,
           children: [
             Container(
-              // width: double.infinity,
               height: 110,
               margin: const EdgeInsets.only(left: 20, right: 20, top: 80),
               padding: padding,
