@@ -142,20 +142,20 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                               const SizedBox(
                                 height: 40,
                               ),
-                              SmoothPageIndicator(
-                                controller: pageController,
-                                count: 3,
-                                effect: const ExpandingDotsEffect(
-                                  expansionFactor: 5,
-                                  dotHeight: 8,
-                                  dotWidth: 8,
-                                  dotColor: AutilabColor.bb,
-                                  activeDotColor: AutilabColor.blue,
-                                ),
-                              ),
                             ],
                           );
                         },
+                      ),
+                    ),
+                    SmoothPageIndicator(
+                      controller: pageController,
+                      count: 3,
+                      effect: const ExpandingDotsEffect(
+                        expansionFactor: 5,
+                        dotHeight: 8,
+                        dotWidth: 8,
+                        dotColor: AutilabColor.bb,
+                        activeDotColor: AutilabColor.blue,
                       ),
                     ),
                     CustomButtonWidget(

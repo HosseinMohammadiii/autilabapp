@@ -1,4 +1,9 @@
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/core/network/dio_provider.dart';
+import 'package:autilab_project/features/data/auth/data/datasource/authentication_user_datasource.dart';
+import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
+import 'package:autilab_project/features/data/auth/data/repository/authentication_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +12,7 @@ import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
+import '../../../../core/network/shared_preferences.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../common/widgets/appbar_back_screen.dart';
 import '../widgets/signup_icon_widget.dart';
@@ -22,9 +28,9 @@ class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
-  final userNameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final emailController = TextEditingController();
+  final userNameController = TextEditingController(text: 'test');
+  final passwordController = TextEditingController(text: 'test1234');
+  final emailController = TextEditingController(text: 'test@test.com');
 
   final userNameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
@@ -115,7 +121,33 @@ class _SignupScreenState extends State<SignupScreen>
                       height: 16,
                     ),
                     CustomButtonWidget(
-                      onTap: () {
+                      onTap: () async {
+                        // AuthenticationRepository auth =
+                        //     AuthenticationRepositoryRemoot(
+                        //   AuthenticationUserDatasourceRemoot(
+                        //     Dio(
+                        //         // BaseOptions(
+                        //         //   baseUrl:
+                        //         //       "https://api.autilab.com/api/auth/register",
+                        //         //   headers: {
+                        //         //     'Content-Type': 'application/json',
+                        //         //     // 'Authorization':
+                        //         //     //     'Bearer ${SharedPreferencesData.getUserToken()}',
+                        //         //   },
+                        //         // ),
+                        //         ),
+                        //   ),
+                        // );
+                        // var response = await auth.registerUser(
+                        //   UserModel(
+                        //     email: emailController.text,
+                        //     userName: userNameController.text,
+                        //     firstName: userNameController.text,
+                        //     lastName: userNameController.text,
+                        //     password: passwordController.text,
+                        //   ),
+                        // );
+                        // print(response);
                         context.goNamed(AutiLabRoutes.homeScreen);
                       },
                       height: 50,
