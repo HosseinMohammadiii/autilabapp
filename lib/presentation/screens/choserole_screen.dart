@@ -23,7 +23,7 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
 
   bool isDoctorRole = false;
   bool isClientRole = false;
-  final ValueNotifier<int?> selectedIndexNotifier = ValueNotifier<int?>(null);
+  final ValueNotifier<int?> selectedIndexNotifier = ValueNotifier<int?>(1);
 
   @override
   void initState() {
@@ -99,7 +99,7 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
                     CustomButtonWidget(
                       onTap: () {
                         if (selectedIndexNotifier.value != null) {
-                          context.goNamed(AutiLabRoutes.welcomeScreen);
+                          context.pushNamed(AutiLabRoutes.welcomeScreen);
                         }
                       },
                       height: 50,

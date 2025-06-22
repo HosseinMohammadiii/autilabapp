@@ -1,3 +1,4 @@
+import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +44,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size(0, 0),
-          child: AppBar(),
-        ),
+        appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
