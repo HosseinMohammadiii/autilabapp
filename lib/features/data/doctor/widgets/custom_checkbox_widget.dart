@@ -28,8 +28,8 @@ class CustomCheckbox extends StatelessWidget {
         return Row(
           children: [
             SizedBox(
-              height: 35,
-              width: 20,
+              height: 45,
+              width: 30,
               child: Checkbox(
                 activeColor: AutilabColor.blue,
                 checkColor: AutilabColor.white,
