@@ -89,107 +89,113 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
           child: AppBar(),
         ),
         body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                fillOverscroll: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 506,
-                      child: PageView.builder(
-                        controller: pageController,
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              SvgPicture.asset(
-                                  programIntroductionList[index].image),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Text(
-                                programIntroductionList[index].title,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return CustomScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    fillOverscroll: false,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 480,
+                          child: PageView.builder(
+                            controller: pageController,
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  SvgPicture.asset(
+                                      programIntroductionList[index].image),
+                                  const SizedBox(
+                                    height: 40,
+                                  ),
+                                  Text(
+                                    programIntroductionList[index].title,
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: Text(
+                                      programIntroductionList[index]
+                                          .description,
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                     ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  programIntroductionList[index].description,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 18,
+                        ),
+                        SmoothPageIndicator(
+                          controller: pageController,
+                          count: 3,
+                          effect: const ExpandingDotsEffect(
+                            expansionFactor: 5,
+                            dotHeight: 8,
+                            dotWidth: 8,
+                            dotColor: AutilabColor.bb,
+                            activeDotColor: AutilabColor.blue,
+                          ),
+                        ),
+                        CustomButtonWidget(
+                          onTap: nextPage,
+                          height: 50,
+                          borderRadius: 16,
+                          color: AutilabColor.bb,
+                          text: 'Next',
+                          margin: const EdgeInsets.only(
+                              right: 20, left: 20, top: 30),
+                          textStyle:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                        CustomButtonWidget(
+                          onTap: () {
+                            context.goNamed(AutiLabRoutes.choseRoleScreen);
+                          },
+                          height: 50,
+                          width: 50,
+                          color: AutilabColor.white,
+                          text: 'skip',
+                          textStyle:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                      ],
                     ),
-                    SmoothPageIndicator(
-                      controller: pageController,
-                      count: 3,
-                      effect: const ExpandingDotsEffect(
-                        expansionFactor: 5,
-                        dotHeight: 8,
-                        dotWidth: 8,
-                        dotColor: AutilabColor.bb,
-                        activeDotColor: AutilabColor.blue,
-                      ),
-                    ),
-                    CustomButtonWidget(
-                      onTap: nextPage,
-                      height: 50,
-                      borderRadius: 16,
-                      color: AutilabColor.bb,
-                      text: 'Next',
-                      margin:
-                          const EdgeInsets.only(right: 20, left: 20, top: 40),
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                    ),
-                    CustomButtonWidget(
-                      onTap: () {
-                        context.goNamed(AutiLabRoutes.choseRoleScreen);
-                      },
-                      height: 50,
-                      width: 50,
-                      color: AutilabColor.white,
-                      text: 'skip',
-                      textStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

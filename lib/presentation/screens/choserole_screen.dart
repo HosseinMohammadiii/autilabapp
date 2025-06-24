@@ -73,7 +73,7 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(8)),
                         title:
-                            'Provider Of Specialized Treatment And\nEducation Services',
+                            'Provider Of Specialized Treatment And Education Services',
                         index: 1,
                         selectedIndexNotifier: selectedIndexNotifier,
                         textStyle: AutilabTextStyle.small16_400,
@@ -90,7 +90,7 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(8)),
                         title:
-                            'User Of Medical Staff Services And\nSpecialist Training',
+                            'User Of Medical Staff Services And Specialist Training',
                         index: 2,
                         selectedIndexNotifier: selectedIndexNotifier,
                         textStyle: AutilabTextStyle.small16_400,
@@ -157,15 +157,24 @@ class ChoseRoleWidget extends StatelessWidget {
                 color: AutilabColor.bb,
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: Text(
-                title1,
-                style: AutilabTextStyle.medium18_500,
-                textAlign: TextAlign.center,
+              child: FittedBox(
+                child: Text(
+                  title1,
+                  style: AutilabTextStyle.medium18_500,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-            Padding(
-              padding: margin,
-              child: SvgPicture.asset('assets/icons/$image'),
+            Positioned(
+              bottom: 10,
+              child: Padding(
+                padding: margin,
+                child: SvgPicture.asset(
+                  'assets/icons/$image',
+                  height: 135,
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
           ],
         ),

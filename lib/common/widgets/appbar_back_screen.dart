@@ -15,20 +15,22 @@ PreferredSizeWidget appBarWidget({
     elevation: 0,
     scrolledUnderElevation: 0,
     leading: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
           Visibility(
             visible: isIcon ?? false,
-            replacement: GestureDetector(
-              onTap: () {
-                if (context.canPop()) {
-                  context.pop();
-                }
-              },
-              child: Text(
-                title,
-                style: AutilabTextStyle.small18_400,
+            replacement: Flexible(
+              child: GestureDetector(
+                onTap: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  }
+                },
+                child: Text(
+                  title,
+                  style: AutilabTextStyle.small18_400,
+                ),
               ),
             ),
             child: Row(

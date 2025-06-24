@@ -6,14 +6,15 @@ import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/utils/functions/custom_dialog_function.dart';
+import 'package:autilab_project/utils/functions/permissioncotrol.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../common/widgets/cached_network_image_widget.dart';
+import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../utils/functions/animation_control.dart';
 
@@ -28,9 +29,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
-  final firstNameController = TextEditingController();
-  final lasNameController = TextEditingController();
-  final emailController = TextEditingController();
+  final firstNameController = TextEditingController(text: 'Denis');
+  final lasNameController = TextEditingController(text: 'Iliev');
+  final emailController = TextEditingController(text: 'denis@gmail.com');
   final birthdayController = TextEditingController();
   final descriptionController = TextEditingController();
 
@@ -40,8 +41,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final birthdayFocusNode = FocusNode();
   final descriptionFocusNode = FocusNode();
 
-  final picker = ImagePicker();
-  File? pickedFileGallery;
   XFile? pickedFile;
 
   final bool isImage = true;
@@ -49,7 +48,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   DateTime? _focusedDay;
 
-  final ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
+  ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
 
   final String dateOfBirth = '';
 
@@ -78,9 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
 //Methode pickImage for select image from gallery or camera for profile image
-  Future<void> pickImage({required Permission permission}) async {
-    // Check the permission status
-    var status = await permission.status;
+  Future<void> pickImage() async {
     final imagePicker = ImagePicker();
 
     // Show modal bottom sheet to choose image source
@@ -95,25 +92,41 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               style: AutilabTextStyle.medium16_500,
             ),
             onTap: () async {
-              // Handle gallery image picking with permission
-              if (status.isGranted) {
-                // If permission already granted, pick image from gallery
-                pickedFile =
-                    await imagePicker.pickImage(source: ImageSource.gallery);
-              } else if (status.isDenied) {
-                // If permission is denied, request it
-                if (await permission.request().isGranted) {
-                  // If user grants permission, pick image
+              try {
+                // Handle gallery image picking with permission
+                if (await isPermissionStorageGranted()) {
+                  // If permission already granted, pick image from gallery
                   pickedFile =
                       await imagePicker.pickImage(source: ImageSource.gallery);
+                  if (pickedFile?.path == null) {
+                    Navigator.pop(context);
+                    return;
+                  } else {
+                    pickedFile = XFile(pickedFile!.path);
+                    Navigator.pop(context);
+                    setState(() {});
+                  }
                 } else {
-                  // If permission still denied, exit
+                  Navigator.pop(context);
+                  // Permission denied: Show error message
+                  displaySnackBar(
+                    context,
+                    'Memory access permission denied.',
+                    AutilabColor.bb,
+                  );
                   return;
                 }
-              }
+              } catch (e) {
+                Navigator.pop(context);
 
-              setState(() {});
-              Navigator.of(context).pop(); // Close bottom sheet
+                // Catch any unexpected errors and show message
+                displaySnackBar(
+                  context,
+                  'Error while saving: $e',
+                  AutilabColor.bb,
+                );
+                return;
+              }
             },
           ),
           ListTile(
@@ -124,30 +137,56 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             ),
             onTap: () async {
               // Handle camera image picking with permission
-              if (status.isGranted) {
+              if (await isPermissionCameraGranted()) {
                 // If permission already granted, pick image from camera
                 pickedFile =
                     await imagePicker.pickImage(source: ImageSource.camera);
-              } else if (status.isDenied) {
-                // If permission is denied, request it
-                if (await permission.request().isGranted) {
-                  // If user grants permission, pick image
-                  pickedFile =
-                      await imagePicker.pickImage(source: ImageSource.camera);
-                } else {
+
+                try {
+                  if (pickedFile?.path == null) {
+                    Navigator.pop(context);
+                    return;
+                  } else {
+                    pickedFile = XFile(pickedFile!.path);
+                    Navigator.pop(context);
+                    setState(() {});
+                  }
+                } catch (e) {
+                  Navigator.pop(context);
+
+                  // Catch any unexpected errors and show message
+                  displaySnackBar(
+                    context,
+                    'Error while saving: $e',
+                    AutilabColor.bb,
+                  );
                   return;
                 }
               } else {
+                Navigator.pop(context);
+
+                // Permission denied: Show error message
+                displaySnackBar(
+                  context,
+                  'Camera access permission denied.',
+                  AutilabColor.bb,
+                );
                 return;
               }
-
-              setState(() {});
-              Navigator.of(context).pop(); // Close bottom sheet
             },
           ),
         ],
       ),
     );
+  }
+
+  bool isSelectDay(ValueNotifier<DateTime> selectedDat, DateTime day) {
+    if (day == selectedDat.value) {
+      _selectedDate = ValueNotifier(day);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -199,7 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                             bottom: 8,
                             child: GestureDetector(
                               onTap: () {
-                                pickImage(permission: Permission.storage);
+                                pickImage();
                               },
                               child: Container(
                                 width: 30,
@@ -223,7 +262,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       style: AutilabTextStyle.medium16_500,
                     ),
                     const Text(
-                      'Denis@gmail.com',
+                      'denis@gmail.com',
                       style: AutilabTextStyle.small18_400,
                     ),
                   ],
@@ -274,7 +313,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               _boxSelectDateAndGender(
                 context: context,
                 widget: ValueListenableBuilder<DateTime>(
-                  valueListenable: selectedDate,
+                  valueListenable: _selectedDate,
                   builder: (context, value, child) {
                     return Text(
                       !isSelectedDate
@@ -292,33 +331,42 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
                   showCustomDialog(
                     context,
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TableCalendar(
-                          currentDay: _focusedDay,
-                          focusedDay: _focusedDay ?? DateTime.now(),
-                          firstDay: DateTime(1900),
-                          lastDay: DateTime(2030),
-                          headerVisible: true,
-                          calendarStyle: const CalendarStyle(
-                            outsideDaysVisible: false,
-                          ),
-                          availableCalendarFormats: const {
-                            CalendarFormat.month: '',
+                    StatefulBuilder(
+                      builder: (context, setState) {
+                        return ValueListenableBuilder<DateTime>(
+                          valueListenable: _selectedDate,
+                          builder: (context, value, _) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TableCalendar(
+                                  currentDay: value,
+                                  focusedDay: _focusedDay ?? DateTime.now(),
+                                  firstDay: DateTime(1900),
+                                  lastDay: DateTime(2030),
+                                  headerVisible: true,
+                                  calendarStyle: const CalendarStyle(
+                                    outsideDaysVisible: false,
+                                  ),
+                                  availableCalendarFormats: const {
+                                    CalendarFormat.month: '',
+                                  },
+                                  selectedDayPredicate: (day) {
+                                    return isSameDay(value, day);
+                                  },
+                                  onDaySelected: (selectedDay, focusedDay) {
+                                    setState(() {
+                                      isSelectedDate = true;
+                                      _selectedDate.value = selectedDay;
+                                      _focusedDay = focusedDay;
+                                    });
+                                  },
+                                ),
+                              ],
+                            );
                           },
-                          onDaySelected: (selectedDay, focusedDay) {
-                            setState(() {
-                              //Change isSelectedDate variable for display date
-                              isSelectedDate = true;
-                              //Initialize _focusedDay variable value with selectedDay
-                              _focusedDay = selectedDay;
-                              //Initialize selectedDate variable value with _focusedDay
-                              selectedDate.value = _focusedDay!;
-                            });
-                          },
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   );
                 },
@@ -431,29 +479,32 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     required String icon,
   }) {
     return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: const EdgeInsets.only(left: 10, right: 24),
-        height: 50,
-        decoration: BoxDecoration(
-          color: const Color(0xffECF0FF),
-          border: Border.all(color: AutilabColor.bb),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            widget,
-            GestureDetector(
-              onTap: onTap,
-              child: SvgPicture.asset(
-                icon,
-                width: 20,
-                height: 20,
-                fit: BoxFit.scaleDown,
+      child: GestureDetector(
+        onTap: () => onTap(),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.only(left: 10, right: 24),
+          height: 50,
+          decoration: BoxDecoration(
+            color: const Color(0xffECF0FF),
+            border: Border.all(color: AutilabColor.bb),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              widget,
+              GestureDetector(
+                onTap: onTap,
+                child: SvgPicture.asset(
+                  icon,
+                  width: 20,
+                  height: 20,
+                  fit: BoxFit.scaleDown,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -7,7 +7,6 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/drawer_box_widget.dart';
 import 'package:autilab_project/features/data/message/page/class/message.dart';
 import 'package:autilab_project/features/data/tool/page/whiteboardwork_screen.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -15,10 +14,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/permissioncotrol.dart';
 import '../model/whiteboard/drawing_tool.dart';
 import '../widgets/boxwhiteboard_widget.dart';
 import '../widgets/chatlistwhiteboard_widget.dart';
@@ -170,33 +169,10 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
     animationHelper.restartAnimation();
   }
 
-  Future<bool> isPermissionGranted() async {
-    if (Platform.isAndroid) {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
-
-      if (androidInfo.version.sdkInt >= 33) {
-        // For Android 13 (API 33) and above: request photo access permission
-        var status = await Permission.photos.request();
-        return status.isGranted;
-      } else {
-        // For Android versions below 13: request storage access permission
-        var status = await Permission.storage.request();
-        return status.isGranted;
-      }
-    } else if (Platform.isIOS) {
-      // For iOS: request photo access permission
-      var status = await Permission.photos.request();
-      return status.isGranted;
-    }
-
-    // For other platforms: deny by default
-    return false;
-  }
-
   void _saveDrawing() async {
     try {
       // If permission is granted, capture the image from RepaintBoundary
-      if (await isPermissionGranted()) {
+      if (await isPermissionStorageGranted()) {
         RenderRepaintBoundary boundary =
             key.currentContext!.findRenderObject() as RenderRepaintBoundary;
 
@@ -331,7 +307,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                             iconOne: 'download.svg',
                             titleOne: 'Download',
                             onTapSecond: () async {
-                              if (await isPermissionGranted()) {
+                              if (await isPermissionStorageGranted()) {
                                 final imagePicker = await ImagePicker()
                                     .pickImage(source: ImageSource.gallery);
 

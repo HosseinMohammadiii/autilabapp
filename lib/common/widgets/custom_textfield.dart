@@ -19,6 +19,7 @@ class CustomTextfield extends StatelessWidget {
     this.backgroundColor,
     this.borderRaduis,
     this.suffixIcon,
+    this.floatingLabelBehavior,
   });
   final String label;
   final TextStyle? textStyle;
@@ -34,6 +35,7 @@ class CustomTextfield extends StatelessWidget {
   final Color? borderColor;
   final Color? backgroundColor;
   final Widget? suffixIcon;
+  final FloatingLabelBehavior? floatingLabelBehavior;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,7 +63,7 @@ class CustomTextfield extends StatelessWidget {
             color: lblColor ?? Colors.grey,
             fontSize: 18,
           ),
-          floatingLabelBehavior: FloatingLabelBehavior.always,
+          floatingLabelBehavior: floatingLabelBehavior,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(borderRaduis ?? 16),
@@ -84,7 +86,7 @@ class CustomTextfield extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(borderRaduis ?? 8),
             ),
-            gapPadding: 4, // کمی فاصله بین لیبل و کادر ایجاد می‌کند
+            gapPadding: 4,
             borderSide: BorderSide(
               color: borderColor ?? Colors.grey,
               width: 1,
