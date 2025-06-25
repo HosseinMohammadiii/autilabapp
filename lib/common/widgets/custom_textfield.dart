@@ -20,6 +20,8 @@ class CustomTextfield extends StatelessWidget {
     this.borderRaduis,
     this.suffixIcon,
     this.floatingLabelBehavior,
+    this.isEnable,
+    this.textfieldPadding,
   });
   final String label;
   final TextStyle? textStyle;
@@ -36,10 +38,13 @@ class CustomTextfield extends StatelessWidget {
   final Color? backgroundColor;
   final Widget? suffixIcon;
   final FloatingLabelBehavior? floatingLabelBehavior;
+  final bool? isEnable;
+  final EdgeInsetsGeometry? textfieldPadding;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: textfieldPadding ??
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: TextField(
         controller: controller,
         focusNode: focusNode,
@@ -50,6 +55,7 @@ class CustomTextfield extends StatelessWidget {
         obscureText: isObscureText ?? false,
         maxLines: maxLines,
         cursorColor: Colors.black,
+        enabled: isEnable,
         style: textStyle ??
             AutilabTextStyle.small14_400.copyWith(
               color: AutilabColor.gray,

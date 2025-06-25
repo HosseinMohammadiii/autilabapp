@@ -32,12 +32,15 @@ class TimeBoxDoctorCard extends StatelessWidget {
           const Text(
             ' Tues 03 March ',
             style: AutilabTextStyle.medium12_500,
+            overflow: TextOverflow.ellipsis,
           ),
-          Container(
-            height: 16,
-            width: 2,
-            decoration: const BoxDecoration(
-              color: AutilabColor.bb,
+          FittedBox(
+            child: Container(
+              height: 16,
+              width: 2,
+              decoration: const BoxDecoration(
+                color: AutilabColor.bb,
+              ),
             ),
           ),
           SvgPicture.asset(

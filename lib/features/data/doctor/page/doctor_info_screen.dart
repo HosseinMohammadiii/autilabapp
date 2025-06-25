@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar_back_screen.dart';
+import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/Lists/category_items.dart';
 import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
-import '../widgets/container_more_detail_widget.dart';
 import '../widgets/personal_detail_widget.dart';
 import '../widgets/specialty_item_widget.dart';
 
@@ -227,10 +227,21 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   height: 24,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: ContainerDetailBox(
-                  detail:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatenim ad minim veniam, quis nostrud exercitation ullamco laboris',
+              SliverToBoxAdapter(
+                child: CustomTextfield(
+                  label: '',
+                  isEnable: false,
+                  borderRaduis: 24,
+                  textfieldPadding: const EdgeInsets.all(0),
+                  controller: TextEditingController(
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                  ),
+                  backgroundColor: AutilabColor.primary,
+                  borderColor: AutilabColor.gray,
+                  textStyle: AutilabTextStyle.small14_400.copyWith(
+                    color: AutilabColor.black,
+                  ),
                 ),
               ),
             ],

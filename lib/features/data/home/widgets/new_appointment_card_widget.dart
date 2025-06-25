@@ -27,6 +27,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
+      height: 276,
       padding: const EdgeInsets.all(16),
       alignment: Alignment.center,
       margin: margin,
@@ -36,20 +37,23 @@ class NewAppointmentsCardWidget extends StatelessWidget {
       ),
       child: Column(
         spacing: 16,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            spacing: 4,
-            children: [
-              StatusShapeWidget(color: color, statusIcon: statusIcon),
-              const Text(
-                'Status :',
-                style: AutilabTextStyle.medium14_500,
-              ),
-              Text(
-                title,
-                style: AutilabTextStyle.medium14_500,
-              ),
-            ],
+          FittedBox(
+            child: Row(
+              spacing: 4,
+              children: [
+                StatusShapeWidget(color: color, statusIcon: statusIcon),
+                const Text(
+                  'Status :',
+                  style: AutilabTextStyle.medium14_500,
+                ),
+                Text(
+                  title,
+                  style: AutilabTextStyle.medium14_500,
+                ),
+              ],
+            ),
           ),
           const Divider(
             thickness: 1,
@@ -58,41 +62,53 @@ class NewAppointmentsCardWidget extends StatelessWidget {
           Row(
             spacing: 12,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(image),
+              Flexible(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 12,
-                children: [
-                  const Text(
-                    'Dr. Sophia Martinez',
-                    style: AutilabTextStyle.medium18_500,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Psychotherapy',
-                        style: AutilabTextStyle.small14_400.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                        ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 12,
+                  children: [
+                    const FittedBox(
+                      child: Text(
+                        'Dr. Sophia Martinez',
+                        style: AutilabTextStyle.medium18_500,
                       ),
-                      const SizedBox(
-                        width: 16,
+                    ),
+                    FittedBox(
+                      child: Row(
+                        children: [
+                          Text(
+                            'Psychotherapy',
+                            style: AutilabTextStyle.small14_400.copyWith(
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Color(0xffEDC757),
+                          ),
+                          const Text(
+                            '5.0',
+                            style: AutilabTextStyle.small14_400,
+                          ),
+                        ],
                       ),
-                      const Icon(
-                        Icons.star_rounded,
-                        color: Color(0xffEDC757),
-                      ),
-                      const Text(
-                        '5.0',
-                        style: AutilabTextStyle.small14_400,
-                      ),
-                    ],
-                  ),
-                  const TimeBoxDoctorCard(),
-                ],
+                    ),
+                    const FittedBox(child: TimeBoxDoctorCard()),
+                  ],
+                ),
               ),
             ],
           ),

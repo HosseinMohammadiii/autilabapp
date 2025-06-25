@@ -1,8 +1,8 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
+import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/box_detail_widget.dart';
-import 'package:autilab_project/features/data/doctor/widgets/container_more_detail_widget.dart';
 import 'package:autilab_project/features/data/home/widgets/box_shape_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -97,9 +97,10 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: const Color(0xffFBE4E4),
+                    color: widget.statusColor?.withValues(alpha: 0.3) ??
+                        Colors.transparent,
                     border: Border.all(
-                      color: const Color(0xffFF6363),
+                      color: widget.statusColor ?? Colors.transparent,
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -196,13 +197,26 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                   height: 24,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: ContainerDetailBox(
-                    detail:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatenim ad minim veniam, quis nostrud exercitation ullamco laboris',
+              SliverToBoxAdapter(
+                child: CustomTextfield(
+                  label: '',
+                  isEnable: false,
+                  borderRaduis: 24,
+                  textfieldPadding: AutilabMargin.marginFullScreen,
+                  controller: TextEditingController(
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                   ),
+                  backgroundColor: AutilabColor.primary,
+                  borderColor: AutilabColor.gray,
+                  textStyle: AutilabTextStyle.small14_400.copyWith(
+                    color: AutilabColor.black,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 32,
                 ),
               ),
             ],

@@ -12,7 +12,7 @@ class PackagesSubscribtion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> titlePlanList = ['Free Plan', "299\$/Years", '99\$/Month'];
+    List<String> titlePlanList = ['Free Plan', '99\$/Month', "299\$/Years"];
 
     return Scaffold(
       appBar:

@@ -223,7 +223,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ),
                           ),
                           const Spacer(),
-                          Image.asset('assets/images/autilab_test_image.png'),
+                          Expanded(
+                              flex: 2,
+                              child: Image.asset(
+                                  'assets/images/autilab_test_image.png')),
                         ],
                       ),
                       CustomButtonWidget(

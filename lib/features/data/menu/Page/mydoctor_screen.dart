@@ -50,13 +50,17 @@ class _MydoctorScreenState extends State<MydoctorScreen>
           child: CustomTabBarWidget(
             tabLength: 2,
             tabBar: [
-              Text(
-                'Valid Appointment',
-                style: AutilabTextStyle.small16_400,
+              FittedBox(
+                child: Text(
+                  'Valid Appointment',
+                  style: AutilabTextStyle.small16_400,
+                ),
               ),
-              Text(
-                'Expired Appointment',
-                style: AutilabTextStyle.small16_400,
+              FittedBox(
+                child: Text(
+                  'Expired Appointment',
+                  style: AutilabTextStyle.small16_400,
+                ),
               ),
             ],
             tabBarView: [

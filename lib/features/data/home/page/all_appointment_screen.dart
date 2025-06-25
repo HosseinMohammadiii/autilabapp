@@ -1,8 +1,10 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/constant_routes.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/new_appointment_card_widget.dart';
@@ -48,17 +50,23 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
         child: CustomTabBarWidget(
           tabLength: 3,
           tabBar: const [
-            Text(
-              'Approved',
-              style: AutilabTextStyle.small16_400,
+            FittedBox(
+              child: Text(
+                'Approved',
+                style: AutilabTextStyle.small16_400,
+              ),
             ),
-            Text(
-              'Cancelled',
-              style: AutilabTextStyle.small16_400,
+            FittedBox(
+              child: Text(
+                'Cancelled',
+                style: AutilabTextStyle.small16_400,
+              ),
             ),
-            Text(
-              'Pending',
-              style: AutilabTextStyle.small16_400,
+            FittedBox(
+              child: Text(
+                'Pending',
+                style: AutilabTextStyle.small16_400,
+              ),
             ),
           ],
           tabBarView: [
@@ -76,7 +84,16 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         statusIcon: 'assets/icons/done_icon.svg',
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 16),
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(
+                            AutiLabRoutes.detailAppointmentScreen,
+                            extra: {
+                              'statusColor': const Color(0xff50DD81),
+                              'statusIcon': 'assets/icons/done_icon.svg',
+                              'title': 'Approved',
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -97,7 +114,16 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         statusIcon: 'assets/icons/close_icon.svg',
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 16),
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(
+                            AutiLabRoutes.detailAppointmentScreen,
+                            extra: {
+                              'statusColor': const Color(0xffFF6363),
+                              'statusIcon': 'assets/icons/close_icon.svg',
+                              'title': 'Cancelled',
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -118,7 +144,16 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         statusIcon: 'assets/icons/minimize_icon.svg',
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 16),
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(
+                            AutiLabRoutes.detailAppointmentScreen,
+                            extra: {
+                              'statusColor': AutilabColor.gray,
+                              'statusIcon': 'assets/icons/minimize_icon.svg',
+                              'title': 'Pending',
+                            },
+                          );
+                        },
                       );
                     },
                   ),

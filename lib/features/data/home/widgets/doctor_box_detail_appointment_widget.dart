@@ -12,6 +12,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 150,
       margin: AutilabMargin.marginFullScreen,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -19,47 +20,57 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 12,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/doctor_image.png',
-              fit: BoxFit.cover,
+          FittedBox(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/images/doctor_image.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          Column(
-            spacing: 10,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Dr. Sophia Martinez',
-                style: AutilabTextStyle.medium18_500,
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Psychotherapy',
-                    style: AutilabTextStyle.small14_400.copyWith(
-                      overflow: TextOverflow.ellipsis,
-                    ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const FittedBox(
+                  child: Text(
+                    'Dr. Sophia Martinez',
+                    style: AutilabTextStyle.medium18_500,
                   ),
-                  const SizedBox(
-                    width: 16,
+                ),
+                FittedBox(
+                  child: Row(
+                    children: [
+                      Text(
+                        'Psychotherapy',
+                        style: AutilabTextStyle.small14_400.copyWith(
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      const Icon(
+                        Icons.star_rounded,
+                        color: Color(0xffEDC757),
+                      ),
+                      const Text(
+                        '5.0',
+                        style: AutilabTextStyle.small14_400,
+                      ),
+                    ],
                   ),
-                  const Icon(
-                    Icons.star_rounded,
-                    color: Color(0xffEDC757),
-                  ),
-                  const Text(
-                    '5.0',
-                    style: AutilabTextStyle.small14_400,
-                  ),
-                ],
-              ),
-              const TimeBoxDoctorCard(),
-            ],
+                ),
+                const FittedBox(
+                  child: TimeBoxDoctorCard(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
