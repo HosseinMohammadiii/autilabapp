@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                       CustomButtonWidget(
                         onTap: () {
-                          context.goNamed(AutiLabRoutes.toolsScreen);
+                          context.pushNamed(AutiLabRoutes.typeTestsScreen);
                         },
                         height: 50,
                         margin: const EdgeInsets.all(0),

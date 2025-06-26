@@ -32,6 +32,7 @@ import 'package:autilab_project/features/data/tool/page/main_content_screen.dart
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 import 'package:autilab_project/features/data/test/page/aptitude_test_screen.dart';
 import 'package:autilab_project/features/data/test/page/quiz_multiselect_screen.dart';
+import 'package:autilab_project/features/data/tool/page/typetest.dart';
 import 'package:autilab_project/features/data/tool/page/whiteboard_screen.dart';
 import 'package:autilab_project/presentation/screens/choserole_screen.dart';
 import 'package:autilab_project/presentation/screens/item_not_found_screen.dart';
@@ -131,6 +132,11 @@ class AutilabRouter {
         path: '/whiteBoardScreen',
         name: AutiLabRoutes.whiteBoardScreen,
         builder: (context, state) => const WhiteboardScreen(),
+      ),
+      GoRoute(
+        path: '/typeTestsScreen',
+        name: AutiLabRoutes.typeTestsScreen,
+        builder: (context, state) => const TypetestScreen(),
       ),
       GoRoute(
         path: '/nearbyCenterDetailScreen',
