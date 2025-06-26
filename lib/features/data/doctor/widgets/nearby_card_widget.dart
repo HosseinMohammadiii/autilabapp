@@ -26,13 +26,15 @@ class NearbyCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/autism_help_center.png',
-              fit: BoxFit.fill,
-              width: 320,
-              height: 213,
+          FittedBox(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/images/autism_help_center.png',
+                fit: BoxFit.fill,
+                width: 320,
+                height: 213,
+              ),
             ),
           ),
           const SizedBox(
@@ -71,8 +73,10 @@ class NearbyCardWidget extends StatelessWidget {
               style: AutilabTextStyle.small14_400.copyWith(
                 overflow: isShowButton == false
                     ? TextOverflow.visible
-                    : TextOverflow.fade,
+                    : TextOverflow.ellipsis,
               ),
+              maxLines: 3,
+              textAlign: TextAlign.justify,
             ),
           ),
           Visibility(

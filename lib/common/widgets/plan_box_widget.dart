@@ -60,6 +60,7 @@ class PlanBoxWidget extends StatelessWidget {
 
     return IntrinsicWidth(
       child: Container(
+        width: 400,
         padding: const EdgeInsets.all(16),
         margin: EdgeInsets.only(right: margin),
         decoration: BoxDecoration(
