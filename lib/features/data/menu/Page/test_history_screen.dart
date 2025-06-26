@@ -3,8 +3,10 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
 import 'package:autilab_project/common/widgets/test_result_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
@@ -24,6 +26,8 @@ class TestHistoryScreen extends StatefulWidget {
 class _TestHistoryScreenState extends State<TestHistoryScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+
+  bool isScroll = false;
 
   @override
   void initState() {
@@ -63,133 +67,259 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
             appBarWidget(context: context, title: 'Test History', isIcon: true),
         body: SafeArea(
           child: CustomTabBarWidget(
+            isScrollable: false,
             tabLength: 2,
             tabBar: const [
-              Text(
-                'Personality Test',
-                style: AutilabTextStyle.small16_400,
+              FittedBox(
+                child: Text(
+                  'Personality Test',
+                  style: AutilabTextStyle.small16_400,
+                ),
               ),
-              Text(
-                'Talent Test',
-                style: AutilabTextStyle.small16_400,
+              FittedBox(
+                child: Text(
+                  'Talent Test',
+                  style: AutilabTextStyle.small16_400,
+                ),
               ),
             ],
             tabBarView: [
-              SingleChildScrollView(
-                child: Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        style: AutilabTextStyle.small16_400,
-                        textAlign: TextAlign.justify,
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      const Text(
-                        'Aptitude Test Result',
-                        style: AutilabTextStyle.small18_400,
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      const TestResultWidget(),
-                      CustomButtonWidget(
-                        onTap: () {},
-                        height: 50,
-                        margin: const EdgeInsets.only(bottom: 48, top: 48),
-                        color: AutilabColor.bb,
-                        text: 'Take Test Again',
-                        textStyle: AutilabTextStyle.small18_400,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        style: AutilabTextStyle.small16_400,
-                        textAlign: TextAlign.justify,
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      Container(
-                        height: 457,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: const Color(0xffECF0FF),
-                          border: Border.all(color: AutilabColor.bb),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: talentTestItem.length,
-                              itemBuilder: (context, index) {
-                                return Column(
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  print(constraints.maxWidth);
+                  return Visibility(
+                    visible: constraints.maxWidth < 840,
+                    replacement: CustomScrollView(
+                      slivers: [
+                        SliverFillRemaining(
+                          hasScrollBody: true,
+                          fillOverscroll: false,
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final height = constraints.maxHeight;
+
+                              return Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      spacing: 8,
+                                    Column(
                                       children: [
-                                        Container(
-                                          width: 24,
-                                          height: 24,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: talentTestItem[index].color,
+                                        SizedBox(
+                                          height: 140,
+                                          child: const Text(
+                                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                            style: AutilabTextStyle.small16_400,
+                                            textAlign: TextAlign.justify,
+                                            maxLines: 6,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                        Text(
-                                          talentTestItem[index].title,
-                                          style: AutilabTextStyle.small16_400,
-                                          textAlign: TextAlign.justify,
+                                        GestureDetector(
+                                          onTap: () {
+                                            context.pushNamed(
+                                                AutiLabRoutes
+                                                    .testDescriptionScreen,
+                                                extra: {
+                                                  'description':
+                                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                                });
+                                          },
+                                          child: Text(
+                                            'more',
+                                            style: AutilabTextStyle.small16_400
+                                                .copyWith(
+                                                    color: AutilabColor.bb),
+                                          ),
                                         ),
                                       ],
                                     ),
-                                    if (index < talentTestItem.length - 1)
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: index ==
-                                                    talentTestItem.length - 1
-                                                ? 0
-                                                : 16),
-                                        child: const Divider(
-                                          thickness: 0.5,
-                                          color: AutilabColor.bb,
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    const Align(
+                                      alignment: Alignment.center,
+                                      child: TestResultWidget(),
+                                    ),
+                                    CustomButtonWidget(
+                                      onTap: () {},
+                                      height: 50,
+                                      margin:
+                                          EdgeInsets.only(bottom: 20, top: 10),
+                                      color: AutilabColor.bb,
+                                      text: 'Take Test Again',
+                                      textStyle: AutilabTextStyle.small18_400,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: CustomScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      slivers: [
+                        SliverFillRemaining(
+                          hasScrollBody: true,
+                          fillOverscroll: false,
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final height = constraints.maxHeight;
+
+                              return Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: Column(
+                                  spacing: 20,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                      child: Wrap(
+                                        children: [
+                                          const Text(
+                                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                            style: AutilabTextStyle.small16_400,
+                                            textAlign: TextAlign.justify,
+                                            maxLines: 6,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              context.pushNamed(
+                                                  AutiLabRoutes
+                                                      .testDescriptionScreen,
+                                                  extra: {
+                                                    'description':
+                                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                                  });
+                                            },
+                                            child: Text(
+                                              'more',
+                                              style: AutilabTextStyle
+                                                  .small16_400
+                                                  .copyWith(
+                                                      color: AutilabColor.bb),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // const SizedBox(
+                                    //   height: 80,
+                                    // ),
+                                    // const Align(
+                                    //   alignment: Alignment.center,
+                                    //   child: TestResultWidget(),
+                                    // ),
+                                    Container(
+                                      height: 200,
+                                      width: double.infinity,
+                                      color: AutilabColor.bb,
+                                    ),
+                                    CustomButtonWidget(
+                                      onTap: () {},
+                                      height: 50,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      color: AutilabColor.bb,
+                                      text: 'Take Test Again',
+                                      textStyle: AutilabTextStyle.small18_400,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              Padding(
+                padding: AutilabMargin.marginFullScreen,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                      style: AutilabTextStyle.small16_400,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Container(
+                      height: 457,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffECF0FF),
+                        border: Border.all(color: AutilabColor.bb),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: talentTestItem.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    spacing: 8,
+                                    children: [
+                                      Container(
+                                        width: 24,
+                                        height: 24,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: talentTestItem[index].color,
                                         ),
                                       ),
-                                  ],
-                                );
-                              },
-                            )
-                          ],
-                        ),
+                                      Text(
+                                        talentTestItem[index].title,
+                                        style: AutilabTextStyle.small16_400,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  ),
+                                  if (index < talentTestItem.length - 1)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical:
+                                              index == talentTestItem.length - 1
+                                                  ? 0
+                                                  : 16),
+                                      child: const Divider(
+                                        thickness: 0.5,
+                                        color: AutilabColor.bb,
+                                      ),
+                                    ),
+                                ],
+                              );
+                            },
+                          )
+                        ],
                       ),
-                      CustomButtonWidget(
-                        onTap: () {},
-                        height: 50,
-                        margin: const EdgeInsets.only(bottom: 48, top: 48),
-                        color: AutilabColor.bb,
-                        text: 'Take Test Again',
-                        textStyle: AutilabTextStyle.small18_400,
-                      ),
-                    ],
-                  ),
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {},
+                      height: 50,
+                      margin: const EdgeInsets.only(bottom: 48, top: 48),
+                      color: AutilabColor.bb,
+                      text: 'Take Test Again',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ],
                 ),
               ),
             ],

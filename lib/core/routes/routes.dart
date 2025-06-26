@@ -16,6 +16,7 @@ import 'package:autilab_project/features/data/home/page/detail_appointment_scree
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/home/page/my_favorite_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/mydoctor_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/testdescription.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
 import 'package:autilab_project/features/data/payment/page/not_successful_payment_screen.dart';
@@ -51,7 +52,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/homeScreen',
+    initialLocation: '/testHistoryScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -246,6 +247,19 @@ class AutilabRouter {
         path: '/testHistoryScreen',
         name: AutiLabRoutes.testHistoryScreen,
         builder: (context, state) => const TestHistoryScreen(),
+        routes: [
+          GoRoute(
+            path: '/testDescriptionScreen',
+            name: AutiLabRoutes.testDescriptionScreen,
+            builder: (context, state) {
+              final Map<String, dynamic> extraData =
+                  state.extra as Map<String, dynamic>;
+              return TestdescriptionResult(
+                description: extraData['description'],
+              );
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: '/notConnectionScreen',

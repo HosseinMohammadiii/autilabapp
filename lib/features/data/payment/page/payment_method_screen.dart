@@ -135,11 +135,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                   logo: 'assets/icons/paypal_logo.svg',
                   index: 0,
                 ),
-                SelectMethodPayBoxWidget(
-                  selectedIndexNotifier: selectedIndexNotifier,
-                  title: 'Google pay',
-                  logo: 'assets/icons/googlepay_logo.svg',
-                  index: 1,
+                FittedBox(
+                  child: SelectMethodPayBoxWidget(
+                    selectedIndexNotifier: selectedIndexNotifier,
+                    title: 'Google pay',
+                    logo: 'assets/icons/googlepay_logo.svg',
+                    index: 1,
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(16),
@@ -148,15 +150,17 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                     border: Border.all(color: AutilabColor.black),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Wrap(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SelectMethodPayBoxWidget(
-                        selectedIndexNotifier: selectedIndexNotifier,
-                        title: 'Credit Card',
-                        logo: 'assets/icons/googlepay_logo.svg',
-                        index: 2,
-                        isBorder: false,
+                      FittedBox(
+                        child: SelectMethodPayBoxWidget(
+                          selectedIndexNotifier: selectedIndexNotifier,
+                          title: 'Credit Card',
+                          logo: 'assets/icons/googlepay_logo.svg',
+                          index: 2,
+                          isBorder: false,
+                        ),
                       ),
                       const SizedBox(
                         height: 32,

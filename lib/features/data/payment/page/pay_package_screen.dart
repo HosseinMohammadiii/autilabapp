@@ -93,6 +93,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                       ],
                       widget: const Column(
                         spacing: 8,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           PalnItemWidget(
                             title: '25 Projects',

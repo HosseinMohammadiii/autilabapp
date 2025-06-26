@@ -23,6 +23,7 @@ class AutiLabRoutes {
   static const String sendEmailScreen = '/send_email';
   static const String notificationScreen = '/notificationScreen';
   static const String testHistoryScreen = '/testHistoryScreen';
+  static const String testDescriptionScreen = '/testDescriptionScreen';
   static const String myFavoriteScreen = '/myFavoriteScreen';
   static const String myDoctorScreen = '/myDoctorScreen';
   static const String articleItemScreen = '/articleItemScreen';

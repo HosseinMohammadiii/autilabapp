@@ -33,26 +33,28 @@ class PlanBoxWidget extends StatelessWidget {
     Widget titlePlanWidget({
       required String title,
     }) {
-      return Row(
-        children: [
-          Container(
-            height: 40,
-            width: 40,
-            margin: const EdgeInsets.only(right: 10),
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: AutilabColor.yellow,
+      return FittedBox(
+        child: Row(
+          children: [
+            Container(
+              height: 40,
+              width: 40,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: AutilabColor.yellow,
+              ),
+              child: SvgPicture.asset(
+                'assets/icons/crown_icon.svg',
+                fit: BoxFit.scaleDown,
+              ),
             ),
-            child: SvgPicture.asset(
-              'assets/icons/crown_icon.svg',
-              fit: BoxFit.scaleDown,
+            Text(
+              title,
+              style: AutilabTextStyle.medium24_500,
             ),
-          ),
-          Text(
-            title,
-            style: AutilabTextStyle.medium24_500,
-          ),
-        ],
+          ],
+        ),
       );
     }
 
@@ -84,7 +86,7 @@ class PlanBoxWidget extends StatelessWidget {
             ),
             Text(
               description ??
-                  'An Initial Test To Determine How Much You\nAre At Risk Of Cancer Based Dr. Mitchell H',
+                  'An Initial Test To Determine How Much You Are At Risk Of Cancer Based Dr. Mitchell H',
               style: AutilabTextStyle.small16_400,
             ),
             const SizedBox(

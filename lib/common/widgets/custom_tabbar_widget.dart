@@ -10,10 +10,12 @@ class CustomTabBarWidget extends StatelessWidget {
     required this.tabLength,
     required this.tabBar,
     required this.tabBarView,
+    this.isScrollable,
   });
   final int tabLength;
   final List<Widget> tabBar;
   final List<Widget> tabBarView;
+  final bool? isScrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,9 @@ class CustomTabBarWidget extends StatelessWidget {
       animationDuration: const Duration(seconds: 1),
       length: tabLength,
       child: NestedScrollView(
+        physics: isScrollable == false
+            ? const NeverScrollableScrollPhysics()
+            : const BouncingScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             const SliverToBoxAdapter(

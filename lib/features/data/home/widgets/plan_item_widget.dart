@@ -12,26 +12,28 @@ class PalnItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 23,
-          height: 23,
-          margin: const EdgeInsets.only(right: 4),
-          decoration: const BoxDecoration(
-            color: AutilabColor.yellow,
-            shape: BoxShape.circle,
+    return FittedBox(
+      child: Row(
+        children: [
+          Container(
+            width: 23,
+            height: 23,
+            margin: const EdgeInsets.only(right: 4),
+            decoration: const BoxDecoration(
+              color: AutilabColor.yellow,
+              shape: BoxShape.circle,
+            ),
+            child: SvgPicture.asset(
+              'assets/icons/tick_icon.svg',
+              fit: BoxFit.scaleDown,
+            ),
           ),
-          child: SvgPicture.asset(
-            'assets/icons/tick_icon.svg',
-            fit: BoxFit.scaleDown,
+          Text(
+            title ?? ' Initial Test To Determine How Much You Are',
+            style: AutilabTextStyle.small14_400,
           ),
-        ),
-        Text(
-          title ?? ' Initial Test To Determine How Much You Are',
-          style: AutilabTextStyle.small14_400,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -30,6 +30,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
+  final PageController _controller = PageController(viewportFraction: 0.9);
+
   @override
   void initState() {
     super.initState();
@@ -109,33 +111,40 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
               SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 290,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: 3,
-                    padding: AutilabMargin.marginFullScreen,
-                    itemBuilder: (context, index) {
-                      return NewAppointmentsCardWidget(
-                        color: statusList[index].statusColor,
-                        title: statusList[index].title,
-                        statusIcon: statusList[index].statusIcon,
-                        image: 'assets/images/doctor_image.png',
-                        margin: EdgeInsets.only(
-                            right: index == statusList.length - 1 ? 0 : 16),
-                        onTap: () {
-                          context.pushNamed(
-                            AutiLabRoutes.detailAppointmentScreen,
-                            extra: {
-                              'statusColor': statusList[index].statusColor,
-                              'statusIcon': statusList[index].statusIcon,
-                              'title': statusList[index].title,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: SizedBox(
+                    height: 290,
+                    child: PageView.builder(
+                      itemCount: 3,
+                      padEnds: false,
+                      pageSnapping: false,
+                      controller: _controller,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: NewAppointmentsCardWidget(
+                            color: statusList[index].statusColor,
+                            title: statusList[index].title,
+                            statusIcon: statusList[index].statusIcon,
+                            image: 'assets/images/doctor_image.png',
+                            margin: const EdgeInsets.all(
+                              0,
+                            ),
+                            onTap: () {
+                              context.pushNamed(
+                                AutiLabRoutes.detailAppointmentScreen,
+                                extra: {
+                                  'statusColor': statusList[index].statusColor,
+                                  'statusIcon': statusList[index].statusIcon,
+                                  'title': statusList[index].title,
+                                },
+                              );
                             },
-                          );
-                        },
-                      );
-                    },
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -158,11 +167,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 24,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: SpecialtiesListWidget(),
-                ),
+              const SliverToBoxAdapter(
+                child: SpecialtiesListWidget(),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -185,7 +191,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               SliverToBoxAdapter(
                 child: Container(
-                  height: 231,
                   margin: AutilabMargin.marginFullScreen,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -200,19 +205,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ],
                   ),
                   child: Column(
-                    spacing: 24,
+                    spacing: 26,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         children: [
-                          SizedBox(
-                            width: 187,
+                          Expanded(
+                            flex: 10,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'AutiLab Test',
-                                  style: AutilabTextStyle.medium20_500.copyWith(
-                                    color: AutilabColor.blue,
+                                FittedBox(
+                                  child: Text(
+                                    'AutiLab Test',
+                                    style:
+                                        AutilabTextStyle.medium20_500.copyWith(
+                                      color: AutilabColor.blue,
+                                    ),
                                   ),
                                 ),
                                 const Text(
@@ -222,11 +231,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                          const Spacer(),
-                          Expanded(
-                              flex: 2,
-                              child: Image.asset(
-                                  'assets/images/autilab_test_image.png')),
+                          Image.asset('assets/images/autilab_test_image.png'),
                         ],
                       ),
                       CustomButtonWidget(

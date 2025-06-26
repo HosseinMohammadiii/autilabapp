@@ -17,6 +17,7 @@ class SpecialtiesListWidget extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryItemsList.length,
+        padding: EdgeInsets.symmetric(horizontal: 20),
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
