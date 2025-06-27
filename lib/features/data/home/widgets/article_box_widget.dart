@@ -23,63 +23,85 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         spacing: 12,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('assets/images/game_image.png'),
+          Flexible(
+            child: SizedBox(
+              width: 90,
+              height: 90,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/game_image.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
               children: [
-                const Text(
-                  'Gaming And Autism',
-                  style: AutilabTextStyle.medium16_500,
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                const Text(
-                  'Balancing Screen Time For Kids',
-                  style: AutilabTextStyle.small14_400,
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                const Column(
+                  spacing: 2,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(85),
-                      child: Image.asset(
-                        'assets/images/doctor3.png',
-                        width: 16,
-                        height: 16,
+                    FittedBox(
+                      child: Text(
+                        'Gaming And Autism',
+                        style: AutilabTextStyle.medium16_500,
                       ),
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    const Text(
-                      'Dr.Masoomi',
-                      style: AutilabTextStyle.small12_400,
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isLike = !isLike;
-                        });
-                      },
-                      child: isLike
-                          ? const Icon(
-                              Icons.favorite_rounded,
-                              color: Colors.red,
-                            )
-                          : const Icon(
-                              Icons.favorite_border_rounded,
-                            ),
+                    Text(
+                      'Balancing Screen Time For Kids',
+                      style: AutilabTextStyle.small14_400,
                     ),
                   ],
+                ),
+                FittedBox(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(85),
+                        child: Image.asset(
+                          'assets/images/doctor3.png',
+                          width: 16,
+                          height: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      const Text(
+                        'Dr.Masoomi',
+                        style: AutilabTextStyle.small12_400,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isLike = !isLike;
+                          });
+                        },
+                        child: isLike
+                            ? const Icon(
+                                Icons.favorite_rounded,
+                                color: Colors.red,
+                                size: 12,
+                              )
+                            : const Icon(
+                                Icons.favorite_border_rounded,
+                                size: 18,
+                              ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

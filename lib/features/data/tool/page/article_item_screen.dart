@@ -1,4 +1,3 @@
-import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../home/widgets/article_box_widget.dart';
+import '../widgets/populararticle_widget.dart';
 
 class ArticleItemScreen extends StatefulWidget {
   const ArticleItemScreen({super.key});
@@ -61,64 +61,18 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                     height: 24,
                   ),
                   SizedBox(
-                    height: 292,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
+                    height: 260,
+                    child: PageView.builder(
                       itemCount: 3,
-                      shrinkWrap: true,
+                      padEnds: false,
+                      pageSnapping: false,
+                      controller: PageController(viewportFraction: 0.9),
                       itemBuilder: (context, index) {
-                        return Container(
-                          width: 338,
-                          height: 100,
-                          padding: const EdgeInsets.all(16),
-                          margin: EdgeInsets.only(right: index == 2 ? 0 : 15),
-                          decoration: BoxDecoration(
-                            color: AutilabColor.white,
-                            border: Border.all(color: AutilabColor.bb),
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            spacing: 8,
-                            children: [
-                              Image.asset(
-                                'assets/images/kid_image.png',
-                                fit: BoxFit.fill,
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              const Text(
-                                'Gaming And Autism',
-                                style: AutilabTextStyle.medium16_500,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Balancing Screen Time For Kids',
-                                    style: AutilabTextStyle.small14_400,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        isLike = !isLike;
-                                      });
-                                    },
-                                    child: isLike
-                                        ? const Icon(
-                                            Icons.favorite_rounded,
-                                            color: Colors.red,
-                                          )
-                                        : const Icon(
-                                            Icons.favorite_border_rounded,
-                                          ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        return PopularArticleWidget(
+                          index: index,
+                          ontap: () {
+                            context.pushNamed(AutiLabRoutes.mainContentScreen);
+                          },
                         );
                       },
                     ),
