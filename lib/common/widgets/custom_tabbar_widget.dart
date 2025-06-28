@@ -25,7 +25,7 @@ class CustomTabBarWidget extends StatelessWidget {
       child: NestedScrollView(
         physics: isScrollable == false
             ? const NeverScrollableScrollPhysics()
-            : const BouncingScrollPhysics(),
+            : const AlwaysScrollableScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             const SliverToBoxAdapter(

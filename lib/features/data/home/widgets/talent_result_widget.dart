@@ -25,7 +25,7 @@ class TalentResultLinerWidget extends StatelessWidget {
         children: [
           ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 25,
+            itemCount: 28,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 14),

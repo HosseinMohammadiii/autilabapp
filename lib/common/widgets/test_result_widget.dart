@@ -21,7 +21,6 @@ class TestResultWidget extends StatelessWidget {
         ),
         FittedBox(
           child: Container(
-            //  margin: AutilabMargin.marginFullScreen,
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
             decoration: BoxDecoration(
               color: AutilabColor.primary,
@@ -29,11 +28,11 @@ class TestResultWidget extends StatelessWidget {
             ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
+              spacing: 15,
               children: [
                 Text(
                   'Artistic',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.small18_400,
                 ),
                 TalentResultLinerWidget(
                   gradient1: Color(0xff5b9fc8),
@@ -42,7 +41,7 @@ class TestResultWidget extends StatelessWidget {
                 ),
                 Text(
                   'Enterprising',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.small18_400,
                 ),
                 TalentResultLinerWidget(
                   gradient1: Color(0xffFF9364),
@@ -51,7 +50,7 @@ class TestResultWidget extends StatelessWidget {
                 ),
                 Text(
                   'Investigator',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.small18_400,
                 ),
                 TalentResultLinerWidget(
                   gradient1: Color(0xffB09FFF),
@@ -60,7 +59,7 @@ class TestResultWidget extends StatelessWidget {
                 ),
                 Text(
                   'Social',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.small18_400,
                 ),
                 TalentResultLinerWidget(
                   gradient1: Color(0xffFE6C6C),
@@ -69,7 +68,7 @@ class TestResultWidget extends StatelessWidget {
                 ),
                 Text(
                   'Realistic',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.small18_400,
                 ),
                 TalentResultLinerWidget(
                   gradient1: Color(0xff99FFA3),
@@ -78,7 +77,7 @@ class TestResultWidget extends StatelessWidget {
                 ),
                 Text(
                   'Conventional',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.small18_400,
                 ),
                 TalentResultLinerWidget(
                   gradient1: Color(0xffFFD572),
