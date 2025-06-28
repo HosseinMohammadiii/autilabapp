@@ -176,7 +176,6 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               ),
             ],
           ),
-          // const SizedBox(height: 24),
           Expanded(
             child: GridView.builder(
               itemCount: categoryItemsList.length,

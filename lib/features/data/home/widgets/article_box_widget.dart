@@ -93,7 +93,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                             ? const Icon(
                                 Icons.favorite_rounded,
                                 color: Colors.red,
-                                size: 12,
+                                size: 18,
                               )
                             : const Icon(
                                 Icons.favorite_border_rounded,

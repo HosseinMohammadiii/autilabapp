@@ -27,7 +27,6 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 350,
-      height: 276,
       padding: const EdgeInsets.all(16),
       alignment: Alignment.center,
       margin: margin,
@@ -38,6 +37,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
       child: Column(
         spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           FittedBox(
             child: Row(
@@ -59,58 +59,70 @@ class NewAppointmentsCardWidget extends StatelessWidget {
             thickness: 1,
             color: AutilabColor.black,
           ),
-          Row(
-            spacing: 12,
-            children: [
-              Flexible(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    image,
-                    fit: BoxFit.cover,
+          SizedBox(
+            height: 115,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Row(
+                spacing: 12,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: SizedBox(
+                        width: 116,
+                        height: 116,
+                        child: Image.asset(
+                          image,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 12,
-                  children: [
-                    const FittedBox(
-                      child: Text(
-                        'Dr. Sophia Martinez',
-                        style: AutilabTextStyle.medium18_500,
-                      ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const FittedBox(
+                          child: Text(
+                            'Dr. Sophia Martinez',
+                            style: AutilabTextStyle.medium18_500,
+                          ),
+                        ),
+                        FittedBox(
+                          child: Row(
+                            children: [
+                              Text(
+                                'Psychotherapy',
+                                style: AutilabTextStyle.small14_400.copyWith(
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              const Icon(
+                                Icons.star_rounded,
+                                color: Color(0xffEDC757),
+                              ),
+                              const Text(
+                                '5.0',
+                                style: AutilabTextStyle.small14_400,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const FittedBox(
+                          child: TimeBoxDoctorCard(),
+                        ),
+                      ],
                     ),
-                    FittedBox(
-                      child: Row(
-                        children: [
-                          Text(
-                            'Psychotherapy',
-                            style: AutilabTextStyle.small14_400.copyWith(
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Color(0xffEDC757),
-                          ),
-                          const Text(
-                            '5.0',
-                            style: AutilabTextStyle.small14_400,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const FittedBox(child: TimeBoxDoctorCard()),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
           CustomButtonWidget(
             onTap: () {

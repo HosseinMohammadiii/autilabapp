@@ -374,7 +374,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.asset(
-                                  'assets/images/doctor_image.png',
+                                  'assets/images/doctor_image.jpg',
                                   fit: BoxFit.cover,
                                   width: 72,
                                   height: 83,

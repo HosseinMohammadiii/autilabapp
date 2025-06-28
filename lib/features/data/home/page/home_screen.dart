@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       'Pending',
     ),
   ];
-  List<String> titlePlanList = ['Free Plan', "299\$/Years", '99\$/Month'];
+  List<String> titlePlanList = ['Free Plan', '99\$/Month', "299\$/Years"];
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             color: statusList[index].statusColor,
                             title: statusList[index].title,
                             statusIcon: statusList[index].statusIcon,
-                            image: 'assets/images/doctor_image.png',
+                            image: 'assets/images/doctor_image.jpg',
                             margin: const EdgeInsets.all(
                               0,
                             ),
@@ -167,8 +167,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 24,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SpecialtiesListWidget(),
+              const SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: SpecialtiesListWidget(),
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -270,7 +273,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: TestResultWidget(),
+                  child: TestResultWidget(
+                    isShowTitle: false,
+                  ),
                 ),
               ),
               const SliverToBoxAdapter(
@@ -278,28 +283,39 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 48,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 430,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    padding: AutilabMargin.marginFullScreen,
-                    itemCount: titlePlanList.length,
-                    itemBuilder: (context, index) => PlanBoxWidget(
-                      title: titlePlanList[index],
-                      titleButton: 'See Advance Package',
-                      widget: const Column(
-                        spacing: 8,
-                        children: [
-                          PalnItemWidget(),
-                          PalnItemWidget(),
-                          PalnItemWidget(),
-                          PalnItemWidget(),
-                        ],
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                sliver: SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 430,
+                    child: PageView.builder(
+                      scrollDirection: Axis.horizontal,
+                      padEnds: false,
+                      pageSnapping: false,
+                      controller: PageController(viewportFraction: 0.9),
+                      itemCount: titlePlanList.length,
+                      itemBuilder: (context, index) => PlanBoxWidget(
+                        title: titlePlanList[index],
+                        titleButton: 'See Advance Package',
+                        widget: const Column(
+                          spacing: 8,
+                          children: [
+                            PalnItemWidget(),
+                            PalnItemWidget(),
+                            PalnItemWidget(),
+                            PalnItemWidget(),
+                          ],
+                        ),
+                        margin: index == titlePlanList.length - 1 ? 0 : 16,
+                        onTap: () {
+                          context.pushNamed(
+                            AutiLabRoutes.payPackagesScreen,
+                            extra: {
+                              'title': titlePlanList[index],
+                            },
+                          );
+                        },
                       ),
-                      margin: index == titlePlanList.length - 1 ? 0 : 16,
-                      onTap: () {},
                     ),
                   ),
                 ),

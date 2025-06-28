@@ -19,8 +19,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
     'assets/icons/global_buttomnavigation.svg',
     'assets/icons/messages.svg',
     'assets/icons/calendar.svg',
-    'assets/icons/heart.svg',
   ];
+  bool isLike = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,18 +50,23 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                   color: AutilabColor.blue,
                 ),
               ),
-              const Spacer(),
-              CustomButtonWidget(
-                onTap: () {
-                  context.pushNamed(AutiLabRoutes.doctorInformationScreen);
-                },
-                height: 32,
-                width: 100,
-                borderRadius: 12,
-                margin: const EdgeInsets.all(0),
-                color: const Color(0xffEDC757),
-                text: 'Info',
-                textStyle: AutilabTextStyle.small14_400,
+              const Spacer(
+                flex: 4,
+              ),
+              Expanded(
+                flex: 3,
+                child: CustomButtonWidget(
+                  onTap: () {
+                    context.pushNamed(AutiLabRoutes.doctorInformationScreen);
+                  },
+                  height: 32,
+                  width: 100,
+                  borderRadius: 12,
+                  margin: const EdgeInsets.all(0),
+                  color: const Color(0xffEDC757),
+                  text: 'Info',
+                  textStyle: AutilabTextStyle.small14_400,
+                ),
               ),
             ],
           ),
@@ -75,78 +81,123 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
             height: 103,
             child: Align(
               alignment: Alignment.topLeft,
-              child: Wrap(
-                direction: Axis.vertical,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      'assets/images/doctor_image.png',
-                      fit: BoxFit.cover,
+                  FittedBox(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: SizedBox(
+                        width: 116,
+                        height: 116,
+                        child: Image.asset(
+                          'assets/images/doctor_image.jpg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Dr. Sophia Martinez',
-                          style: AutilabTextStyle.medium18_400.copyWith(
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Psychotherapy',
-                              style: AutilabTextStyle.small14_400.copyWith(
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          FittedBox(
+                            child: Text(
+                              'Dr. Sophia Martinez',
+                              style: AutilabTextStyle.medium18_400.copyWith(
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            const Icon(
-                              Icons.star_rounded,
-                              color: Color(0xffEDC757),
-                            ),
-                            const Text(
-                              '5.0',
-                              style: AutilabTextStyle.small14_400,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32,
-                          child: ListView.builder(
-                            itemCount: 4,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return ButtonCard(
-                                onTap: () {
-                                  switch (index) {
-                                    case 0:
-                                      context.pushNamed(AutiLabRoutes
-                                          .doctorSocialMediaScreen);
-                                    case 1:
-                                      context.pushNamed(
-                                          AutiLabRoutes.doctorMessageScreen);
-                                    case 2:
-                                      context.pushNamed(AutiLabRoutes
-                                          .doctorWorkscheduleScreen);
-                                    default:
-                                  }
-                                },
-                                icon: icon[index],
-                              );
-                            },
                           ),
-                        ),
-                      ],
+                          FittedBox(
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Psychotherapy',
+                                  style: AutilabTextStyle.small14_400.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                const Icon(
+                                  Icons.star_rounded,
+                                  color: Color(0xffEDC757),
+                                ),
+                                const Text(
+                                  '5.0',
+                                  style: AutilabTextStyle.small14_400,
+                                ),
+                              ],
+                            ),
+                          ),
+                          FittedBox(
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  height: 32,
+                                  child: ListView.builder(
+                                    itemCount: icon.length,
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return ButtonCard(
+                                        onTap: () {
+                                          switch (index) {
+                                            case 0:
+                                              context.pushNamed(AutiLabRoutes
+                                                  .doctorSocialMediaScreen);
+                                            case 1:
+                                              context.pushNamed(AutiLabRoutes
+                                                  .doctorMessageScreen);
+                                            case 2:
+                                              context.pushNamed(AutiLabRoutes
+                                                  .doctorWorkscheduleScreen);
+                                          }
+                                        },
+                                        icon: icon[index],
+                                      );
+                                    },
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isLike = !isLike;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 32,
+                                    height: 32,
+                                    // padding: const EdgeInsets.all(4),
+                                    margin: const EdgeInsets.only(right: 12),
+                                    decoration: BoxDecoration(
+                                      color: AutilabColor.bb,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: isLike
+                                        ? const Icon(
+                                            Icons.favorite_rounded,
+                                            color: Colors.red,
+                                            size: 22,
+                                          )
+                                        : const Icon(
+                                            Icons.favorite_border_rounded,
+                                            size: 22,
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

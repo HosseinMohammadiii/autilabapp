@@ -18,7 +18,7 @@ class ValidAppointmentWidget extends StatelessWidget {
           color: const Color(0xff50DD81),
           title: 'Approved',
           statusIcon: 'assets/icons/done_icon.svg',
-          image: 'assets/images/doctor_image.png',
+          image: 'assets/images/doctor_image.jpg',
           margin: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
           onTap: () {
             context.pushNamed(

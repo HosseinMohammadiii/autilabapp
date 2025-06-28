@@ -27,7 +27,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
-                'assets/images/doctor_image.png',
+                'assets/images/doctor_image.jpg',
                 fit: BoxFit.cover,
               ),
             ),

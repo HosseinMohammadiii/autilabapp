@@ -107,7 +107,7 @@ class _MessageScreenState extends State<MessageScreen>
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      'assets/images/doctor_image.png',
+                      'assets/images/doctor_image.jpg',
                       height: 46,
                       width: 50,
                       fit: BoxFit.cover,

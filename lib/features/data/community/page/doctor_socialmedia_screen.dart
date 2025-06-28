@@ -100,7 +100,7 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                             width: 100,
                                             height: 100,
                                             child: Image.asset(
-                                              'assets/images/doctor_image.png',
+                                              'assets/images/doctor_image.jpg',
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -215,20 +215,6 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                   ),
                 ),
               ),
-              // Positioned(
-              //   top: 0,
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(100),
-              //     child: SizedBox(
-              //       width: 100,
-              //       height: 100,
-              //       child: Image.asset(
-              //         'assets/images/doctor_image.png',
-              //         fit: BoxFit.fill,
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

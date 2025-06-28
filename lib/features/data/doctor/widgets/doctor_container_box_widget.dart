@@ -23,76 +23,81 @@ class DoctorBox extends StatelessWidget {
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/doctor_image.png',
-              fit: BoxFit.cover,
+      child: SizedBox(
+        height: 116,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/images/doctor_image.jpg',
+                width: 116,
+                height: 116,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FittedBox(
-                      child: Text(
-                        'Dr. Sophia Martinez',
-                        style: AutilabTextStyle.medium18_500,
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        child: Text(
+                          'Dr. Sophia Martinez',
+                          style: AutilabTextStyle.medium18_500,
+                        ),
                       ),
-                    ),
-                    FittedBox(
-                      child: Text(
-                        'Psychotherapy',
-                        style: AutilabTextStyle.small16_400,
+                      FittedBox(
+                        child: Text(
+                          'Psychotherapy',
+                          style: AutilabTextStyle.small16_400,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      flex: 6,
-                      child: CustomButtonWidget(
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        flex: 6,
+                        child: CustomButtonWidget(
+                          onTap: () {
+                            context.pushNamed(
+                                AutiLabRoutes.doctorInformationScreen);
+                          },
+                          height: 32,
+                          width: 100,
+                          borderRadius: 12,
+                          margin: const EdgeInsets.all(0),
+                          color: AutilabColor.yellow2,
+                          text: 'Info',
+                          textStyle: AutilabTextStyle.small14_400,
+                        ),
+                      ),
+                      const Spacer(),
+                      ButtonCard(
+                        icon: 'assets/icons/messages.svg',
                         onTap: () {
-                          context
-                              .pushNamed(AutiLabRoutes.doctorInformationScreen);
+                          context.pushNamed(AutiLabRoutes.doctorMessageScreen);
                         },
-                        height: 32,
-                        width: 100,
-                        borderRadius: 12,
-                        margin: const EdgeInsets.all(0),
-                        color: AutilabColor.yellow2,
-                        text: 'Info',
-                        textStyle: AutilabTextStyle.small14_400,
                       ),
-                    ),
-                    const Spacer(),
-                    ButtonCard(
-                      icon: 'assets/icons/messages.svg',
-                      onTap: () {
-                        context.pushNamed(AutiLabRoutes.doctorMessageScreen);
-                      },
-                    ),
-                    ButtonCard(
-                      icon: 'assets/icons/heart.svg',
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-              ],
+                      ButtonCard(
+                        icon: 'assets/icons/heart.svg',
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

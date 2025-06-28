@@ -80,7 +80,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       return NewAppointmentsCardWidget(
                         color: const Color(0xff50DD81),
                         title: 'Approved',
-                        image: 'assets/images/doctor2.png',
+                        image: 'assets/images/doctor2.jpg',
                         statusIcon: 'assets/icons/done_icon.svg',
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 16),
@@ -110,7 +110,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       return NewAppointmentsCardWidget(
                         color: const Color(0xffFF6363),
                         title: 'Cancelled',
-                        image: 'assets/images/doctor_image.png',
+                        image: 'assets/images/doctor_image.jpg',
                         statusIcon: 'assets/icons/close_icon.svg',
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 16),

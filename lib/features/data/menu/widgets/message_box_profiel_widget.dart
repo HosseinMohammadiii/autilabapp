@@ -30,9 +30,9 @@ class MesseageBoxProfile extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Image.asset(
-              'assets/images/doctor_image.png',
+              'assets/images/doctor_image.jpg',
               width: 45,
-              height: 45,
+              fit: BoxFit.cover,
             ),
           ),
           Expanded(

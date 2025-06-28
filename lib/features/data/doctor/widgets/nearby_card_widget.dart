@@ -7,13 +7,19 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
 
-class NearbyCardWidget extends StatelessWidget {
+class NearbyCardWidget extends StatefulWidget {
   const NearbyCardWidget({
     super.key,
     this.isShowButton,
   });
   final bool? isShowButton;
 
+  @override
+  State<NearbyCardWidget> createState() => _NearbyCardWidgetState();
+}
+
+class _NearbyCardWidgetState extends State<NearbyCardWidget> {
+  bool isLike = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,13 +56,36 @@ class NearbyCardWidget extends StatelessWidget {
                     style: AutilabTextStyle.medium18_500,
                   ),
                 ),
-                ButtonCard(
-                  onTap: () {},
-                  margin: const EdgeInsets.only(right: 8),
-                  icon: 'assets/icons/heart.svg',
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isLike = !isLike;
+                    });
+                  },
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: AutilabColor.bb,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: isLike
+                        ? const Icon(
+                            Icons.favorite_rounded,
+                            color: Colors.red,
+                            size: 22,
+                          )
+                        : const Icon(
+                            Icons.favorite_border_rounded,
+                            size: 22,
+                          ),
+                  ),
                 ),
                 ButtonCard(
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                  },
                   margin: const EdgeInsets.all(0),
                   icon: 'assets/icons/messages.svg',
                 ),
@@ -71,7 +100,7 @@ class NearbyCardWidget extends StatelessWidget {
             child: Text(
               'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
               style: AutilabTextStyle.small14_400.copyWith(
-                overflow: isShowButton == false
+                overflow: widget.isShowButton == false
                     ? TextOverflow.visible
                     : TextOverflow.ellipsis,
               ),
@@ -80,7 +109,7 @@ class NearbyCardWidget extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: isShowButton ?? true,
+            visible: widget.isShowButton ?? true,
             child: CustomButtonWidget(
               onTap: () {
                 context.pushNamed(AutiLabRoutes.nearbyCenterDetailScreen);

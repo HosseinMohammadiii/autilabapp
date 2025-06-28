@@ -17,7 +17,7 @@ class SpecialtiesListWidget extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryItemsList.length,
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        // padding: const EdgeInsets.symmetric(horizontal: 20),
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
@@ -27,7 +27,7 @@ class SpecialtiesListWidget extends StatelessWidget {
               height: 113,
               width: 132,
               margin: EdgeInsets.only(
-                right: index == categoryItemsList.length - 1 ? 0 : 20,
+                right: index == categoryItemsList.length - 1 ? 0 : 14,
               ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -37,7 +37,13 @@ class SpecialtiesListWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Image.asset(categoryItemsList[index].image),
+                  SizedBox(
+                    width: 56,
+                    height: 56,
+                    child: Image.asset(
+                      categoryItemsList[index].image,
+                    ),
+                  ),
                   Text(
                     categoryItemsList[index].title,
                     style: AutilabTextStyle.medium14_500,
