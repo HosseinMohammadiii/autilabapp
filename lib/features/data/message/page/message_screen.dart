@@ -8,7 +8,11 @@ import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key});
+  const MessageScreen({
+    super.key,
+    required this.image,
+  });
+  final String image;
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -107,10 +111,10 @@ class _MessageScreenState extends State<MessageScreen>
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      'assets/images/doctor_image.jpg',
+                      widget.image,
                       height: 46,
-                      width: 50,
-                      fit: BoxFit.cover,
+                      width: 46,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   const SizedBox(

@@ -200,7 +200,14 @@ class AutilabRouter {
       GoRoute(
         path: '/doctorMessageScreen',
         name: AutiLabRoutes.doctorMessageScreen,
-        builder: (context, state) => const MessageScreen(),
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+
+          return MessageScreen(
+            image: extraData['image'],
+          );
+        },
       ),
       GoRoute(
         path: '/makeAppointmentScreen',

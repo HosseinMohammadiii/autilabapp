@@ -154,8 +154,14 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                               context.pushNamed(AutiLabRoutes
                                                   .doctorSocialMediaScreen);
                                             case 1:
-                                              context.pushNamed(AutiLabRoutes
-                                                  .doctorMessageScreen);
+                                              context.pushNamed(
+                                                AutiLabRoutes
+                                                    .doctorMessageScreen,
+                                                extra: {
+                                                  'image':
+                                                      'assets/images/doctor_image.jpg',
+                                                },
+                                              );
                                             case 2:
                                               context.pushNamed(AutiLabRoutes
                                                   .doctorWorkscheduleScreen);

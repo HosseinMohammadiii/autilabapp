@@ -84,7 +84,12 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 ),
                 ButtonCard(
                   onTap: () {
-                    context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                    context.pushNamed(
+                      AutiLabRoutes.doctorMessageScreen,
+                      extra: {
+                        'image': 'assets/images/autism_help_center.png',
+                      },
+                    );
                   },
                   margin: const EdgeInsets.all(0),
                   icon: 'assets/icons/messages.svg',

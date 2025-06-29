@@ -265,56 +265,58 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   Stack(
                     alignment: Alignment.topCenter,
                     children: [
-                      Container(
-                        // width: double.infinity,
-                        height: 124,
-                        margin: const EdgeInsets.only(
-                            left: 20, right: 20, top: 36, bottom: 8),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 25),
-                        decoration: BoxDecoration(
-                          color: AutilabColor.drawerWhite,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  'Denis Iliev',
-                                  style: AutilabTextStyle.medium16_500,
-                                ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  'denis@gmail.com',
-                                  style: AutilabTextStyle.small14_400,
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            CustomButtonWidget(
-                              onTap: () {
-                                context.pop();
-                                context
-                                    .pushNamed(AutiLabRoutes.editProfileScreen);
-                              },
-                              width: 100,
-                              height: 32,
-                              borderRadius: 12,
-                              margin: const EdgeInsets.all(0),
-                              color: AutilabColor.blue,
-                              text: 'Edit Profile',
-                              textStyle: AutilabTextStyle.small12_400.copyWith(
-                                color: AutilabColor.white,
+                      FittedBox(
+                        child: Container(
+                          height: 124,
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, top: 36, bottom: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 25),
+                          decoration: BoxDecoration(
+                            color: AutilabColor.drawerWhite,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            spacing: 22,
+                            children: [
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'Denis Iliev',
+                                    style: AutilabTextStyle.medium16_500,
+                                  ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    'denis@gmail.com',
+                                    style: AutilabTextStyle.small14_400,
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                              CustomButtonWidget(
+                                onTap: () {
+                                  context.pop();
+                                  context.pushNamed(
+                                      AutiLabRoutes.editProfileScreen);
+                                },
+                                width: 100,
+                                height: 32,
+                                borderRadius: 12,
+                                margin: const EdgeInsets.all(0),
+                                color: AutilabColor.blue,
+                                text: 'Edit Profile',
+                                textStyle:
+                                    AutilabTextStyle.small12_400.copyWith(
+                                  color: AutilabColor.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       ClipRRect(

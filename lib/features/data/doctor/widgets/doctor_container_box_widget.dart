@@ -83,7 +83,12 @@ class DoctorBox extends StatelessWidget {
                       ButtonCard(
                         icon: 'assets/icons/messages.svg',
                         onTap: () {
-                          context.pushNamed(AutiLabRoutes.doctorMessageScreen);
+                          context.pushNamed(
+                            AutiLabRoutes.doctorMessageScreen,
+                            extra: {
+                              'image': 'assets/images/doctor_image.jpg',
+                            },
+                          );
                         },
                       ),
                       ButtonCard(
