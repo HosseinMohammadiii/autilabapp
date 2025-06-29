@@ -85,11 +85,6 @@ class AutilabRouter {
                 name: AutiLabRoutes.doctorScreen,
                 builder: (context, state) => const DoctorScreen(),
               ),
-              GoRoute(
-                path: '/doctorSpecialityScreen',
-                name: AutiLabRoutes.doctorSpecialityScreen,
-                builder: (context, state) => const DoctorSpecialityScreen(),
-              ),
             ],
           ),
           StatefulShellBranch(
@@ -115,6 +110,11 @@ class AutilabRouter {
             StatefulNavigationShell navigationShell) {
           return ButtomnavigationWidget(navigationShell: navigationShell);
         },
+      ),
+      GoRoute(
+        path: '/doctorSpecialityScreen',
+        name: AutiLabRoutes.doctorSpecialityScreen,
+        builder: (context, state) => const DoctorSpecialityScreen(),
       ),
       GoRoute(
         path: '/articleItemScreen',

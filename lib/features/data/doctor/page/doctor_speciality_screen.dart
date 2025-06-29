@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../utils/functions/custom_dialog_function.dart';
@@ -48,6 +49,8 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:
+          appBarWidget(context: context, title: 'Specialties', isIcon: true),
       body: SafeArea(
         child: FadeTransition(
           opacity: animationHelper.fadeAnimation,
@@ -55,8 +58,10 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
             slivers: [
               SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Row(
+                sliver: SliverAppBar(
+                  leadingWidth: double.infinity,
+                  pinned: true,
+                  leading: Row(
                     spacing: 8,
                     children: [
                       Expanded(
