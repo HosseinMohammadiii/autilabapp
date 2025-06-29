@@ -161,8 +161,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       constraints: const BoxConstraints(
-        maxWidth: 320,
-        maxHeight: 470,
+        maxWidth: 512,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

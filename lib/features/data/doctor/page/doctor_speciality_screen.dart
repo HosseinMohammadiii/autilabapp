@@ -136,139 +136,112 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
     final ValueNotifier<double?> selectedIndexrating =
         ValueNotifier<double?>(null);
 
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 320, maxHeight: 320),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      child: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            toolbarHeight: 21,
-            automaticallyImplyLeading: false,
-            leadingWidth: double.infinity,
-            leading: Row(
-              spacing: 4,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (context.canPop()) {
-                      context.pop();
-                    }
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 8.0),
-                    child: Icon(Icons.close_rounded),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          constraints: const BoxConstraints(maxWidth: 528, maxHeight: 342),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                spacing: 4,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (context.canPop()) {
+                        context.pop();
+                      }
+                    },
+                    child: const Icon(Icons.close_rounded),
                   ),
-                ),
-                const Text(
-                  'Filter',
-                  style: AutilabTextStyle.small18_400,
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    selectedIndexSpecialty.value = null;
-                    selectedIndexNotifier.value = null;
-                    selectedIndexrating.value = null;
-                  },
-                  child: const Text(
-                    'Rest Filter',
-                    style: AutilabTextStyle.medium12_500,
+                  const Text(
+                    'Filter',
+                    style: AutilabTextStyle.small18_400,
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Divider(
-              thickness: 1,
-              color: AutilabColor.gray,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Text(
-              'Gender',
-              style: AutilabTextStyle.medium18_500,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: CustomCheckbox(
-              title: 'Male',
-              index: 1,
-              selectedIndexNotifier: selectedIndexNotifier,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: CustomCheckbox(
-              title: 'Female',
-              index: 2,
-              selectedIndexNotifier: selectedIndexNotifier,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Divider(
-              thickness: 1,
-              color: AutilabColor.gray,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Text(
-              'Rating',
-              style: AutilabTextStyle.medium18_500,
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: ValueListenableBuilder(
-              valueListenable: selectedIndexrating,
-              builder: (context, value, child) => RatingBar.builder(
-                initialRating: selectedIndexrating.value ?? 0,
-                itemCount: 5,
-                minRating: 1,
-                maxRating: 5,
-                updateOnDrag: true,
-                itemSize: 30,
-                unratedColor: AutilabColor.gray,
-                glow: false,
-                itemBuilder: (context, index) {
-                  return const Icon(
-                    Icons.star_rounded,
-                    color: AutilabColor.yellow,
-                    size: 24,
-                  );
-                },
-                onRatingUpdate: (value) {
-                  selectedIndexrating.value = value;
-                },
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      selectedIndexSpecialty.value = null;
+                      selectedIndexNotifier.value = null;
+                      selectedIndexrating.value = null;
+                    },
+                    child: const Text(
+                      'Rest Filter',
+                      style: AutilabTextStyle.medium12_500,
+                    ),
+                  ),
+                ],
               ),
-            ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Divider(
+                thickness: 1,
+                color: AutilabColor.gray,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Text(
+                'Gender',
+                style: AutilabTextStyle.medium18_500,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              CustomCheckbox(
+                title: 'Male',
+                index: 1,
+                selectedIndexNotifier: selectedIndexNotifier,
+              ),
+              CustomCheckbox(
+                title: 'Female',
+                index: 2,
+                selectedIndexNotifier: selectedIndexNotifier,
+              ),
+              const Divider(
+                thickness: 1,
+                color: AutilabColor.gray,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Text(
+                'Rating',
+                style: AutilabTextStyle.medium18_500,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ValueListenableBuilder(
+                valueListenable: selectedIndexrating,
+                builder: (context, value, child) => RatingBar.builder(
+                  initialRating: selectedIndexrating.value ?? 0,
+                  itemCount: 5,
+                  minRating: 1,
+                  maxRating: 5,
+                  updateOnDrag: true,
+                  itemSize: 30,
+                  unratedColor: AutilabColor.gray,
+                  glow: false,
+                  itemBuilder: (context, index) {
+                    return const Icon(
+                      Icons.star_rounded,
+                      color: AutilabColor.yellow,
+                      size: 24,
+                    );
+                  },
+                  onRatingUpdate: (value) {
+                    selectedIndexrating.value = value;
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
