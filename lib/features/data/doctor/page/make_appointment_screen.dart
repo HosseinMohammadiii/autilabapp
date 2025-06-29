@@ -34,7 +34,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
 
   String selectDate = '';
   String selectTime = '';
-  String genderType = '';
+  String genderType = 'Male';
 
   @override
   void initState() {

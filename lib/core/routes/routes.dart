@@ -99,18 +99,6 @@ class AutilabRouter {
                 name: AutiLabRoutes.toolsScreen,
                 builder: (context, state) => const ToolsScreen(),
               ),
-              GoRoute(
-                path: '/articleItemScreen',
-                name: AutiLabRoutes.articleItemScreen,
-                builder: (context, state) => const ArticleItemScreen(),
-                routes: [
-                  GoRoute(
-                    path: '/mainContentScreen',
-                    name: AutiLabRoutes.mainContentScreen,
-                    builder: (context, state) => const MainContentScreen(),
-                  ),
-                ],
-              ),
             ],
           ),
           StatefulShellBranch(
@@ -127,6 +115,18 @@ class AutilabRouter {
             StatefulNavigationShell navigationShell) {
           return ButtomnavigationWidget(navigationShell: navigationShell);
         },
+      ),
+      GoRoute(
+        path: '/articleItemScreen',
+        name: AutiLabRoutes.articleItemScreen,
+        builder: (context, state) => const ArticleItemScreen(),
+        routes: [
+          GoRoute(
+            path: '/mainContentScreen',
+            name: AutiLabRoutes.mainContentScreen,
+            builder: (context, state) => const MainContentScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: '/whiteBoardScreen',

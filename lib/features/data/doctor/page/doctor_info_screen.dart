@@ -46,60 +46,74 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                     color: AutilabColor.primary,
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    spacing: 24,
-                    children: [
-                      FittedBox(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            'assets/images/doctor_image.jpg',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 24,
-                          children: [
-                            const Text(
-                              'Dr. Sophia Martinez',
-                              style: AutilabTextStyle.medium18_500,
-                            ),
-                            SizedBox(
-                              height: 32,
-                              child: ListView.builder(
-                                itemCount: 4,
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return ButtonCard(
-                                    onTap: () {
-                                      switch (index) {
-                                        case 0:
-                                          context.pushNamed(AutiLabRoutes
-                                              .doctorSocialMediaScreen);
-                                        case 1:
-                                          context.pushNamed(AutiLabRoutes
-                                              .doctorMessageScreen);
-                                        case 2:
-                                          context.pushNamed(AutiLabRoutes
-                                              .doctorWorkscheduleScreen);
-                                        default:
-                                      }
-                                    },
-                                    icon: icon[index],
-                                  );
-                                },
+                  child: SizedBox(
+                    height: 116,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      spacing: 24,
+                      children: [
+                        Flexible(
+                          child: SizedBox(
+                            height: 116,
+                            width: 116,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                'assets/images/doctor_image.jpg',
+                                fit: BoxFit.fill,
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 24,
+                            children: [
+                              const FittedBox(
+                                child: Text(
+                                  'Dr. Sophia Martinez',
+                                  style: AutilabTextStyle.medium18_500,
+                                ),
+                              ),
+                              FittedBox(
+                                child: SizedBox(
+                                  height: 32,
+                                  width: 186,
+                                  child: ListView.builder(
+                                    itemCount: 4,
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return ButtonCard(
+                                        onTap: () {
+                                          switch (index) {
+                                            case 0:
+                                              context.pushNamed(AutiLabRoutes
+                                                  .doctorSocialMediaScreen);
+                                            case 1:
+                                              context.pushNamed(AutiLabRoutes
+                                                  .doctorMessageScreen);
+                                            case 2:
+                                              context.pushNamed(AutiLabRoutes
+                                                  .doctorWorkscheduleScreen);
+                                            default:
+                                          }
+                                        },
+                                        icon: icon[index],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -242,6 +256,11 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   textStyle: AutilabTextStyle.small14_400.copyWith(
                     color: AutilabColor.black,
                   ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 48,
                 ),
               ),
             ],
