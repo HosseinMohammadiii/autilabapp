@@ -34,53 +34,60 @@ class SelectMethodPayBoxWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              ValueListenableBuilder<int?>(
-                valueListenable: selectedIndexNotifier,
-                builder: (context, selectedIndex, child) {
-                  return GestureDetector(
-                    onTap: () {
-                      selectedIndexNotifier.value = index;
-                    },
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AutilabColor.black),
-                        shape: BoxShape.circle,
+          FittedBox(
+            child: Row(
+              children: [
+                ValueListenableBuilder<int?>(
+                  valueListenable: selectedIndexNotifier,
+                  builder: (context, selectedIndex, child) {
+                    return GestureDetector(
+                      onTap: () {
+                        selectedIndexNotifier.value = index;
+                      },
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AutilabColor.black),
+                          shape: BoxShape.circle,
+                        ),
+                        child: selectedIndex == index
+                            ? const Icon(
+                                Icons.done_rounded,
+                                size: 16,
+                              )
+                            : const SizedBox(),
                       ),
-                      child: selectedIndex == index
-                          ? const Icon(
-                              Icons.done_rounded,
-                              size: 16,
-                            )
-                          : const SizedBox(),
-                    ),
-                  );
-                },
-              ),
-              Text(
-                title,
-                style: AutilabTextStyle.medium16_500,
-              ),
-            ],
+                    );
+                  },
+                ),
+                Text(
+                  title,
+                  style: AutilabTextStyle.medium16_500,
+                ),
+              ],
+            ),
           ),
           Visibility(
             visible: isBorder,
             replacement: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              spacing: 8,
+              spacing: 2,
               children: [
                 SvgPicture.asset(
                   'assets/icons/discover_logo.svg',
+                  fit: BoxFit.cover,
                 ),
                 SvgPicture.asset(
                   'assets/icons/visa_logo.svg',
+                  fit: BoxFit.cover,
                 ),
-                SvgPicture.asset(
-                  'assets/icons/mastercard_logo.svg',
+                FittedBox(
+                  child: SvgPicture.asset(
+                    'assets/icons/mastercard_logo.svg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ],
             ),

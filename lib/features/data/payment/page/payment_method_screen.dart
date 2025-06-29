@@ -135,13 +135,11 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                   logo: 'assets/icons/paypal_logo.svg',
                   index: 0,
                 ),
-                FittedBox(
-                  child: SelectMethodPayBoxWidget(
-                    selectedIndexNotifier: selectedIndexNotifier,
-                    title: 'Google pay',
-                    logo: 'assets/icons/googlepay_logo.svg',
-                    index: 1,
-                  ),
+                SelectMethodPayBoxWidget(
+                  selectedIndexNotifier: selectedIndexNotifier,
+                  title: 'Google pay',
+                  logo: 'assets/icons/googlepay_logo.svg',
+                  index: 1,
                 ),
                 Container(
                   padding: const EdgeInsets.all(16),
@@ -150,17 +148,15 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                     border: Border.all(color: AutilabColor.black),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Wrap(
+                  child: Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FittedBox(
-                        child: SelectMethodPayBoxWidget(
-                          selectedIndexNotifier: selectedIndexNotifier,
-                          title: 'Credit Card',
-                          logo: 'assets/icons/googlepay_logo.svg',
-                          index: 2,
-                          isBorder: false,
-                        ),
+                      SelectMethodPayBoxWidget(
+                        selectedIndexNotifier: selectedIndexNotifier,
+                        title: 'Credit Card',
+                        logo: 'assets/icons/googlepay_logo.svg',
+                        index: 2,
+                        isBorder: false,
                       ),
                       const SizedBox(
                         height: 32,
@@ -230,7 +226,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   color: AutilabColor.bb,
-                  text: 'Pay 1235',
+                  text: 'Pay',
                   textStyle: AutilabTextStyle.small18_400,
                 ),
               ],
