@@ -159,14 +159,14 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
     Function(int index) onTap,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       constraints: const BoxConstraints(
         maxWidth: 320,
         maxHeight: 470,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 16),
           Row(
             children: [
               GestureDetector(
@@ -180,7 +180,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               ),
             ],
           ),
-          Expanded(
+          const SizedBox(height: 24),
+          SizedBox(
+            height: 387,
             child: GridView.builder(
               itemCount: categoryItemsList.length,
               physics: const NeverScrollableScrollPhysics(),
@@ -212,10 +214,12 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          categoryItemsList[index].title,
-                          textAlign: TextAlign.center,
-                          style: AutilabTextStyle.medium14_500,
+                        FittedBox(
+                          child: Text(
+                            categoryItemsList[index].title,
+                            textAlign: TextAlign.center,
+                            style: AutilabTextStyle.medium14_500,
+                          ),
                         ),
                       ],
                     ),
@@ -239,17 +243,16 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
     final ValueNotifier<double?> selectedIndexrating =
         ValueNotifier<double?>(null);
 
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 320, maxHeight: 559),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      child: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            toolbarHeight: 21,
-            automaticallyImplyLeading: false,
-            leadingWidth: double.infinity,
-            leading: Row(
+    return FittedBox(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 562),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
               spacing: 4,
               children: [
                 GestureDetector(
@@ -258,10 +261,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       context.pop();
                     }
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 8.0),
-                    child: Icon(Icons.close_rounded),
-                  ),
+                  child: const Icon(Icons.close_rounded),
                 ),
                 const Text(
                   'Filter',
@@ -281,31 +281,24 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 ),
               ],
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 10,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Divider(
+            const Divider(
               thickness: 1,
               color: AutilabColor.gray,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 16,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Text(
+            const Text(
               "Doctor's specialty",
               style: AutilabTextStyle.medium18_500,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: ValueListenableBuilder(
+            const SizedBox(
+              height: 24,
+            ),
+            ValueListenableBuilder(
               valueListenable: selectedIndexSpecialty,
               builder: (context, value, child) => GridView.builder(
                 shrinkWrap: true,
@@ -333,72 +326,48 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 },
               ),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 16,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Divider(
+            const Divider(
               thickness: 1,
               color: AutilabColor.gray,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 16,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Text(
+            const Text(
               'Gender',
               style: AutilabTextStyle.medium18_500,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 16,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: CustomCheckbox(
+            CustomCheckbox(
               title: 'Male',
               index: 1,
               selectedIndexNotifier: selectedIndexNotifier,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: CustomCheckbox(
+            CustomCheckbox(
               title: 'Female',
               index: 2,
               selectedIndexNotifier: selectedIndexNotifier,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Divider(
+            const Divider(
               thickness: 1,
               color: AutilabColor.gray,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 16,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: Text(
+            const Text(
               'Rating',
               style: AutilabTextStyle.medium18_500,
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
+            const SizedBox(
               height: 16,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: ValueListenableBuilder(
+            ValueListenableBuilder(
               valueListenable: selectedIndexrating,
               builder: (context, value, child) => RatingBar.builder(
                 initialRating: selectedIndexrating.value ?? 0,
@@ -421,8 +390,8 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 },
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
