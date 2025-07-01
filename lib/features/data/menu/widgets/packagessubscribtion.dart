@@ -31,15 +31,12 @@ class PackagesSubscribtion extends StatelessWidget {
                   child: PlanBoxWidget(
                     title: titlePlanList[index],
                     titleButton: 'Choose',
-                    widget: const Column(
-                      spacing: 8,
-                      children: [
-                        PalnItemWidget(),
-                        PalnItemWidget(),
-                        PalnItemWidget(),
-                        PalnItemWidget(),
-                      ],
-                    ),
+                    widget: [
+                      PalnItemWidget(),
+                      PalnItemWidget(),
+                      PalnItemWidget(),
+                      PalnItemWidget(),
+                    ],
                     onTap: () {
                       context.pushNamed(
                         AutiLabRoutes.payPackagesScreen,

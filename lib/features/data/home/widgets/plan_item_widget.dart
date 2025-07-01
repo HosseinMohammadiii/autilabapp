@@ -13,6 +13,8 @@ class PalnItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
       child: Row(
         children: [
           Container(

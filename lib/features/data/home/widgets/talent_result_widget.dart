@@ -16,7 +16,7 @@ class TalentResultLinerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 17,
+      height: 25,
       decoration: BoxDecoration(
         color: const Color(0xffc0bdaa),
         borderRadius: BorderRadius.circular(30),
@@ -45,7 +45,7 @@ class TalentResultLinerWidget extends StatelessWidget {
             alignment: Alignment.centerRight,
             children: [
               Container(
-                height: 17,
+                height: 25,
                 width: (14 + 4) * (activeLine),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(

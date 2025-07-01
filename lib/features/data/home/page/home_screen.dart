@@ -109,42 +109,39 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: SizedBox(
-                    height: 290,
-                    child: PageView.builder(
-                      itemCount: 3,
-                      padEnds: false,
-                      pageSnapping: false,
-                      controller: PageController(viewportFraction: 0.9),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            left: index == 0 ? 20 : 12,
-                            right: index == statusList.length - 1 ? 8 : 0,
-                          ),
-                          child: NewAppointmentsCardWidget(
-                            color: statusList[index].statusColor,
-                            title: statusList[index].title,
-                            statusIcon: statusList[index].statusIcon,
-                            image: 'assets/images/doctor_image.jpg',
-                            margin: EdgeInsets.zero,
-                            onTap: () {
-                              context.pushNamed(
-                                AutiLabRoutes.detailAppointmentScreen,
-                                extra: {
-                                  'statusColor': statusList[index].statusColor,
-                                  'statusIcon': statusList[index].statusIcon,
-                                  'image': 'assets/images/doctor_image.jpg',
-                                  'title': statusList[index].title,
-                                },
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                child: SizedBox(
+                  height: 290,
+                  child: PageView.builder(
+                    itemCount: 3,
+                    padEnds: false,
+                    pageSnapping: false,
+                    controller: PageController(viewportFraction: 0.9),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: index == 0 ? 20 : 12,
+                          right: index == statusList.length - 1 ? 8 : 0,
+                        ),
+                        child: NewAppointmentsCardWidget(
+                          color: statusList[index].statusColor,
+                          title: statusList[index].title,
+                          statusIcon: statusList[index].statusIcon,
+                          image: 'assets/images/doctor_image.jpg',
+                          margin: EdgeInsets.zero,
+                          onTap: () {
+                            context.pushNamed(
+                              AutiLabRoutes.detailAppointmentScreen,
+                              extra: {
+                                'statusColor': statusList[index].statusColor,
+                                'statusIcon': statusList[index].statusIcon,
+                                'image': 'assets/images/doctor_image.jpg',
+                                'title': statusList[index].title,
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -284,29 +281,42 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 48,
                 ),
               ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                sliver: SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 430,
-                    child: PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      padEnds: false,
-                      pageSnapping: false,
-                      controller: PageController(viewportFraction: 0.9),
-                      itemCount: titlePlanList.length,
-                      itemBuilder: (context, index) => PlanBoxWidget(
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 465,
+                  child: PageView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padEnds: false,
+                    pageSnapping: false,
+                    controller: PageController(viewportFraction: 0.9),
+                    itemCount: titlePlanList.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.only(
+                          left: index == 0 ? 20 : 12,
+                          right: index == titlePlanList.length - 1 ? 10 : 0),
+                      child: PlanBoxWidget(
                         title: titlePlanList[index],
                         titleButton: 'See Advance Package',
-                        widget: const Column(
-                          spacing: 8,
-                          children: [
-                            PalnItemWidget(),
-                            PalnItemWidget(),
-                            PalnItemWidget(),
-                            PalnItemWidget(),
-                          ],
-                        ),
+                        widget: const [
+                          PalnItemWidget(
+                            title: 'Full access to the tools section',
+                          ),
+                          PalnItemWidget(
+                            title: 'Access to aptitude test',
+                          ),
+                          PalnItemWidget(
+                            title: 'Access to personality test',
+                          ),
+                          PalnItemWidget(
+                            title: 'Unlimited appointment booking',
+                          ),
+                          PalnItemWidget(
+                            title: 'Access to nearby centers',
+                          ),
+                          PalnItemWidget(
+                            title: 'Doctor appointment booking discount',
+                          ),
+                        ],
                         margin: index == titlePlanList.length - 1 ? 0 : 16,
                         onTap: () {
                           context.pushNamed(

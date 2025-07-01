@@ -22,7 +22,7 @@ class PlanBoxWidget extends StatelessWidget {
   final String? description;
   final String titleButton;
   final double margin;
-  final Widget? widget;
+  final List<Widget>? widget;
   final Color? backgroundColor;
   final Color? borderColor;
   final List<BoxShadow>? boxShadow;
@@ -34,6 +34,8 @@ class PlanBoxWidget extends StatelessWidget {
       required String title,
     }) {
       return FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
         child: Row(
           children: [
             Container(
@@ -58,53 +60,52 @@ class PlanBoxWidget extends StatelessWidget {
       );
     }
 
-    return IntrinsicWidth(
-      child: Container(
-        width: 400,
-        padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.only(right: margin),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? AutilabColor.white,
-          border: Border.all(color: borderColor ?? AutilabColor.bb),
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: boxShadow,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            titlePlanWidget(
-              title: title,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const Divider(
-              thickness: 0.5,
-              color: AutilabColor.black,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              description ??
-                  'An Initial Test To Determine How Much You Are At Risk Of Cancer Based Dr. Mitchell H',
-              style: AutilabTextStyle.small16_400,
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            widget ?? const SizedBox(),
-            CustomButtonWidget(
-              onTap: () => onTap(),
-              height: 50,
-              margin: const EdgeInsets.only(top: 32),
-              color: AutilabColor.bb,
-              text: titleButton,
-              textStyle: AutilabTextStyle.small18_400,
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(right: margin),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? AutilabColor.white,
+        border: Border.all(color: borderColor ?? AutilabColor.bb),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: boxShadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          titlePlanWidget(
+            title: title,
+          ),
+          const Divider(
+            thickness: 0.5,
+            color: AutilabColor.black,
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Text(
+            description ??
+                'An Initial Test To Determine How Much You Are At Risk Of Cancer Based Dr. Mitchell H',
+            style: AutilabTextStyle.small16_400,
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          Column(
+            spacing: 8,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: widget ?? [],
+          ),
+          CustomButtonWidget(
+            onTap: () => onTap(),
+            height: 50,
+            margin: const EdgeInsets.only(top: 32),
+            color: AutilabColor.bb,
+            text: titleButton,
+            textStyle: AutilabTextStyle.small18_400,
+          ),
+        ],
       ),
     );
   }

@@ -80,8 +80,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                     child: PlanBoxWidget(
                       title: widget.title,
                       titleButton: 'Pay',
-                      description:
-                          "An Initial Test To Determine How Much You Are At Risk Of Cancer Based.",
+                      description: "Full one-year access to the application",
                       backgroundColor: const Color(0xffECF0FF),
                       borderColor: Colors.transparent,
                       boxShadow: [
@@ -91,30 +90,26 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                           offset: const Offset(0, 4),
                         ),
                       ],
-                      widget: const Column(
-                        spacing: 8,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          PalnItemWidget(
-                            title: '25 Projects',
-                          ),
-                          PalnItemWidget(
-                            title: '25 Projects',
-                          ),
-                          PalnItemWidget(
-                            title: 'Up to 10,000 subscribers',
-                          ),
-                          PalnItemWidget(
-                            title: 'Up to 10,000 subscribers',
-                          ),
-                          PalnItemWidget(
-                            title: 'Up to 10,000 subscribers',
-                          ),
-                          PalnItemWidget(
-                            title: 'Up to 10,000 subscribers',
-                          ),
-                        ],
-                      ),
+                      widget: const [
+                        PalnItemWidget(
+                          title: 'Full access to the tools section',
+                        ),
+                        PalnItemWidget(
+                          title: 'Access to aptitude test',
+                        ),
+                        PalnItemWidget(
+                          title: 'Access to personality test',
+                        ),
+                        PalnItemWidget(
+                          title: 'Unlimited appointment booking',
+                        ),
+                        PalnItemWidget(
+                          title: 'Access to nearby centers',
+                        ),
+                        PalnItemWidget(
+                          title: 'Doctor appointment booking discount',
+                        ),
+                      ],
                       margin: 0,
                       onTap: () {
                         if (widget.title == 'Free Plan') {
