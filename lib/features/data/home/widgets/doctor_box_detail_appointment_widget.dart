@@ -7,72 +7,81 @@ import '../../../../core/constants/theme_constant.dart';
 class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
   const DoctorBoxDetialAppointmentWidget({
     super.key,
+    required this.image,
   });
+  final String image;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 150,
+      width: double.infinity,
       margin: AutilabMargin.marginFullScreen,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: 12,
-        children: [
-          FittedBox(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                'assets/images/doctor_image.jpg',
-                fit: BoxFit.cover,
+      child: SizedBox(
+        height: 116,
+        child: Row(
+          spacing: 12,
+          children: [
+            SizedBox(
+              width: 116,
+              height: 116,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const FittedBox(
-                  child: Text(
-                    'Dr. Sophia Martinez',
-                    style: AutilabTextStyle.medium18_500,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Dr. Sophia Martinez',
+                      style: AutilabTextStyle.medium18_500,
+                    ),
                   ),
-                ),
-                FittedBox(
-                  child: Row(
-                    children: [
-                      Text(
-                        'Psychotherapy',
-                        style: AutilabTextStyle.small14_400.copyWith(
-                          overflow: TextOverflow.ellipsis,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Psychotherapy',
+                          style: AutilabTextStyle.small14_400.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      const Icon(
-                        Icons.star_rounded,
-                        color: Color(0xffEDC757),
-                      ),
-                      const Text(
-                        '5.0',
-                        style: AutilabTextStyle.small14_400,
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        const Icon(
+                          Icons.star_rounded,
+                          color: Color(0xffEDC757),
+                        ),
+                        const Text(
+                          '5.0',
+                          style: AutilabTextStyle.small14_400,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const FittedBox(
-                  child: TimeBoxDoctorCard(),
-                ),
-              ],
+                  const TimeBoxDoctorCard(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -33,7 +33,7 @@ class DoctorBox extends StatelessWidget {
                 'assets/images/doctor_image.jpg',
                 width: 116,
                 height: 116,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             const SizedBox(

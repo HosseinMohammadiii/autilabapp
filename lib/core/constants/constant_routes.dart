@@ -37,7 +37,7 @@ class AutiLabRoutes {
   static const String doctorWorkscheduleScreen = '/doctorWorkscheduleScreen';
   static const String makeAppointmentScreen = '/makeAppointmentScreen';
   static const String homeScreen = '/homeScreen';
-  static const String allAppointmentScreen = 'allAppointmentScreen';
+  static const String allAppointmentScreen = '/allAppointmentScreen';
   static const String detailAppointmentScreen = '/detailAppointmentScreen';
   static const String toolsScreen = '/toolsScreen';
   static const String typeTestsScreen = '/typeTestsScreen';

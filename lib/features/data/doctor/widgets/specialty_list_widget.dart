@@ -8,45 +8,59 @@ import '../../../../utils/Lists/category_items.dart';
 class SpecialtiesListWidget extends StatelessWidget {
   const SpecialtiesListWidget({
     super.key,
+    required this.height,
+    required this.width,
+    this.heightImage,
+    this.widthImage,
+    this.radius,
+    required this.textStyle,
   });
+  final double height;
+  final double width;
+  final double? heightImage;
+  final double? widthImage;
+  final double? radius;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 113,
+      height: height,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categoryItemsList.length,
-        // padding: const EdgeInsets.symmetric(horizontal: 20),
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
               context.pushNamed(AutiLabRoutes.doctorSpecialityScreen);
             },
             child: Container(
-              height: 113,
-              width: 132,
+              height: height,
+              width: width,
               margin: EdgeInsets.only(
-                right: index == categoryItemsList.length - 1 ? 0 : 14,
+                left: index == 0 ? 20 : 0,
+                right: index == categoryItemsList.length - 1 ? 8 : 14,
               ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: categoryItemsList[index].color,
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(radius ?? 24),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    width: 56,
-                    height: 56,
+                    width: widthImage ?? 56,
+                    height: heightImage ?? 56,
                     child: Image.asset(
                       categoryItemsList[index].image,
                     ),
                   ),
-                  Text(
-                    categoryItemsList[index].title,
-                    style: AutilabTextStyle.medium14_500,
+                  FittedBox(
+                    child: Text(
+                      categoryItemsList[index].title,
+                      style: textStyle,
+                    ),
                   ),
                 ],
               ),

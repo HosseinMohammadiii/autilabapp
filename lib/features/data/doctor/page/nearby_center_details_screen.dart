@@ -1,16 +1,13 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/textfiledbox_description.dart';
-import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../utils/Lists/category_items.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/box_detail_widget.dart';
 import '../widgets/nearby_card_widget.dart';
-import '../widgets/specialty_item_widget.dart';
+import '../widgets/specialty_list_widget.dart';
 
 class NearbyCenterDetailsScreen extends StatefulWidget {
   const NearbyCenterDetailsScreen({super.key});
@@ -158,26 +155,13 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 80,
-                  child: ListView.builder(
-                    itemCount: categoryItemsList.length,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          right: index == categoryItemsList.length - 1 ? 0 : 16,
-                        ),
-                        child: SpecialtyItemWidget(
-                          index: index,
-                          onTap: () {
-                            context.go(
-                              AutiLabRoutes.doctorSpecialityScreen,
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  child: SpecialtiesListWidget(
+                    height: 80,
+                    width: 80,
+                    heightImage: 32,
+                    widthImage: 32,
+                    radius: 16,
+                    textStyle: AutilabTextStyle.small10_400,
                   ),
                 ),
               ),

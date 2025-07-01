@@ -109,8 +109,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       '/doctorScreen',
       '/toolsScreen',
       '/communityScreen',
-      '/doctorSpecialityScreen',
-      '/articleItemScreen',
     ];
     if (locationList.contains(GoRouterState.of(context).uri.path)) {
       return true;
@@ -176,17 +174,22 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           ),
                         ],
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: CachednetworkimageWidget(
-                          imgUrl: '',
-                          img: Image.asset(
-                            'assets/images/child2_image.jpg',
-                            fit: BoxFit.cover,
-                            width: 52,
-                            height: 52,
+                      GestureDetector(
+                        onTap: () {
+                          context.pushNamed(AutiLabRoutes.editProfileScreen);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: CachednetworkimageWidget(
+                            imgUrl: '',
+                            img: Image.asset(
+                              'assets/images/child2_image.jpg',
+                              fit: BoxFit.cover,
+                              width: 52,
+                              height: 52,
+                            ),
+                            isNetworkImage: false,
                           ),
-                          isNetworkImage: false,
                         ),
                       ),
                     ],
@@ -194,53 +197,55 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                 ),
               )
             : null,
-        bottomNavigationBar: Container(
-          height: 95,
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          decoration: BoxDecoration(
-            color: AutilabColor.white,
-            boxShadow: [
-              BoxShadow(
-                color: AutilabColor.black.withValues(alpha: 0.2),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _bottomnavigationItem(
-                index: 0,
-                selctItems: widget.navigationShell.currentIndex,
-                lable: 'Home',
-                icon: 'assets/icons/home_buttomnavigation.svg',
-                context: context,
-              ),
-              _bottomnavigationItem(
-                index: 1,
-                selctItems: widget.navigationShell.currentIndex,
-                lable: 'Doctor',
-                icon: 'assets/icons/doctor_buttomnavigation.svg',
-                context: context,
-              ),
-              _bottomnavigationItem(
-                index: 2,
-                selctItems: widget.navigationShell.currentIndex,
-                lable: 'Tools',
-                icon: 'assets/icons/tools_buttomnavigation.svg',
-                context: context,
-              ),
-              _bottomnavigationItem(
-                index: 3,
-                selctItems: widget.navigationShell.currentIndex,
-                lable: 'Community',
-                icon: 'assets/icons/global_buttomnavigation.svg',
-                context: context,
-              ),
-            ],
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            height: 95,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            decoration: BoxDecoration(
+              color: AutilabColor.white,
+              boxShadow: [
+                BoxShadow(
+                  color: AutilabColor.black.withValues(alpha: 0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _bottomnavigationItem(
+                  index: 0,
+                  selctItems: widget.navigationShell.currentIndex,
+                  lable: 'Home',
+                  icon: 'assets/icons/home_buttomnavigation.svg',
+                  context: context,
+                ),
+                _bottomnavigationItem(
+                  index: 1,
+                  selctItems: widget.navigationShell.currentIndex,
+                  lable: 'Doctor',
+                  icon: 'assets/icons/doctor_buttomnavigation.svg',
+                  context: context,
+                ),
+                _bottomnavigationItem(
+                  index: 2,
+                  selctItems: widget.navigationShell.currentIndex,
+                  lable: 'Tools',
+                  icon: 'assets/icons/tools_buttomnavigation.svg',
+                  context: context,
+                ),
+                _bottomnavigationItem(
+                  index: 3,
+                  selctItems: widget.navigationShell.currentIndex,
+                  lable: 'Community',
+                  icon: 'assets/icons/global_buttomnavigation.svg',
+                  context: context,
+                ),
+              ],
+            ),
           ),
         ),
         onDrawerChanged: (isOpened) {

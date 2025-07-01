@@ -161,58 +161,60 @@ class _MessageScreenState extends State<MessageScreen>
             ),
           ),
         ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Container(
-            height: 80,
-            width: double.infinity,
-            color: AutilabColor.primary,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                displayIconButton(
-                  AutilabIcon.selectDocumentIcon,
-                  () {},
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: TextField(
-                      focusNode: typeMessageFocusNode,
-                      controller: typeMessageController,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        fillColor: AutilabColor.white,
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 2),
-                        suffixIcon: GestureDetector(
-                          onTap: () {},
-                          child: SvgPicture.asset(
-                            fit: BoxFit.none,
-                            AutilabIcon.recordSoundIcon,
+        bottomNavigationBar: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: Container(
+              height: 80,
+              width: double.infinity,
+              color: AutilabColor.primary,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  displayIconButton(
+                    AutilabIcon.selectDocumentIcon,
+                    () {},
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: TextField(
+                        focusNode: typeMessageFocusNode,
+                        controller: typeMessageController,
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          fillColor: AutilabColor.white,
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 2),
+                          suffixIcon: GestureDetector(
+                            onTap: () {},
+                            child: SvgPicture.asset(
+                              fit: BoxFit.none,
+                              AutilabIcon.recordSoundIcon,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32),
+                            borderSide: BorderSide.none,
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32),
-                          borderSide: BorderSide.none,
-                        ),
+                        onChanged: (value) {},
+                        onTapOutside: (event) {
+                          //Unfocus TextField
+                          typeMessageFocusNode.unfocus();
+                        },
                       ),
-                      onChanged: (value) {},
-                      onTapOutside: (event) {
-                        //Unfocus TextField
-                        typeMessageFocusNode.unfocus();
-                      },
                     ),
                   ),
-                ),
-                displayIconButton(
-                  AutilabIcon.sendMessageIcon,
-                  () {},
-                ),
-              ],
+                  displayIconButton(
+                    AutilabIcon.sendMessageIcon,
+                    () {},
+                  ),
+                ],
+              ),
             ),
           ),
         ),

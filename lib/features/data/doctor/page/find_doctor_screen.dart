@@ -58,16 +58,16 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: AutilabMargin.marginFullScreen,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Row(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 12,
+                ),
+                Padding(
+                  padding: AutilabMargin.marginFullScreen,
+                  child: Row(
                     spacing: 8,
                     children: [
                       Expanded(
@@ -95,15 +95,18 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  Row(
+                ),
+                const SizedBox(
+                  height: 48,
+                ),
+                Padding(
+                  padding: AutilabMargin.marginFullScreen,
+                  child: Row(
                     children: [
                       const Expanded(
                         child: Text(
                           'Specialties',
-                          style: AutilabTextStyle.small24_400,
+                          style: AutilabTextStyle.small20_400,
                         ),
                       ),
                       GestureDetector(
@@ -125,18 +128,26 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 24,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                const SpecialtiesListWidget(
+                  height: 113,
+                  width: 112,
+                  textStyle: AutilabTextStyle.small14_400,
+                ),
+                const Padding(
+                  padding:
+                      EdgeInsets.only(top: 48, bottom: 8, right: 20, left: 20),
+                  child: Text(
+                    'Expert Doctors',
+                    style: AutilabTextStyle.small20_400,
                   ),
-                  const SpecialtiesListWidget(),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 48, bottom: 8),
-                    child: Text(
-                      'Expert Doctors',
-                      style: AutilabTextStyle.small24_400,
-                    ),
-                  ),
-                  ListView.builder(
+                ),
+                Padding(
+                  padding: AutilabMargin.marginFullScreen,
+                  child: ListView.builder(
                     itemCount: 10,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -144,8 +155,8 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       return const DoctorBoxWidget();
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -179,53 +190,51 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               ),
             ],
           ),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 387,
-            child: GridView.builder(
-              itemCount: categoryItemsList.length,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 24,
-                mainAxisSpacing: 24,
-                mainAxisExtent: 113,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () => onTap(index),
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: categoryItemsList[index].color,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Image.asset(
-                            categoryItemsList[index].image,
-                            width: 56,
-                            height: 56,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        FittedBox(
-                          child: Text(
-                            categoryItemsList[index].title,
-                            textAlign: TextAlign.center,
-                            style: AutilabTextStyle.medium14_500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
+          GridView.builder(
+            padding: const EdgeInsets.only(top: 24),
+            itemCount: categoryItemsList.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 24,
+              mainAxisSpacing: 24,
+              mainAxisExtent: 113,
             ),
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => onTap(index),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: categoryItemsList[index].color,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: Image.asset(
+                          categoryItemsList[index].image,
+                          width: 56,
+                          height: 56,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      FittedBox(
+                        child: Text(
+                          categoryItemsList[index].title,
+                          textAlign: TextAlign.center,
+                          style: AutilabTextStyle.medium14_500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -244,10 +253,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
     return FittedBox(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 562),
+        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 570),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -294,13 +302,11 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               "Doctor's specialty",
               style: AutilabTextStyle.medium18_500,
             ),
-            const SizedBox(
-              height: 24,
-            ),
             ValueListenableBuilder(
               valueListenable: selectedIndexSpecialty,
               builder: (context, value, child) => GridView.builder(
                 shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 24),
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

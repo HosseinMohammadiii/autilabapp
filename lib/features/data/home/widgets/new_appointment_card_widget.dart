@@ -26,20 +26,19 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
       padding: const EdgeInsets.all(16),
-      alignment: Alignment.center,
       margin: margin,
       decoration: BoxDecoration(
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
-        spacing: 16,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
             child: Row(
               spacing: 4,
               children: [
@@ -55,43 +54,49 @@ class NewAppointmentsCardWidget extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(
+            height: 12,
+          ),
           const Divider(
             thickness: 1,
             color: AutilabColor.black,
           ),
+          const Spacer(),
           SizedBox(
-            height: 115,
+            height: 116,
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
                 spacing: 12,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Flexible(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: SizedBox(
-                        width: 116,
-                        height: 116,
-                        child: Image.asset(
-                          image,
-                          fit: BoxFit.fill,
-                        ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: SizedBox(
+                      width: 116,
+                      height: 116,
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
                           child: Text(
                             'Dr. Sophia Martinez',
                             style: AutilabTextStyle.medium18_500,
                           ),
                         ),
                         FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
                           child: Row(
                             children: [
                               Text(
@@ -114,9 +119,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const FittedBox(
-                          child: TimeBoxDoctorCard(),
-                        ),
+                        const TimeBoxDoctorCard(),
                       ],
                     ),
                   ),
@@ -124,6 +127,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
               ),
             ),
           ),
+          const Spacer(),
           CustomButtonWidget(
             onTap: () {
               onTap();

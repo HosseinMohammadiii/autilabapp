@@ -15,11 +15,13 @@ class DetailAppointmentScreen extends StatefulWidget {
     super.key,
     required this.statusColor,
     required this.statusIcon,
+    required this.image,
     required this.title,
   });
 
   final Color? statusColor;
   final String statusIcon;
+  final String image;
   final String title;
   @override
   State<DetailAppointmentScreen> createState() =>
@@ -66,8 +68,10 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                   height: 22,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: DoctorBoxDetialAppointmentWidget(),
+              SliverToBoxAdapter(
+                child: DoctorBoxDetialAppointmentWidget(
+                  image: widget.image,
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(

@@ -53,7 +53,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/paymentMethodScreen',
+    initialLocation: '/homeScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -68,13 +68,6 @@ class AutilabRouter {
                 path: '/homeScreen',
                 name: AutiLabRoutes.homeScreen,
                 builder: (context, state) => const HomeScreen(),
-                routes: [
-                  GoRoute(
-                    path: 'allAppointmentScreen',
-                    name: AutiLabRoutes.allAppointmentScreen,
-                    builder: (context, state) => const AllAppointmentScreen(),
-                  ),
-                ],
               ),
             ],
           ),
@@ -117,6 +110,11 @@ class AutilabRouter {
         builder: (context, state) => const DoctorSpecialityScreen(),
       ),
       GoRoute(
+        path: '/allAppointmentScreen',
+        name: AutiLabRoutes.allAppointmentScreen,
+        builder: (context, state) => const AllAppointmentScreen(),
+      ),
+      GoRoute(
         path: '/articleItemScreen',
         name: AutiLabRoutes.articleItemScreen,
         builder: (context, state) => const ArticleItemScreen(),
@@ -157,6 +155,7 @@ class AutilabRouter {
             return DetailAppointmentScreen(
               statusColor: extraData['statusColor'],
               statusIcon: extraData['statusIcon'],
+              image: extraData['image'],
               title: extraData['title'],
             );
           }),

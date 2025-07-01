@@ -43,124 +43,152 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget(
-          context: context, title: 'All Appointment', isIcon: true),
-      body: SafeArea(
-        child: CustomTabBarWidget(
-          tabLength: 3,
-          tabBar: const [
-            FittedBox(
-              child: Text(
-                'Approved',
-                style: AutilabTextStyle.small16_400,
+    return FadeTransition(
+      opacity: animationHelper.fadeAnimation,
+      child: DefaultTabController(
+        animationDuration: const Duration(seconds: 1),
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            leadingWidth: double.infinity,
+            leading: appBarWidget(
+                context: context, title: 'My Favorite', isIcon: true),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(70),
+              child: Container(
+                width: double.infinity,
+                color: AutilabColor.white,
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Container(
+                  height: 50,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: AutilabColor.lightGray,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: TabBar(
+                    labelStyle: AutilabTextStyle.small18_400.copyWith(
+                      color: Colors.black,
+                    ),
+                    dividerColor: Colors.transparent,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AutilabColor.bb,
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    tabs: const [
+                      FittedBox(
+                        child: Text(
+                          'Approved',
+                          style: AutilabTextStyle.small16_400,
+                        ),
+                      ),
+                      FittedBox(
+                        child: Text(
+                          'Cancelled',
+                          style: AutilabTextStyle.small16_400,
+                        ),
+                      ),
+                      FittedBox(
+                        child: Text(
+                          'Pending',
+                          style: AutilabTextStyle.small16_400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-            FittedBox(
-              child: Text(
-                'Cancelled',
-                style: AutilabTextStyle.small16_400,
-              ),
-            ),
-            FittedBox(
-              child: Text(
-                'Pending',
-                style: AutilabTextStyle.small16_400,
-              ),
-            ),
-          ],
-          tabBarView: [
-            FadeTransition(
-              opacity: animationHelper.fadeAnimation,
-              child: CustomScrollView(
-                slivers: [
-                  SliverList.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return NewAppointmentsCardWidget(
+          ),
+          body: SafeArea(
+            child: TabBarView(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 6,
+                  padding: AutilabMargin.marginFullScreen,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: 300,
+                      child: NewAppointmentsCardWidget(
                         color: const Color(0xff50DD81),
                         title: 'Approved',
                         image: 'assets/images/doctor2.jpg',
                         statusIcon: 'assets/icons/done_icon.svg',
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 16),
                         onTap: () {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,
                             extra: {
                               'statusColor': const Color(0xff50DD81),
                               'statusIcon': 'assets/icons/done_icon.svg',
+                              'image': 'assets/images/doctor2.jpg',
                               'title': 'Approved',
                             },
                           );
                         },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            FadeTransition(
-              opacity: animationHelper.fadeAnimation,
-              child: CustomScrollView(
-                slivers: [
-                  SliverList.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return NewAppointmentsCardWidget(
+                      ),
+                    );
+                  },
+                ),
+                ListView.builder(
+                  itemCount: 6,
+                  padding: AutilabMargin.marginFullScreen,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: 300,
+                      child: NewAppointmentsCardWidget(
                         color: const Color(0xffFF6363),
                         title: 'Cancelled',
                         image: 'assets/images/doctor_image.jpg',
                         statusIcon: 'assets/icons/close_icon.svg',
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 16),
                         onTap: () {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,
                             extra: {
                               'statusColor': const Color(0xffFF6363),
                               'statusIcon': 'assets/icons/close_icon.svg',
+                              'image': 'assets/images/doctor_image.jpg',
                               'title': 'Cancelled',
                             },
                           );
                         },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            FadeTransition(
-              opacity: animationHelper.fadeAnimation,
-              child: CustomScrollView(
-                slivers: [
-                  SliverList.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return NewAppointmentsCardWidget(
+                      ),
+                    );
+                  },
+                ),
+                ListView.builder(
+                  itemCount: 6,
+                  padding: AutilabMargin.marginFullScreen,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: 300,
+                      child: NewAppointmentsCardWidget(
                         color: AutilabColor.gray,
                         title: 'Pending',
                         image: 'assets/images/doctor3.png',
                         statusIcon: 'assets/icons/minimize_icon.svg',
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 16),
                         onTap: () {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,
                             extra: {
                               'statusColor': AutilabColor.gray,
                               'statusIcon': 'assets/icons/minimize_icon.svg',
+                              'image': 'assets/images/doctor3.png',
                               'title': 'Pending',
                             },
                           );
                         },
-                      );
-                    },
-                  ),
-                ],
-              ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

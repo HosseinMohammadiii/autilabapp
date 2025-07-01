@@ -30,8 +30,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
-  final PageController _controller = PageController(viewportFraction: 0.9);
-
   @override
   void initState() {
     super.initState();
@@ -107,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 48,
+                  height: 24,
                 ),
               ),
               SliverToBoxAdapter(
@@ -119,24 +117,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       itemCount: 3,
                       padEnds: false,
                       pageSnapping: false,
-                      controller: _controller,
+                      controller: PageController(viewportFraction: 0.9),
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.only(
+                            left: index == 0 ? 20 : 12,
+                            right: index == statusList.length - 1 ? 8 : 0,
+                          ),
                           child: NewAppointmentsCardWidget(
                             color: statusList[index].statusColor,
                             title: statusList[index].title,
                             statusIcon: statusList[index].statusIcon,
                             image: 'assets/images/doctor_image.jpg',
-                            margin: const EdgeInsets.all(
-                              0,
-                            ),
+                            margin: EdgeInsets.zero,
                             onTap: () {
                               context.pushNamed(
                                 AutiLabRoutes.detailAppointmentScreen,
                                 extra: {
                                   'statusColor': statusList[index].statusColor,
                                   'statusIcon': statusList[index].statusIcon,
+                                  'image': 'assets/images/doctor_image.jpg',
                                   'title': statusList[index].title,
                                 },
                               );
@@ -167,10 +167,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 24,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: SpecialtiesListWidget(),
+              const SliverToBoxAdapter(
+                child: SpecialtiesListWidget(
+                  height: 113,
+                  width: 112,
+                  textStyle: AutilabTextStyle.small14_400,
                 ),
               ),
               const SliverToBoxAdapter(

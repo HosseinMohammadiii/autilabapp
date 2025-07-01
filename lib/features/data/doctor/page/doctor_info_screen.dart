@@ -1,16 +1,15 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/widgets/specialty_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/constant_routes.dart';
-import '../../../../utils/Lists/category_items.dart';
 import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
 import '../widgets/personal_detail_widget.dart';
-import '../widgets/specialty_item_widget.dart';
 
 class DoctorInfoScreen extends StatefulWidget {
   const DoctorInfoScreen({super.key});
@@ -32,11 +31,11 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
       appBar: appBarWidget(
           context: context, title: 'Info Specialties', isIcon: true),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: Container(
                   width: double.infinity,
                   height: 136,
@@ -123,31 +122,42 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   ),
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 32,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32,
               ),
-              const SliverToBoxAdapter(
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: Divider(
                   thickness: 1,
                   color: AutilabColor.gray,
+                  indent: 20,
+                  endIndent: 20,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16,
               ),
-              const SliverToBoxAdapter(
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: PersonalDetailWidget(),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
               ),
-              const SliverToBoxAdapter(
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: Column(
                   spacing: 12,
                   children: [
@@ -170,84 +180,87 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   ],
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16,
               ),
-              const SliverToBoxAdapter(
-                child: Divider(
-                  thickness: 1,
-                  color: AutilabColor.gray,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: Divider(
+                thickness: 1,
+                color: AutilabColor.gray,
+                indent: 20,
+                endIndent: 20,
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 32,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32,
               ),
-              const SliverToBoxAdapter(
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: Text(
                   'Specialty',
                   style: AutilabTextStyle.medium18_500,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 80,
+                child: SpecialtiesListWidget(
                   height: 80,
-                  child: ListView.builder(
-                    itemCount: categoryItemsList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          right: index == categoryItemsList.length - 1 ? 0 : 16,
-                        ),
-                        child: SpecialtyItemWidget(
-                          index: index,
-                          onTap: () {
-                            context.pushNamed(
-                                AutiLabRoutes.doctorSpecialityScreen);
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                  width: 80,
+                  heightImage: 32,
+                  widthImage: 32,
+                  radius: 16,
+                  textStyle: AutilabTextStyle.small10_400,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
               ),
-              const SliverToBoxAdapter(
-                child: Divider(
-                  thickness: 1,
-                  color: AutilabColor.gray,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: Divider(
+                thickness: 1,
+                color: AutilabColor.gray,
+                indent: 20,
+                endIndent: 20,
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 32,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32,
               ),
-              const SliverToBoxAdapter(
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: Text(
                   'More details',
                   style: AutilabTextStyle.medium18_500,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 24,
               ),
-              SliverToBoxAdapter(
+            ),
+            SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
                 child: CustomTextfield(
                   label: '',
                   isEnable: false,
@@ -264,13 +277,13 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   ),
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 48,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
