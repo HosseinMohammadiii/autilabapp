@@ -148,7 +148,7 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                 sliver: SliverToBoxAdapter(
                   child: TitleAndIconWidget(
                     icon: 'assets/icons/profile_icon.svg',
-                    title: 'Personal Details',
+                    title: 'Patient Details',
                   ),
                 ),
               ),
@@ -193,9 +193,9 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Problem',
-                    style: AutilabTextStyle.medium18_500,
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/info-circle.svg',
+                    title: 'Problem Description',
                   ),
                 ),
               ),
