@@ -101,7 +101,9 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                             return Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: CustomTextfield(
-                                label: 'Answer',
+                                label: 'Type Here',
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 controller: textEditingController,
                                 focusNode: textFocusNode,
                                 maxLines: 12,

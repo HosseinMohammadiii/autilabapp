@@ -171,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           child: Text(
                             'Or Sign up With',
-                            style: AutilabTextStyle.small12_400.copyWith(
+                            style: AutilabTextStyle.small14_400.copyWith(
                               color: const Color(0xff555252),
                             ),
                           ),

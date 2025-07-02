@@ -283,7 +283,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   },
                   child: const Text(
                     'Rest Filter',
-                    style: AutilabTextStyle.medium12_500,
+                    style: AutilabTextStyle.medium14_500,
                   ),
                 ),
               ],
