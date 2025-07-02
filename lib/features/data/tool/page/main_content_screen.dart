@@ -154,12 +154,11 @@ class _MainContentScreenState extends State<MainContentScreen>
                       spacing: 8,
                       children: [
                         LikeWidget(
-                          onTap: () {
+                          onTap: (isLike) {
                             setState(() {
                               isLike = !isLike;
                             });
                           },
-                          isLike: isLike,
                         ),
                         const Text(
                           'Add To Favorite',

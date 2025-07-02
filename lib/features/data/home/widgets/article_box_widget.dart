@@ -94,12 +94,11 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                           ],
                         ),
                         LikeWidget(
-                          onTap: () {
+                          onTap: (isLike) {
                             setState(() {
                               isLike = !isLike;
                             });
                           },
-                          isLike: isLike,
                         ),
                       ],
                     ),

@@ -1,12 +1,16 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
-import 'package:autilab_project/common/widgets/textfiledbox_description.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/custom_textfield.dart';
+import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../tool/widgets/likewidget.dart';
 import '../widgets/box_detail_widget.dart';
-import '../widgets/nearby_card_widget.dart';
+import '../widgets/button_card.dart';
 import '../widgets/specialty_list_widget.dart';
 
 class NearbyCenterDetailsScreen extends StatefulWidget {
@@ -47,13 +51,120 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
           child: CustomScrollView(
             slivers: [
               const SliverToBoxAdapter(
-                child: NearbyCardWidget(
-                  isShowButton: false,
+                child: SizedBox(
+                  height: 48,
+                ),
+              ),
+              const SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/gallery.svg',
+                    title: 'Photo Gallery',
+                  ),
                 ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 32,
+                  height: 24,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 150,
+                  child: PageView.builder(
+                    itemCount: 3,
+                    padEnds: false,
+                    pageSnapping: false,
+                    controller: PageController(viewportFraction: 0.9),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: index == 0 ? 20 : 12,
+                          right: index == 2 ? 8 : 0,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            'assets/images/centerImage.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 48,
+                ),
+              ),
+              const SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/info-circle.svg',
+                    title: 'Center Information',
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 16,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  margin:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 48),
+                  decoration: BoxDecoration(
+                    color: AutilabColor.primary,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AutilabColor.gray),
+                  ),
+                  child: Column(
+                    spacing: 12,
+                    children: [
+                      const Text(
+                        'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
+                        style: AutilabTextStyle.small14_400,
+                        textAlign: TextAlign.justify,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 32,
+                            height: 32,
+                            padding: const EdgeInsets.all(6),
+                            margin: const EdgeInsets.only(right: 12),
+                            decoration: BoxDecoration(
+                              color: AutilabColor.bb,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: LikeWidget(
+                              onTap: (isLike) {},
+                            ),
+                          ),
+                          ButtonCard(
+                            onTap: () {
+                              context.pushNamed(
+                                AutiLabRoutes.doctorMessageScreen,
+                                extra: {
+                                  'image':
+                                      'assets/images/autism_help_center.png',
+                                },
+                              );
+                            },
+                            margin: const EdgeInsets.all(0),
+                            icon: 'assets/icons/messages.svg',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SliverPadding(
@@ -69,20 +180,12 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   height: 16,
                 ),
               ),
-              SliverPadding(
+              const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/icons/house_icon.svg'),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      const Text(
-                        'Public Details',
-                        style: AutilabTextStyle.medium18_500,
-                      ),
-                    ],
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/house_icon.svg',
+                    title: 'Public Details',
                   ),
                 ),
               ),
@@ -106,7 +209,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: BoxDetailWidget(title: 'Age', subtitle: '6-18'),
+                  child: BoxDetailWidget(title: 'For Ages', subtitle: '6-18'),
                 ),
               ),
               const SliverToBoxAdapter(
@@ -117,7 +220,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: BoxDetailWidget(title: 'Gender', subtitle: 'both'),
+                  child: BoxDetailWidget(title: 'Gender', subtitle: 'Both'),
                 ),
               ),
               const SliverToBoxAdapter(
@@ -141,9 +244,9 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Specialty',
-                    style: AutilabTextStyle.medium18_500,
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/people.svg',
+                    title: 'Specialists',
                   ),
                 ),
               ),
@@ -152,7 +255,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   height: 24,
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: SizedBox(
                   height: 80,
                   child: SpecialtiesListWidget(
@@ -186,9 +289,9 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Address',
-                    style: AutilabTextStyle.medium18_500,
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/location-tick.svg',
+                    title: 'Address',
                   ),
                 ),
               ),
@@ -197,16 +300,20 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   height: 24,
                 ),
               ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: TextFieldBoxEnterDescription(
-                    maxLine: 4,
-                    descriptionController: TextEditingController(),
-                    descriptionFocusNode: FocusNode(),
-                    isEnable: false,
-                    hintText:
-                        'Lorem Ipsum Dolor _ Sit Amet, Consectetur _ Adipiscing Elit_ 14',
+              SliverToBoxAdapter(
+                child: CustomTextfield(
+                  label: '',
+                  isEnable: false,
+                  borderRaduis: 24,
+                  textfieldPadding: AutilabMargin.marginFullScreen,
+                  controller: TextEditingController(
+                    text:
+                        '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
+                  ),
+                  backgroundColor: AutilabColor.primary,
+                  borderColor: AutilabColor.gray,
+                  textStyle: AutilabTextStyle.small14_400.copyWith(
+                    color: AutilabColor.black,
                   ),
                 ),
               ),
@@ -219,6 +326,32 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
           ),
         ),
       ),
+    );
+  }
+}
+
+class TitleAndIconWidget extends StatelessWidget {
+  const TitleAndIconWidget({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+  final String icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SvgPicture.asset(icon),
+        const SizedBox(
+          width: 4,
+        ),
+        Text(
+          title,
+          style: AutilabTextStyle.medium18_500,
+        ),
+      ],
     );
   }
 }
