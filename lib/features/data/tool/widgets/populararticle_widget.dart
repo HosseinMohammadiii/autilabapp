@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
+import 'likewidget.dart';
 
 class PopularArticleWidget extends StatefulWidget {
   const PopularArticleWidget({
     super.key,
     required this.index,
+    required this.title,
+    required this.description,
     required this.ontap,
   });
   final int index;
+  final String title;
+  final String description;
   final Function() ontap;
 
   @override
@@ -37,48 +42,44 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           spacing: 8,
           children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Image.asset(
-                'assets/images/kid_image.png',
-                fit: BoxFit.scaleDown,
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(16),
+              child: SizedBox(
+                height: 171,
+                child: Image.asset(
+                  'assets/images/kid_image.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  'Gaming And Autism',
+                Text(
+                  widget.title,
+                  overflow: TextOverflow.ellipsis,
                   style: AutilabTextStyle.medium16_500,
                 ),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    spacing: 8,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Balancing Screen Time For Kids',
+                Row(
+                  spacing: 8,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.description,
+                        overflow: TextOverflow.ellipsis,
                         style: AutilabTextStyle.small14_400,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isLike = !isLike;
-                          });
-                        },
-                        child: isLike
-                            ? const Icon(
-                                Icons.favorite_rounded,
-                                color: Colors.red,
-                              )
-                            : const Icon(
-                                Icons.favorite_border_rounded,
-                              ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    LikeWidget(
+                      onTap: () {
+                        setState(() {
+                          isLike = !isLike;
+                        });
+                      },
+                      isLike: isLike,
+                    ),
+                  ],
                 ),
               ],
             ),

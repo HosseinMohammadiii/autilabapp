@@ -2,7 +2,6 @@ import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/Lists/category_items.dart';
 
 class SpecialtiesListWidget extends StatelessWidget {

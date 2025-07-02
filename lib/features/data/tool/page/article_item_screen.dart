@@ -8,6 +8,19 @@ import '../../../../utils/functions/animation_control.dart';
 import '../../home/widgets/article_box_widget.dart';
 import '../widgets/populararticle_widget.dart';
 
+class ArticleContent {
+  String title;
+  String description;
+  String file;
+  String? image;
+  ArticleContent({
+    required this.title,
+    required this.description,
+    required this.file,
+    this.image,
+  });
+}
+
 class ArticleItemScreen extends StatefulWidget {
   const ArticleItemScreen({super.key});
 
@@ -42,6 +55,79 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
 
   bool isLike = false;
 
+  List<ArticleContent> popularArticleList = [
+    ArticleContent(
+      title: 'Autism Spectrum Disorder in 2023: Understanding the Challenge',
+      description:
+          'ASD: lifelong condition, unclear causes, early intervention improves outcomes.',
+      file: 'assets/texts/article01.txt',
+    ),
+    ArticleContent(
+      title:
+          'Persistence of Autism Spectrum Disorder From Early Childhood Through School Age',
+      description:
+          'Some early ASD diagnoses change; girls and higher skills predict change.',
+      file: 'assets/texts/article02.txt',
+    ),
+    ArticleContent(
+      title: 'Gut Imbalances Might Play a Role in Autism, Study Finds',
+      description:
+          'Gut-brain link: autistic kids show altered tryptophan, brain activity.',
+      file: 'assets/texts/article03.txt',
+    ),
+    ArticleContent(
+      title:
+          'AI Could Help Identify Toddlers Who May Be Autistic, Researchers Say',
+      description:
+          'AI system flags autism risk in toddlers, but needs clinical backup.',
+      file: 'assets/texts/article04.txt',
+    ),
+    ArticleContent(
+      title:
+          'The Childhood Prevalence, Gender Ratio, and Characteristics of Autism Spectrum Disorder in Cyprus Using School Report: A Cross-Sectional Study',
+      description:
+          'ASD in Cyprus: 1.8% rate, mostly boys, common ADHD comorbidity.',
+      file: 'assets/texts/article05.txt',
+    ),
+  ];
+
+  List<ArticleContent> newArticleList = [
+    ArticleContent(
+      title:
+          'Evaluating Changes in the Prevalence of the Autism Spectrum Disorders (ASDs)',
+      description:
+          'ASD diagnoses rising; causes unclear; experts seek better understanding.',
+      file: 'assets/texts/article06.txt',
+    ),
+    ArticleContent(
+      title:
+          'Adolescents With Autism Spectrum Disorder: Diagnostic Patterns, Co-occurring Conditions, and Transition Planning',
+      description:
+          'Delayed ASD diagnosis common; risks vary; ongoing mental health needs grow.',
+      file: 'assets/texts/article07.txt',
+    ),
+    ArticleContent(
+      title:
+          'Autism Spectrum Disorder Diagnoses and Congenital Cytomegalovirus',
+      description: 'cCMV infection at birth linked to 2.5× higher autism risk.',
+      file: 'assets/texts/article08.txt',
+    ),
+    ArticleContent(
+      title:
+          'Child and family characteristics associated with verbal communication difficulties in adolescents with autism and other developmental disabilitiesChild and family characteristics associated with verbal communication difficulties in adolescents with autism and other developmental disabilities',
+      description:
+          'ASD teens face lasting speech challenges influenced by early skills and background.',
+      file: 'assets/texts/article09.txt',
+    ),
+    ArticleContent(
+      title:
+          'Prevalence and Early Identification of Autism Spectrum Disorder Among Children Aged 4 and 8 Years — Autism and Developmental Disabilities Monitoring Network, 16 Sites, United States, 2022',
+      description:
+          'ASD affects 1 in 31 US children with disparities; early diagnosis improving.',
+      file: 'assets/texts/article10.txt',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -65,15 +151,24 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                   SizedBox(
                     height: 260,
                     child: PageView.builder(
-                      itemCount: 3,
+                      itemCount: popularArticleList.length,
                       padEnds: false,
                       pageSnapping: false,
                       controller: PageController(viewportFraction: 0.9),
                       itemBuilder: (context, index) {
                         return PopularArticleWidget(
                           index: index,
+                          title: popularArticleList[index].title,
+                          description: popularArticleList[index].description,
                           ontap: () {
-                            context.pushNamed(AutiLabRoutes.mainContentScreen);
+                            context.pushNamed(AutiLabRoutes.mainContentScreen,
+                                extra: {
+                                  'articleText': popularArticleList[index].file,
+                                  'articleDescription':
+                                      popularArticleList[index].description,
+                                  'articleTitle':
+                                      popularArticleList[index].title,
+                                });
                           },
                         );
                       },
@@ -92,15 +187,22 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 4,
+                    itemCount: newArticleList.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16),
-                        child: GestureDetector(
-                          onTap: () {
-                            context.pushNamed(AutiLabRoutes.mainContentScreen);
+                        child: ArticleBoxWidget(
+                          title: newArticleList[index].title,
+                          description: newArticleList[index].description,
+                          ontap: () {
+                            context.pushNamed(AutiLabRoutes.mainContentScreen,
+                                extra: {
+                                  'articleText': newArticleList[index].file,
+                                  'articleDescription':
+                                      newArticleList[index].description,
+                                  'articleTitle': newArticleList[index].title,
+                                });
                           },
-                          child: const ArticleBoxWidget(),
                         ),
                       );
                     },

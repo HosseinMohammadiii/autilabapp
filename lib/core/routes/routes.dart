@@ -122,7 +122,15 @@ class AutilabRouter {
           GoRoute(
             path: '/mainContentScreen',
             name: AutiLabRoutes.mainContentScreen,
-            builder: (context, state) => const MainContentScreen(),
+            builder: (context, state) {
+              final Map<String, dynamic> extraData =
+                  state.extra as Map<String, dynamic>;
+              return MainContentScreen(
+                articleTitle: extraData['articleTitle'],
+                articleDescription: extraData['articleDescription'],
+                articleText: extraData['articleText'],
+              );
+            },
           ),
         ],
       ),

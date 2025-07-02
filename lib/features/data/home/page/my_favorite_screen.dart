@@ -3,10 +3,13 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
 import 'package:autilab_project/features/data/home/widgets/article_box_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../doctor/widgets/nearby_card_widget.dart';
+import '../../tool/page/article_item_screen.dart';
 
 class MyFavoriteScreen extends StatefulWidget {
   const MyFavoriteScreen({super.key});
@@ -41,6 +44,43 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
   }
 
   bool isLike = false;
+
+  List<ArticleContent> newArticleList = [
+    ArticleContent(
+      title:
+          'Evaluating Changes in the Prevalence of the Autism Spectrum Disorders (ASDs)',
+      description:
+          'ASD diagnoses rising; causes unclear; experts seek better understanding.',
+      file: 'assets/texts/article06.txt',
+    ),
+    ArticleContent(
+      title:
+          'Adolescents With Autism Spectrum Disorder: Diagnostic Patterns, Co-occurring Conditions, and Transition Planning',
+      description:
+          'Delayed ASD diagnosis common; risks vary; ongoing mental health needs grow.',
+      file: 'assets/texts/article07.txt',
+    ),
+    ArticleContent(
+      title:
+          'Autism Spectrum Disorder Diagnoses and Congenital Cytomegalovirus',
+      description: 'cCMV infection at birth linked to 2.5× higher autism risk.',
+      file: 'assets/texts/article08.txt',
+    ),
+    ArticleContent(
+      title:
+          'Child and family characteristics associated with verbal communication difficulties in adolescents with autism and other developmental disabilitiesChild and family characteristics associated with verbal communication difficulties in adolescents with autism and other developmental disabilities',
+      description:
+          'ASD teens face lasting speech challenges influenced by early skills and background.',
+      file: 'assets/texts/article09.txt',
+    ),
+    ArticleContent(
+      title:
+          'Prevalence and Early Identification of Autism Spectrum Disorder Among Children Aged 4 and 8 Years — Autism and Developmental Disabilities Monitoring Network, 16 Sites, United States, 2022',
+      description:
+          'ASD affects 1 in 31 US children with disparities; early diagnosis improving.',
+      file: 'assets/texts/article10.txt',
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -118,11 +158,26 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 4,
+                          itemCount: newArticleList.length,
                           itemBuilder: (context, index) {
-                            return const Padding(
-                              padding: EdgeInsets.only(bottom: 16),
-                              child: ArticleBoxWidget(),
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: ArticleBoxWidget(
+                                title: newArticleList[index].title,
+                                description: newArticleList[index].description,
+                                ontap: () {
+                                  context.pushNamed(
+                                      AutiLabRoutes.mainContentScreen,
+                                      extra: {
+                                        'articleText':
+                                            newArticleList[index].file,
+                                        'articleDescription':
+                                            newArticleList[index].description,
+                                        'articleTitle':
+                                            newArticleList[index].title,
+                                      });
+                                },
+                              ),
                             );
                           },
                         ),

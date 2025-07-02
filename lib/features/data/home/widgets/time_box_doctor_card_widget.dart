@@ -13,7 +13,6 @@ class TimeBoxDoctorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 30,
-      // alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: const Color(0xffECF0FF),
