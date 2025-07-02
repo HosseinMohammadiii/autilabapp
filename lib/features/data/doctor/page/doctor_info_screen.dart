@@ -7,9 +7,10 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/constant_routes.dart';
+import '../../tool/widgets/likewidget.dart';
 import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
-import '../widgets/personal_detail_widget.dart';
+import 'nearby_center_details_screen.dart';
 
 class DoctorInfoScreen extends StatefulWidget {
   const DoctorInfoScreen({super.key});
@@ -19,12 +20,6 @@ class DoctorInfoScreen extends StatefulWidget {
 }
 
 class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
-  List<String> icon = [
-    'assets/icons/global_buttomnavigation.svg',
-    'assets/icons/messages.svg',
-    'assets/icons/calendar.svg',
-    'assets/icons/heart.svg',
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,16 +46,14 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       spacing: 24,
                       children: [
-                        Flexible(
-                          child: SizedBox(
-                            height: 116,
-                            width: 116,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                'assets/images/doctor_image.jpg',
-                                fit: BoxFit.fill,
-                              ),
+                        SizedBox(
+                          height: 116,
+                          width: 116,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.asset(
+                              'assets/images/doctor_image.jpg',
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
@@ -71,48 +64,60 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                             spacing: 24,
                             children: [
                               const FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
                                 child: Text(
                                   'Dr. Sophia Martinez',
                                   style: AutilabTextStyle.medium18_500,
                                 ),
                               ),
-                              FittedBox(
-                                child: SizedBox(
-                                  height: 32,
-                                  width: 186,
-                                  child: ListView.builder(
-                                    itemCount: 4,
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return ButtonCard(
-                                        onTap: () {
-                                          switch (index) {
-                                            case 0:
-                                              context.pushNamed(AutiLabRoutes
-                                                  .doctorSocialMediaScreen);
-                                            case 1:
-                                              context.pushNamed(
-                                                AutiLabRoutes
-                                                    .doctorMessageScreen,
-                                                extra: {
-                                                  'image':
-                                                      'assets/images/doctor_image.jpg',
-                                                },
-                                              );
-                                            case 2:
-                                              context.pushNamed(AutiLabRoutes
-                                                  .doctorWorkscheduleScreen);
-                                            default:
-                                          }
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ButtonCard(
+                                    margin: EdgeInsets.zero,
+                                    icon:
+                                        'assets/icons/global_buttomnavigation.svg',
+                                    onTap: () {
+                                      context.pushNamed(AutiLabRoutes
+                                          .doctorSocialMediaScreen);
+                                    },
+                                  ),
+                                  ButtonCard(
+                                    margin: EdgeInsets.zero,
+                                    icon: 'assets/icons/messages.svg',
+                                    onTap: () {
+                                      context.pushNamed(
+                                        AutiLabRoutes.doctorMessageScreen,
+                                        extra: {
+                                          'image':
+                                              'assets/images/doctor_image.jpg',
                                         },
-                                        icon: icon[index],
                                       );
                                     },
                                   ),
-                                ),
+                                  ButtonCard(
+                                    margin: EdgeInsets.zero,
+                                    icon: 'assets/icons/calendar.svg',
+                                    onTap: () {
+                                      context.pushNamed(AutiLabRoutes
+                                          .doctorWorkscheduleScreen);
+                                    },
+                                  ),
+                                  Container(
+                                    width: 32,
+                                    height: 32,
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      color: AutilabColor.bb,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: LikeWidget(
+                                      onTap: (isLike) {},
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -147,7 +152,10 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
             const SliverPadding(
               padding: AutilabMargin.marginFullScreen,
               sliver: SliverToBoxAdapter(
-                child: PersonalDetailWidget(),
+                child: TitleAndIconWidget(
+                  icon: 'assets/icons/profile_icon.svg',
+                  title: 'Personal Details',
+                ),
               ),
             ),
             const SliverToBoxAdapter(
@@ -202,9 +210,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
             const SliverPadding(
               padding: AutilabMargin.marginFullScreen,
               sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Specialty',
-                  style: AutilabTextStyle.medium18_500,
+                child: TitleAndIconWidget(
+                  icon: 'assets/icons/profile_icon.svg',
+                  title: "Doctor's specialty",
                 ),
               ),
             ),
@@ -247,9 +255,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
             const SliverPadding(
               padding: AutilabMargin.marginFullScreen,
               sliver: SliverToBoxAdapter(
-                child: Text(
-                  'More details',
-                  style: AutilabTextStyle.medium18_500,
+                child: TitleAndIconWidget(
+                  icon: 'assets/icons/info-circle.svg',
+                  title: 'More details',
                 ),
               ),
             ),

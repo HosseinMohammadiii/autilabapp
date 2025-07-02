@@ -7,7 +7,7 @@ import 'package:autilab_project/features/data/home/widgets/box_shape_widget.dart
 import 'package:flutter/material.dart';
 
 import '../../../../utils/functions/animation_control.dart';
-import '../../doctor/widgets/personal_detail_widget.dart';
+import '../../doctor/page/nearby_center_details_screen.dart';
 import '../widgets/doctor_box_detail_appointment_widget.dart';
 
 class DetailAppointmentScreen extends StatefulWidget {
@@ -146,7 +146,10 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
               const SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: PersonalDetailWidget(),
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/profile_icon.svg',
+                    title: 'Personal Details',
+                  ),
                 ),
               ),
               const SliverToBoxAdapter(
