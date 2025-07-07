@@ -7,10 +7,12 @@ import '../../../../core/constants/theme_constant.dart';
 class ArticleBoxWidget extends StatefulWidget {
   const ArticleBoxWidget({
     super.key,
+    required this.image,
     required this.title,
     required this.description,
     required this.ontap,
   });
+  final String image;
   final String title;
   final String description;
   final Function() ontap;
@@ -44,8 +46,21 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                    'assets/images/game_image.jpg',
+                    widget.image,
                     fit: BoxFit.cover,
+                    frameBuilder:
+                        (context, child, frame, wasSynchronouslyLoaded) {
+                      return frame != null
+                          ? FittedBox(
+                              fit: BoxFit.fill,
+                              child: child,
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(
+                                color: AutilabColor.bb,
+                              ),
+                            );
+                    },
                   ),
                 ),
               ),

@@ -126,6 +126,7 @@ class AutilabRouter {
               final Map<String, dynamic> extraData =
                   state.extra as Map<String, dynamic>;
               return MainContentScreen(
+                articleImage: extraData['articleImage'],
                 articleTitle: extraData['articleTitle'],
                 articleDescription: extraData['articleDescription'],
                 articleText: extraData['articleText'],

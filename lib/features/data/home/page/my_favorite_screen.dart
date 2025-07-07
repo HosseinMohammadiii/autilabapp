@@ -43,7 +43,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
     animationHelper.restartAnimation();
   }
 
-  bool isLike = false;
+  bool isLike = true;
 
   List<ArticleContent> newArticleList = [
     ArticleContent(
@@ -52,6 +52,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
       description:
           'ASD diagnoses rising; causes unclear; experts seek better understanding.',
       file: 'assets/texts/article06.txt',
+      image: 'assets/images/article/06.jpg',
     ),
     ArticleContent(
       title:
@@ -59,12 +60,14 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
       description:
           'Delayed ASD diagnosis common; risks vary; ongoing mental health needs grow.',
       file: 'assets/texts/article07.txt',
+      image: 'assets/images/article/07.jpg',
     ),
     ArticleContent(
       title:
           'Autism Spectrum Disorder Diagnoses and Congenital Cytomegalovirus',
       description: 'cCMV infection at birth linked to 2.5× higher autism risk.',
       file: 'assets/texts/article08.txt',
+      image: 'assets/images/article/08.jpg',
     ),
     ArticleContent(
       title:
@@ -72,6 +75,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
       description:
           'ASD teens face lasting speech challenges influenced by early skills and background.',
       file: 'assets/texts/article09.txt',
+      image: 'assets/images/article/09.jpg',
     ),
     ArticleContent(
       title:
@@ -79,6 +83,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
       description:
           'ASD affects 1 in 31 US children with disparities; early diagnosis improving.',
       file: 'assets/texts/article10.txt',
+      image: 'assets/images/article/10.jpg',
     ),
   ];
   @override
@@ -163,12 +168,15 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),
                               child: ArticleBoxWidget(
+                                image: newArticleList[index].image!,
                                 title: newArticleList[index].title,
                                 description: newArticleList[index].description,
                                 ontap: () {
                                   context.pushNamed(
                                       AutiLabRoutes.mainContentScreen,
                                       extra: {
+                                        'articleImage':
+                                            newArticleList[index].image,
                                         'articleText':
                                             newArticleList[index].file,
                                         'articleDescription':

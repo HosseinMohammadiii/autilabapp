@@ -10,10 +10,12 @@ import '../../../../utils/functions/animation_control.dart';
 class MainContentScreen extends StatefulWidget {
   const MainContentScreen({
     super.key,
+    required this.articleImage,
     required this.articleText,
     required this.articleTitle,
     required this.articleDescription,
   });
+  final String articleImage;
   final String articleText;
   final String articleTitle;
   final String articleDescription;
@@ -73,10 +75,25 @@ class _MainContentScreenState extends State<MainContentScreen>
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      'assets/images/game_image.jpg',
-                      height: 215,
-                      fit: BoxFit.fitWidth,
+                    child: SizedBox(
+                      height: 170,
+                      width: double.infinity,
+                      child: Image.asset(
+                        widget.articleImage,
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          return frame != null
+                              ? FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: child,
+                                )
+                              : const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AutilabColor.bb,
+                                  ),
+                                );
+                        },
+                      ),
                     ),
                   ),
                   const SizedBox(

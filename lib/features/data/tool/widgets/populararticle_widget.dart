@@ -8,11 +8,13 @@ class PopularArticleWidget extends StatefulWidget {
   const PopularArticleWidget({
     super.key,
     required this.index,
+    required this.image,
     required this.title,
     required this.description,
     required this.ontap,
   });
   final int index;
+  final String image;
   final String title;
   final String description;
   final Function() ontap;
@@ -30,10 +32,10 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
       onTap: widget.ontap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        margin: EdgeInsets.only(right: widget.index == 2 ? 0 : 15),
+        margin: EdgeInsets.only(right: widget.index == 4 ? 0 : 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: AutilabColor.white,
+          color: Colors.white,
           border: Border.all(color: AutilabColor.bb),
           borderRadius: BorderRadius.circular(24),
         ),
@@ -47,8 +49,21 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
               child: SizedBox(
                 height: 171,
                 child: Image.asset(
-                  'assets/images/kid_image.jpg',
+                  widget.image,
                   fit: BoxFit.cover,
+                  frameBuilder:
+                      (context, child, frame, wasSynchronouslyLoaded) {
+                    return frame != null
+                        ? FittedBox(
+                            fit: BoxFit.fill,
+                            child: child,
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              color: AutilabColor.bb,
+                            ),
+                          );
+                  },
                 ),
               ),
             ),

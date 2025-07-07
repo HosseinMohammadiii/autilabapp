@@ -61,6 +61,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'ASD: lifelong condition, unclear causes, early intervention improves outcomes.',
       file: 'assets/texts/article01.txt',
+      image: 'assets/images/article/01.jpg',
     ),
     ArticleContent(
       title:
@@ -68,12 +69,14 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'Some early ASD diagnoses change; girls and higher skills predict change.',
       file: 'assets/texts/article02.txt',
+      image: 'assets/images/article/02.jpg',
     ),
     ArticleContent(
       title: 'Gut Imbalances Might Play a Role in Autism, Study Finds',
       description:
           'Gut-brain link: autistic kids show altered tryptophan, brain activity.',
       file: 'assets/texts/article03.txt',
+      image: 'assets/images/article/03.jpg',
     ),
     ArticleContent(
       title:
@@ -81,6 +84,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'AI system flags autism risk in toddlers, but needs clinical backup.',
       file: 'assets/texts/article04.txt',
+      image: 'assets/images/article/04.jpg',
     ),
     ArticleContent(
       title:
@@ -88,6 +92,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'ASD in Cyprus: 1.8% rate, mostly boys, common ADHD comorbidity.',
       file: 'assets/texts/article05.txt',
+      image: 'assets/images/article/05.jpg',
     ),
   ];
 
@@ -98,6 +103,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'ASD diagnoses rising; causes unclear; experts seek better understanding.',
       file: 'assets/texts/article06.txt',
+      image: 'assets/images/article/06.jpg',
     ),
     ArticleContent(
       title:
@@ -105,12 +111,14 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'Delayed ASD diagnosis common; risks vary; ongoing mental health needs grow.',
       file: 'assets/texts/article07.txt',
+      image: 'assets/images/article/07.jpg',
     ),
     ArticleContent(
       title:
           'Autism Spectrum Disorder Diagnoses and Congenital Cytomegalovirus',
       description: 'cCMV infection at birth linked to 2.5× higher autism risk.',
       file: 'assets/texts/article08.txt',
+      image: 'assets/images/article/08.jpg',
     ),
     ArticleContent(
       title:
@@ -118,6 +126,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'ASD teens face lasting speech challenges influenced by early skills and background.',
       file: 'assets/texts/article09.txt',
+      image: 'assets/images/article/09.jpg',
     ),
     ArticleContent(
       title:
@@ -125,6 +134,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
       description:
           'ASD affects 1 in 31 US children with disparities; early diagnosis improving.',
       file: 'assets/texts/article10.txt',
+      image: 'assets/images/article/10.jpg',
     ),
   ];
 
@@ -158,11 +168,14 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                       itemBuilder: (context, index) {
                         return PopularArticleWidget(
                           index: index,
+                          image: popularArticleList[index].image!,
                           title: popularArticleList[index].title,
                           description: popularArticleList[index].description,
                           ontap: () {
                             context.pushNamed(AutiLabRoutes.mainContentScreen,
                                 extra: {
+                                  'articleImage':
+                                      popularArticleList[index].image,
                                   'articleText': popularArticleList[index].file,
                                   'articleDescription':
                                       popularArticleList[index].description,
@@ -192,11 +205,13 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: ArticleBoxWidget(
+                          image: newArticleList[index].image!,
                           title: newArticleList[index].title,
                           description: newArticleList[index].description,
                           ontap: () {
                             context.pushNamed(AutiLabRoutes.mainContentScreen,
                                 extra: {
+                                  'articleImage': newArticleList[index].image,
                                   'articleText': newArticleList[index].file,
                                   'articleDescription':
                                       newArticleList[index].description,
