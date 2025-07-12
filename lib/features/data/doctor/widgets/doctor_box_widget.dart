@@ -1,5 +1,6 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/tool/widgets/likewidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -172,31 +173,12 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                     },
                                   ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isLike = !isLike;
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 32,
-                                    height: 32,
-                                    // padding: const EdgeInsets.all(4),
-                                    margin: const EdgeInsets.only(right: 12),
-                                    decoration: BoxDecoration(
-                                      color: AutilabColor.bb,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: isLike
-                                        ? const Icon(
-                                            Icons.favorite_rounded,
-                                            color: Colors.red,
-                                            size: 22,
-                                          )
-                                        : const Icon(
-                                            Icons.favorite_border_rounded,
-                                            size: 22,
-                                          ),
+                                SizedBox(
+                                  height: 32,
+                                  width: 32,
+                                  child: LikeWidget(
+                                    backgroundColor: AutilabColor.bb,
+                                    onTap: (isLike) {},
                                   ),
                                 ),
                               ],

@@ -52,12 +52,12 @@ class _ToolsScreenState extends State<ToolsScreen>
       'Reading Articles',
       'assets/images/article_image.svg',
     ),
-    ToolsClass(
-      'Communication Environment',
-      'The Environment For Holding Educational And Therapeutic Sessions For Children',
-      'Use Of The Environment',
-      'assets/images/communication_image.svg',
-    ),
+    // ToolsClass(
+    //   'Communication Environment',
+    //   'The Environment For Holding Educational And Therapeutic Sessions For Children',
+    //   'Use Of The Environment',
+    //   'assets/images/communication_image.svg',
+    // ),
     ToolsClass(
       'Talent Identification Test',
       "Aptitude Test To Identify Children's Talents And Improve Their Future",

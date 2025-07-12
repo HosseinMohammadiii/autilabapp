@@ -8,10 +8,12 @@ class LikeWidget extends StatefulWidget {
     required this.onTap,
     this.isLike = false,
     this.backgroundColor,
+    this.borderColor,
   });
   final Function(bool isLike) onTap;
   final bool isLike;
   final Color? backgroundColor;
+  final Color? borderColor;
 
   @override
   State<LikeWidget> createState() => _LikeWidgetState();
@@ -42,7 +44,7 @@ class _LikeWidgetState extends State<LikeWidget> {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 0.5,
-            color: AutilabColor.bb,
+            color: widget.borderColor ?? AutilabColor.bb,
           ),
         ),
         child: isLike

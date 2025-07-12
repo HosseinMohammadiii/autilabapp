@@ -162,7 +162,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                   ),
                   Container(
                     height: 40,
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
                       color: AutilabColor.drawerWhite,
                       borderRadius: BorderRadius.circular(16),
@@ -171,6 +171,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                       spacing: 8,
                       children: [
                         LikeWidget(
+                          borderColor: Colors.transparent,
                           onTap: (isLike) {
                             setState(() {
                               isLike = !isLike;

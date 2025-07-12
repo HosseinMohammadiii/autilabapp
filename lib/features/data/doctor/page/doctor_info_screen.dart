@@ -108,12 +108,12 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                                   Container(
                                     width: 32,
                                     height: 32,
-                                    padding: const EdgeInsets.all(6),
                                     decoration: BoxDecoration(
                                       color: AutilabColor.bb,
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: LikeWidget(
+                                      backgroundColor: Colors.transparent,
                                       onTap: (isLike) {},
                                     ),
                                   ),
@@ -276,7 +276,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   textfieldPadding: const EdgeInsets.all(0),
                   controller: TextEditingController(
                     text:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                        'Hi, I’m Dr. Sofia Martinez, a physiotherapist with a Master’s degree from the University of Toronto.I specialize in helping children with movement and muscle problems, especially those with autism or balance difficulties. My goal is to help each child move better and become more independent using fun and personalized therapy.',
                   ),
                   backgroundColor: AutilabColor.primary,
                   borderColor: AutilabColor.gray,
