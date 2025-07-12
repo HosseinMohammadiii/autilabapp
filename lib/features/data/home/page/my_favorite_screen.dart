@@ -198,13 +198,17 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                   itemCount: 6,
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
-                    return const DoctorBoxWidget();
+                    return DoctorBoxWidget(
+                      isLike: true,
+                    );
                   },
                 ),
                 ListView.builder(
                   itemCount: 6,
                   itemBuilder: (context, index) {
-                    return const NearbyCardWidget();
+                    return NearbyCardWidget(
+                      isLike: true,
+                    );
                   },
                 ),
                 GridView.builder(

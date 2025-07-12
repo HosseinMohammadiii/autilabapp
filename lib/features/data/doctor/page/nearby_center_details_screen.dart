@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/tool/widgets/populararticle_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -13,8 +14,13 @@ import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
 import '../widgets/specialty_list_widget.dart';
 
+// ignore: must_be_immutable
 class NearbyCenterDetailsScreen extends StatefulWidget {
-  const NearbyCenterDetailsScreen({super.key});
+  NearbyCenterDetailsScreen({
+    super.key,
+    this.isLike,
+  });
+  bool? isLike;
 
   @override
   State<NearbyCenterDetailsScreen> createState() =>
@@ -30,7 +36,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
-
+    print('Value:${widget.isLike}');
     animationHelper.animationController.forward();
   }
 
@@ -144,8 +150,14 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: LikeWidget(
+                              isLike: widget.isLike ?? false,
                               backgroundColor: AutilabColor.bb,
-                              onTap: (isLike) {},
+                              onTap: () {
+                                setState(() {
+                                  isLike = !isLike;
+                                  widget.isLike = isLike;
+                                });
+                              },
                             ),
                           ),
                           ButtonCard(

@@ -1,4 +1,5 @@
 import 'package:autilab_project/features/data/doctor/widgets/button_card.dart';
+import 'package:autilab_project/features/data/tool/widgets/likewidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,11 +8,19 @@ import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../core/constants/theme_constant.dart';
 
-class DoctorBox extends StatelessWidget {
-  const DoctorBox({
+// ignore: must_be_immutable
+class DoctorBox extends StatefulWidget {
+  DoctorBox({
     super.key,
+    this.isLike,
   });
+  bool? isLike;
 
+  @override
+  State<DoctorBox> createState() => _DoctorBoxState();
+}
+
+class _DoctorBoxState extends State<DoctorBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +77,11 @@ class DoctorBox extends StatelessWidget {
                         child: CustomButtonWidget(
                           onTap: () {
                             context.pushNamed(
-                                AutiLabRoutes.doctorInformationScreen);
+                              AutiLabRoutes.doctorInformationScreen,
+                              extra: {
+                                'isLike': widget.isLike,
+                              },
+                            );
                           },
                           height: 32,
                           width: 100,
@@ -91,9 +104,20 @@ class DoctorBox extends StatelessWidget {
                           );
                         },
                       ),
-                      ButtonCard(
-                        icon: 'assets/icons/heart.svg',
-                        onTap: () {},
+                      SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: LikeWidget(
+                          backgroundColor: AutilabColor.bb,
+                          isLike: widget.isLike ?? false,
+                          onTap: () {
+                            setState(() {
+                              if (widget.isLike != null) {
+                                widget.isLike = !widget.isLike!;
+                              }
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),

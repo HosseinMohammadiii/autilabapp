@@ -148,7 +148,13 @@ class AutilabRouter {
       GoRoute(
         path: '/nearbyCenterDetailScreen',
         name: AutiLabRoutes.nearbyCenterDetailScreen,
-        builder: (context, state) => const NearbyCenterDetailsScreen(),
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+          return NearbyCenterDetailsScreen(
+            isLike: extraData['isLike'] ?? false,
+          );
+        },
       ),
       GoRoute(
         path: '/myFavoriteScreen',
@@ -218,25 +224,40 @@ class AutilabRouter {
         },
       ),
       GoRoute(
-        path: '/makeAppointmentScreen',
-        name: AutiLabRoutes.makeAppointmentScreen,
-        builder: (context, state) => const MakeAppointmentScreen(),
-      ),
+          path: '/makeAppointmentScreen',
+          name: AutiLabRoutes.makeAppointmentScreen,
+          builder: (context, state) {
+            final Map<String, dynamic> extraData =
+                state.extra as Map<String, dynamic>;
+            return MakeAppointmentScreen(
+              isLike: extraData['isLike'] ?? false,
+            );
+          }),
       GoRoute(
-        path: '/doctorInformationScreen',
-        name: AutiLabRoutes.doctorInformationScreen,
-        builder: (context, state) => const DoctorInfoScreen(),
-      ),
+          path: '/doctorInformationScreen',
+          name: AutiLabRoutes.doctorInformationScreen,
+          builder: (context, state) {
+            final Map<String, dynamic> extraData =
+                state.extra as Map<String, dynamic>;
+            return DoctorInfoScreen(
+              isLike: extraData['isLike'] ?? false,
+            );
+          }),
       GoRoute(
         path: '/doctorSocialMediaScreen',
         name: AutiLabRoutes.doctorSocialMediaScreen,
         builder: (context, state) => const DoctorSocialMediaScreen(),
       ),
       GoRoute(
-        path: '/doctorWorkscheduleScreen',
-        name: AutiLabRoutes.doctorWorkscheduleScreen,
-        builder: (context, state) => const DoctorWorkScheduleScreen(),
-      ),
+          path: '/doctorWorkscheduleScreen',
+          name: AutiLabRoutes.doctorWorkscheduleScreen,
+          builder: (context, state) {
+            final Map<String, dynamic> extraData =
+                state.extra as Map<String, dynamic>;
+            return DoctorWorkScheduleScreen(
+              isLike: extraData['isLike'] ?? false,
+            );
+          }),
       GoRoute(
         path: '/editProfileScreen',
         name: AutiLabRoutes.editProfileScreen,

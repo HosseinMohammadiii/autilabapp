@@ -111,7 +111,7 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
           SliverList.builder(
             itemCount: 3,
             itemBuilder: (context, index) {
-              return const NearbyCardWidget();
+              return NearbyCardWidget();
             },
           ),
         ],

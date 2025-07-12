@@ -12,9 +12,13 @@ import '../widgets/display_title_section_widget.dart';
 import '../widgets/doctor_container_box_widget.dart';
 import '../widgets/select_time_widget.dart';
 
+// ignore: must_be_immutable
 class MakeAppointmentScreen extends StatefulWidget {
-  const MakeAppointmentScreen({super.key});
-
+  MakeAppointmentScreen({
+    super.key,
+    this.isLike,
+  });
+  bool? isLike;
   @override
   State<MakeAppointmentScreen> createState() => _MakeAppointmentScreenState();
 }
@@ -73,8 +77,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   height: 48,
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: DoctorBox(),
+              SliverToBoxAdapter(
+                child: DoctorBox(
+                  isLike: widget.isLike,
+                ),
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
@@ -388,13 +394,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   height: 48,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Describe your problem',
-                    style: AutilabTextStyle.medium18_500,
-                  ),
+              const SliverToBoxAdapter(
+                child: DisplayTitleSection(
+                  icon: 'assets/icons/info-circle.svg',
+                  title: 'Describe your problem',
                 ),
               ),
               const SliverToBoxAdapter(

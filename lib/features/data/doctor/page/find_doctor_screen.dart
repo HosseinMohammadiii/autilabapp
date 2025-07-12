@@ -152,7 +152,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return const DoctorBoxWidget();
+                      return DoctorBoxWidget(
+                        isLike: false,
+                      );
                     },
                   ),
                 ),

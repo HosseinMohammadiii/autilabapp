@@ -12,8 +12,13 @@ import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
 import 'nearby_center_details_screen.dart';
 
+// ignore: must_be_immutable
 class DoctorInfoScreen extends StatefulWidget {
-  const DoctorInfoScreen({super.key});
+  DoctorInfoScreen({
+    super.key,
+    this.isLike = false,
+  });
+  bool isLike;
 
   @override
   State<DoctorInfoScreen> createState() => _DoctorInfoScreenState();
@@ -101,8 +106,12 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                                     margin: EdgeInsets.zero,
                                     icon: 'assets/icons/calendar.svg',
                                     onTap: () {
-                                      context.pushNamed(AutiLabRoutes
-                                          .doctorWorkscheduleScreen);
+                                      context.pushNamed(
+                                        AutiLabRoutes.doctorWorkscheduleScreen,
+                                        extra: {
+                                          'isLike': widget.isLike,
+                                        },
+                                      );
                                     },
                                   ),
                                   Container(
@@ -114,7 +123,12 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                                     ),
                                     child: LikeWidget(
                                       backgroundColor: Colors.transparent,
-                                      onTap: (isLike) {},
+                                      isLike: widget.isLike,
+                                      onTap: () {
+                                        setState(() {
+                                          widget.isLike = !widget.isLike;
+                                        });
+                                      },
                                     ),
                                   ),
                                 ],

@@ -117,7 +117,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                         ),
                         LikeWidget(
                           isLike: widget.isLike,
-                          onTap: (isLike) {
+                          onTap: () {
                             setState(() {
                               isLike = !isLike;
                             });

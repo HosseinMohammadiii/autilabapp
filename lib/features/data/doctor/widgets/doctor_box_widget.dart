@@ -8,8 +8,13 @@ import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import 'button_card.dart';
 
+// ignore: must_be_immutable
 class DoctorBoxWidget extends StatefulWidget {
-  const DoctorBoxWidget({super.key});
+  DoctorBoxWidget({
+    super.key,
+    this.isLike = false,
+  });
+  bool isLike;
 
   @override
   State<DoctorBoxWidget> createState() => _DoctorBoxWidgetState();
@@ -58,7 +63,10 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 flex: 3,
                 child: CustomButtonWidget(
                   onTap: () {
-                    context.pushNamed(AutiLabRoutes.doctorInformationScreen);
+                    context.pushNamed(AutiLabRoutes.doctorInformationScreen,
+                        extra: {
+                          'isLike': widget.isLike,
+                        });
                   },
                   height: 32,
                   width: 100,
@@ -164,8 +172,13 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                                 },
                                               );
                                             case 2:
-                                              context.pushNamed(AutiLabRoutes
-                                                  .doctorWorkscheduleScreen);
+                                              context.pushNamed(
+                                                AutiLabRoutes
+                                                    .doctorWorkscheduleScreen,
+                                                extra: {
+                                                  'isLike': widget.isLike,
+                                                },
+                                              );
                                           }
                                         },
                                         icon: icon[index],
@@ -177,8 +190,13 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                   height: 32,
                                   width: 32,
                                   child: LikeWidget(
+                                    isLike: widget.isLike,
                                     backgroundColor: AutilabColor.bb,
-                                    onTap: (isLike) {},
+                                    onTap: () {
+                                      setState(() {
+                                        widget.isLike = !widget.isLike;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
@@ -194,7 +212,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
           ),
           CustomButtonWidget(
             onTap: () {
-              context.pushNamed(AutiLabRoutes.makeAppointmentScreen);
+              context.pushNamed(AutiLabRoutes.makeAppointmentScreen, extra: {
+                'isLike': widget.isLike,
+              });
             },
             height: 50,
             margin: const EdgeInsets.only(top: 24),

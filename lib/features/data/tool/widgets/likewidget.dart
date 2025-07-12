@@ -6,11 +6,11 @@ class LikeWidget extends StatefulWidget {
   const LikeWidget({
     super.key,
     required this.onTap,
-    this.isLike = false,
+    this.isLike = true,
     this.backgroundColor,
     this.borderColor,
   });
-  final Function(bool isLike) onTap;
+  final Function() onTap;
   final bool isLike;
   final Color? backgroundColor;
   final Color? borderColor;
@@ -20,23 +20,10 @@ class LikeWidget extends StatefulWidget {
 }
 
 class _LikeWidgetState extends State<LikeWidget> {
-  bool isLike = false;
-  @override
-  void initState() {
-    super.initState();
-    isLike = widget.isLike;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.onTap(isLike);
-
-          isLike = !isLike;
-        });
-      },
+      onTap: widget.onTap,
       child: Container(
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
@@ -47,7 +34,7 @@ class _LikeWidgetState extends State<LikeWidget> {
             color: widget.borderColor ?? AutilabColor.bb,
           ),
         ),
-        child: isLike
+        child: widget.isLike
             ? SvgPicture.asset(
                 'assets/icons/redheart.svg',
                 width: 16,

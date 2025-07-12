@@ -172,7 +172,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                       children: [
                         LikeWidget(
                           borderColor: Colors.transparent,
-                          onTap: (isLike) {
+                          onTap: () {
                             setState(() {
                               isLike = !isLike;
                             });

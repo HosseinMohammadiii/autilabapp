@@ -88,7 +88,7 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
                       ),
                     ),
                     LikeWidget(
-                      onTap: (isLike) {
+                      onTap: () {
                         setState(() {
                           isLike = !isLike;
                         });

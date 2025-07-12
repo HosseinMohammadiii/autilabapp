@@ -8,12 +8,15 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
 
+// ignore: must_be_immutable
 class NearbyCardWidget extends StatefulWidget {
-  const NearbyCardWidget({
+  NearbyCardWidget({
     super.key,
     this.isShowButton,
+    this.isLike,
   });
   final bool? isShowButton;
+  bool? isLike;
 
   @override
   State<NearbyCardWidget> createState() => _NearbyCardWidgetState();
@@ -60,7 +63,6 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 Container(
                   width: 32,
                   height: 32,
-                  // padding: const EdgeInsets.all(6),
                   margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
                     color: AutilabColor.bb,
@@ -68,7 +70,13 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                   ),
                   child: LikeWidget(
                     backgroundColor: AutilabColor.bb,
-                    onTap: (isLike) {},
+                    isLike: widget.isLike ?? false,
+                    onTap: () {
+                      setState(() {
+                        isLike = !isLike;
+                        widget.isLike = isLike;
+                      });
+                    },
                   ),
                 ),
                 ButtonCard(
@@ -106,7 +114,11 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
             visible: widget.isShowButton ?? true,
             child: CustomButtonWidget(
               onTap: () {
-                context.pushNamed(AutiLabRoutes.nearbyCenterDetailScreen);
+                context
+                    .pushNamed(AutiLabRoutes.nearbyCenterDetailScreen, extra: {
+                  'isLike': widget.isLike,
+                });
+                print(widget.isLike);
               },
               height: 50,
               margin: const EdgeInsets.only(bottom: 8, top: 24),

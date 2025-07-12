@@ -113,8 +113,8 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               SliverList.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: DoctorBoxWidget(),
                   );
                 },

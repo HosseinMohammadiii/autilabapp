@@ -10,8 +10,13 @@ import '../widgets/calendar_box_widget.dart';
 import '../widgets/doctor_container_box_widget.dart';
 import '../widgets/select_time_widget.dart';
 
+// ignore: must_be_immutable
 class DoctorWorkScheduleScreen extends StatefulWidget {
-  const DoctorWorkScheduleScreen({super.key});
+  DoctorWorkScheduleScreen({
+    super.key,
+    this.isLike = false,
+  });
+  bool? isLike;
 
   @override
   State<DoctorWorkScheduleScreen> createState() =>
@@ -62,8 +67,10 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                     height: 48,
                   ),
                 ),
-                const SliverToBoxAdapter(
-                  child: DoctorBox(),
+                SliverToBoxAdapter(
+                  child: DoctorBox(
+                    isLike: widget.isLike,
+                  ),
                 ),
                 const SliverToBoxAdapter(
                   child: SizedBox(
