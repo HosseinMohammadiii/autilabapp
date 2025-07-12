@@ -138,13 +138,13 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                           Container(
                             width: 32,
                             height: 32,
-                            padding: const EdgeInsets.all(6),
                             margin: const EdgeInsets.only(right: 12),
                             decoration: BoxDecoration(
                               color: AutilabColor.bb,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: LikeWidget(
+                              backgroundColor: AutilabColor.bb,
                               onTap: (isLike) {},
                             ),
                           ),
@@ -304,7 +304,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                 child: CustomTextfield(
                   label: '',
                   isEnable: false,
-                  borderRaduis: 24,
+                  borderRaduis: 16,
                   textfieldPadding: AutilabMargin.marginFullScreen,
                   controller: TextEditingController(
                     text:
@@ -333,23 +333,30 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
 class TitleAndIconWidget extends StatelessWidget {
   const TitleAndIconWidget({
     super.key,
-    required this.icon,
+    this.icon,
     required this.title,
+    this.textStyle = AutilabTextStyle.medium18_500,
+    this.isShowIcon = true,
   });
-  final String icon;
+  final String? icon;
   final String title;
+  final TextStyle textStyle;
+  final bool isShowIcon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(icon),
+        Visibility(
+          visible: isShowIcon,
+          child: SvgPicture.asset(icon ?? 'assets/icons/location-tick.svg'),
+        ),
         const SizedBox(
           width: 4,
         ),
         Text(
           title,
-          style: AutilabTextStyle.medium18_500,
+          style: textStyle,
         ),
       ],
     );

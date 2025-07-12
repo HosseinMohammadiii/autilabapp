@@ -76,8 +76,9 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
                   style: AutilabTextStyle.medium16_500,
                 ),
                 Row(
-                  spacing: 8,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  spacing: 2,
                   children: [
                     Expanded(
                       child: Text(

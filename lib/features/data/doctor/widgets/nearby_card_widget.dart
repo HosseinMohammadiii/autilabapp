@@ -60,13 +60,14 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 Container(
                   width: 32,
                   height: 32,
-                  padding: const EdgeInsets.all(6),
+                  // padding: const EdgeInsets.all(6),
                   margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
                     color: AutilabColor.bb,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: LikeWidget(
+                    backgroundColor: AutilabColor.bb,
                     onTap: (isLike) {},
                   ),
                 ),

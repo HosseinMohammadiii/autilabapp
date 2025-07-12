@@ -59,11 +59,19 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
               child: Column(
                 children: [
                   Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        'assets/images/map_image.png',
-                        fit: BoxFit.cover,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: AutilabColor.bb,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.asset(
+                          'assets/images/map_image.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -91,7 +99,7 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
               padding: EdgeInsets.only(left: 16),
               child: Text(
                 'Suggestions',
-                style: AutilabTextStyle.small24_400,
+                style: AutilabTextStyle.small20_400,
               ),
             ),
           ),

@@ -5,13 +5,15 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
 import 'package:autilab_project/utils/functions/custom_dialog_function.dart';
 import 'package:autilab_project/utils/functions/permissioncotrol.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../common/widgets/snackbar_widget.dart';
@@ -33,20 +35,20 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final lasNameController = TextEditingController(text: 'Iliev');
   final emailController = TextEditingController(text: 'denis@gmail.com');
   final birthdayController = TextEditingController();
+  final addressController = TextEditingController();
   final descriptionController = TextEditingController();
 
   final firstNameFocusNode = FocusNode();
   final lasNameFocusNode = FocusNode();
   final emailFocusNode = FocusNode();
   final birthdayFocusNode = FocusNode();
+  final addressFocusNode = FocusNode();
   final descriptionFocusNode = FocusNode();
 
   XFile? pickedFile;
 
   final bool isImage = true;
   bool isSelectedDate = false;
-
-  DateTime? _focusedDay;
 
   ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
 
@@ -189,6 +191,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     }
   }
 
+  Future<void> openMap(double latitude, double longitude) async {
+    final Uri googleMapsUrl = Uri.parse(
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
+
+    if (await canLaunchUrl(googleMapsUrl)) {
+      await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not open the map.';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -320,7 +333,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                           ? 'What is your date of birth?'
                           : DateFormat.yMd().format(value),
                       style: AutilabTextStyle.small14_400.copyWith(
-                        color: AutilabColor.gray,
+                        color: isSelectedDate
+                            ? AutilabColor.black
+                            : AutilabColor.gray,
                       ),
                     );
                   },
@@ -339,28 +354,29 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                             return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                TableCalendar(
-                                  currentDay: value,
-                                  focusedDay: _focusedDay ?? DateTime.now(),
-                                  firstDay: DateTime(1900),
-                                  lastDay: DateTime(2030),
-                                  headerVisible: true,
-                                  calendarStyle: const CalendarStyle(
-                                    outsideDaysVisible: false,
-                                  ),
-                                  availableCalendarFormats: const {
-                                    CalendarFormat.month: '',
+                                LinearDatePicker(
+                                  startDate: DateTime(1980),
+                                  endDate: DateTime(2050),
+                                  initialDate: _selectedDate.value,
+                                  dateChangeListener: (DateTime dateTime) {
+                                    isSelectedDate = true;
+                                    _selectedDate.value = dateTime;
                                   },
-                                  selectedDayPredicate: (day) {
-                                    return isSameDay(value, day);
-                                  },
-                                  onDaySelected: (selectedDay, focusedDay) {
-                                    setState(() {
-                                      isSelectedDate = true;
-                                      _selectedDate.value = selectedDay;
-                                      _focusedDay = focusedDay;
-                                    });
-                                  },
+                                  showDay: true,
+                                  showLabels: true,
+                                  showMonthName: true,
+                                  labelStyle: AutilabTextStyle.medium16_500,
+                                  selectedRowStyle: AutilabTextStyle
+                                      .medium20_500
+                                      .copyWith(color: AutilabColor.bb),
+                                  unselectedRowStyle:
+                                      AutilabTextStyle.small18_400,
+                                  yearLabel: 'Year',
+                                  monthLabel: 'Month',
+                                  dayLabel: 'Day',
+                                  columnWidth: 100,
+                                  debounceDuration:
+                                      const Duration(milliseconds: 300),
                                 ),
                               ],
                             );
@@ -376,7 +392,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 widget: Text(
                   selectedGender ?? 'Select your gender',
                   style: AutilabTextStyle.small14_400.copyWith(
-                    color: AutilabColor.gray,
+                    color: selectedGender != null
+                        ? AutilabColor.black
+                        : AutilabColor.gray,
                   ),
                 ),
                 icon: isDropdownOpen
@@ -428,27 +446,74 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
                 ),
               ),
-              SliverPadding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 48,
+                ),
+              ),
+              const SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 16,
+                  child: TitleAndIconWidget(
+                    title: 'Address',
+                    icon: 'assets/icons/location-tick.svg',
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 48, top: 24),
+                sliver: SliverToBoxAdapter(
+                  child: Stack(
                     children: [
-                      const Text(
-                        'More Detail About You',
-                        style: AutilabTextStyle.medium18_500,
-                      ),
                       TextFieldBoxEnterDescription(
-                        hintText: 'Enter Your Info Here...',
-                        bordeColor: Colors.transparent,
+                        hintText: 'open the map and set your current location',
+                        bordeColor: AutilabColor.gray,
                         borderRadius: 16,
                         maxLine: 4,
-                        descriptionController: descriptionController,
-                        descriptionFocusNode: descriptionFocusNode,
+                        descriptionController: addressController,
+                        descriptionFocusNode: addressFocusNode,
+                      ),
+                      Positioned(
+                        right: 16,
+                        bottom: 16,
+                        child: CustomButtonWidget(
+                          onTap: () async {
+                            openMap(56.1304, -106.3468);
+                          },
+                          height: 31,
+                          width: 116,
+                          margin: EdgeInsets.zero,
+                          borderRadius: 8,
+                          color: AutilabColor.bb,
+                          text: 'Open Map',
+                          textStyle: AutilabTextStyle.small12_400,
+                        ),
                       ),
                     ],
+                  ),
+                ),
+              ),
+              const SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    title: 'More Detail About You',
+                    icon: 'assets/icons/info-circle.svg',
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 48, top: 24),
+                sliver: SliverToBoxAdapter(
+                  child: TextFieldBoxEnterDescription(
+                    hintText: 'Enter Your Info Here...',
+                    bordeColor: AutilabColor.gray,
+                    borderRadius: 16,
+                    maxLine: 4,
+                    descriptionController: descriptionController,
+                    descriptionFocusNode: descriptionFocusNode,
                   ),
                 ),
               ),
@@ -460,7 +525,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   color: AutilabColor.bb,
                   margin:
                       const EdgeInsets.only(left: 16, right: 16, bottom: 40),
-                  text: 'Update Profile',
+                  text: 'Save Change',
                   textStyle: AutilabTextStyle.small18_400,
                 ),
               ),

@@ -168,6 +168,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),
                               child: ArticleBoxWidget(
+                                isLike: true,
                                 image: newArticleList[index].image!,
                                 title: newArticleList[index].title,
                                 description: newArticleList[index].description,

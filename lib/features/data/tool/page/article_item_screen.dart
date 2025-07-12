@@ -205,6 +205,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: ArticleBoxWidget(
+                          isLike: false,
                           image: newArticleList[index].image!,
                           title: newArticleList[index].title,
                           description: newArticleList[index].description,

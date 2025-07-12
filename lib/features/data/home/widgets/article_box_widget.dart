@@ -11,11 +11,13 @@ class ArticleBoxWidget extends StatefulWidget {
     required this.title,
     required this.description,
     required this.ontap,
+    this.isLike = false,
   });
   final String image;
   final String title;
   final String description;
   final Function() ontap;
+  final bool isLike;
 
   @override
   State<ArticleBoxWidget> createState() => _ArticleBoxWidgetState();
@@ -23,6 +25,11 @@ class ArticleBoxWidget extends StatefulWidget {
 
 class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
   bool isLike = false;
+  @override
+  void initState() {
+    super.initState();
+    isLike = widget.isLike;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +94,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                       ],
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
@@ -109,6 +116,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                           ],
                         ),
                         LikeWidget(
+                          isLike: widget.isLike,
                           onTap: (isLike) {
                             setState(() {
                               isLike = !isLike;

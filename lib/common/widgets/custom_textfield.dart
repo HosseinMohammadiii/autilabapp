@@ -58,7 +58,9 @@ class CustomTextfield extends StatelessWidget {
         enabled: isEnable,
         style: textStyle ??
             AutilabTextStyle.small14_400.copyWith(
-              color: AutilabColor.gray,
+              color: controller?.text != null
+                  ? AutilabColor.black
+                  : AutilabColor.gray,
             ),
         decoration: InputDecoration(
           suffixIcon: suffixIcon,

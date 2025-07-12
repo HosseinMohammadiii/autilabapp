@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/widgets/test_result_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../doctor/page/nearby_center_details_screen.dart';
 import '../../doctor/widgets/specialty_list_widget.dart';
 import '../widgets/plan_item_widget.dart';
 
@@ -80,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
-                  child: Wrap(
-                    alignment: WrapAlignment.spaceBetween,
-                    crossAxisAlignment: WrapCrossAlignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
                         'New Appointments',
@@ -150,12 +151,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 48,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Recent Visited',
-                    style: AutilabTextStyle.small20_400,
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                sliver: const SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    isShowIcon: false,
+                    title: 'Recent Visited',
+                    textStyle: AutilabTextStyle.small20_400,
                   ),
                 ),
               ),
@@ -176,12 +178,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 48,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Test Result',
-                    style: AutilabTextStyle.small20_400,
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                sliver: const SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    isShowIcon: false,
+                    title: 'AutiLab Test',
+                    textStyle: AutilabTextStyle.small20_400,
                   ),
                 ),
               ),
@@ -254,12 +257,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 48,
                 ),
               ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Talent Result',
-                    style: AutilabTextStyle.small20_400,
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                sliver: const SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    isShowIcon: false,
+                    title: 'Talent Result',
+                    textStyle: AutilabTextStyle.small20_400,
                   ),
                 ),
               ),
@@ -281,6 +285,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   height: 48,
                 ),
               ),
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                sliver: const SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    isShowIcon: false,
+                    title: 'Plan',
+                    textStyle: AutilabTextStyle.small20_400,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 24,
+                ),
+              ),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 465,
@@ -296,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           right: index == titlePlanList.length - 1 ? 10 : 0),
                       child: PlanBoxWidget(
                         title: titlePlanList[index],
-                        titleButton: 'See Advance Package',
+                        titleButton: 'Buy',
                         widget: const [
                           PalnItemWidget(
                             title: 'Full access to the tools section',
