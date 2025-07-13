@@ -65,11 +65,12 @@ class CustomTextfield extends StatelessWidget {
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: backgroundColor ?? Colors.transparent,
+          alignLabelWithHint: true,
+          fillColor: backgroundColor ?? const Color.fromRGBO(0, 0, 0, 0),
           label: Text(label),
           labelStyle: AutilabTextStyle.small14_400.copyWith(
             color: lblColor ?? Colors.grey,
-            fontSize: 18,
+            fontSize: 16,
           ),
           floatingLabelBehavior: floatingLabelBehavior,
           enabledBorder: OutlineInputBorder(
