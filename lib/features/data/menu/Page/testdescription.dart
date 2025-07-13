@@ -1,4 +1,5 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/utils/functions/animation_control.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,14 @@ class _TestdescriptionResultState extends State<TestdescriptionResult>
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text(widget.description),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    widget.description,
+                    style: AutilabTextStyle.small14_400,
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
               ],
             ),
           ),

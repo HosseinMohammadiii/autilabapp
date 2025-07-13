@@ -15,16 +15,15 @@ class TestResultWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Visibility(
-          visible: isShowTitle ?? true,
-          child: const Text(
+        if (isShowTitle ?? false) ...[
+          const Text(
             'Aptitude Test Result',
             style: AutilabTextStyle.small18_400,
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
+          const SizedBox(
+            height: 8,
+          ),
+        ],
         FittedBox(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
@@ -37,7 +36,7 @@ class TestResultWidget extends StatelessWidget {
               spacing: 20,
               children: [
                 Text(
-                  'Artistic',
+                  'Linguistic Intelligence',
                   style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
                 ),
                 const TalentResultLinerWidget(
@@ -46,7 +45,7 @@ class TestResultWidget extends StatelessWidget {
                   activeLine: 13,
                 ),
                 Text(
-                  'Enterprising',
+                  'Logical-Mathematical Intelligence',
                   style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
                 ),
                 const TalentResultLinerWidget(
@@ -55,7 +54,7 @@ class TestResultWidget extends StatelessWidget {
                   activeLine: 16,
                 ),
                 Text(
-                  'Investigator',
+                  'Visual-Spatial Intelligence',
                   style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
                 ),
                 const TalentResultLinerWidget(
@@ -64,7 +63,7 @@ class TestResultWidget extends StatelessWidget {
                   activeLine: 8,
                 ),
                 Text(
-                  'Social',
+                  'Musical Intelligence',
                   style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
                 ),
                 const TalentResultLinerWidget(
@@ -73,7 +72,7 @@ class TestResultWidget extends StatelessWidget {
                   activeLine: 11,
                 ),
                 Text(
-                  'Realistic',
+                  'Bodily-Kinesthetic Intelligence',
                   style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
                 ),
                 const TalentResultLinerWidget(
@@ -82,13 +81,31 @@ class TestResultWidget extends StatelessWidget {
                   activeLine: 5,
                 ),
                 Text(
-                  'Conventional',
+                  'Interpersonal Intelligence',
                   style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
                 ),
                 const TalentResultLinerWidget(
                   gradient1: Color(0xffFFD572),
                   gradient2: Color(0xffFEBD38),
                   activeLine: 14,
+                ),
+                Text(
+                  'Naturalistic Intelligence',
+                  style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
+                ),
+                const TalentResultLinerWidget(
+                  gradient1: Color(0xff72EAFF),
+                  gradient2: Color(0xff23C1E4),
+                  activeLine: 12,
+                ),
+                Text(
+                  'Social Intelligence',
+                  style: AutilabTextStyle.small20_400.copyWith(fontSize: 25),
+                ),
+                const TalentResultLinerWidget(
+                  gradient1: Color(0xffD796FF),
+                  gradient2: Color(0xffB66DD8),
+                  activeLine: 25,
                 ),
               ],
             ),

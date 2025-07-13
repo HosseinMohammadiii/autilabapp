@@ -5,14 +5,19 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../../doctor/page/nearby_center_details_screen.dart'
+    show TitleAndIconWidget;
 
 class TalentTest {
   Color color;
   String title;
-  TalentTest(this.color, this.title);
+  String percentage;
+
+  TalentTest(this.color, this.title, this.percentage);
 }
 
 class TestHistoryScreen extends StatefulWidget {
@@ -50,12 +55,15 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
   }
 
   List<TalentTest> talentTestItem = [
-    TalentTest(const Color(0xffDADB88), 'Full Screen'),
-    TalentTest(const Color(0xffAFDB88), 'Manage File'),
-    TalentTest(const Color(0xff88A4DB), 'Security'),
-    TalentTest(const Color(0xff88DBD5), 'Record Screen'),
-    TalentTest(const Color(0xffDB88D5), 'Help'),
-    TalentTest(const Color(0xffE5898A), 'Screen Setting'),
+    TalentTest(const Color(0xffDADB88), 'Introversion', '%30'),
+    TalentTest(const Color(0xffAFDB88), 'Intuition', '%50'),
+    TalentTest(const Color(0xff88A4DB), 'Feeling', '%60'),
+    TalentTest(const Color(0xff88DBD5), 'Perceiving', '%50'),
+    TalentTest(const Color(0xffDB88D5), 'Sociability', '%30'),
+    TalentTest(const Color(0xffE5898A), 'Creativity', '%20'),
+    TalentTest(const Color(0xff9E9E47), 'Self-confidence', '%90'),
+    TalentTest(const Color(0xffBB52BD), 'Anxiety Level', '%70'),
+    TalentTest(const Color(0xffE5981C), 'Perseverance & Focus', '%60'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -117,45 +125,49 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
               children: [
                 CustomScrollView(
                   slivers: [
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      fillOverscroll: false,
+                    SliverToBoxAdapter(
                       child: Padding(
                         padding: AutilabMargin.marginFullScreen,
                         child: Column(
-                          // spacing: 40,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                const SizedBox(
+                                  height: 48,
+                                ),
+                                const TitleAndIconWidget(
+                                  icon: 'assets/icons/info-circle.svg',
+                                  title: 'Talent Assessment Report',
+                                ),
+                                const SizedBox(
+                                  height: 26,
+                                ),
                                 const Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                  'Based on the results of the multi-dimensional talent assessment, this child has shown strong potential in several key areas.',
                                   style: AutilabTextStyle.small16_400,
                                   textAlign: TextAlign.justify,
                                   maxLines: 6,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.pushNamed(
-                                        AutiLabRoutes.testDescriptionScreen,
-                                        extra: {
-                                          'description':
-                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                                        });
-                                  },
-                                  child: Text(
-                                    'more',
-                                    style: AutilabTextStyle.small16_400
-                                        .copyWith(color: AutilabColor.bb),
-                                  ),
-                                ),
+                                _readeMoreButtonWidget(context),
                               ],
                             ),
-                            const TestResultWidget(),
+                            const SizedBox(
+                              height: 48,
+                            ),
+                            const TitleAndIconWidget(
+                              icon: 'assets/icons/note.svg',
+                              title: 'Aptitude Test Chart',
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            const TestResultWidget(
+                              isShowTitle: false,
+                            ),
                             CustomButtonWidget(
                               onTap: () {
                                 context
@@ -163,7 +175,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                               },
                               height: 50,
                               margin:
-                                  const EdgeInsets.only(bottom: 18, top: 10),
+                                  const EdgeInsets.only(bottom: 18, top: 48),
                               color: AutilabColor.bb,
                               text: 'Take Test Again',
                               textStyle: AutilabTextStyle.small18_400,
@@ -176,25 +188,40 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                 ),
                 CustomScrollView(
                   slivers: [
-                    SliverFillRemaining(
-                      fillOverscroll: false,
-                      hasScrollBody: false,
+                    SliverToBoxAdapter(
                       child: Padding(
                         padding: AutilabMargin.marginFullScreen,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
+                            const SizedBox(
+                              height: 48,
+                            ),
+                            const TitleAndIconWidget(
+                              icon: 'assets/icons/info-circle.svg',
+                              title: 'Talent Assessment Report',
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
                             const Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                              'Based on the completed personality assessment, this child exhibits a well-defined set of  personality traits that influence their behaviorl',
                               style: AutilabTextStyle.small16_400,
                               textAlign: TextAlign.justify,
                             ),
+                            _readeMoreButtonWidget(context),
                             const SizedBox(
-                              height: 32,
+                              height: 48,
+                            ),
+                            const TitleAndIconWidget(
+                              icon: 'assets/icons/note.svg',
+                              title: 'Aptitude Test Chart',
+                            ),
+                            const SizedBox(
+                              height: 24,
                             ),
                             Container(
-                              height: 457,
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: const Color(0xffECF0FF),
@@ -232,6 +259,23 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                                 style: AutilabTextStyle
                                                     .small16_400,
                                                 textAlign: TextAlign.justify,
+                                              ),
+                                              const Spacer(),
+                                              Container(
+                                                height: 24,
+                                                width: 60,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  color: AutilabColor.bb,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Text(
+                                                  talentTestItem[index]
+                                                      .percentage,
+                                                  style: AutilabTextStyle
+                                                      .small14_400,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -273,6 +317,46 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                       ),
                     ),
                   ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+//Read More Button Widget
+  Widget _readeMoreButtonWidget(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: GestureDetector(
+        onTap: () {
+          context.pushNamed(AutiLabRoutes.testDescriptionScreen, extra: {
+            'description':
+                'Based on the results of the multi-dimensional talent assessment, this child has shown strong potential in several key areas.',
+          });
+        },
+        child: Container(
+          width: 120,
+          height: 40,
+          margin: const EdgeInsets.only(top: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AutilabColor.bb,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: FittedBox(
+            child: Row(
+              spacing: 4,
+              children: [
+                const Text(
+                  'Read More',
+                  style: AutilabTextStyle.small14_400,
+                ),
+                SvgPicture.asset(
+                  'assets/icons/arrow-right.svg',
                 ),
               ],
             ),
