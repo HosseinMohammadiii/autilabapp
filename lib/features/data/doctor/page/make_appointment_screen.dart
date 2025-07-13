@@ -241,7 +241,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                                 style: AutilabTextStyle.small16_400,
                               ),
                               Text(
-                                '${selectDate} ${_monthName}',
+                                '$selectDate $_monthName',
                                 style: AutilabTextStyle.medium16_500.copyWith(
                                   color: AutilabColor.bb,
                                 ),
@@ -494,6 +494,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     spacing: 8,
                     children: [
                       TextFieldBoxEnterDescription(
+                        borderRadius: 24,
                         hintText: 'Enter your Problem here...',
                         descriptionController: descriptionController,
                         descriptionFocusNode: descriptionFocusNode,

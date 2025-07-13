@@ -29,7 +29,7 @@ class SelectMethodPayBoxWidget extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
             color: isBorder ? AutilabColor.black : Colors.transparent),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

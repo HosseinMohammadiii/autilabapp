@@ -146,10 +146,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
                   margin: AutilabMargin.marginFullScreen,
                   decoration: BoxDecoration(
                     border: Border.all(color: AutilabColor.black),
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                   child: Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SelectMethodPayBoxWidget(
                         selectedIndexNotifier: selectedIndexNotifier,

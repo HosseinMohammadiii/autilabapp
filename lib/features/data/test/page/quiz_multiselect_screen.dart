@@ -100,19 +100,26 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                           } else {
                             return Padding(
                               padding: const EdgeInsets.only(top: 15),
-                              child: CustomTextfield(
-                                label: 'Type Here',
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                controller: textEditingController,
-                                focusNode: textFocusNode,
-                                maxLines: 12,
-                                textStyle: AutilabTextStyle.small18_400,
-                                lblColor: AutilabColor.black,
-                                backgroundColor: const Color(0xffECF0FF),
-                                borderColor: AutilabColor.bb,
-                                textInputAction: TextInputAction.done,
-                                textInputType: TextInputType.text,
+                              child: Stack(
+                                children: [
+                                  CustomTextfield(
+                                    label: '',
+                                    controller: textEditingController,
+                                    focusNode: textFocusNode,
+                                    maxLines: 12,
+                                    textStyle: AutilabTextStyle.small18_400,
+                                    lblColor: AutilabColor.black,
+                                    backgroundColor: const Color(0xffECF0FF),
+                                    borderColor: AutilabColor.bb,
+                                    textInputAction: TextInputAction.done,
+                                    textInputType: TextInputType.text,
+                                  ),
+                                  Positioned(
+                                    left: 28,
+                                    top: 15,
+                                    child: Text('data'),
+                                  ),
+                                ],
                               ),
                             );
                           }

@@ -212,7 +212,7 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                   textfieldPadding: AutilabMargin.marginFullScreen,
                   controller: TextEditingController(
                     text:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                        'My son is 10 years old and on the more severe end of the autism spectrum. He often has high muscle tone and tends to keep his body very stiff, especially when sitting down or trying to stand up. Because of this muscle tightness, he sometimes struggles to move properly or go up stairs.',
                   ),
                   backgroundColor: AutilabColor.primary,
                   borderColor: AutilabColor.gray,

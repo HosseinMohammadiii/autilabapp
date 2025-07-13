@@ -94,10 +94,10 @@ class _ToolsScreenState extends State<ToolsScreen>
                           case 0:
                             context.pushNamed(AutiLabRoutes.articleItemScreen);
                             break;
+                          // case 1:
+                          //   context.pushNamed(AutiLabRoutes.whiteBoardScreen);
+                          //   break;
                           case 1:
-                            context.pushNamed(AutiLabRoutes.whiteBoardScreen);
-                            break;
-                          case 2:
                             context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
                                 extra: {
                                   'image': 'assets/images/talent_image.svg',
@@ -111,7 +111,7 @@ class _ToolsScreenState extends State<ToolsScreen>
                                   },
                                 });
                             break;
-                          case 3:
+                          case 2:
                             context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
                                 extra: {
                                   'image':
