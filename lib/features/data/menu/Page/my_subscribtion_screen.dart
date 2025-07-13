@@ -53,10 +53,10 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 100,
-                width: 100,
+                height: 128,
+                width: 128,
                 padding: const EdgeInsets.all(20),
-                margin: const EdgeInsets.only(bottom: 32),
+                margin: const EdgeInsets.only(bottom: 48),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: AutilabColor.yellow,
@@ -72,16 +72,17 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
               const SizedBox(
                 height: 16,
               ),
-              const Padding(
+              Padding(
                 padding: AutilabMargin.marginFullScreen,
                 child: Text(
                   'Your Internet Connection Is Currently ,Not Available Please Check Or Try Again.',
                   textAlign: TextAlign.center,
-                  style: AutilabTextStyle.medium16_500,
+                  style: AutilabTextStyle.small16_400
+                      .copyWith(color: AutilabColor.gray),
                 ),
               ),
               const SizedBox(
-                height: 16,
+                height: 32,
               ),
               CustomButtonWidget(
                 onTap: () {
