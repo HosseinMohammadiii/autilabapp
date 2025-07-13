@@ -16,6 +16,7 @@ import 'package:autilab_project/features/data/home/page/detail_appointment_scree
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/home/page/my_favorite_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/mydoctor_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/testdescription.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
@@ -53,7 +54,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/toolsScreen',
+    initialLocation: '/homeScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -165,12 +166,11 @@ class AutilabRouter {
           path: '/detailAppointmentScreen',
           name: AutiLabRoutes.detailAppointmentScreen,
           builder: (context, state) {
-            final Map<String, dynamic> extraData =
-                state.extra as Map<String, dynamic>;
+            final extraData = state.extra as Map<String, dynamic>;
             return DetailAppointmentScreen(
               statusColor: extraData['statusColor'],
               statusIcon: extraData['statusIcon'],
-              image: extraData['image'],
+              image: extraData['image'] ?? '',
               title: extraData['title'],
             );
           }),
@@ -384,6 +384,13 @@ class AutilabRouter {
         path: '/myDoctorScreen',
         name: AutiLabRoutes.myDoctorScreen,
         builder: (context, state) => const MydoctorScreen(),
+        routes: [
+          GoRoute(
+            path: 'ratingScreen',
+            name: AutiLabRoutes.ratingScreen,
+            builder: (context, state) => const RatingScreen(),
+          ),
+        ],
       ),
     ],
   );

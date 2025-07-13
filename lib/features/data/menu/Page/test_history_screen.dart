@@ -104,13 +104,13 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                     tabs: const [
                       FittedBox(
                         child: Text(
-                          'Personality Test',
+                          'Talent Test',
                           style: AutilabTextStyle.small16_400,
                         ),
                       ),
                       FittedBox(
                         child: Text(
-                          'Talent Test',
+                          'Personality Test',
                           style: AutilabTextStyle.small16_400,
                         ),
                       ),
@@ -160,7 +160,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                             ),
                             const TitleAndIconWidget(
                               icon: 'assets/icons/note.svg',
-                              title: 'Aptitude Test Chart',
+                              title: 'Talent Test Chart',
                             ),
                             const SizedBox(
                               height: 24,
@@ -200,7 +200,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                             ),
                             const TitleAndIconWidget(
                               icon: 'assets/icons/info-circle.svg',
-                              title: 'Talent Assessment Report',
+                              title: 'Personality Test Report',
                             ),
                             const SizedBox(
                               height: 24,
@@ -216,7 +216,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                             ),
                             const TitleAndIconWidget(
                               icon: 'assets/icons/note.svg',
-                              title: 'Aptitude Test Chart',
+                              title: 'Personality Test Chart',
                             ),
                             const SizedBox(
                               height: 24,

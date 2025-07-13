@@ -16,22 +16,28 @@ class ExpiredAppointmentWidget extends StatelessWidget {
         ListView.builder(
           itemCount: 6,
           itemBuilder: (context, index) {
-            return NewAppointmentsCardWidget(
-              color: const Color(0xff50DD81),
-              title: 'Approved',
-              statusIcon: 'assets/icons/done_icon.svg',
-              image: 'assets/images/doctor_image.jpg',
-              margin: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
-              onTap: () {
-                context.pushNamed(
-                  AutiLabRoutes.detailAppointmentScreen,
-                  extra: {
-                    'statusColor': const Color(0xff50DD81),
-                    'statusIcon': 'assets/icons/done_icon.svg',
-                    'title': 'Approved',
-                  },
-                );
-              },
+            return SizedBox(
+              height: 300,
+              child: NewAppointmentsCardWidget(
+                color: const Color(0xff50DD81),
+                title: 'Approved',
+                isShowRate: true,
+                statusIcon: 'assets/icons/done_icon.svg',
+                image: 'assets/images/doctor_image.jpg',
+                margin: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
+                raiteOnTap: () {},
+                onTap: () {
+                  context.pushNamed(
+                    AutiLabRoutes.detailAppointmentScreen,
+                    extra: {
+                      'statusColor': const Color(0xff50DD81),
+                      'statusIcon': 'assets/icons/done_icon.svg',
+                      'title': 'Approved',
+                      'image': 'assets/images/doctor_image.jpg',
+                    },
+                  );
+                },
+              ),
             );
           },
         ),

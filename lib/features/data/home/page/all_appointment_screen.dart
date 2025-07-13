@@ -116,6 +116,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         image: 'assets/images/doctor2.jpg',
                         statusIcon: 'assets/icons/done_icon.svg',
                         margin: const EdgeInsets.symmetric(vertical: 16),
+                        raiteOnTap: () {},
                         onTap: () {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,
@@ -143,6 +144,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         image: 'assets/images/doctor_image.jpg',
                         statusIcon: 'assets/icons/close_icon.svg',
                         margin: const EdgeInsets.symmetric(vertical: 16),
+                        raiteOnTap: () {},
                         onTap: () {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,
@@ -170,6 +172,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         image: 'assets/images/doctor3.png',
                         statusIcon: 'assets/icons/minimize_icon.svg',
                         margin: const EdgeInsets.symmetric(vertical: 16),
+                        raiteOnTap: () {},
                         onTap: () {
                           context.pushNamed(
                             AutiLabRoutes.detailAppointmentScreen,

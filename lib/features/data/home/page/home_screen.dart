@@ -129,6 +129,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           statusIcon: statusList[index].statusIcon,
                           image: 'assets/images/doctor_image.jpg',
                           margin: EdgeInsets.zero,
+                          raiteOnTap: () {},
                           onTap: () {
                             context.pushNamed(
                               AutiLabRoutes.detailAppointmentScreen,

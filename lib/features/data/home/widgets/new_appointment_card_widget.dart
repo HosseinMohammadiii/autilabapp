@@ -1,4 +1,6 @@
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
@@ -10,14 +12,18 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   const NewAppointmentsCardWidget({
     super.key,
     required this.color,
+    this.isShowRate = false,
     required this.title,
     required this.statusIcon,
     required this.margin,
     required this.onTap,
+    required this.raiteOnTap,
     required this.image,
   });
   final Function() onTap;
+  final Function() raiteOnTap;
   final String image;
+  final bool isShowRate;
   final Color color;
   final String title;
   final String statusIcon;
@@ -26,6 +32,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 260,
       padding: const EdgeInsets.all(16),
       margin: margin,
       decoration: BoxDecoration(
@@ -36,23 +43,52 @@ class NewAppointmentsCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Row(
-              spacing: 4,
-              children: [
-                StatusShapeWidget(color: color, statusIcon: statusIcon),
-                const Text(
-                  'Status :',
-                  style: AutilabTextStyle.medium14_500,
-                ),
-                Text(
-                  title,
-                  style: AutilabTextStyle.medium14_500,
+          Row(
+            spacing: 4,
+            children: [
+              StatusShapeWidget(color: color, statusIcon: statusIcon),
+              const Text(
+                'Status :',
+                style: AutilabTextStyle.medium14_500,
+              ),
+              Text(
+                title,
+                style: AutilabTextStyle.medium14_500,
+              ),
+              if (isShowRate) ...[
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    context.pushNamed(AutiLabRoutes.ratingScreen);
+                  },
+                  child: Container(
+                    height: 24,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AutilabColor.bb,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 4,
+                      children: [
+                        Icon(
+                          Icons.star_rounded,
+                          color: Color(0xffEDC757),
+                          size: 16,
+                        ),
+                        Text(
+                          'Rate Now',
+                          style: AutilabTextStyle.small12_400,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
-            ),
+            ],
           ),
           const SizedBox(
             height: 12,
