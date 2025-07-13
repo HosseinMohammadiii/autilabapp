@@ -28,9 +28,9 @@ class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
-  final userNameController = TextEditingController(text: 'test');
-  final passwordController = TextEditingController(text: 'test1234');
-  final emailController = TextEditingController(text: 'test@test.com');
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
 
   final userNameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();

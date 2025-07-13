@@ -53,7 +53,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/homeScreen',
+    initialLocation: '/subscribtionScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -230,7 +230,7 @@ class AutilabRouter {
             final Map<String, dynamic> extraData =
                 state.extra as Map<String, dynamic>;
             return MakeAppointmentScreen(
-              isLike: extraData['isLike'] ?? false,
+              isLike: extraData['isLike'],
             );
           }),
       GoRoute(

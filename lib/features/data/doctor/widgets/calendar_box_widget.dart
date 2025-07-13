@@ -9,10 +9,12 @@ class CalendarGrid extends StatefulWidget {
     super.key,
     required this.onTap,
     this.isSelect = true,
+    required this.date,
   });
 
   final Function(DateTime? day) onTap;
   final bool? isSelect;
+  final int date;
 
   @override
   State<CalendarGrid> createState() => _CalendarGridState();
@@ -56,6 +58,13 @@ class _CalendarGridState extends State<CalendarGrid> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    generateMonthDays(DateTime.now().year, widget.date);
+    getNumberOfWeeks(DateTime.now().year, widget.date);
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<int> notAvailableDay = [
       1,
@@ -79,16 +88,10 @@ class _CalendarGridState extends State<CalendarGrid> {
       4,
     ];
     DateTime now = DateTime.now();
-    int weeks = getNumberOfWeeks(now.year, 6);
-    List<DateTime?> days = generateMonthDays(now.year, 6);
-
-    // Calculate container height dynamically based on the number of weeks
-    double rowHeight = 40;
-    double spacing = 5;
-    double containerHeight = (weeks * (rowHeight + spacing)) + 70;
+    List<DateTime?> days = generateMonthDays(now.year, widget.date);
 
     return Container(
-      height: containerHeight,
+      // height: containerHeight,
       padding: const EdgeInsets.all(16),
       margin: AutilabMargin.marginFullScreen,
       decoration: BoxDecoration(
@@ -108,13 +111,13 @@ class _CalendarGridState extends State<CalendarGrid> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              "Sun",
               "Mon",
               "Tue",
               "Wed",
               "Thu",
               "Fri",
               "Sat",
-              "Sun",
             ]
                 .map(
                   (day) => Expanded(
@@ -135,11 +138,11 @@ class _CalendarGridState extends State<CalendarGrid> {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
-              mainAxisExtent: rowHeight,
-              mainAxisSpacing: spacing,
-              crossAxisSpacing: spacing,
+              mainAxisExtent: 40,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
             ),
             itemCount: days.length,
             itemBuilder: (context, index) {
