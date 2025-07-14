@@ -17,6 +17,7 @@ import 'package:autilab_project/features/data/home/page/home_screen.dart';
 import 'package:autilab_project/features/data/home/page/my_favorite_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/mydoctor_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/successful_submit_rate_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/testdescription.dart';
 import 'package:autilab_project/features/data/message/page/message_screen.dart';
 import 'package:autilab_project/features/data/notification/page/notification_screen.dart';
@@ -170,7 +171,7 @@ class AutilabRouter {
             return DetailAppointmentScreen(
               statusColor: extraData['statusColor'],
               statusIcon: extraData['statusIcon'],
-              image: extraData['image'] ?? '',
+              image: extraData['image'],
               title: extraData['title'],
             );
           }),
@@ -389,6 +390,11 @@ class AutilabRouter {
             path: 'ratingScreen',
             name: AutiLabRoutes.ratingScreen,
             builder: (context, state) => const RatingScreen(),
+          ),
+          GoRoute(
+            path: 'successfulSubmitRateScreen',
+            name: AutiLabRoutes.successfulSubmitRateScreen,
+            builder: (context, state) => const SuccessfulSubmitRateScreen(),
           ),
         ],
       ),

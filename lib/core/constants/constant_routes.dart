@@ -27,6 +27,7 @@ class AutiLabRoutes {
   static const String myFavoriteScreen = '/myFavoriteScreen';
   static const String myDoctorScreen = '/myDoctorScreen';
   static const String ratingScreen = 'ratingScreen';
+  static const String successfulSubmitRateScreen = 'successfulSubmitRateScreen';
   static const String articleItemScreen = '/articleItemScreen';
   static const String mainContentScreen = 'mainContentScreen';
   static const String doctorScreen = '/doctorScreen';
