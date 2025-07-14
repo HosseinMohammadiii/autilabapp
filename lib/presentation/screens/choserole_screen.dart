@@ -62,40 +62,40 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ChoseRoleWidget(
-                      stackAlignment: Alignment.centerRight,
-                      textAlignment: Alignment.centerLeft,
-                      image: 'occupational_role.svg',
-                      title1: 'Occupational\nTherapist',
-                      margin: const EdgeInsets.only(right: 35),
-                      padding: const EdgeInsets.only(left: 24),
-                      checkBox: CustomCheckbox(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(8)),
-                        title:
-                            'Provider Of Specialized Treatment And Education Services',
-                        index: 1,
-                        selectedIndexNotifier: selectedIndexNotifier,
-                        textStyle: AutilabTextStyle.small16_400,
-                      ),
-                    ),
-                    ChoseRoleWidget(
-                      stackAlignment: Alignment.centerLeft,
-                      textAlignment: Alignment.centerRight,
-                      image: 'client_role.svg',
-                      title1: 'Occupational\nTherapy\nClient',
-                      margin: const EdgeInsets.only(left: 35),
-                      padding: const EdgeInsets.only(right: 24),
-                      checkBox: CustomCheckbox(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(8)),
-                        title:
-                            'User Of Medical Staff Services And Specialist Training',
-                        index: 2,
-                        selectedIndexNotifier: selectedIndexNotifier,
-                        textStyle: AutilabTextStyle.small16_400,
-                      ),
-                    ),
+                    // ChoseRoleWidget(
+                    //   stackAlignment: Alignment.centerRight,
+                    //   textAlignment: Alignment.centerLeft,
+                    //   image: 'occupational_role.svg',
+                    //   title1: 'Occupational\nTherapist',
+                    //   margin: const EdgeInsets.only(right: 35),
+                    //   padding: const EdgeInsets.only(left: 24),
+                    //   checkBox: CustomCheckbox(
+                    //     shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadiusGeometry.circular(8)),
+                    //     title:
+                    //         'Provider Of Specialized Treatment And Education Services',
+                    //     index: 1,
+                    //     selectedIndexNotifier: selectedIndexNotifier,
+                    //     textStyle: AutilabTextStyle.small16_400,
+                    //   ),
+                    // ),
+                    // ChoseRoleWidget(
+                    //   stackAlignment: Alignment.centerLeft,
+                    //   textAlignment: Alignment.centerRight,
+                    //   image: 'client_role.svg',
+                    //   title1: 'Occupational\nTherapy\nClient',
+                    //   margin: const EdgeInsets.only(left: 35),
+                    //   padding: const EdgeInsets.only(right: 24),
+                    //   checkBox: CustomCheckbox(
+                    //     shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadiusGeometry.circular(8)),
+                    //     title:
+                    //         'User Of Medical Staff Services And Specialist Training',
+                    //     index: 2,
+                    //     selectedIndexNotifier: selectedIndexNotifier,
+                    //     textStyle: AutilabTextStyle.small16_400,
+                    //   ),
+                    // ),
                     CustomButtonWidget(
                       onTap: () {
                         if (selectedIndexNotifier.value != null) {

@@ -6,7 +6,8 @@ import '../../../../core/constants/color_constant.dart';
 class CustomCheckbox extends StatelessWidget {
   final String title;
   final int index;
-  final ValueNotifier<int?> selectedIndexNotifier;
+  final ValueNotifier<bool?> selectedIndexNotifier;
+  final Function(bool? value) onChanged;
   final TextStyle? textStyle;
   final OutlinedBorder? shape;
 
@@ -14,6 +15,7 @@ class CustomCheckbox extends StatelessWidget {
     super.key,
     required this.title,
     required this.index,
+    required this.onChanged,
     required this.selectedIndexNotifier,
     this.textStyle,
     this.shape,
@@ -21,10 +23,9 @@ class CustomCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<int?>(
+    return ValueListenableBuilder<bool?>(
       valueListenable: selectedIndexNotifier,
       builder: (context, selectedIndex, child) {
-        selectedIndex ??= 1;
         return Row(
           children: [
             SizedBox(
@@ -36,11 +37,9 @@ class CustomCheckbox extends StatelessWidget {
                 side: const BorderSide(width: 0.5),
                 splashRadius: 0,
                 shape: shape,
-                value: selectedIndex == index,
+                value: selectedIndexNotifier.value ?? false,
                 onChanged: (value) {
-                  if (value == true) {
-                    selectedIndexNotifier.value = index;
-                  }
+                  onChanged(value);
                 },
               ),
             ),

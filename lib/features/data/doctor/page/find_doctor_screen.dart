@@ -247,7 +247,12 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
   Widget _buildDialogSortIcon(
     BuildContext context,
   ) {
-    final ValueNotifier<int?> selectedIndexNotifier = ValueNotifier<int?>(null);
+    final ValueNotifier<bool?> selectedGenderMaleNotifier =
+        ValueNotifier<bool?>(true);
+    final ValueNotifier<bool?> selectedGenderFemaleNotifier =
+        ValueNotifier<bool?>(false);
+    final ValueNotifier<bool?> selectedIndexNotifier =
+        ValueNotifier<bool?>(false);
     final ValueNotifier<int?> selectedIndexSpecialty =
         ValueNotifier<int?>(null);
     final ValueNotifier<double?> selectedIndexrating =
@@ -282,6 +287,8 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                     selectedIndexSpecialty.value = null;
                     selectedIndexNotifier.value = null;
                     selectedIndexrating.value = null;
+                    selectedGenderMaleNotifier.value = false;
+                    selectedGenderFemaleNotifier.value = false;
                   },
                   child: const Text(
                     'Rest Filter',
@@ -353,12 +360,30 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             CustomCheckbox(
               title: 'Male',
               index: 1,
-              selectedIndexNotifier: selectedIndexNotifier,
+              selectedIndexNotifier: selectedGenderMaleNotifier,
+              onChanged: (value) {
+                setState(() {
+                  if (value != null) {
+                    selectedGenderMaleNotifier.value =
+                        !selectedGenderMaleNotifier.value!;
+                    // value = selectedGenderMaleNotifier.value!;
+                  }
+                });
+              },
             ),
             CustomCheckbox(
               title: 'Female',
               index: 2,
-              selectedIndexNotifier: selectedIndexNotifier,
+              selectedIndexNotifier: selectedGenderFemaleNotifier,
+              onChanged: (value) {
+                setState(() {
+                  if (value != null) {
+                    selectedGenderFemaleNotifier.value =
+                        !selectedGenderFemaleNotifier.value!;
+                    value = selectedGenderFemaleNotifier.value!;
+                  }
+                });
+              },
             ),
             const Divider(
               thickness: 1,

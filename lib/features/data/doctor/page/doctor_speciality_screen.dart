@@ -130,7 +130,10 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
   Widget _buildDialogSortIcon(
     BuildContext context,
   ) {
-    final ValueNotifier<int?> selectedIndexNotifier = ValueNotifier<int?>(null);
+    final ValueNotifier<bool> selectedGenderMaleNotifier =
+        ValueNotifier<bool>(true);
+    final ValueNotifier<bool> selectedGenderFemaleNotifier =
+        ValueNotifier<bool>(false);
     final ValueNotifier<int?> selectedIndexSpecialty =
         ValueNotifier<int?>(null);
     final ValueNotifier<double?> selectedIndexrating =
@@ -164,7 +167,8 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                   GestureDetector(
                     onTap: () {
                       selectedIndexSpecialty.value = null;
-                      selectedIndexNotifier.value = null;
+                      selectedGenderMaleNotifier.value = false;
+                      selectedGenderFemaleNotifier.value = false;
                       selectedIndexrating.value = null;
                     },
                     child: const Text(
@@ -194,12 +198,26 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               CustomCheckbox(
                 title: 'Male',
                 index: 1,
-                selectedIndexNotifier: selectedIndexNotifier,
+                selectedIndexNotifier: selectedGenderMaleNotifier,
+                onChanged: (value) {
+                  setState(() {
+                    selectedGenderMaleNotifier.value =
+                        !selectedGenderMaleNotifier.value;
+                    value = selectedGenderMaleNotifier.value;
+                  });
+                },
               ),
               CustomCheckbox(
                 title: 'Female',
                 index: 2,
-                selectedIndexNotifier: selectedIndexNotifier,
+                selectedIndexNotifier: selectedGenderFemaleNotifier,
+                onChanged: (value) {
+                  setState(() {
+                    selectedGenderFemaleNotifier.value =
+                        !selectedGenderFemaleNotifier.value;
+                    value = selectedGenderFemaleNotifier.value;
+                  });
+                },
               ),
               const Divider(
                 thickness: 1,
