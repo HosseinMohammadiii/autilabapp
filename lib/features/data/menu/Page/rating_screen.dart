@@ -347,10 +347,12 @@ class RadioButtonWidget extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.title,
+    this.textStyle,
   });
 
   final RadioCharacter radioCharacter;
   final RadioCharacter value;
+  final TextStyle? textStyle;
   final Function(RadioCharacter? value) onChanged;
   final String title;
   @override
@@ -372,9 +374,11 @@ class RadioButtonWidget extends StatelessWidget {
             },
           ),
         ),
-        Text(
-          title,
-          style: AutilabTextStyle.small14_400,
+        Expanded(
+          child: Text(
+            title,
+            style: textStyle ?? AutilabTextStyle.small14_400,
+          ),
         ),
       ],
     );

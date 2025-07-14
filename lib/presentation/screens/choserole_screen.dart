@@ -3,7 +3,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
-import 'package:autilab_project/features/data/doctor/widgets/custom_checkbox_widget.dart';
+import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +20,7 @@ class ChoseRoleScreen extends StatefulWidget {
 class _ChoseRoleScreenState extends State<ChoseRoleScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+  RadioCharacter? character;
 
   bool isDoctorRole = false;
   bool isClientRole = false;
@@ -30,7 +31,7 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
-
+    character = RadioCharacter.secondeCharacter;
     animationHelper.animationController.forward();
   }
 
@@ -62,40 +63,50 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // ChoseRoleWidget(
-                    //   stackAlignment: Alignment.centerRight,
-                    //   textAlignment: Alignment.centerLeft,
-                    //   image: 'occupational_role.svg',
-                    //   title1: 'Occupational\nTherapist',
-                    //   margin: const EdgeInsets.only(right: 35),
-                    //   padding: const EdgeInsets.only(left: 24),
-                    //   checkBox: CustomCheckbox(
-                    //     shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadiusGeometry.circular(8)),
-                    //     title:
-                    //         'Provider Of Specialized Treatment And Education Services',
-                    //     index: 1,
-                    //     selectedIndexNotifier: selectedIndexNotifier,
-                    //     textStyle: AutilabTextStyle.small16_400,
-                    //   ),
-                    // ),
-                    // ChoseRoleWidget(
-                    //   stackAlignment: Alignment.centerLeft,
-                    //   textAlignment: Alignment.centerRight,
-                    //   image: 'client_role.svg',
-                    //   title1: 'Occupational\nTherapy\nClient',
-                    //   margin: const EdgeInsets.only(left: 35),
-                    //   padding: const EdgeInsets.only(right: 24),
-                    //   checkBox: CustomCheckbox(
-                    //     shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadiusGeometry.circular(8)),
-                    //     title:
-                    //         'User Of Medical Staff Services And Specialist Training',
-                    //     index: 2,
-                    //     selectedIndexNotifier: selectedIndexNotifier,
-                    //     textStyle: AutilabTextStyle.small16_400,
-                    //   ),
-                    // ),
+                    Expanded(
+                      child: ChoseRoleWidget(
+                        stackAlignment: Alignment.centerRight,
+                        textAlignment: Alignment.centerLeft,
+                        image: 'occupational_role.svg',
+                        title1: 'Occupational\nTherapist',
+                        margin: const EdgeInsets.only(right: 35),
+                        padding: const EdgeInsets.only(left: 24),
+                        checkBox: RadioButtonWidget(
+                          radioCharacter: character!,
+                          value: RadioCharacter.characterOne,
+                          onChanged: (value) {
+                            setState(() {
+                              character = value;
+                            });
+                          },
+                          title:
+                              'Provider Of Specialized Treatment And Education Services',
+                          textStyle: AutilabTextStyle.small16_400,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ChoseRoleWidget(
+                        stackAlignment: Alignment.centerLeft,
+                        textAlignment: Alignment.centerRight,
+                        image: 'client_role.svg',
+                        title1: 'Occupational\nTherapy\nClient',
+                        margin: const EdgeInsets.only(left: 35),
+                        padding: const EdgeInsets.only(right: 24),
+                        checkBox: RadioButtonWidget(
+                          radioCharacter: character!,
+                          value: RadioCharacter.secondeCharacter,
+                          onChanged: (value) {
+                            setState(() {
+                              character = value;
+                            });
+                          },
+                          title:
+                              'User Of Medical Staff Services And Specialist Training',
+                          textStyle: AutilabTextStyle.small16_400,
+                        ),
+                      ),
+                    ),
                     CustomButtonWidget(
                       onTap: () {
                         if (selectedIndexNotifier.value != null) {
