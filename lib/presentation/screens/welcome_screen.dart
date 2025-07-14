@@ -77,7 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                        'Big support. Bright smiles. Welcome to AutiLab!',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               fontSize: 16,
