@@ -184,6 +184,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                                             newArticleList[index].description,
                                         'articleTitle':
                                             newArticleList[index].title,
+                                        'isLike': true,
                                       });
                                 },
                               ),

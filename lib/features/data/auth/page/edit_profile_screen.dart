@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
@@ -11,7 +10,6 @@ import 'package:autilab_project/utils/functions/permissioncotrol.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -51,12 +49,12 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final bool isImage = true;
   bool isSelectedDate = false;
 
-  ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
+  ValueNotifier<DateTime?> _selectedDate = ValueNotifier(DateTime.now());
 
   final String dateOfBirth = '';
 
-  final List<String> genderOptions = ['Male', 'Female', 'Others'];
-  String? selectedGender;
+  final List<String> genderOptions = ['Male', 'Female'];
+  String selectedGender = 'Male';
   bool isDropdownOpen = false;
   @override
   void initState() {
@@ -86,73 +84,39 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     // Show modal bottom sheet to choose image source
     showModalBottomSheet(
       context: context,
-      builder: (context) => Wrap(
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.photo_library),
-            title: const Text(
-              'Gallery',
-              style: AutilabTextStyle.medium16_500,
-            ),
-            onTap: () async {
-              try {
-                // Handle gallery image picking with permission
-                if (await isPermissionStorageGranted()) {
-                  // If permission already granted, pick image from gallery
-                  pickedFile =
-                      await imagePicker.pickImage(source: ImageSource.gallery);
-                  if (pickedFile?.path == null) {
-                    Navigator.pop(context);
-                    return;
-                  } else {
-                    pickedFile = XFile(pickedFile!.path);
-                    Navigator.pop(context);
-                    setState(() {});
-                  }
-                } else {
-                  Navigator.pop(context);
-                  // Permission denied: Show error message
-                  displaySnackBar(
-                    context,
-                    'Memory access permission denied.',
-                    AutilabColor.bb,
-                  );
-                  return;
-                }
-              } catch (e) {
-                Navigator.pop(context);
-
-                // Catch any unexpected errors and show message
-                displaySnackBar(
-                  context,
-                  'Error while saving: $e',
-                  AutilabColor.bb,
-                );
-                return;
-              }
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.photo_camera),
-            title: const Text(
-              'Camera',
-              style: AutilabTextStyle.medium16_500,
-            ),
-            onTap: () async {
-              // Handle camera image picking with permission
-              if (await isPermissionCameraGranted()) {
-                // If permission already granted, pick image from camera
-                pickedFile =
-                    await imagePicker.pickImage(source: ImageSource.camera);
-
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text(
+                'Gallery',
+                style: AutilabTextStyle.medium16_500,
+              ),
+              onTap: () async {
                 try {
-                  if (pickedFile?.path == null) {
-                    Navigator.pop(context);
-                    return;
+                  // Handle gallery image picking with permission
+                  if (await isPermissionStorageGranted()) {
+                    // If permission already granted, pick image from gallery
+                    pickedFile = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    if (pickedFile?.path == null) {
+                      Navigator.pop(context);
+                      return;
+                    } else {
+                      pickedFile = XFile(pickedFile!.path);
+                      Navigator.pop(context);
+                      setState(() {});
+                    }
                   } else {
-                    pickedFile = XFile(pickedFile!.path);
                     Navigator.pop(context);
-                    setState(() {});
+                    // Permission denied: Show error message
+                    displaySnackBar(
+                      context,
+                      'Memory access permission denied.',
+                      AutilabColor.bb,
+                    );
+                    return;
                   }
                 } catch (e) {
                   Navigator.pop(context);
@@ -165,20 +129,56 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   );
                   return;
                 }
-              } else {
-                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_camera),
+              title: const Text(
+                'Camera',
+                style: AutilabTextStyle.medium16_500,
+              ),
+              onTap: () async {
+                // Handle camera image picking with permission
+                if (await isPermissionCameraGranted()) {
+                  // If permission already granted, pick image from camera
+                  pickedFile =
+                      await imagePicker.pickImage(source: ImageSource.camera);
 
-                // Permission denied: Show error message
-                displaySnackBar(
-                  context,
-                  'Camera access permission denied.',
-                  AutilabColor.bb,
-                );
-                return;
-              }
-            },
-          ),
-        ],
+                  try {
+                    if (pickedFile?.path == null) {
+                      Navigator.pop(context);
+                      return;
+                    } else {
+                      pickedFile = XFile(pickedFile!.path);
+                      Navigator.pop(context);
+                      setState(() {});
+                    }
+                  } catch (e) {
+                    Navigator.pop(context);
+
+                    // Catch any unexpected errors and show message
+                    displaySnackBar(
+                      context,
+                      'Error while saving: $e',
+                      AutilabColor.bb,
+                    );
+                    return;
+                  }
+                } else {
+                  Navigator.pop(context);
+
+                  // Permission denied: Show error message
+                  displaySnackBar(
+                    context,
+                    'Camera access permission denied.',
+                    AutilabColor.bb,
+                  );
+                  return;
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -193,13 +193,23 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
   Future<void> openMap(double latitude, double longitude) async {
-    final Uri googleMapsUrl = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
+    if (await isPermissionLocationGranted()) {
+      final Uri googleMapsUrl = Uri.parse(
+          'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
 
-    if (await canLaunchUrl(googleMapsUrl)) {
-      await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
+      if (await canLaunchUrl(googleMapsUrl)) {
+        await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
+      } else {
+        throw 'Could not open the map.';
+      }
     } else {
-      throw 'Could not open the map.';
+      // Permission denied: Show error message
+      displaySnackBar(
+        context,
+        'Location access permission denied.',
+        AutilabColor.bb,
+      );
+      return;
     }
   }
 
@@ -208,16 +218,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     return FadeTransition(
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
-        appBar:
-            appBarWidget(context: context, title: 'Edit Profile', isIcon: true),
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 40,
-                ),
-              ),
               SliverToBoxAdapter(
                 child: Column(
                   children: [
@@ -326,15 +329,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
               _boxSelectDateAndGender(
                 context: context,
-                widget: ValueListenableBuilder<DateTime>(
+                widget: ValueListenableBuilder<DateTime?>(
                   valueListenable: _selectedDate,
                   builder: (context, value, child) {
                     return Text(
-                      !isSelectedDate
+                      _selectedDate.value == null
                           ? 'What is your date of birth?'
-                          : DateFormat.yMd().format(value),
+                          : DateFormat.yMd().format(value ?? DateTime.now()),
                       style: AutilabTextStyle.small14_400.copyWith(
-                        color: isSelectedDate
+                        color: _selectedDate.value != null
                             ? AutilabColor.black
                             : AutilabColor.gray,
                       ),
@@ -349,7 +352,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     context,
                     StatefulBuilder(
                       builder: (context, setState) {
-                        return ValueListenableBuilder<DateTime>(
+                        return ValueListenableBuilder<DateTime?>(
                           valueListenable: _selectedDate,
                           builder: (context, value, _) {
                             return Column(
@@ -391,11 +394,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               _boxSelectDateAndGender(
                 context: context,
                 widget: Text(
-                  selectedGender ?? 'Select your gender',
+                  selectedGender,
                   style: AutilabTextStyle.small14_400.copyWith(
-                    color: selectedGender != null
-                        ? AutilabColor.black
-                        : AutilabColor.gray,
+                    color: AutilabColor.black,
                   ),
                 ),
                 icon: isDropdownOpen
@@ -520,9 +521,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
               SliverToBoxAdapter(
                 child: CustomButtonWidget(
-                  onTap: () {
-                    context.pop();
-                  },
+                  onTap: () {},
                   height: 50,
                   width: double.infinity,
                   color: AutilabColor.bb,

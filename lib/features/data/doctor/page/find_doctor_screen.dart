@@ -262,11 +262,11 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
     return FittedBox(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 570),
+        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 680),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               spacing: 4,
@@ -323,7 +323,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 8,
-                  mainAxisExtent: 37,
+                  mainAxisExtent: 52,
                 ),
                 itemCount: 6,
                 itemBuilder: (context, index) {
@@ -368,7 +368,6 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   if (value != null) {
                     selectedGenderMaleNotifier.value =
                         !selectedGenderMaleNotifier.value!;
-                    // value = selectedGenderMaleNotifier.value!;
                   }
                 });
               },
@@ -423,6 +422,16 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   selectedIndexrating.value = value;
                 },
               ),
+            ),
+            CustomButtonWidget(
+              onTap: () {
+                context.pop();
+              },
+              height: 50,
+              margin: const EdgeInsets.only(top: 24),
+              color: AutilabColor.bb,
+              text: 'Search',
+              textStyle: AutilabTextStyle.small18_400,
             ),
           ],
         ),

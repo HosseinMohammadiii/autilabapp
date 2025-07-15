@@ -4,7 +4,7 @@ import 'package:autilab_project/features/data/auth/page/edit_profile_screen.dart
 import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
 import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
 import 'package:autilab_project/features/data/auth/page/signup_screen.dart';
-import 'package:autilab_project/features/data/community/page/community_screen.dart';
+// import 'package:autilab_project/features/data/community/page/community_screen.dart';
 import 'package:autilab_project/features/data/community/page/doctor_socialmedia_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/doctor_speciality_screen.dart';
@@ -55,7 +55,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/homeScreen',
+    initialLocation: '/',
     routes: [
       GoRoute(
         path: '/',
@@ -94,9 +94,9 @@ class AutilabRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/communityScreen',
-                name: AutiLabRoutes.communityScreen,
-                builder: (context, state) => const CommunityScreen(),
+                path: '/profileScreen',
+                name: AutiLabRoutes.profileScreen,
+                builder: (context, state) => const EditProfileScreen(),
               ),
             ],
           ),
@@ -132,6 +132,7 @@ class AutilabRouter {
                 articleTitle: extraData['articleTitle'],
                 articleDescription: extraData['articleDescription'],
                 articleText: extraData['articleText'],
+                isLike: extraData['isLike'],
               );
             },
           ),

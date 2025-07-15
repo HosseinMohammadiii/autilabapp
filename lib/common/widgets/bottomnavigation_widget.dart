@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/data/doctor/widgets/drawer_box_widget.dart';
 import 'cached_network_image_widget.dart';
-import 'custom_button_widget.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -108,7 +107,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       '/homeScreen',
       '/doctorScreen',
       '/toolsScreen',
-      '/communityScreen',
+      '/profileScreen',
     ];
     if (locationList.contains(GoRouterState.of(context).uri.path)) {
       return true;
@@ -176,7 +175,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.pushNamed(AutiLabRoutes.editProfileScreen);
+                          context.goNamed(AutiLabRoutes.profileScreen);
                         },
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
@@ -240,8 +239,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                 _bottomnavigationItem(
                   index: 3,
                   selctItems: widget.navigationShell.currentIndex,
-                  lable: 'Community',
-                  icon: 'assets/icons/global_buttomnavigation.svg',
+                  lable: 'Profile',
+                  icon: 'assets/icons/profile_buttomnavigation.svg',
                   context: context,
                 ),
               ],
@@ -267,78 +266,78 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   const SizedBox(
                     height: 32,
                   ),
-                  Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      FittedBox(
-                        child: Container(
-                          height: 124,
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, top: 36, bottom: 8),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 25),
-                          decoration: BoxDecoration(
-                            color: AutilabColor.drawerWhite,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            spacing: 22,
-                            children: [
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    'Denis Iliev',
-                                    style: AutilabTextStyle.medium16_500,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    'denis@gmail.com',
-                                    style: AutilabTextStyle.small14_400,
-                                  ),
-                                ],
-                              ),
-                              CustomButtonWidget(
-                                onTap: () {
-                                  context.pop();
-                                  context.pushNamed(
-                                      AutiLabRoutes.editProfileScreen);
-                                },
-                                width: 100,
-                                height: 32,
-                                borderRadius: 12,
-                                margin: const EdgeInsets.all(0),
-                                color: AutilabColor.blue,
-                                text: 'Edit Profile',
-                                textStyle:
-                                    AutilabTextStyle.small12_400.copyWith(
-                                  color: AutilabColor.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: CachednetworkimageWidget(
-                          imgUrl: '',
-                          img: Image.asset(
-                            'assets/images/child2_image.jpg',
-                            fit: BoxFit.cover,
-                            width: 72,
-                            height: 72,
-                          ),
-                          isNetworkImage: false,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Stack(
+                  //   alignment: Alignment.topCenter,
+                  //   children: [
+                  // FittedBox(
+                  //   child: Container(
+                  //     height: 124,
+                  //     margin: const EdgeInsets.only(
+                  //         left: 20, right: 20, top: 36, bottom: 8),
+                  //     padding: const EdgeInsets.symmetric(
+                  //         horizontal: 16, vertical: 25),
+                  //     decoration: BoxDecoration(
+                  //       color: AutilabColor.drawerWhite,
+                  //       borderRadius: BorderRadius.circular(16),
+                  //     ),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       crossAxisAlignment: CrossAxisAlignment.end,
+                  //       spacing: 22,
+                  //       children: [
+                  //         const Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           mainAxisAlignment: MainAxisAlignment.end,
+                  //           children: [
+                  //             Text(
+                  //               'Denis Iliev',
+                  //               style: AutilabTextStyle.medium16_500,
+                  //             ),
+                  //             SizedBox(
+                  //               height: 4,
+                  //             ),
+                  //             Text(
+                  //               'denis@gmail.com',
+                  //               style: AutilabTextStyle.small14_400,
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         CustomButtonWidget(
+                  //           onTap: () {
+                  //             context.pop();
+                  //             context.pushNamed(
+                  //                 AutiLabRoutes.editProfileScreen);
+                  //           },
+                  //           width: 100,
+                  //           height: 32,
+                  //           borderRadius: 12,
+                  //           margin: const EdgeInsets.all(0),
+                  //           color: AutilabColor.blue,
+                  //           text: 'Edit Profile',
+                  //           textStyle:
+                  //               AutilabTextStyle.small12_400.copyWith(
+                  //             color: AutilabColor.white,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  //     ClipRRect(
+                  //       borderRadius: BorderRadius.circular(100),
+                  //       child: CachednetworkimageWidget(
+                  //         imgUrl: '',
+                  //         img: Image.asset(
+                  //           'assets/images/child2_image.jpg',
+                  //           fit: BoxFit.cover,
+                  //           width: 72,
+                  //           height: 72,
+                  //         ),
+                  //         isNetworkImage: false,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   DrawerBoxWidget(
                     drawerItem: firstDrawerItemList,
                     onTap: (index) {

@@ -44,7 +44,8 @@ class AutiLabRoutes {
   static const String toolsScreen = '/toolsScreen';
   static const String typeTestsScreen = '/typeTestsScreen';
   static const String whiteBoardScreen = '/whiteBoardScreen';
-  static const String communityScreen = '/communityScreen';
+  // static const String communityScreen = '/communityScreen';
+  static const String profileScreen = '/profileScreen';
   static const String aptitudeTestScreen = '/aptitudeTestScreen';
   static const String quizMultiSelectScreen = 'quizMultiSelectScreen';
 }

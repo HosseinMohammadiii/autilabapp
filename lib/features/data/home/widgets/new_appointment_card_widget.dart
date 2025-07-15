@@ -122,17 +122,12 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Dr. Sophia Martinez',
-                            style: AutilabTextStyle.medium18_500,
-                          ),
+                        const Text(
+                          'Dr. Sophia Martinez',
+                          overflow: TextOverflow.ellipsis,
+                          style: AutilabTextStyle.medium18_500,
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
+                        Expanded(
                           child: Row(
                             children: [
                               Text(

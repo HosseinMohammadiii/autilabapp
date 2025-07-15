@@ -7,18 +7,21 @@ import 'package:flutter/services.dart';
 
 import '../../../../utils/functions/animation_control.dart';
 
+// ignore: must_be_immutable
 class MainContentScreen extends StatefulWidget {
-  const MainContentScreen({
+  MainContentScreen({
     super.key,
     required this.articleImage,
     required this.articleText,
     required this.articleTitle,
     required this.articleDescription,
+    required this.isLike,
   });
   final String articleImage;
   final String articleText;
   final String articleTitle;
   final String articleDescription;
+  bool? isLike;
 
   @override
   State<MainContentScreen> createState() => _MainContentScreenState();
@@ -172,9 +175,11 @@ class _MainContentScreenState extends State<MainContentScreen>
                       children: [
                         LikeWidget(
                           borderColor: Colors.transparent,
+                          isLike: widget.isLike ?? false,
                           onTap: () {
                             setState(() {
                               isLike = !isLike;
+                              widget.isLike = isLike;
                             });
                           },
                         ),

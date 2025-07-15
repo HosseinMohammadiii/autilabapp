@@ -37,7 +37,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
                 ),
                 const Text(
                   ' Tues 03 March ',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.medium14_500,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
@@ -67,7 +67,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
                 ),
                 const Text(
                   '13:30',
-                  style: AutilabTextStyle.small14_400,
+                  style: AutilabTextStyle.medium14_500,
                 ),
               ],
             ),
