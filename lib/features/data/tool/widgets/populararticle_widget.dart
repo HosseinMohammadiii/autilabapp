@@ -4,19 +4,22 @@ import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 import 'likewidget.dart';
 
+// ignore: must_be_immutable
 class PopularArticleWidget extends StatefulWidget {
-  const PopularArticleWidget({
+  PopularArticleWidget({
     super.key,
     required this.index,
     required this.image,
     required this.title,
     required this.description,
     required this.ontap,
+    this.isLike = false,
   });
   final int index;
   final String image;
   final String title;
   final String description;
+  bool? isLike;
   final Function() ontap;
 
   @override
@@ -88,9 +91,11 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
                       ),
                     ),
                     LikeWidget(
+                      isLike: isLike,
                       onTap: () {
                         setState(() {
                           isLike = !isLike;
+                          widget.isLike = isLike;
                         });
                       },
                     ),

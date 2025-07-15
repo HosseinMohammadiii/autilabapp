@@ -171,6 +171,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                           image: popularArticleList[index].image!,
                           title: popularArticleList[index].title,
                           description: popularArticleList[index].description,
+                          isLike: false,
                           ontap: () {
                             context.pushNamed(AutiLabRoutes.mainContentScreen,
                                 extra: {

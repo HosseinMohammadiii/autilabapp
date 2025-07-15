@@ -118,7 +118,6 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                     .pushNamed(AutiLabRoutes.nearbyCenterDetailScreen, extra: {
                   'isLike': widget.isLike,
                 });
-                print(widget.isLike);
               },
               height: 50,
               margin: const EdgeInsets.only(bottom: 8, top: 24),

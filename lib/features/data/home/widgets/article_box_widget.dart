@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 
+// ignore: must_be_immutable
 class ArticleBoxWidget extends StatefulWidget {
-  const ArticleBoxWidget({
+  ArticleBoxWidget({
     super.key,
     required this.image,
     required this.title,
@@ -17,7 +18,7 @@ class ArticleBoxWidget extends StatefulWidget {
   final String title;
   final String description;
   final Function() ontap;
-  final bool isLike;
+  bool isLike;
 
   @override
   State<ArticleBoxWidget> createState() => _ArticleBoxWidgetState();
@@ -120,6 +121,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                           onTap: () {
                             setState(() {
                               isLike = !isLike;
+                              widget.isLike = isLike;
                             });
                           },
                         ),
