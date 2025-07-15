@@ -265,7 +265,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
         constraints: const BoxConstraints(maxWidth: 320, maxHeight: 570),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
@@ -328,7 +328,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 itemCount: 6,
                 itemBuilder: (context, index) {
                   return CustomButtonWidget(
-                    margin: const EdgeInsets.all(0),
+                    margin: EdgeInsets.zero,
                     onTap: () {
                       selectedIndexSpecialty.value = index;
                     },

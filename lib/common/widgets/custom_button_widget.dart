@@ -42,8 +42,10 @@ class CustomButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? 16),
         ),
         child: FittedBox(
+          fit: BoxFit.scaleDown,
           child: Text(
             text,
+            textAlign: TextAlign.center,
             style: textStyle,
           ),
         ),
