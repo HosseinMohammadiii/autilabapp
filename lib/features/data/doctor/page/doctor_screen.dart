@@ -49,7 +49,7 @@ class _DoctorScreenState extends State<DoctorScreen>
             tabBar: [
               FittedBox(
                 child: Text(
-                  'Find Doctor',
+                  'Find Specialist',
                   style: AutilabTextStyle.small18_400,
                 ),
               ),

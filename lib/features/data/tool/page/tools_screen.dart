@@ -48,25 +48,25 @@ class _ToolsScreenState extends State<ToolsScreen>
   List<ToolsClass> toolsItems = [
     ToolsClass(
       'Article',
-      'Discover Our Insightful Article On Autism That Delves Into The Nuances Of The Spectrum',
+      'Discover our insightful articles on autism that delves into the nuances of the spectrum',
       'Reading Articles',
       'assets/images/article_image.svg',
     ),
     // ToolsClass(
     //   'Communication Environment',
-    //   'The Environment For Holding Educational And Therapeutic Sessions For Children',
+    //   'The environment for holding educational and therapeutic sessions for children',
     //   'Use Of The Environment',
     //   'assets/images/communication_image.svg',
     // ),
     ToolsClass(
       'Talent Identification Test',
-      "Aptitude Test To Identify Children's Talents And Improve Their Future",
+      "Aptitude test to identify children's talents and improve their future",
       'Do The Test',
       'assets/images/talent_image.svg',
     ),
     ToolsClass(
-      'Personality Test',
-      "Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment",
+      'Personality Screening Test',
+      "Discover deeper insights into your unique personality with our autism-focused assessment",
       'Do The Test',
       'assets/images/personality_image.svg',
     ),
@@ -104,7 +104,7 @@ class _ToolsScreenState extends State<ToolsScreen>
                                   'title': 'Aptitude Test',
                                   'subTitle': 'Talent Identification Test',
                                   'description':
-                                      'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                                      "Discover your child's hidden potentials and help them grow endlessly.",
                                   'onTap': () {
                                     context.pushNamed(
                                         AutiLabRoutes.quizMultiSelectScreen);
@@ -119,7 +119,7 @@ class _ToolsScreenState extends State<ToolsScreen>
                                   'title': 'Personality Test',
                                   'subTitle': 'Personality Test',
                                   'description':
-                                      'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                                      "Discover your child's personality and help them find the right path in life.",
                                   'onTap': () {
                                     context.pushNamed(
                                         AutiLabRoutes.quizMultiSelectScreen);

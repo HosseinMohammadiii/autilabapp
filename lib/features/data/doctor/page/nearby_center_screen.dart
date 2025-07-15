@@ -86,7 +86,7 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
                     height: 16,
                   ),
                   const Text(
-                    'Tap the map and select your location to see centers near you.',
+                    'Tap The Map And Select Your Location To See The Centers Near You.',
                     textAlign: TextAlign.center,
                     style: AutilabTextStyle.small16_400,
                   ),

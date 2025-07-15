@@ -141,7 +141,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   padding:
                       EdgeInsets.only(top: 48, bottom: 8, right: 20, left: 20),
                   child: Text(
-                    'Expert Doctors',
+                    'Specialist',
                     style: AutilabTextStyle.small20_400,
                   ),
                 ),
@@ -166,7 +166,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
     );
   }
 
-//Widget for display Specialties category dialog
+// //Widget for display Specialties category dialog
   Widget _buildSpecialtiesDialog(
     BuildContext context,
     Function(int index) onTap,
@@ -215,6 +215,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Flexible(
                         child: Image.asset(
@@ -226,6 +227,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       ),
                       const SizedBox(height: 8),
                       FittedBox(
+                        fit: BoxFit.scaleDown,
                         child: Text(
                           categoryItemsList[index].title,
                           textAlign: TextAlign.center,

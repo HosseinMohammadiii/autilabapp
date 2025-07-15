@@ -35,7 +35,6 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
-
     animationHelper.animationController.forward();
   }
 
@@ -64,7 +63,6 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // SvgPicture.asset('assets/icons/aptitudetest.svg'),
                   SvgPicture.asset(widget.image),
                   const SizedBox(
                     height: 60,
@@ -76,10 +74,13 @@ class _AptitudeTestScreenState extends State<AptitudeTestScreen>
                   const SizedBox(
                     height: 40,
                   ),
-                  Text(
-                    widget.description,
-                    textAlign: TextAlign.center,
-                    style: AutilabTextStyle.medium20_500,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      widget.description,
+                      textAlign: TextAlign.center,
+                      style: AutilabTextStyle.small16_400,
+                    ),
                   ),
                   CustomButtonWidget(
                     onTap: () => widget.onTap(),

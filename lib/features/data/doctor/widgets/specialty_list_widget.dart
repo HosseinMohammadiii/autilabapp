@@ -47,6 +47,7 @@ class SpecialtiesListWidget extends StatelessWidget {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(
                     width: widthImage ?? 56,
@@ -56,9 +57,14 @@ class SpecialtiesListWidget extends StatelessWidget {
                     ),
                   ),
                   FittedBox(
-                    child: Text(
-                      categoryItemsList[index].title,
-                      style: textStyle,
+                    fit: BoxFit.scaleDown,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        categoryItemsList[index].title,
+                        textAlign: TextAlign.center,
+                        style: textStyle,
+                      ),
                     ),
                   ),
                 ],

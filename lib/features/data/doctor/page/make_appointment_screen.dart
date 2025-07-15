@@ -107,7 +107,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
               const SliverToBoxAdapter(
                 child: DisplayTitleSection(
                   icon: 'assets/icons/calendar_tick_icon.svg',
-                  title: 'Available Date',
+                  title: 'Available Dates',
                 ),
               ),
               const SliverToBoxAdapter(

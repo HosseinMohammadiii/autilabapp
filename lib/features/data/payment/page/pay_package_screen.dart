@@ -98,7 +98,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                           title: 'Access to aptitude test',
                         ),
                         PalnItemWidget(
-                          title: 'Access to personality test',
+                          title: 'Access to Personality Screening test',
                         ),
                         PalnItemWidget(
                           title: 'Unlimited appointment booking',

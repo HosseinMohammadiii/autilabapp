@@ -29,7 +29,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarWidget(
-          context: context, title: 'Info Specialties', isIcon: true),
+          context: context, title: "The Specialists' Info", isIcon: true),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -226,7 +226,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
               sliver: SliverToBoxAdapter(
                 child: TitleAndIconWidget(
                   icon: 'assets/icons/profile_icon.svg',
-                  title: "Doctor's specialty",
+                  title: "Doctor's Specialty",
                 ),
               ),
             ),
@@ -237,14 +237,14 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
             ),
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 80,
+                height: 90,
                 child: SpecialtiesListWidget(
                   height: 80,
-                  width: 80,
+                  width: 90,
                   heightImage: 32,
                   widthImage: 32,
                   radius: 16,
-                  textStyle: AutilabTextStyle.small10_400,
+                  textStyle: AutilabTextStyle.small12_400,
                 ),
               ),
             ),

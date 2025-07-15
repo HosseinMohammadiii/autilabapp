@@ -61,7 +61,7 @@ class _TypetestScreenState extends State<TypetestScreen>
                       'title': 'Aptitude Test',
                       'subTitle': 'Talent Identification Test',
                       'description':
-                          'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                          "Discover your child's hidden potentials and help them grow endlessly.",
                       'onTap': () {
                         context.pushNamed(AutiLabRoutes.quizMultiSelectScreen);
                       },
@@ -80,7 +80,7 @@ class _TypetestScreenState extends State<TypetestScreen>
                       'title': 'Personality Test',
                       'subTitle': 'Personality Test',
                       'description':
-                          'Lorem Ipsum Odor Amet, Consectetuer Adipiscing Consectetuer Elit.',
+                          "Discover your child's personality and help them find the right path in life.",
                       'onTap': () {
                         context.pushNamed(AutiLabRoutes.quizMultiSelectScreen);
                       },
