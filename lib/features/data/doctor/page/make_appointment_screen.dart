@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/Lists/time_date_list.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/calendar_box_widget.dart';
 import '../widgets/display_title_section_widget.dart';
@@ -44,19 +45,6 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
 
   int montNumber = DateTime.now().month;
 
-  List<String> montNameList = [
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
   @override
   void initState() {
     super.initState();
@@ -230,24 +218,21 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                       const SizedBox(
                         height: 8,
                       ),
-                      Padding(
-                        padding: AutilabMargin.marginFullScreen,
-                        child: Visibility(
-                          visible: selectDate.isNotEmpty,
-                          child: Row(
-                            children: [
-                              const Text(
-                                'You selected , ',
-                                style: AutilabTextStyle.small16_400,
+                      Visibility(
+                        visible: selectDate.isNotEmpty,
+                        child: Row(
+                          children: [
+                            const Text(
+                              'You selected , ',
+                              style: AutilabTextStyle.small16_400,
+                            ),
+                            Text(
+                              '$selectDate $_monthName',
+                              style: AutilabTextStyle.medium16_500.copyWith(
+                                color: AutilabColor.bb,
                               ),
-                              Text(
-                                '$selectDate $_monthName',
-                                style: AutilabTextStyle.medium16_500.copyWith(
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

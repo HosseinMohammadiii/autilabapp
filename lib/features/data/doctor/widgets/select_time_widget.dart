@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart' show AutilabTextStyle;
-import '../../../../utils/Lists/time_list.dart';
+import '../../../../utils/Lists/time_date_list.dart';
 
 class SelectTimeWidget extends StatefulWidget {
   const SelectTimeWidget({

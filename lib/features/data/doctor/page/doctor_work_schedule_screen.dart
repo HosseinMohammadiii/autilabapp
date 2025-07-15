@@ -2,7 +2,9 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/display_title_section_widget.dart';
+import 'package:autilab_project/utils/Lists/time_date_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../utils/functions/animation_control.dart';
@@ -27,6 +29,11 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
   String _monthName = '';
+  String selectDate = '';
+
+  bool isOpen = false;
+
+  int montNumber = DateTime.now().month;
 
   @override
   void initState() {
@@ -91,14 +98,32 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: AutilabMargin.marginFullScreen,
-                    child: Row(
-                      children: [
-                        Text(
-                          _monthName,
-                          style: AutilabTextStyle.medium16_500,
-                        ),
-                        const Icon(Icons.keyboard_arrow_down_rounded),
-                      ],
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isOpen = !isOpen;
+                        });
+                      },
+                      child: Row(
+                        spacing: 14,
+                        children: [
+                          Text(
+                            _monthName,
+                            style: AutilabTextStyle.small18_400,
+                          ),
+                          isOpen
+                              ? SvgPicture.asset(
+                                  'assets/icons/arrow_up.svg',
+                                  width: 16,
+                                  height: 16,
+                                )
+                              : SvgPicture.asset(
+                                  'assets/icons/arrow_down.svg',
+                                  width: 16,
+                                  height: 16,
+                                ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -108,10 +133,62 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: CalendarGrid(
-                    date: DateTime.april,
-                    onTap: (day) {},
-                    isSelect: false,
+                  child: Stack(
+                    children: [
+                      CalendarGrid(
+                        date: montNumber,
+                        onTap: (day) {
+                          setState(() {
+                            selectDate = DateFormat('EEE d')
+                                .format(day ?? DateTime.now());
+                          });
+                        },
+                        isSelect: false,
+                      ),
+                      Visibility(
+                        visible: isOpen,
+                        child: Container(
+                          width: 130,
+                          padding: const EdgeInsets.all(12),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffF6F6F6),
+                            border: Border.all(color: AutilabColor.blue),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: montNameList.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isOpen = false;
+                                        _monthName = montNameList[index];
+                                        montNumber = index;
+                                        selectDate = '';
+                                      });
+                                    },
+                                    child: Text(
+                                      montNameList[index],
+                                      style: AutilabTextStyle.small16_400,
+                                    ),
+                                  ),
+                                  if (index < montNameList.length - 1)
+                                    const Divider(
+                                      thickness: 1,
+                                      color: AutilabColor.gray,
+                                    ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SliverToBoxAdapter(

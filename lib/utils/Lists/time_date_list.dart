@@ -12,3 +12,17 @@ List<String> timeAvailable = [
   '17:00 PM',
   '18:00 PM',
 ];
+
+List<String> montNameList = [
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
