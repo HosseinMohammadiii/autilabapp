@@ -11,6 +11,7 @@ import 'package:autilab_project/utils/functions/permissioncotrol.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -519,7 +520,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               ),
               SliverToBoxAdapter(
                 child: CustomButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    context.pop();
+                  },
                   height: 50,
                   width: double.infinity,
                   color: AutilabColor.bb,
