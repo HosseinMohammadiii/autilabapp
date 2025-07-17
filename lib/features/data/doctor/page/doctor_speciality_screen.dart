@@ -108,7 +108,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 24,
+                  height: 8,
                 ),
               ),
               SliverList.builder(
@@ -144,7 +144,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
       builder: (context, constraints) {
         return Container(
           constraints: const BoxConstraints(maxWidth: 528, maxHeight: 420),
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

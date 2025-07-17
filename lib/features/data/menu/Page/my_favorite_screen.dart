@@ -92,7 +92,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
       opacity: animationHelper.fadeAnimation,
       child: DefaultTabController(
         animationDuration: const Duration(seconds: 1),
-        length: 4,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             leadingWidth: double.infinity,
@@ -140,12 +140,12 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                           style: AutilabTextStyle.small16_400,
                         ),
                       ),
-                      FittedBox(
-                        child: Text(
-                          'Post',
-                          style: AutilabTextStyle.small16_400,
-                        ),
-                      ),
+                      // FittedBox(
+                      //   child: Text(
+                      //     'Post',
+                      //     style: AutilabTextStyle.small16_400,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -212,25 +212,25 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                     );
                   },
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  padding: AutilabMargin.marginFullScreen,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 20,
-                  ),
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        'assets/images/child2_image.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },
-                ),
+                // GridView.builder(
+                //   shrinkWrap: true,
+                //   padding: AutilabMargin.marginFullScreen,
+                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //     crossAxisCount: 3,
+                //     crossAxisSpacing: 12,
+                //     mainAxisSpacing: 20,
+                //   ),
+                //   itemCount: 9,
+                //   itemBuilder: (context, index) {
+                //     return ClipRRect(
+                //       borderRadius: BorderRadius.circular(8),
+                //       child: Image.asset(
+                //         'assets/images/child2_image.jpg',
+                //         fit: BoxFit.cover,
+                //       ),
+                //     );
+                //   },
+                // ),
               ],
             ),
           ),

@@ -163,31 +163,34 @@ class _MainContentScreenState extends State<MainContentScreen>
                   const SizedBox(
                     height: 48,
                   ),
-                  Container(
-                    height: 40,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: AutilabColor.drawerWhite,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      spacing: 8,
-                      children: [
-                        LikeWidget(
-                          borderColor: Colors.transparent,
-                          isLike: widget.isLike ?? false,
-                          onTap: () {
-                            setState(() {
-                              isLike = !isLike;
-                              widget.isLike = isLike;
-                            });
-                          },
-                        ),
-                        const Text(
-                          'Add To Favorite',
-                          style: AutilabTextStyle.small12_400,
-                        ),
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isLike = !isLike;
+                        widget.isLike = isLike;
+                      });
+                    },
+                    child: Container(
+                      height: 40,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: AutilabColor.drawerWhite,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          LikeWidget(
+                            borderColor: Colors.transparent,
+                            isLike: widget.isLike ?? false,
+                            onTap: () {},
+                          ),
+                          const Text(
+                            'Add To Favorite',
+                            style: AutilabTextStyle.small12_400,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(

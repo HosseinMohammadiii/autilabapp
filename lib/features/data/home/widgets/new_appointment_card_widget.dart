@@ -34,7 +34,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260,
+      height: 230,
       padding: const EdgeInsets.all(16),
       margin: margin,
       decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             spacing: 4,
@@ -65,8 +65,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                   },
                   child: Container(
                     height: 24,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AutilabColor.bb,
@@ -93,7 +92,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            height: 12,
+            height: 0,
           ),
           const Divider(
             thickness: 1,
@@ -101,7 +100,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
           ),
           const Spacer(),
           SizedBox(
-            height: 116,
+            height: 94,
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
@@ -172,7 +171,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
               onTap();
             },
             height: 50,
-            margin: const EdgeInsets.all(0),
+            margin: const EdgeInsets.only(top: 12),
             color: AutilabColor.bb,
             text: 'Detail Appointment',
             textStyle: AutilabTextStyle.small18_400,

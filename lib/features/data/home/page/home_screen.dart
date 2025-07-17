@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 290,
+                  height: 236,
                   child: PageView.builder(
                     itemCount: 3,
                     padEnds: false,

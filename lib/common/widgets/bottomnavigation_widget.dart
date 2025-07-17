@@ -165,7 +165,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                               children: [
                                 SvgPicture.asset('assets/icons/gps.svg'),
                                 const Text(
-                                  'Canada',
+                                  'Toronto,Canada',
                                   style: AutilabTextStyle.small18_400,
                                 ),
                               ],

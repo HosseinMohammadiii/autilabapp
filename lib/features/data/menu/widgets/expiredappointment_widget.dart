@@ -18,7 +18,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
           itemCount: 6,
           itemBuilder: (context, index) {
             return SizedBox(
-              height: 300,
+              height: 245,
               child: NewAppointmentsCardWidget(
                 color: const Color(0xff50DD81),
                 backgroundColor: AutilabColor.lightGray,
