@@ -10,17 +10,15 @@ class CategoryItems {
 //Category list for display Specialties items
 List<CategoryItems> categoryItemsList = [
   CategoryItems('Child\nPsychiatrists', 'assets/images/behaviorism_image.png',
-      const Color(0xffC772FF)),
-  CategoryItems(
-      'Developmental\nPediatricians',
-      'assets/images/pediatrician_image.png',
-      const Color.fromRGBO(83, 226, 255, 0.7)),
+      const Color(0xffD18EFD)),
+  CategoryItems('Developmental\nPediatricians',
+      'assets/images/pediatrician_image.png', const Color(0xff9BEBFB)),
   CategoryItems('Pediatric\nNutrition', 'assets/images/conversation_image.png',
-      const Color(0xff8AEDCE)),
+      const Color(0xff9FEFD6)),
   CategoryItems('General\nPractice', 'assets/images/Genera-Practice.png',
-      const Color(0xffFF7272)),
+      const Color(0xffFF8B8B)),
   CategoryItems('Pediatric\nNeurologists',
-      'assets/images/psychologist_image.png', const Color(0xff5669FF)),
+      'assets/images/psychologist_image.png', const Color(0xffABB4FA)),
   CategoryItems('Speech\nTherapy', 'assets/images/speech_therapy_image.png',
-      const Color(0xffFFB253)),
+      const Color(0xffFCC787)),
 ];
