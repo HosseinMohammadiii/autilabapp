@@ -55,7 +55,6 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
         appBar: appBarWidget(context: context, title: 'Choose Your Role Below'),
         body: SafeArea(
           child: CustomScrollView(
-            physics: const NeverScrollableScrollPhysics(),
             slivers: [
               SliverFillRemaining(
                 fillOverscroll: false,

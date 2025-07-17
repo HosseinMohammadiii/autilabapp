@@ -93,30 +93,37 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
           child: LayoutBuilder(
             builder: (context, constraints) {
               return CustomScrollView(
-                physics: const NeverScrollableScrollPhysics(),
+                // physics: const NeverScrollableScrollPhysics(),
                 slivers: [
                   SliverFillRemaining(
                     hasScrollBody: false,
-                    fillOverscroll: false,
+                    fillOverscroll: true,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 480,
+                          height: MediaQuery.sizeOf(context).height / 1.47,
                           child: PageView.builder(
                             controller: pageController,
                             itemCount: 3,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
-                                  SvgPicture.asset(
-                                    programIntroductionList[index].image,
-                                    width: 350,
-                                    height: 350,
-                                    fit: BoxFit.cover,
+                                  Padding(
+                                    padding: AutilabMargin.marginFullScreen,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: SvgPicture.asset(
+                                        programIntroductionList[index].image,
+                                        width: 350,
+                                        height: 350,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                  const SizedBox(
-                                    height: 40,
+                                  SizedBox(
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.03,
                                   ),
                                   Text(
                                     programIntroductionList[index].title,
@@ -129,8 +136,9 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
-                                  const SizedBox(
-                                    height: 16,
+                                  SizedBox(
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.02,
                                   ),
                                   Padding(
                                     padding: AutilabMargin.marginFullScreen,
@@ -152,8 +160,8 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                             },
                           ),
                         ),
-                        const SizedBox(
-                          height: 18,
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.01,
                         ),
                         SmoothPageIndicator(
                           controller: pageController,
@@ -172,8 +180,11 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                           borderRadius: 16,
                           color: AutilabColor.bb,
                           text: 'Next',
-                          margin: const EdgeInsets.only(
-                              right: 20, left: 20, top: 30),
+                          margin: EdgeInsets.only(
+                            right: 20,
+                            left: 20,
+                            top: MediaQuery.sizeOf(context).height * 0.06,
+                          ),
                           textStyle:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 18,
@@ -184,8 +195,8 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                           onTap: () {
                             context.goNamed(AutiLabRoutes.choseRoleScreen);
                           },
-                          height: 50,
-                          width: 50,
+                          height: MediaQuery.sizeOf(context).height * 0.037,
+                          width: 45,
                           color: AutilabColor.white,
                           text: 'skip',
                           textStyle:
