@@ -36,13 +36,17 @@ class _DoctorBoxState extends State<DoctorBox> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                'assets/images/doctor_image.jpg',
-                width: 116,
-                height: 116,
-                fit: BoxFit.fill,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/doctor_image.jpg',
+                  width: 116,
+                  height: 116,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             const SizedBox(
@@ -64,7 +68,7 @@ class _DoctorBoxState extends State<DoctorBox> {
                       ),
                       FittedBox(
                         child: Text(
-                          'Psychotherapy',
+                          'Speech Therapy',
                           style: AutilabTextStyle.small16_400,
                         ),
                       ),
@@ -100,6 +104,8 @@ class _DoctorBoxState extends State<DoctorBox> {
                             AutiLabRoutes.doctorMessageScreen,
                             extra: {
                               'image': 'assets/images/doctor_image.jpg',
+                              'name': 'Dr. Sophia Martinez',
+                              'expertise': 'Speech Therapy',
                             },
                           );
                         },

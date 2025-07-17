@@ -50,7 +50,7 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
               height: 441,
               padding: const EdgeInsets.only(
                   left: 24, right: 24, top: 24, bottom: 46),
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 46),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
               decoration: BoxDecoration(
                 color: AutilabColor.white,
                 borderRadius: BorderRadius.circular(24),
@@ -96,7 +96,7 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
           ),
           const SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 16),
+              padding: EdgeInsets.only(left: 16, top: 16),
               child: Text(
                 'Suggestions',
                 style: AutilabTextStyle.small20_400,

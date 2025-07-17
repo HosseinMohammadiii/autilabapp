@@ -125,6 +125,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                               'statusIcon': 'assets/icons/done_icon.svg',
                               'image': 'assets/images/doctor2.jpg',
                               'title': 'Approved',
+                              'descriptionStatus':
+                                  'Your Appointment Has Been Approved',
                             },
                           );
                         },
@@ -153,6 +155,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                               'statusIcon': 'assets/icons/close_icon.svg',
                               'image': 'assets/images/doctor_image.jpg',
                               'title': 'Cancelled',
+                              'descriptionStatus':
+                                  'Your Appointment Has Been Canceled',
                             },
                           );
                         },
@@ -181,6 +185,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                               'statusIcon': 'assets/icons/minimize_icon.svg',
                               'image': 'assets/images/doctor3.png',
                               'title': 'Pending',
+                              'descriptionStatus':
+                                  'Your Appointment Is Being Reviewed',
                             },
                           );
                         },

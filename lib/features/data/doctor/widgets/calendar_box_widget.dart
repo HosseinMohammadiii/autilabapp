@@ -111,13 +111,13 @@ class _CalendarGridState extends State<CalendarGrid> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              "Sun",
               "Mon",
               "Tue",
               "Wed",
               "Thu",
               "Fri",
               "Sat",
+              "Sun",
             ]
                 .map(
                   (day) => Expanded(

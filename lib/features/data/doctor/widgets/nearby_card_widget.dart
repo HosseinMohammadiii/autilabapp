@@ -85,6 +85,8 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                       AutiLabRoutes.doctorMessageScreen,
                       extra: {
                         'image': 'assets/images/autism_help_center.png',
+                        'name': 'Autism Help Center',
+                        'expertise': '',
                       },
                     );
                   },

@@ -198,14 +198,12 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                 ),
                 SliverToBoxAdapter(
                   child: Column(
+                    spacing: 8,
                     children: [
                       _displayIsAvailableWidget(
-                          context, 'Available', AutilabColor.bb),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                          context, 'Open For Booking', AutilabColor.bb),
                       _displayIsAvailableWidget(
-                          context, 'Not Available', AutilabColor.lightGray),
+                          context, 'Already Booked', AutilabColor.lightGray),
                     ],
                   ),
                 ),
@@ -256,9 +254,9 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                     spacing: 8,
                     children: [
                       _displayIsAvailableWidget(
-                          context, 'Available', AutilabColor.bb),
+                          context, 'Open For Booking', AutilabColor.bb),
                       _displayIsAvailableWidget(
-                          context, 'Not Available', AutilabColor.lightGray),
+                          context, 'Already Booked', AutilabColor.lightGray),
                     ],
                   ),
                 ),

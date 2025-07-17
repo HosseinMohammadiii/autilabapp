@@ -17,12 +17,14 @@ class DetailAppointmentScreen extends StatefulWidget {
     required this.statusIcon,
     required this.image,
     required this.title,
+    required this.descriptionStatus,
   });
 
   final Color? statusColor;
   final String statusIcon;
   final String image;
   final String title;
+  final String descriptionStatus;
   @override
   State<DetailAppointmentScreen> createState() =>
       _DetailAppointmentScreenState();
@@ -78,9 +80,9 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                   height: 32,
                 ),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Text(
-                  'Your Appointment Has Been Canceled',
+                  widget.descriptionStatus,
                   style: AutilabTextStyle.small16_400,
                   textAlign: TextAlign.center,
                 ),

@@ -51,14 +51,18 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       spacing: 24,
                       children: [
-                        SizedBox(
-                          height: 116,
-                          width: 116,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.asset(
-                              'assets/images/doctor_image.jpg',
-                              fit: BoxFit.fill,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: SizedBox(
+                            height: 116,
+                            width: 116,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                'assets/images/doctor_image.jpg',
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
@@ -76,62 +80,85 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                                   style: AutilabTextStyle.medium18_500,
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ButtonCard(
-                                    margin: EdgeInsets.zero,
-                                    icon:
-                                        'assets/icons/global_buttomnavigation.svg',
-                                    onTap: () {
-                                      context.pushNamed(AutiLabRoutes
-                                          .doctorSocialMediaScreen);
-                                    },
-                                  ),
-                                  ButtonCard(
-                                    margin: EdgeInsets.zero,
-                                    icon: 'assets/icons/messages.svg',
-                                    onTap: () {
-                                      context.pushNamed(
-                                        AutiLabRoutes.doctorMessageScreen,
-                                        extra: {
-                                          'image':
-                                              'assets/images/doctor_image.jpg',
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  spacing: 22,
+                                  children: [
+                                    // FittedBox(
+                                    //   fit: BoxFit.scaleDown,
+                                    //   alignment: Alignment.centerLeft,
+                                    //   child: ButtonCard(
+                                    //     margin: EdgeInsets.zero,
+                                    //     icon:
+                                    //         'assets/icons/global_buttomnavigation.svg',
+                                    //     onTap: () {
+                                    //       context.pushNamed(AutiLabRoutes
+                                    //           .doctorSocialMediaScreen);
+                                    //     },
+                                    //   ),
+                                    // ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerLeft,
+                                      child: ButtonCard(
+                                        margin: EdgeInsets.zero,
+                                        icon: 'assets/icons/messages.svg',
+                                        onTap: () {
+                                          context.pushNamed(
+                                            AutiLabRoutes.doctorMessageScreen,
+                                            extra: {
+                                              'image':
+                                                  'assets/images/doctor_image.jpg',
+                                              'name': 'Dr. Sophia Martinez',
+                                              'expertise': 'Speech Therapy',
+                                            },
+                                          );
                                         },
-                                      );
-                                    },
-                                  ),
-                                  ButtonCard(
-                                    margin: EdgeInsets.zero,
-                                    icon: 'assets/icons/calendar.svg',
-                                    onTap: () {
-                                      context.pushNamed(
-                                        AutiLabRoutes.doctorWorkscheduleScreen,
-                                        extra: {
-                                          'isLike': widget.isLike,
+                                      ),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerLeft,
+                                      child: ButtonCard(
+                                        margin: EdgeInsets.zero,
+                                        icon: 'assets/icons/calendar.svg',
+                                        onTap: () {
+                                          context.pushNamed(
+                                            AutiLabRoutes
+                                                .doctorWorkscheduleScreen,
+                                            extra: {
+                                              'isLike': widget.isLike,
+                                            },
+                                          );
                                         },
-                                      );
-                                    },
-                                  ),
-                                  Container(
-                                    width: 32,
-                                    height: 32,
-                                    decoration: BoxDecoration(
-                                      color: AutilabColor.bb,
-                                      borderRadius: BorderRadius.circular(12),
+                                      ),
                                     ),
-                                    child: LikeWidget(
-                                      backgroundColor: Colors.transparent,
-                                      isLike: widget.isLike,
-                                      onTap: () {
-                                        setState(() {
-                                          widget.isLike = !widget.isLike;
-                                        });
-                                      },
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                        width: 32,
+                                        height: 32,
+                                        decoration: BoxDecoration(
+                                          color: AutilabColor.bb,
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: LikeWidget(
+                                          backgroundColor: Colors.transparent,
+                                          isLike: widget.isLike,
+                                          onTap: () {
+                                            setState(() {
+                                              widget.isLike = !widget.isLike;
+                                            });
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -147,15 +174,12 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                 height: 32,
               ),
             ),
-            const SliverPadding(
-              padding: AutilabMargin.marginFullScreen,
-              sliver: SliverToBoxAdapter(
-                child: Divider(
-                  thickness: 1,
-                  color: AutilabColor.gray,
-                  indent: 20,
-                  endIndent: 20,
-                ),
+            const SliverToBoxAdapter(
+              child: Divider(
+                thickness: 1,
+                color: AutilabColor.gray,
+                indent: 20,
+                endIndent: 20,
               ),
             ),
             const SliverToBoxAdapter(

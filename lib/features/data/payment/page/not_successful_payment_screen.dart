@@ -48,43 +48,48 @@ class _NotSuccessfulPaymentScreenState extends State<NotSuccessfulPaymentScreen>
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/not_successful_payment.svg'),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    const Text(
-                      'Your Payment Was Not Successful',
-                      style: AutilabTextStyle.medium20_500,
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      "Your Payment For The One-Year Package Was\nNot Successful",
-                      style: AutilabTextStyle.small16_400.copyWith(
-                        color: AutilabColor.gray,
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/not_successful_payment.svg',
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    CustomButtonWidget(
-                      onTap: () {
-                        context
-                            .pushNamed(AutiLabRoutes.successfulPaymentScreen);
-                      },
-                      height: 50,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 32),
-                      color: AutilabColor.bb,
-                      text: 'Pay Again',
-                      textStyle: AutilabTextStyle.small18_400,
-                    )
-                  ],
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      const Text(
+                        'Your Payment Was Not Successful',
+                        style: AutilabTextStyle.medium20_500,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Text(
+                        "Your Payment For The One-Year Package Was Not Successful",
+                        style: AutilabTextStyle.small16_400.copyWith(
+                          color: AutilabColor.gray,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      CustomButtonWidget(
+                        onTap: () {
+                          context
+                              .pushNamed(AutiLabRoutes.successfulPaymentScreen);
+                        },
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(vertical: 32),
+                        color: AutilabColor.bb,
+                        text: 'Pay Again',
+                        textStyle: AutilabTextStyle.small18_400,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

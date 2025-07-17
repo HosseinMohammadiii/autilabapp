@@ -59,6 +59,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     ),
                     SvgPicture.asset(
                       'assets/images/welcome_image.svg',
+                      height: 242,
+                      width: 306,
                       fit: BoxFit.contain,
                     ),
                     const SizedBox(

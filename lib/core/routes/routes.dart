@@ -174,6 +174,7 @@ class AutilabRouter {
               statusIcon: extraData['statusIcon'],
               image: extraData['image'],
               title: extraData['title'],
+              descriptionStatus: extraData['descriptionStatus'],
             );
           }),
       GoRoute(
@@ -222,6 +223,8 @@ class AutilabRouter {
 
           return MessageScreen(
             image: extraData['image'],
+            name: extraData['name'],
+            expertise: extraData['expertise'],
           );
         },
       ),

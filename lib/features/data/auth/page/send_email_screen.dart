@@ -65,11 +65,15 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                   children: [
                     Center(
                       child: SvgPicture.asset(
-                          'assets/images/enter_email_image.svg'),
+                        'assets/images/enter_email_image.svg',
+                        width: 350,
+                        height: 271,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                       child: Text(
                         'Enter Your Email Address',
                         style: AutilabTextStyle.small16_400,
@@ -77,6 +81,7 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                       ),
                     ),
                     CustomTextfield(
+                      textfieldPadding: AutilabMargin.marginFullScreen,
                       controller: emailController,
                       focusNode: emailFocusNode,
                       textInputType: TextInputType.emailAddress,
@@ -85,6 +90,8 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                       borderColor: AutilabColor.blue,
                     ),
                     CustomButtonWidget(
+                      margin: AutilabMargin.marginFullScreen
+                          .copyWith(top: 16, bottom: 16),
                       onTap: () {
                         context.pushNamed(AutiLabRoutes.sendEmailCodeScreen);
                       },
@@ -94,9 +101,6 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                       textStyle: AutilabTextStyle.small18_400,
                     ),
                     const BubbleBackgroundWidget(),
-                    const SizedBox(
-                      height: 16,
-                    ),
                   ],
                 ),
               ),

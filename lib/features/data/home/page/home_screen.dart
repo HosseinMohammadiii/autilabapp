@@ -17,8 +17,14 @@ class StatusClass {
   Color statusColor;
   String statusIcon;
   String title;
+  String descriptionStatus;
   //StatusClass constructor
-  StatusClass(this.statusColor, this.statusIcon, this.title);
+  StatusClass(
+    this.statusColor,
+    this.statusIcon,
+    this.title,
+    this.descriptionStatus,
+  );
 }
 
 class HomeScreen extends StatefulWidget {
@@ -57,16 +63,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       const Color(0xffFF6363),
       'assets/icons/close_icon.svg',
       'Cancelled',
+      'Your Appointment Has Been Canceled',
     ),
     StatusClass(
       const Color(0xff50DD81),
       'assets/icons/done_icon.svg',
       'Approved',
+      'Your Appointment Has Been Approved',
     ),
     StatusClass(
       AutilabColor.gray,
       'assets/icons/minimize_icon.svg',
       'Pending',
+      'Your Appointment Is Being Reviewed',
     ),
   ];
   List<String> titlePlanList = ['Free Plan', '99\$/Month', "299\$/Years"];
@@ -138,6 +147,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 'statusIcon': statusList[index].statusIcon,
                                 'image': 'assets/images/doctor_image.jpg',
                                 'title': statusList[index].title,
+                                'descriptionStatus':
+                                    statusList[index].descriptionStatus,
                               },
                             );
                           },
@@ -316,6 +327,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           right: index == titlePlanList.length - 1 ? 10 : 0),
                       child: PlanBoxWidget(
                         title: titlePlanList[index],
+                        description:
+                            'Full Access To the Application For One Week',
                         titleButton: 'Buy',
                         widget: const [
                           PalnItemWidget(

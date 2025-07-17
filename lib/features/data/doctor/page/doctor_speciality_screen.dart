@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/appbar_back_screen.dart';
+import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../utils/functions/custom_dialog_function.dart';
@@ -93,7 +94,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 48,
+                  height: 32,
                 ),
               ),
               const SliverPadding(
@@ -142,7 +143,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          constraints: const BoxConstraints(maxWidth: 528, maxHeight: 342),
+          constraints: const BoxConstraints(maxWidth: 528, maxHeight: 420),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -255,6 +256,16 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                     selectedIndexrating.value = value;
                   },
                 ),
+              ),
+              CustomButtonWidget(
+                onTap: () {
+                  context.pop();
+                },
+                height: 50,
+                margin: const EdgeInsets.only(top: 24),
+                color: AutilabColor.bb,
+                text: 'Search',
+                textStyle: AutilabTextStyle.small18_400,
               ),
             ],
           ),

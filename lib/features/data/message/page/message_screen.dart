@@ -11,8 +11,12 @@ class MessageScreen extends StatefulWidget {
   const MessageScreen({
     super.key,
     required this.image,
+    required this.name,
+    required this.expertise,
   });
   final String image;
+  final String name;
+  final String expertise;
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -120,27 +124,31 @@ class _MessageScreenState extends State<MessageScreen>
                   const SizedBox(
                     width: 16,
                   ),
-                  const Expanded(
+                  Expanded(
                     flex: 5,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
                           child: Text(
-                            'Dr. Sophia Martinez',
+                            widget.name,
                             style: AutilabTextStyle.medium14_500,
                           ),
                         ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        FittedBox(
-                          child: Text(
-                            'Psychotherapy',
-                            style: AutilabTextStyle.small14_400,
+                        if (widget.expertise.isNotEmpty) ...[
+                          const SizedBox(
+                            height: 8,
                           ),
-                        ),
+                          FittedBox(
+                            child: Text(
+                              widget.expertise,
+                              style: AutilabTextStyle.small14_400,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

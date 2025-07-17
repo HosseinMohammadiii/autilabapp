@@ -1,6 +1,7 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -109,7 +110,11 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                               return Column(
                                 children: [
                                   SvgPicture.asset(
-                                      programIntroductionList[index].image),
+                                    programIntroductionList[index].image,
+                                    width: 350,
+                                    height: 350,
+                                    fit: BoxFit.cover,
+                                  ),
                                   const SizedBox(
                                     height: 40,
                                   ),
@@ -128,8 +133,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                     height: 16,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                    padding: AutilabMargin.marginFullScreen,
                                     child: Text(
                                       programIntroductionList[index]
                                           .description,

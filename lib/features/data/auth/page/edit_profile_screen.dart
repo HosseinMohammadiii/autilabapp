@@ -358,29 +358,32 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                             return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                LinearDatePicker(
-                                  startDate: DateTime(1980),
-                                  endDate: DateTime(2050),
-                                  initialDate: _selectedDate.value,
-                                  dateChangeListener: (DateTime dateTime) {
-                                    isSelectedDate = true;
-                                    _selectedDate.value = dateTime;
-                                  },
-                                  showDay: true,
-                                  showLabels: true,
-                                  showMonthName: true,
-                                  labelStyle: AutilabTextStyle.medium16_500,
-                                  selectedRowStyle: AutilabTextStyle
-                                      .medium20_500
-                                      .copyWith(color: AutilabColor.bb),
-                                  unselectedRowStyle:
-                                      AutilabTextStyle.small18_400,
-                                  yearLabel: 'Year',
-                                  monthLabel: 'Month',
-                                  dayLabel: 'Day',
-                                  columnWidth: 100,
-                                  debounceDuration:
-                                      const Duration(milliseconds: 300),
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: LinearDatePicker(
+                                    startDate: DateTime(1980),
+                                    endDate: DateTime(2050),
+                                    initialDate: _selectedDate.value,
+                                    dateChangeListener: (DateTime dateTime) {
+                                      isSelectedDate = true;
+                                      _selectedDate.value = dateTime;
+                                    },
+                                    showDay: true,
+                                    showLabels: true,
+                                    showMonthName: true,
+                                    labelStyle: AutilabTextStyle.medium16_500,
+                                    selectedRowStyle: AutilabTextStyle
+                                        .medium20_500
+                                        .copyWith(color: AutilabColor.bb),
+                                    unselectedRowStyle:
+                                        AutilabTextStyle.small18_400,
+                                    yearLabel: 'Year',
+                                    monthLabel: 'Month',
+                                    dayLabel: 'Day',
+                                    columnWidth: 100,
+                                    debounceDuration:
+                                        const Duration(milliseconds: 300),
+                                  ),
                                 ),
                               ],
                             );

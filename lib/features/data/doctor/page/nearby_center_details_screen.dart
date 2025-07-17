@@ -36,7 +36,6 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
-    print('Value:${widget.isLike}');
     animationHelper.animationController.forward();
   }
 
@@ -58,7 +57,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
             slivers: [
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 48,
+                  height: 32,
                 ),
               ),
               const SliverPadding(
@@ -167,6 +166,8 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                                 extra: {
                                   'image':
                                       'assets/images/autism_help_center.png',
+                                  'name': 'Autism Help Center',
+                                  'expertise': '',
                                 },
                               );
                             },

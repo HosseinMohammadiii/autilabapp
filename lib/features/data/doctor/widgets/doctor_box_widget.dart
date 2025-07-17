@@ -22,7 +22,7 @@ class DoctorBoxWidget extends StatefulWidget {
 
 class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
   List<String> icon = [
-    'assets/icons/global_buttomnavigation.svg',
+    // 'assets/icons/global_buttomnavigation.svg',
     'assets/icons/messages.svg',
     'assets/icons/calendar.svg',
   ];
@@ -125,7 +125,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Psychotherapy',
+                                  'Speech Therapy',
                                   style: AutilabTextStyle.small14_400.copyWith(
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -159,19 +159,21 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                       return ButtonCard(
                                         onTap: () {
                                           switch (index) {
+                                            // case 0:
+                                            //   context.pushNamed(AutiLabRoutes
+                                            //       .doctorSocialMediaScreen);
                                             case 0:
-                                              context.pushNamed(AutiLabRoutes
-                                                  .doctorSocialMediaScreen);
-                                            case 1:
                                               context.pushNamed(
                                                 AutiLabRoutes
                                                     .doctorMessageScreen,
                                                 extra: {
                                                   'image':
                                                       'assets/images/doctor_image.jpg',
+                                                  'name': 'Dr. Sophia Martinez',
+                                                  'expertise': 'Speech Therapy',
                                                 },
                                               );
-                                            case 2:
+                                            case 1:
                                               context.pushNamed(
                                                 AutiLabRoutes
                                                     .doctorWorkscheduleScreen,

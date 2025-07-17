@@ -76,7 +76,11 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const TimeBoxDoctorCard(),
+                  const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: TimeBoxDoctorCard(),
+                  ),
                 ],
               ),
             ),

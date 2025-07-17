@@ -32,6 +32,7 @@ class SelectMethodPayBoxWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
+        spacing: 8,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           FittedBox(
@@ -72,26 +73,17 @@ class SelectMethodPayBoxWidget extends StatelessWidget {
           Visibility(
             visible: isBorder,
             replacement: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              spacing: 2,
+              spacing: 4,
               children: [
-                SvgPicture.asset(
-                  'assets/icons/discover_logo.svg',
-                  fit: BoxFit.cover,
-                ),
-                SvgPicture.asset(
-                  'assets/icons/visa_logo.svg',
-                  fit: BoxFit.cover,
-                ),
-                FittedBox(
-                  child: SvgPicture.asset(
-                    'assets/icons/mastercard_logo.svg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                SvgPicture.asset('assets/icons/discover_logo.svg', height: 12),
+                SvgPicture.asset('assets/icons/visa_logo.svg', height: 12),
+                SvgPicture.asset('assets/icons/mastercard_logo.svg',
+                    height: 14),
               ],
             ),
-            child: SvgPicture.asset(logo),
+            child: SvgPicture.asset(
+              logo,
+            ),
           ),
         ],
       ),

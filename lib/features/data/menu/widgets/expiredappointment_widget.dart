@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,6 +21,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
               height: 300,
               child: NewAppointmentsCardWidget(
                 color: const Color(0xff50DD81),
+                backgroundColor: AutilabColor.lightGray,
                 title: 'Approved',
                 isShowRate: true,
                 statusIcon: 'assets/icons/done_icon.svg',
@@ -41,13 +43,13 @@ class ExpiredAppointmentWidget extends StatelessWidget {
             );
           },
         ),
-        Positioned.fill(
-          child: IgnorePointer(
-            child: Container(
-              color: Colors.white.withValues(alpha: 0.3),
-            ),
-          ),
-        ),
+        // Positioned.fill(
+        //   child: IgnorePointer(
+        //     child: Container(
+        //       color: Colors.white.withValues(alpha: 0.3),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

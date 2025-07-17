@@ -48,42 +48,44 @@ class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen>
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/successful_payment.svg'),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    const Text(
-                      'Your Payment Was Successful',
-                      style: AutilabTextStyle.medium20_500,
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      "Your Payment For The One-Year Package Was\nSuccessful",
-                      style: AutilabTextStyle.small16_400.copyWith(
-                        color: AutilabColor.gray,
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/icons/successful_payment.svg'),
+                      const SizedBox(
+                        height: 32,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    CustomButtonWidget(
-                      onTap: () {
-                        context.go(AutiLabRoutes.homeScreen);
-                      },
-                      height: 50,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 32),
-                      color: AutilabColor.bb,
-                      text: 'Go To Home Page',
-                      textStyle: AutilabTextStyle.small18_400,
-                    )
-                  ],
+                      const Text(
+                        'Your Payment Was Successful',
+                        style: AutilabTextStyle.medium20_500,
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      Text(
+                        "Your Payment For The One-Year Package Was Successful",
+                        style: AutilabTextStyle.small16_400.copyWith(
+                          color: AutilabColor.gray,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      CustomButtonWidget(
+                        onTap: () {
+                          context.go(AutiLabRoutes.homeScreen);
+                        },
+                        height: 50,
+                        margin: const EdgeInsets.symmetric(vertical: 32),
+                        color: AutilabColor.bb,
+                        text: 'Go To Home Page',
+                        textStyle: AutilabTextStyle.small18_400,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

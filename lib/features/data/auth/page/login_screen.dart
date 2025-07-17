@@ -67,12 +67,18 @@ class _LogInScreenState extends State<LogInScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                      child: SvgPicture.asset('assets/images/logIn_image.svg'),
+                      child: SvgPicture.asset(
+                        'assets/images/logIn_image.svg',
+                        height: 187,
+                        width: 276,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const SizedBox(
                       height: 32,
                     ),
                     CustomTextfield(
+                      textfieldPadding: AutilabMargin.marginFullScreen,
                       controller: userNameController,
                       focusNode: userNameFocusNode,
                       textInputAction: TextInputAction.next,
@@ -82,6 +88,8 @@ class _LogInScreenState extends State<LogInScreen>
                       borderColor: AutilabColor.blue,
                     ),
                     CustomTextfield(
+                      textfieldPadding: AutilabMargin.marginFullScreen
+                          .copyWith(top: 16, bottom: 4),
                       controller: passwordController,
                       focusNode: passwordFocusNode,
                       textInputAction: TextInputAction.done,
@@ -92,7 +100,7 @@ class _LogInScreenState extends State<LogInScreen>
                       borderColor: AutilabColor.blue,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: GestureDetector(
                         onTap: () {
                           context.pushNamed(AutiLabRoutes.sendEmailScreen);
@@ -107,6 +115,8 @@ class _LogInScreenState extends State<LogInScreen>
                       height: 16,
                     ),
                     CustomButtonWidget(
+                      margin: AutilabMargin.marginFullScreen
+                          .copyWith(top: 32, bottom: 48),
                       onTap: () {
                         context.goNamed(AutiLabRoutes.homeScreen);
                       },
@@ -114,9 +124,6 @@ class _LogInScreenState extends State<LogInScreen>
                       color: AutilabColor.bb,
                       text: 'LogIn',
                       textStyle: AutilabTextStyle.small16_400,
-                    ),
-                    const SizedBox(
-                      height: 16,
                     ),
                     const Row(
                       children: [

@@ -121,46 +121,51 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                   ],
                 ),
               ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    CustomButtonWidget(
-                      onTap: () {
-                        //Previous page
-                        pageController.animateToPage(
-                          pageController.page!.toInt() - 1,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                      width: 166,
-                      height: 50,
-                      bordeColor: AutilabColor.bb,
-                      margin: const EdgeInsets.only(left: 20, bottom: 40),
-                      color: const Color(0xffECF0FF),
-                      text: 'Back',
-                      textStyle: AutilabTextStyle.small18_400,
-                    ),
-                    CustomButtonWidget(
-                      onTap: () {
-                        //Next page
-                        pageController.animateToPage(
-                          pageController.page!.toInt() + 1,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                      width: 166,
-                      height: 50,
-                      margin: const EdgeInsets.only(right: 20, bottom: 40),
-                      color: AutilabColor.bb,
-                      text: 'Next',
-                      textStyle: AutilabTextStyle.small18_400,
-                    ),
-                  ],
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverFillRemaining(
+                  fillOverscroll: false,
+                  hasScrollBody: false,
+                  child: Row(
+                    spacing: 18,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      CustomButtonWidget(
+                        onTap: () {
+                          //Previous page
+                          pageController.animateToPage(
+                            pageController.page!.toInt() - 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        width: MediaQuery.sizeOf(context).width * 0.4,
+                        height: 50,
+                        bordeColor: AutilabColor.bb,
+                        margin: const EdgeInsets.only(bottom: 40),
+                        color: const Color(0xffECF0FF),
+                        text: 'Back',
+                        textStyle: AutilabTextStyle.small18_400,
+                      ),
+                      CustomButtonWidget(
+                        onTap: () {
+                          //Next page
+                          pageController.animateToPage(
+                            pageController.page!.toInt() + 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        width: MediaQuery.sizeOf(context).width * 0.4,
+                        height: 50,
+                        margin: const EdgeInsets.only(bottom: 40),
+                        color: AutilabColor.bb,
+                        text: 'Next',
+                        textStyle: AutilabTextStyle.small18_400,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

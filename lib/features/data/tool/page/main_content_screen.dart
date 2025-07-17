@@ -130,7 +130,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                   ),
                   Text(
                     widget.articleTitle,
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.left,
                     style: AutilabTextStyle.medium20_500,
                   ),
                   const SizedBox(
@@ -138,7 +138,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                   ),
                   Text(
                     widget.articleDescription,
-                    textAlign: TextAlign.justify,
+                    textAlign: TextAlign.left,
                     style: AutilabTextStyle.small16_400,
                   ),
                   const SizedBox(

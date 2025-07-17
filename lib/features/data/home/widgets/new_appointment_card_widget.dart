@@ -12,6 +12,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   const NewAppointmentsCardWidget({
     super.key,
     required this.color,
+    this.backgroundColor,
     this.isShowRate = false,
     required this.title,
     required this.statusIcon,
@@ -25,6 +26,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   final String image;
   final bool isShowRate;
   final Color color;
+  final Color? backgroundColor;
   final String title;
   final String statusIcon;
   final EdgeInsetsGeometry margin;
@@ -36,7 +38,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: margin,
       decoration: BoxDecoration(
-        color: AutilabColor.primary,
+        color: backgroundColor ?? AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -127,11 +129,13 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: AutilabTextStyle.medium18_500,
                         ),
-                        Expanded(
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
                           child: Row(
                             children: [
                               Text(
-                                'Psychotherapy',
+                                'Speech Therapy',
                                 style: AutilabTextStyle.small14_400.copyWith(
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -150,7 +154,11 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const TimeBoxDoctorCard(),
+                        const FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: TimeBoxDoctorCard(),
+                        ),
                       ],
                     ),
                   ),

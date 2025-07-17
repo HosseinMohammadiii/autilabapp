@@ -97,7 +97,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   ),
                 ),
                 const SizedBox(
-                  height: 48,
+                  height: 32,
                 ),
                 Padding(
                   padding: AutilabMargin.marginFullScreen,

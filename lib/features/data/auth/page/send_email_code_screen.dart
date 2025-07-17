@@ -61,20 +61,24 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                   children: [
                     Center(
                       child: SvgPicture.asset(
-                          'assets/images/enter_code_email_image.svg'),
+                        'assets/images/enter_code_email_image.svg',
+                        width: 321,
+                        height: 249,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: AutilabMargin.marginFullScreen,
                       child: Text(
                         'We will send you one time password to',
                         style: AutilabTextStyle.small16_400,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: AutilabMargin.marginFullScreen,
                       child: Text(
                         'Example@gmail.com',
                         style: AutilabTextStyle.medium18_400.copyWith(
@@ -111,6 +115,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                         context.pushReplacementNamed(AutiLabRoutes.homeScreen);
                       },
                       height: 50,
+                      margin: AutilabMargin.marginFullScreen,
                       color: AutilabColor.bb,
                       text: 'Send Code',
                       textStyle: AutilabTextStyle.small18_400,
@@ -119,9 +124,6 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                       height: 8,
                     ),
                     const BubbleBackgroundWidget(),
-                    const SizedBox(
-                      height: 16,
-                    ),
                   ],
                 ),
               ),

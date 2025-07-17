@@ -120,57 +120,60 @@ class _RatingScreenState extends State<RatingScreen>
                   height: 24,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: RatingBar.builder(
-                    initialRating: 0,
-                    itemCount: 5,
-                    minRating: 1,
-                    maxRating: 5,
-                    updateOnDrag: true,
-                    itemSize: 65,
-                    itemPadding:
-                        const EdgeInsetsGeometry.symmetric(horizontal: 4),
-                    unratedColor: AutilabColor.gray,
-                    glow: false,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        spacing: 4,
-                        children: [
-                          const Icon(Icons.star_rounded,
-                              color: AutilabColor.yellow, size: 35),
-                          Text(
-                            ratingTitleList[index],
-                            style: AutilabTextStyle.small12_400,
-                          ),
-                        ],
-                      );
-                    },
-                    onRatingUpdate: (value) {
-                      setState(() {
-                        switch (value) {
-                          case 1.0:
-                            rateDescription = rateDescriptionList[0];
-                            break;
-                          case 2.0:
-                            rateDescription = rateDescriptionList[1];
-                            break;
-                          case 3.0:
-                            rateDescription = rateDescriptionList[2];
-                            break;
-                          case 4.0:
-                            rateDescription = rateDescriptionList[3];
-                            break;
-                          case 5.0:
-                            rateDescription = rateDescriptionList[4];
-                            break;
-                          default:
-                            rateDescription = rateDescriptionList[0];
-                        }
-                      });
-                    },
+              SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: RatingBar.builder(
+                      initialRating: 0,
+                      itemCount: 5,
+                      minRating: 1,
+                      maxRating: 5,
+                      updateOnDrag: true,
+                      itemSize: 65,
+                      itemPadding:
+                          const EdgeInsetsGeometry.symmetric(horizontal: 4),
+                      unratedColor: AutilabColor.gray,
+                      glow: false,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          spacing: 4,
+                          children: [
+                            const Icon(Icons.star_rounded,
+                                color: AutilabColor.yellow, size: 35),
+                            Text(
+                              ratingTitleList[index],
+                              style: AutilabTextStyle.small12_400,
+                            ),
+                          ],
+                        );
+                      },
+                      onRatingUpdate: (value) {
+                        setState(() {
+                          switch (value) {
+                            case 1.0:
+                              rateDescription = rateDescriptionList[0];
+                              break;
+                            case 2.0:
+                              rateDescription = rateDescriptionList[1];
+                              break;
+                            case 3.0:
+                              rateDescription = rateDescriptionList[2];
+                              break;
+                            case 4.0:
+                              rateDescription = rateDescriptionList[3];
+                              break;
+                            case 5.0:
+                              rateDescription = rateDescriptionList[4];
+                              break;
+                            default:
+                              rateDescription = rateDescriptionList[0];
+                          }
+                        });
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -237,32 +240,40 @@ class _RatingScreenState extends State<RatingScreen>
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 15),
-                      child: Row(
-                        spacing: 8,
-                        children: [
-                          SizedBox(
-                            width: 15,
-                            height: 15,
-                            child: Checkbox(
-                              value: checkListTitle[index].value,
-                              activeColor: AutilabColor.blue,
-                              checkColor: AutilabColor.white,
-                              tristate: true,
-                              side: const BorderSide(width: 1),
-                              splashRadius: 0,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkListTitle[index].value =
-                                      !checkListTitle[index].value;
-                                });
-                              },
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            checkListTitle[index].value =
+                                !checkListTitle[index].value;
+                          });
+                        },
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            SizedBox(
+                              width: 15,
+                              height: 15,
+                              child: Checkbox(
+                                value: checkListTitle[index].value,
+                                activeColor: AutilabColor.blue,
+                                checkColor: AutilabColor.white,
+                                tristate: true,
+                                side: const BorderSide(width: 1),
+                                splashRadius: 0,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkListTitle[index].value =
+                                        !checkListTitle[index].value;
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                          Text(
-                            checkListTitle[index].title,
-                            style: AutilabTextStyle.small14_400,
-                          ),
-                        ],
+                            Text(
+                              checkListTitle[index].title,
+                              style: AutilabTextStyle.small14_400,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -357,30 +368,35 @@ class RadioButtonWidget extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      spacing: 8,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 20,
-          height: 20,
-          child: Radio<RadioCharacter>(
-            activeColor: AutilabColor.bb,
-            value: value,
-            fillColor: WidgetStateProperty.all(AutilabColor.bb),
-            groupValue: radioCharacter,
-            onChanged: (RadioCharacter? value) {
-              onChanged(value);
-            },
+    return GestureDetector(
+      onTap: () {
+        onChanged(value);
+      },
+      child: Row(
+        spacing: 8,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 20,
+            height: 20,
+            child: Radio<RadioCharacter>(
+              activeColor: AutilabColor.bb,
+              value: value,
+              fillColor: WidgetStateProperty.all(AutilabColor.bb),
+              groupValue: radioCharacter,
+              onChanged: (RadioCharacter? value) {
+                onChanged(value);
+              },
+            ),
           ),
-        ),
-        Expanded(
-          child: Text(
-            title,
-            style: textStyle ?? AutilabTextStyle.small14_400,
+          Expanded(
+            child: Text(
+              title,
+              style: textStyle ?? AutilabTextStyle.small14_400,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

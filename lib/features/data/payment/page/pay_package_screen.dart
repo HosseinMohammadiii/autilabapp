@@ -76,7 +76,8 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                 ),
                 Center(
                   child: Padding(
-                    padding: AutilabMargin.marginFullScreen,
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 48),
                     child: PlanBoxWidget(
                       title: widget.title,
                       titleButton: 'Pay',
@@ -117,7 +118,11 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                         } else {
                           context.pushNamed(
                             AutiLabRoutes.personalDetailPaymentScreen,
-                            extra: {'title': widget.title},
+                            extra: {
+                              'title': widget.title,
+                              'description':
+                                  "Full one-year access to the application",
+                            },
                           );
                         }
                       },

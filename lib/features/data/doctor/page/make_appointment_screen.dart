@@ -79,7 +79,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
             slivers: [
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 48,
+                  height: 32,
                 ),
               ),
               SliverToBoxAdapter(
@@ -210,11 +210,11 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     spacing: 8,
                     children: [
                       _displayIsAvailableWidget(
-                          context, 'Available', AutilabColor.bb),
+                          context, 'Open For Booking', AutilabColor.bb),
                       _displayIsAvailableWidget(
-                          context, 'Not Available', AutilabColor.lightGray),
-                      _displayIsAvailableWidget(
-                          context, 'Non-working day', const Color(0xffFBE4E4)),
+                          context, 'Already Booked', AutilabColor.lightGray),
+                      _displayIsAvailableWidget(context,
+                          'This Is A Non-Working Day', const Color(0xffFBE4E4)),
                       const SizedBox(
                         height: 8,
                       ),
@@ -291,9 +291,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     spacing: 8,
                     children: [
                       _displayIsAvailableWidget(
-                          context, 'Available', AutilabColor.bb),
+                          context, 'Open For Booking', AutilabColor.bb),
                       _displayIsAvailableWidget(
-                          context, 'Not Available', AutilabColor.lightGray),
+                          context, 'Already Booked', AutilabColor.lightGray),
                       Visibility(
                         visible: selectTime.isNotEmpty,
                         child: Row(

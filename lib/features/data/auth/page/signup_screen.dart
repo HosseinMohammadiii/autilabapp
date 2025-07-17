@@ -73,12 +73,19 @@ class _SignupScreenState extends State<SignupScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                        child:
-                            SvgPicture.asset('assets/images/signUp_image.svg')),
+                      child: SvgPicture.asset(
+                        'assets/images/signUp_image.svg',
+                        width: 262,
+                        height: 187,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     const SizedBox(
                       height: 32,
                     ),
                     CustomTextfield(
+                      textfieldPadding:
+                          AutilabMargin.marginFullScreen.copyWith(bottom: 16),
                       controller: userNameController,
                       focusNode: userNameFocusNode,
                       textInputAction: TextInputAction.next,
@@ -87,6 +94,8 @@ class _SignupScreenState extends State<SignupScreen>
                       borderColor: AutilabColor.blue,
                     ),
                     CustomTextfield(
+                      textfieldPadding:
+                          AutilabMargin.marginFullScreen.copyWith(bottom: 16),
                       controller: emailController,
                       focusNode: emailFocusNode,
                       textInputAction: TextInputAction.next,
@@ -96,6 +105,8 @@ class _SignupScreenState extends State<SignupScreen>
                       borderColor: AutilabColor.blue,
                     ),
                     CustomTextfield(
+                      textfieldPadding:
+                          AutilabMargin.marginFullScreen.copyWith(bottom: 4),
                       controller: passwordController,
                       focusNode: passwordFocusNode,
                       textInputAction: TextInputAction.done,
@@ -106,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen>
                       borderColor: AutilabColor.blue,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: AutilabMargin.marginFullScreen,
                       child: GestureDetector(
                         onTap: () {
                           context.goNamed(AutiLabRoutes.loginScreen);
@@ -117,25 +128,22 @@ class _SignupScreenState extends State<SignupScreen>
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
                     CustomButtonWidget(
                       onTap: () async {
                         // AuthenticationRepository auth =
                         //     AuthenticationRepositoryRemoot(
                         //   AuthenticationUserDatasourceRemoot(
                         //     Dio(
-                        //         // BaseOptions(
-                        //         //   baseUrl:
-                        //         //       "https://api.autilab.com/api/auth/register",
-                        //         //   headers: {
-                        //         //     'Content-Type': 'application/json',
-                        //         //     // 'Authorization':
-                        //         //     //     'Bearer ${SharedPreferencesData.getUserToken()}',
-                        //         //   },
-                        //         // ),
-                        //         ),
+                        //       BaseOptions(
+                        //         baseUrl:
+                        //             "https://api.autilab.com/api/auth/register",
+                        //         headers: {
+                        //           'Content-Type': 'application/json',
+                        //           // 'Authorization':
+                        //           //     'Bearer ${SharedPreferencesData.getUserToken()}',
+                        //         },
+                        //       ),
+                        //     ),
                         //   ),
                         // );
                         // var response = await auth.registerUser(
@@ -147,16 +155,14 @@ class _SignupScreenState extends State<SignupScreen>
                         //     password: passwordController.text,
                         //   ),
                         // );
-                        // print(response);
                         context.goNamed(AutiLabRoutes.homeScreen);
                       },
                       height: 50,
+                      margin: AutilabMargin.marginFullScreen
+                          .copyWith(bottom: 48, top: 32),
                       color: AutilabColor.bb,
                       text: 'Sign Up',
                       textStyle: AutilabTextStyle.small16_400,
-                    ),
-                    const SizedBox(
-                      height: 16,
                     ),
                     Row(
                       children: [
