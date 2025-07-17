@@ -75,7 +75,7 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
               Padding(
                 padding: AutilabMargin.marginFullScreen,
                 child: Text(
-                  'Your Internet Connection Is Currently ,Not Available Please Check Or Try Again.',
+                  'You Have Not Activated Any Packages. You Can View All Packages From The Button Below.',
                   textAlign: TextAlign.center,
                   style: AutilabTextStyle.small16_400
                       .copyWith(color: AutilabColor.gray),

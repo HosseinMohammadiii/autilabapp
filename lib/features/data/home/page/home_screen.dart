@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/test_result_widget.dart';
 import '../../../../core/constants/color_constant.dart';
+import '../../../../utils/Lists/package_info_list.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../doctor/page/nearby_center_details_screen.dart';
 import '../../doctor/widgets/specialty_list_widget.dart';
@@ -78,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       'Your Appointment Is Being Reviewed',
     ),
   ];
-  List<String> titlePlanList = ['Free Plan', '99\$/Month', "299\$/Years"];
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -327,8 +327,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           right: index == titlePlanList.length - 1 ? 10 : 0),
                       child: PlanBoxWidget(
                         title: titlePlanList[index],
-                        description:
-                            'Full Access To the Application For One Week',
+                        description: descriptionPlanList[index],
                         titleButton: 'Buy',
                         widget: const [
                           PalnItemWidget(
@@ -356,6 +355,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             AutiLabRoutes.payPackagesScreen,
                             extra: {
                               'title': titlePlanList[index],
+                              'description': descriptionPlanList[index],
                             },
                           );
                         },

@@ -81,7 +81,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                     child: PlanBoxWidget(
                       title: widget.title,
                       titleButton: 'Pay',
-                      description: "Full one-year access to the application",
+                      description: widget.description,
                       backgroundColor: const Color(0xffECF0FF),
                       borderColor: Colors.transparent,
                       boxShadow: [
@@ -120,8 +120,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                             AutiLabRoutes.personalDetailPaymentScreen,
                             extra: {
                               'title': widget.title,
-                              'description':
-                                  "Full one-year access to the application",
+                              'description': widget.description,
                             },
                           );
                         }

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/plan_box_widget.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/Lists/package_info_list.dart';
 import '../../home/widgets/plan_item_widget.dart';
 
 class PackagesSubscribtion extends StatelessWidget {
@@ -12,8 +13,6 @@ class PackagesSubscribtion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> titlePlanList = ['Free Plan', '99\$/Month', "299\$/Years"];
-
     return Scaffold(
       appBar:
           appBarWidget(context: context, title: 'Subscribtion', isIcon: true),
@@ -30,18 +29,34 @@ class PackagesSubscribtion extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: PlanBoxWidget(
                     title: titlePlanList[index],
+                    description: descriptionPlanList[index],
                     titleButton: 'Choose',
-                    widget: [
-                      PalnItemWidget(),
-                      PalnItemWidget(),
-                      PalnItemWidget(),
-                      PalnItemWidget(),
+                    widget: const [
+                      PalnItemWidget(
+                        title: 'Full access to the tools section',
+                      ),
+                      PalnItemWidget(
+                        title: 'Access to aptitude test',
+                      ),
+                      PalnItemWidget(
+                        title: 'Access to personality test',
+                      ),
+                      PalnItemWidget(
+                        title: 'Unlimited appointment booking',
+                      ),
+                      PalnItemWidget(
+                        title: 'Access to nearby centers',
+                      ),
+                      PalnItemWidget(
+                        title: 'Doctor appointment booking discount',
+                      ),
                     ],
                     onTap: () {
                       context.pushNamed(
                         AutiLabRoutes.payPackagesScreen,
                         extra: {
                           'title': titlePlanList[index],
+                          'description': descriptionPlanList[index],
                         },
                       );
                     },
