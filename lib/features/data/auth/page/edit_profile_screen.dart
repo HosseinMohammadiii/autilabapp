@@ -12,12 +12,12 @@ import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/open_location_function.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -189,27 +189,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       return true;
     } else {
       return false;
-    }
-  }
-
-  Future<void> openMap(double latitude, double longitude) async {
-    if (await isPermissionLocationGranted()) {
-      final Uri googleMapsUrl = Uri.parse(
-          'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
-
-      if (await canLaunchUrl(googleMapsUrl)) {
-        await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
-      } else {
-        throw 'Could not open the map.';
-      }
-    } else {
-      // Permission denied: Show error message
-      displaySnackBar(
-        context,
-        'Location access permission denied.',
-        AutilabColor.bb,
-      );
-      return;
     }
   }
 
@@ -484,7 +463,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         bottom: 16,
                         child: CustomButtonWidget(
                           onTap: () async {
-                            openMap(56.1304, -106.3468);
+                            openMap(context, 49.2331, -123.0992);
                           },
                           height: 31,
                           width: 116,

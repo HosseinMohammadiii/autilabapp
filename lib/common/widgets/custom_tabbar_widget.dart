@@ -64,11 +64,6 @@ class CustomTabBarWidget extends StatelessWidget {
                 height: 60,
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 24,
-              ),
-            ),
           ];
         },
         body: TabBarView(

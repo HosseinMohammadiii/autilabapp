@@ -63,7 +63,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
-                  height: 12,
+                  height: 24,
                 ),
                 Padding(
                   padding: AutilabMargin.marginFullScreen,

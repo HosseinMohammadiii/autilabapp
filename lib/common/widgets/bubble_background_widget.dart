@@ -12,7 +12,7 @@ class BubbleBackgroundWidget extends StatelessWidget {
           child: Container(
             width: 47,
             height: 47,
-            margin: const EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               color: const Color(0xffE0E7FF),

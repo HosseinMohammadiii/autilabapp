@@ -4,6 +4,7 @@ import 'package:autilab_project/features/data/doctor/widgets/nearby_card_widget.
 import 'package:flutter/material.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/open_location_function.dart';
 
 class NearbyCenterScreen extends StatefulWidget {
   const NearbyCenterScreen({
@@ -50,7 +51,7 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
               height: 441,
               padding: const EdgeInsets.only(
                   left: 24, right: 24, top: 24, bottom: 46),
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
               decoration: BoxDecoration(
                 color: AutilabColor.white,
                 borderRadius: BorderRadius.circular(24),
@@ -59,18 +60,23 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
               child: Column(
                 children: [
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: AutilabColor.bb,
+                    child: GestureDetector(
+                      onTap: () {
+                        openMap(context, 49.2331, -123.0992);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: AutilabColor.bb,
+                          ),
                         ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.asset(
-                          'assets/images/map_image.png',
-                          fit: BoxFit.cover,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            'assets/images/map_image.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
