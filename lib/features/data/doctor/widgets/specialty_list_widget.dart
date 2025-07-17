@@ -12,6 +12,7 @@ class SpecialtiesListWidget extends StatelessWidget {
     this.heightImage,
     this.widthImage,
     this.radius,
+    this.itemCount,
     required this.textStyle,
   });
   final double height;
@@ -19,6 +20,7 @@ class SpecialtiesListWidget extends StatelessWidget {
   final double? heightImage;
   final double? widthImage;
   final double? radius;
+  final int? itemCount;
   final TextStyle textStyle;
 
   @override
@@ -27,7 +29,7 @@ class SpecialtiesListWidget extends StatelessWidget {
       height: height,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: categoryItemsList.length,
+        itemCount: itemCount ?? categoryItemsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {

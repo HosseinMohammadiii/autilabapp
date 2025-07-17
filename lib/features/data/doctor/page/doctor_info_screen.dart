@@ -268,6 +268,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                   heightImage: 32,
                   widthImage: 32,
                   radius: 16,
+                  itemCount: 3,
                   textStyle: AutilabTextStyle.small12_400,
                 ),
               ),
@@ -294,33 +295,89 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
               padding: AutilabMargin.marginFullScreen,
               sliver: SliverToBoxAdapter(
                 child: TitleAndIconWidget(
-                  icon: 'assets/icons/info-circle.svg',
-                  title: 'More details',
+                  icon: 'assets/icons/location-tick.svg',
+                  title: 'Clinic Address',
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: CustomTextfield(
+                label: '',
+                isEnable: false,
+                borderRaduis: 16,
+                textfieldPadding:
+                    AutilabMargin.marginFullScreen.copyWith(top: 24),
+                controller: TextEditingController(
+                  text:
+                      '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
+                ),
+                backgroundColor: AutilabColor.primary,
+                borderColor: AutilabColor.gray,
+                textStyle: AutilabTextStyle.small14_400.copyWith(
+                  color: AutilabColor.black,
                 ),
               ),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(
-                height: 24,
+                height: 32,
               ),
             ),
-            SliverPadding(
+            const SliverPadding(
               padding: AutilabMargin.marginFullScreen,
               sliver: SliverToBoxAdapter(
-                child: CustomTextfield(
-                  label: '',
-                  isEnable: false,
-                  borderRaduis: 24,
-                  textfieldPadding: const EdgeInsets.all(0),
-                  controller: TextEditingController(
-                    text:
-                        'Hi, I’m Dr. Sofia Martinez, a physiotherapist with a Master’s degree from the University of Toronto.I specialize in helping children with movement and muscle problems, especially those with autism or balance difficulties. My goal is to help each child move better and become more independent using fun and personalized therapy.',
-                  ),
-                  backgroundColor: AutilabColor.primary,
-                  borderColor: AutilabColor.gray,
-                  textStyle: AutilabTextStyle.small14_400.copyWith(
-                    color: AutilabColor.black,
-                  ),
+                child: TitleAndIconWidget(
+                  icon: 'assets/icons/call-calling.svg',
+                  title: 'Clinic Phone',
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: CustomTextfield(
+                label: '',
+                isEnable: false,
+                borderRaduis: 16,
+                textfieldPadding:
+                    AutilabMargin.marginFullScreen.copyWith(top: 24),
+                controller: TextEditingController(
+                  text: '+1 123456789',
+                ),
+                backgroundColor: AutilabColor.primary,
+                borderColor: AutilabColor.gray,
+                textStyle: AutilabTextStyle.small14_400.copyWith(
+                  color: AutilabColor.black,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32,
+              ),
+            ),
+            const SliverPadding(
+              padding: AutilabMargin.marginFullScreen,
+              sliver: SliverToBoxAdapter(
+                child: TitleAndIconWidget(
+                  icon: 'assets/icons/info-circle.svg',
+                  title: 'More Details',
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: CustomTextfield(
+                label: '',
+                isEnable: false,
+                borderRaduis: 16,
+                textfieldPadding:
+                    AutilabMargin.marginFullScreen.copyWith(top: 24),
+                controller: TextEditingController(
+                  text:
+                      'Hi, I’m Dr. Sofia Martinez, a physiotherapist with a Master’s degree from the University of Toronto.I specialize in helping children with movement and muscle problems, especially those with autism or balance difficulties. My goal is to help each child move better and become more independent using fun and personalized therapy.',
+                ),
+                backgroundColor: AutilabColor.primary,
+                borderColor: AutilabColor.gray,
+                textStyle: AutilabTextStyle.small14_400.copyWith(
+                  color: AutilabColor.black,
                 ),
               ),
             ),

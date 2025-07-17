@@ -57,7 +57,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
             slivers: [
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 32,
+                  height: 16,
                 ),
               ),
               const SliverPadding(
@@ -116,7 +116,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 16,
+                  height: 18,
                 ),
               ),
               SliverToBoxAdapter(
@@ -277,6 +277,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                     heightImage: 32,
                     widthImage: 32,
                     radius: 16,
+                    itemCount: 1,
                     textStyle: AutilabTextStyle.small10_400,
                   ),
                 ),
@@ -304,7 +305,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                 sliver: SliverToBoxAdapter(
                   child: TitleAndIconWidget(
                     icon: 'assets/icons/location-tick.svg',
-                    title: 'Address',
+                    title: 'Center Address',
                   ),
                 ),
               ),
@@ -322,6 +323,37 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   controller: TextEditingController(
                     text:
                         '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
+                  ),
+                  backgroundColor: AutilabColor.primary,
+                  borderColor: AutilabColor.gray,
+                  textStyle: AutilabTextStyle.small14_400.copyWith(
+                    color: AutilabColor.black,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 32,
+                ),
+              ),
+              const SliverPadding(
+                padding: AutilabMargin.marginFullScreen,
+                sliver: SliverToBoxAdapter(
+                  child: TitleAndIconWidget(
+                    icon: 'assets/icons/call-calling.svg',
+                    title: 'Clinic Phone',
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: CustomTextfield(
+                  label: '',
+                  isEnable: false,
+                  borderRaduis: 16,
+                  textfieldPadding:
+                      AutilabMargin.marginFullScreen.copyWith(top: 24),
+                  controller: TextEditingController(
+                    text: '+1 123456789',
                   ),
                   backgroundColor: AutilabColor.primary,
                   borderColor: AutilabColor.gray,
