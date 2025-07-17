@@ -51,7 +51,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
           appBar: AppBar(
             leadingWidth: double.infinity,
             leading: appBarWidget(
-                context: context, title: 'My Favorite', isIcon: true),
+                context: context, title: 'All Appointment', isIcon: true),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(70),
               child: Container(

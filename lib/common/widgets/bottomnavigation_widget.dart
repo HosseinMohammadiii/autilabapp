@@ -153,7 +153,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Current location',
+                            'Your Location',
                             style: AutilabTextStyle.small16_400.copyWith(
                               color: AutilabColor.gray,
                             ),
@@ -161,13 +161,13 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           GestureDetector(
                             onTap: () {},
                             child: Row(
+                              spacing: 2,
                               children: [
                                 SvgPicture.asset('assets/icons/gps.svg'),
                                 const Text(
-                                  'Toronto,Canada',
+                                  'Canada',
                                   style: AutilabTextStyle.small18_400,
                                 ),
-                                const Icon(Icons.arrow_drop_down),
                               ],
                             ),
                           ),
