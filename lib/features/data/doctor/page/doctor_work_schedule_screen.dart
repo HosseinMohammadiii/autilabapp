@@ -240,6 +240,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                 SliverPadding(
                   padding: AutilabMargin.marginFullScreen,
                   sliver: SelectTimeWidget(
+                    backgroundColor: AutilabColor.lightGray,
                     onTap: (time) {},
                     isSelect: false,
                   ),

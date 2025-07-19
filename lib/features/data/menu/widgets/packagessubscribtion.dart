@@ -52,11 +52,18 @@ class PackagesSubscribtion extends StatelessWidget {
                       ),
                     ],
                     onTap: () {
+                      int price = 0;
+                      if (index == 1) {
+                        price = 99;
+                      } else {
+                        price = 299;
+                      }
                       context.pushNamed(
                         AutiLabRoutes.payPackagesScreen,
                         extra: {
                           'title': titlePlanList[index],
                           'description': descriptionPlanList[index],
+                          'price': price,
                         },
                       );
                     },

@@ -247,7 +247,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
-                          Image.asset('assets/images/autilab_test_image.png'),
+                          Image.asset(
+                            'assets/images/autilab_test_image.png',
+                            width: 143,
+                            height: 133,
+                          ),
                         ],
                       ),
                       CustomButtonWidget(
@@ -351,11 +355,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ],
                         margin: index == titlePlanList.length - 1 ? 0 : 16,
                         onTap: () {
+                          int price = 0;
+                          if (index == 1) {
+                            price = 99;
+                          } else {
+                            price = 299;
+                          }
                           context.pushNamed(
                             AutiLabRoutes.payPackagesScreen,
                             extra: {
                               'title': titlePlanList[index],
                               'description': descriptionPlanList[index],
+                              'price': price,
                             },
                           );
                         },

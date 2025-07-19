@@ -9,10 +9,12 @@ class SelectTimeWidget extends StatefulWidget {
     super.key,
     required this.onTap,
     this.isSelect = true,
+    this.backgroundColor,
   });
 
   final Function(String? time) onTap;
   final bool? isSelect;
+  final Color? backgroundColor;
 
   @override
   State<SelectTimeWidget> createState() => _SelectTimeWidgetState();
@@ -59,7 +61,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
                   ? AutilabColor.blue
                   : (notAvailable.contains(timeAvailable[index]))
                       ? AutilabColor.bb
-                      : const Color(0xffFBE4E4),
+                      : widget.backgroundColor ?? const Color(0xffFBE4E4),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(

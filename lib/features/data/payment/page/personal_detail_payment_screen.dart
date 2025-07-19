@@ -15,9 +15,11 @@ class PersonalDetailPaymentScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.description,
+    required this.price,
   });
   final String title;
   final String? description;
+  final int price;
 
   @override
   State<PersonalDetailPaymentScreen> createState() =>
@@ -247,24 +249,24 @@ class _PersonalDetailPaymentScreenState
                     border: Border.all(color: AutilabColor.bb),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Column(
+                  child: Column(
                     spacing: 16,
                     children: [
                       CartItemWidget(
                         title: 'Price',
-                        subTitle: '\$299',
+                        subTitle: '\$${widget.price}',
                       ),
-                      CartItemWidget(
+                      const CartItemWidget(
                         title: 'Tax',
                         subTitle: '\$12',
                       ),
                       CartItemWidget(
                         title: 'Discount',
-                        subTitle: '\$299',
+                        subTitle: '\$${widget.price - 3}',
                       ),
                       CartItemWidget(
                         title: 'Total',
-                        subTitle: '\$311',
+                        subTitle: '\$${widget.price + 9}',
                       ),
                     ],
                   ),

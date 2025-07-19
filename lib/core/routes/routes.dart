@@ -344,6 +344,7 @@ class AutilabRouter {
             title: extraData['title'],
             description: extraData['description'],
             options: extraData['options'],
+            price: extraData['price'],
           );
         },
       ),
@@ -356,6 +357,7 @@ class AutilabRouter {
           return PersonalDetailPaymentScreen(
             title: extraData['title'],
             description: extraData['description'],
+            price: extraData['price'],
           );
         },
       ),

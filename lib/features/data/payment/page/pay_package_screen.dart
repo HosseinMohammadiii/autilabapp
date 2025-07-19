@@ -16,10 +16,12 @@ class PayPackageScreen extends StatefulWidget {
     required this.title,
     required this.description,
     required this.options,
+    required this.price,
   });
   final String title;
   final String? description;
   final Widget? options;
+  final int? price;
 
   @override
   State<PayPackageScreen> createState() => _PayPackageScreenState();
@@ -121,6 +123,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                             extra: {
                               'title': widget.title,
                               'description': widget.description,
+                              'price': widget.price,
                             },
                           );
                         }
