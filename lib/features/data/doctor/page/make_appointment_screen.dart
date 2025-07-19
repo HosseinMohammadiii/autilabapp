@@ -212,9 +212,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                       _displayIsAvailableWidget(
                           context, 'Open For Booking', AutilabColor.bb),
                       _displayIsAvailableWidget(
-                          context, 'Already Booked', AutilabColor.lightGray),
+                          context, 'Already Booked', const Color(0xffFBE4E4)),
                       _displayIsAvailableWidget(context,
-                          'This Is A Non-Working Day', const Color(0xffFBE4E4)),
+                          'This Is A Non-Working Day', AutilabColor.lightGray),
                       const SizedBox(
                         height: 8,
                       ),
@@ -293,7 +293,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                       _displayIsAvailableWidget(
                           context, 'Open For Booking', AutilabColor.bb),
                       _displayIsAvailableWidget(
-                          context, 'Already Booked', AutilabColor.lightGray),
+                          context, 'Already Booked', const Color(0xffFBE4E4)),
                       Visibility(
                         visible: selectTime.isNotEmpty,
                         child: Row(

@@ -109,13 +109,13 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      height: 300,
+                      height: 245,
                       child: NewAppointmentsCardWidget(
                         color: const Color(0xff50DD81),
                         title: 'Approved',
                         image: 'assets/images/doctor2.jpg',
                         statusIcon: 'assets/icons/done_icon.svg',
-                        margin: const EdgeInsets.symmetric(vertical: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 8),
                         raiteOnTap: () {},
                         onTap: () {
                           context.pushNamed(
@@ -139,13 +139,13 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      height: 300,
+                      height: 245,
                       child: NewAppointmentsCardWidget(
                         color: const Color(0xffFF6363),
                         title: 'Cancelled',
                         image: 'assets/images/doctor_image.jpg',
                         statusIcon: 'assets/icons/close_icon.svg',
-                        margin: const EdgeInsets.symmetric(vertical: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 8),
                         raiteOnTap: () {},
                         onTap: () {
                           context.pushNamed(
@@ -169,13 +169,13 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      height: 300,
+                      height: 245,
                       child: NewAppointmentsCardWidget(
                         color: AutilabColor.gray,
                         title: 'Pending',
                         image: 'assets/images/doctor3.png',
                         statusIcon: 'assets/icons/minimize_icon.svg',
-                        margin: const EdgeInsets.symmetric(vertical: 16),
+                        margin: const EdgeInsets.symmetric(vertical: 8),
                         raiteOnTap: () {},
                         onTap: () {
                           context.pushNamed(

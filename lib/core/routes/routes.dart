@@ -14,6 +14,7 @@ import 'package:autilab_project/features/data/doctor/page/nearby_center_details_
 import 'package:autilab_project/features/data/home/page/all_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/detail_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/page/home_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/about_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/my_favorite_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/mydoctor_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
@@ -55,7 +56,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/',
+    initialLocation: '/homeScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -401,6 +402,11 @@ class AutilabRouter {
             builder: (context, state) => const SuccessfulSubmitRateScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/aboutScreen',
+        name: AutiLabRoutes.aboutScreen,
+        builder: (context, state) => const AboutScreen(),
       ),
     ],
   );

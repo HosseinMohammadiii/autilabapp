@@ -11,11 +11,13 @@ class CustomTabBarWidget extends StatelessWidget {
     required this.tabBar,
     required this.tabBarView,
     this.isScrollable,
+    this.tabbarSpace,
   });
   final int tabLength;
   final List<Widget> tabBar;
   final List<Widget> tabBarView;
   final bool? isScrollable;
+  final double? tabbarSpace;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,11 @@ class CustomTabBarWidget extends StatelessWidget {
                   ),
                 ),
                 height: 60,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: tabbarSpace,
               ),
             ),
           ];

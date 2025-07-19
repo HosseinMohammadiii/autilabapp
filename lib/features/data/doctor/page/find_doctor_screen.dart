@@ -139,7 +139,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 ),
                 const Padding(
                   padding:
-                      EdgeInsets.only(top: 48, bottom: 8, right: 20, left: 20),
+                      EdgeInsets.only(top: 48, bottom: 16, right: 20, left: 20),
                   child: Text(
                     'Specialist',
                     style: AutilabTextStyle.small20_400,

@@ -33,7 +33,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
     return Container(
       width: 350,
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(vertical: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
         borderRadius: BorderRadius.circular(24),

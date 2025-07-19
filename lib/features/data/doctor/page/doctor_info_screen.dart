@@ -371,9 +371,8 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                 textfieldPadding:
                     AutilabMargin.marginFullScreen.copyWith(top: 24),
                 controller: TextEditingController(
-                  text:
-                      'Hi, I’m Dr. Sofia Martinez, a physiotherapist with a Master’s degree from the University of Toronto.I specialize in helping children with movement and muscle problems, especially those with autism or balance difficulties. My goal is to help each child move better and become more independent using fun and personalized therapy.',
-                ),
+                    text:
+                        "Hi, I’m Dr. Sophia Martinez – a speech therapist with over 8 years of experience helping children with autism, speech delays, and communication challenges.My goal is to support every child in finding their unique voice — with patience, care, and family collaboration.You can easily book a session or consultation through this app. I’d be honored to support your child’s journey."),
                 backgroundColor: AutilabColor.primary,
                 borderColor: AutilabColor.gray,
                 textStyle: AutilabTextStyle.small14_400.copyWith(

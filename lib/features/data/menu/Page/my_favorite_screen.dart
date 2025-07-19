@@ -160,10 +160,14 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                     padding: AutilabMargin.marginFullScreen,
                     child: Column(
                       children: [
+                        // const SizedBox(
+                        //   height: 32,
+                        // ),
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: newArticleList.length,
+                          padding: const EdgeInsets.only(top: 32),
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),
@@ -197,7 +201,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                 ),
                 ListView.builder(
                   itemCount: 6,
-                  padding: AutilabMargin.marginFullScreen,
+                  padding: AutilabMargin.marginFullScreen.copyWith(top: 24),
                   itemBuilder: (context, index) {
                     return DoctorBoxWidget(
                       isLike: true,
@@ -206,6 +210,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                 ),
                 ListView.builder(
                   itemCount: 6,
+                  padding: const EdgeInsets.only(top: 32),
                   itemBuilder: (context, index) {
                     return NearbyCardWidget(
                       isLike: true,

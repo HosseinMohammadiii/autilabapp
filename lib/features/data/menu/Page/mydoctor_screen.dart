@@ -49,6 +49,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
         body: const SafeArea(
           child: CustomTabBarWidget(
             tabLength: 2,
+            tabbarSpace: 32,
             tabBar: [
               FittedBox(
                 child: Text(

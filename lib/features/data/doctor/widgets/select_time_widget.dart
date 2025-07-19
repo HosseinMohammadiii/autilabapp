@@ -59,7 +59,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
                   ? AutilabColor.blue
                   : (notAvailable.contains(timeAvailable[index]))
                       ? AutilabColor.bb
-                      : AutilabColor.lightGray,
+                      : const Color(0xffFBE4E4),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(

@@ -108,7 +108,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               ),
               const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
               ),
               SliverList.builder(

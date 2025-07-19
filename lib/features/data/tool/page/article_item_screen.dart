@@ -146,27 +146,34 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
         appBar: appBarWidget(context: context, title: 'Article', isIcon: true),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: AutilabMargin.marginFullScreen,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: AutilabMargin.marginFullScreen,
+                  child: Text(
                     'Popular Article',
                     style: AutilabTextStyle.small20_400,
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  SizedBox(
-                    height: 260,
-                    child: PageView.builder(
-                      itemCount: popularArticleList.length,
-                      padEnds: false,
-                      pageSnapping: false,
-                      controller: PageController(viewportFraction: 0.9),
-                      itemBuilder: (context, index) {
-                        return PopularArticleWidget(
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                SizedBox(
+                  height: 260,
+                  child: PageView.builder(
+                    itemCount: popularArticleList.length,
+                    padEnds: false,
+                    pageSnapping: false,
+                    controller: PageController(viewportFraction: 0.9),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: index == 0 ? 20 : 0,
+                          right:
+                              index == popularArticleList.length - 1 ? 8 : 16,
+                        ),
+                        child: PopularArticleWidget(
                           index: index,
                           image: popularArticleList[index].image!,
                           title: popularArticleList[index].title,
@@ -184,48 +191,52 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                                       popularArticleList[index].title,
                                 });
                           },
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  const Text(
-                    'New Articles',
-                    style: AutilabTextStyle.small20_400,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: newArticleList.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: ArticleBoxWidget(
-                          isLike: false,
-                          image: newArticleList[index].image!,
-                          title: newArticleList[index].title,
-                          description: newArticleList[index].description,
-                          ontap: () {
-                            context.pushNamed(AutiLabRoutes.mainContentScreen,
-                                extra: {
-                                  'articleImage': newArticleList[index].image,
-                                  'articleText': newArticleList[index].file,
-                                  'articleDescription':
-                                      newArticleList[index].description,
-                                  'articleTitle': newArticleList[index].title,
-                                });
-                          },
                         ),
                       );
                     },
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 48,
+                ),
+                const Padding(
+                  padding: AutilabMargin.marginFullScreen,
+                  child: Text(
+                    'New Articles',
+                    style: AutilabTextStyle.small20_400,
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: newArticleList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 16, right: 20, left: 20),
+                      child: ArticleBoxWidget(
+                        isLike: false,
+                        image: newArticleList[index].image!,
+                        title: newArticleList[index].title,
+                        description: newArticleList[index].description,
+                        ontap: () {
+                          context.pushNamed(AutiLabRoutes.mainContentScreen,
+                              extra: {
+                                'articleImage': newArticleList[index].image,
+                                'articleText': newArticleList[index].file,
+                                'articleDescription':
+                                    newArticleList[index].description,
+                                'articleTitle': newArticleList[index].title,
+                              });
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),

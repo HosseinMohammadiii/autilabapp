@@ -346,12 +346,19 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       switch (index) {
                         case 0:
                           context.pushNamed(AutiLabRoutes.myDoctorScreen);
+                          break;
+
                         case 1:
                           context.pushNamed(AutiLabRoutes.allAppointmentScreen);
+                          break;
+
                         case 2:
                           context.pushNamed(AutiLabRoutes.messageProfileScreen);
+                          break;
+
                         case 3:
                           context.pushNamed(AutiLabRoutes.subscribtionScreen);
+                          break;
                       }
                     },
                   ),
@@ -363,16 +370,29 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       switch (index) {
                         case 0:
                           context.pushNamed(AutiLabRoutes.notificationScreen);
+                          break;
+
                         case 1:
                           context.pushNamed(AutiLabRoutes.testHistoryScreen);
+                          break;
+
                         case 2:
                           context.pushNamed(AutiLabRoutes.myFavoriteScreen);
+                          break;
                       }
                     },
                   ),
                   DrawerBoxWidget(
                     drawerItem: thirdDrawerItemList,
-                    onTap: (index) {},
+                    onTap: (index) {
+                      context.pop();
+
+                      switch (index) {
+                        case 0:
+                          context.pushNamed(AutiLabRoutes.aboutScreen);
+                          break;
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 16,
