@@ -109,7 +109,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      height: 245,
+                      height: 246,
                       child: NewAppointmentsCardWidget(
                         color: const Color(0xff50DD81),
                         title: 'Approved',
@@ -139,7 +139,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      height: 245,
+                      height: 246,
                       child: NewAppointmentsCardWidget(
                         color: const Color(0xffFF6363),
                         title: 'Cancelled',
@@ -169,7 +169,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                   padding: AutilabMargin.marginFullScreen,
                   itemBuilder: (context, index) {
                     return SizedBox(
-                      height: 245,
+                      height: 246,
                       child: NewAppointmentsCardWidget(
                         color: AutilabColor.gray,
                         title: 'Pending',

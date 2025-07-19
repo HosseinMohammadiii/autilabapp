@@ -45,7 +45,7 @@ class _DoctorBoxState extends State<DoctorBox> {
                   'assets/images/doctor_image.jpg',
                   width: 116,
                   height: 116,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

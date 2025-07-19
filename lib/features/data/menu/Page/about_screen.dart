@@ -65,26 +65,9 @@ class _AboutScreenState extends State<AboutScreen>
                   const SizedBox(
                     height: 48,
                   ),
-                  RichText(
-                    text: TextSpan(
-                      style: AutilabTextStyle.small16_400.copyWith(
-                        color: AutilabColor.black,
-                      ),
-                      children: [
-                        const TextSpan(
-                          text:
-                              "AutiLab was created with one simple belief — that every child on the autism spectrum deserves care that truly understands them. It’s a space where differences are understood, and every unique journey is respected. Designed to support children with autism and their families, the app offers accessible, evidence-based tools for early intervention, personalized learning, and ongoing progress tracking.Our goal is to empower parents, therapists, and educators with practical resources that truly make a difference in each child's development journey. ",
-                        ),
-                        WidgetSpan(
-                          child: SvgPicture.asset(
-                            'assets/icons/redheart.svg',
-                            width: 16,
-                            height: 16,
-                          ),
-                          alignment: PlaceholderAlignment.bottom,
-                        ),
-                      ],
-                    ),
+                  const Text(
+                    "AutiLab was created with one simple belief — that every child on the autism spectrum deserves care that truly understands them. It’s a space where differences are understood, and every unique journey is respected. Designed to support children with autism and their families, the app offers accessible, evidence-based tools for early intervention, personalized learning, and ongoing progress tracking.Our goal is to empower parents, therapists, and educators with practical resources that truly make a difference in each child's development journey. ",
+                    style: AutilabTextStyle.small16_400,
                   ),
                   const SizedBox(
                     height: 48,

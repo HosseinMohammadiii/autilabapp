@@ -93,16 +93,15 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
           child: LayoutBuilder(
             builder: (context, constraints) {
               return CustomScrollView(
-                // physics: const NeverScrollableScrollPhysics(),
                 slivers: [
                   SliverFillRemaining(
                     hasScrollBody: false,
-                    fillOverscroll: true,
+                    fillOverscroll: false,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).height / 1.47,
+                          height: 480,
                           child: PageView.builder(
                             controller: pageController,
                             itemCount: 3,
@@ -161,7 +160,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                           ),
                         ),
                         SizedBox(
-                          height: MediaQuery.sizeOf(context).height * 0.01,
+                          height: 18,
                         ),
                         SmoothPageIndicator(
                           controller: pageController,
@@ -183,7 +182,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                           margin: EdgeInsets.only(
                             right: 20,
                             left: 20,
-                            top: MediaQuery.sizeOf(context).height * 0.06,
+                            top: 18,
                           ),
                           textStyle:
                               Theme.of(context).textTheme.bodySmall!.copyWith(

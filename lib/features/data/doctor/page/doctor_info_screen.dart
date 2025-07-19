@@ -61,7 +61,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen> {
                               borderRadius: BorderRadius.circular(16),
                               child: Image.asset(
                                 'assets/images/doctor_image.jpg',
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),

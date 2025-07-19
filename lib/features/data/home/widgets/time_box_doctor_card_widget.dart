@@ -68,6 +68,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
                 const Text(
                   '13:30',
                   style: AutilabTextStyle.medium14_500,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),

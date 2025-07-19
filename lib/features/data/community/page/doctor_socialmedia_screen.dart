@@ -102,7 +102,7 @@ class _DoctorSocialMediaScreenState extends State<DoctorSocialMediaScreen>
                                               height: 100,
                                               child: Image.asset(
                                                 'assets/images/doctor_image.jpg',
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),

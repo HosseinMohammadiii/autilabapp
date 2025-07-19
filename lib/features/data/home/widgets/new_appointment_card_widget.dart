@@ -34,7 +34,6 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 230,
       padding: const EdgeInsets.all(16),
       margin: margin,
       decoration: BoxDecoration(
@@ -100,21 +99,24 @@ class NewAppointmentsCardWidget extends StatelessWidget {
           ),
           const Spacer(),
           SizedBox(
-            height: 94,
+            height: 96,
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
                 spacing: 12,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: SizedBox(
-                      width: 116,
-                      height: 116,
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.fill,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: SizedBox(
+                        width: 116,
+                        height: 116,
+                        child: Image.asset(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -122,6 +124,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      spacing: 8,
                       children: [
                         const Text(
                           'Dr. Sophia Martinez',

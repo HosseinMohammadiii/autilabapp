@@ -94,6 +94,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   FittedBox(
+                    fit: BoxFit.scaleDown,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: SizedBox(
@@ -101,7 +102,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                         height: 116,
                         child: Image.asset(
                           'assets/images/doctor_image.jpg',
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
