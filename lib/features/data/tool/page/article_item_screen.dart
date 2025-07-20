@@ -161,36 +161,40 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                 ),
                 SizedBox(
                   height: 260,
-                  child: PageView.builder(
+                  child: ListView.builder(
                     itemCount: popularArticleList.length,
-                    padEnds: false,
-                    pageSnapping: false,
-                    controller: PageController(viewportFraction: 0.9),
+                    scrollDirection: Axis.horizontal,
+                    // padEnds: false,
+                    // pageSnapping: false,
+                    // controller: PageController(viewportFraction: 0.9),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(
                           left: index == 0 ? 20 : 0,
-                          right:
-                              index == popularArticleList.length - 1 ? 8 : 16,
+                          right: index == popularArticleList.length - 1 ? 8 : 1,
                         ),
-                        child: PopularArticleWidget(
-                          index: index,
-                          image: popularArticleList[index].image!,
-                          title: popularArticleList[index].title,
-                          description: popularArticleList[index].description,
-                          isLike: false,
-                          ontap: () {
-                            context.pushNamed(AutiLabRoutes.mainContentScreen,
-                                extra: {
-                                  'articleImage':
-                                      popularArticleList[index].image,
-                                  'articleText': popularArticleList[index].file,
-                                  'articleDescription':
-                                      popularArticleList[index].description,
-                                  'articleTitle':
-                                      popularArticleList[index].title,
-                                });
-                          },
+                        child: SizedBox(
+                          width: 338,
+                          child: PopularArticleWidget(
+                            index: index,
+                            image: popularArticleList[index].image!,
+                            title: popularArticleList[index].title,
+                            description: popularArticleList[index].description,
+                            isLike: false,
+                            ontap: () {
+                              context.pushNamed(AutiLabRoutes.mainContentScreen,
+                                  extra: {
+                                    'articleImage':
+                                        popularArticleList[index].image,
+                                    'articleText':
+                                        popularArticleList[index].file,
+                                    'articleDescription':
+                                        popularArticleList[index].description,
+                                    'articleTitle':
+                                        popularArticleList[index].title,
+                                  });
+                            },
+                          ),
                         ),
                       );
                     },
