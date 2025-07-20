@@ -5,11 +5,13 @@ import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
+import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
 import 'package:autilab_project/utils/functions/custom_dialog_function.dart';
 import 'package:autilab_project/utils/functions/permissioncotrol.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_linear_datepicker/flutter_datepicker.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -30,17 +32,18 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
+  final ValueNotifier<RadioCharacter> selectedGenderMaleNotifier =
+      ValueNotifier<RadioCharacter>(RadioCharacter.characterOne);
+
   final firstNameController = TextEditingController(text: 'Denis');
   final lasNameController = TextEditingController(text: 'Iliev');
   final emailController = TextEditingController(text: 'denis@gmail.com');
-  final birthdayController = TextEditingController();
   final addressController = TextEditingController();
   final descriptionController = TextEditingController();
 
   final firstNameFocusNode = FocusNode();
   final lasNameFocusNode = FocusNode();
   final emailFocusNode = FocusNode();
-  final birthdayFocusNode = FocusNode();
   final addressFocusNode = FocusNode();
   final descriptionFocusNode = FocusNode();
 
@@ -51,7 +54,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   ValueNotifier<DateTime?> _selectedDate = ValueNotifier(DateTime.now());
 
-  final String dateOfBirth = '';
+  DateTime? tempSelectedDate;
+
+  String dateOfBirth = '';
 
   final List<String> genderOptions = ['Male', 'Female'];
   String selectedGender = 'Male';
@@ -325,52 +330,41 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 ),
                 icon: 'assets/icons/calendar_tick_icon.svg',
                 onTap: () async {
-                  //Display dialog for show table calendar
-
-                  showCustomDialog(
-                    context,
-                    StatefulBuilder(
-                      builder: (context, setState) {
-                        return ValueListenableBuilder<DateTime?>(
-                          valueListenable: _selectedDate,
-                          builder: (context, value, _) {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: LinearDatePicker(
-                                    startDate: DateTime(1980),
-                                    endDate: DateTime(2050),
-                                    initialDate: _selectedDate.value,
-                                    dateChangeListener: (DateTime dateTime) {
-                                      isSelectedDate = true;
-                                      _selectedDate.value = dateTime;
-                                    },
-                                    showDay: true,
-                                    showLabels: true,
-                                    showMonthName: true,
-                                    labelStyle: AutilabTextStyle.medium16_500,
-                                    selectedRowStyle: AutilabTextStyle
-                                        .medium20_500
-                                        .copyWith(color: AutilabColor.bb),
-                                    unselectedRowStyle:
-                                        AutilabTextStyle.small18_400,
-                                    yearLabel: 'Year',
-                                    monthLabel: 'Month',
-                                    dayLabel: 'Day',
-                                    columnWidth: 100,
-                                    debounceDuration:
-                                        const Duration(milliseconds: 300),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                  final selectedDate = await showRoundedDatePicker(
+                    context: Navigator.of(context, rootNavigator: true).context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2050),
+                    borderRadius: 16,
+                    height: 350,
+                    theme: ThemeData(
+                      primaryColor: AutilabColor.bb,
+                      textTheme: const TextTheme(
+                        titleMedium: AutilabTextStyle.small16_400,
+                        bodyLarge: AutilabTextStyle.medium14_500,
+                        bodyMedium: AutilabTextStyle.medium14_500,
+                        bodySmall: AutilabTextStyle.medium14_500,
+                      ),
+                      colorScheme: const ColorScheme.light(
+                        primary: AutilabColor.bb,
+                      ),
                     ),
+                    onTapDay: (dateTime, available) {
+                      tempSelectedDate = dateTime;
+                      return true;
+                    },
+                    textActionButton: "Submit",
+                    onTapActionButton: () {
+                      _selectedDate.value = tempSelectedDate;
+                      context.pop();
+                    },
+                    textPositiveButton: '',
+                    textNegativeButton: '',
                   );
+
+                  if (selectedDate != null) {
+                    _selectedDate.value = selectedDate;
+                  }
                 },
               ),
               _boxSelectDateAndGender(
@@ -381,13 +375,103 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     color: AutilabColor.black,
                   ),
                 ),
-                icon: isDropdownOpen
-                    ? 'assets/icons/arrow_up.svg'
-                    : 'assets/icons/arrow_down.svg',
+                icon: null,
                 onTap: () {
-                  setState(() {
-                    isDropdownOpen = !isDropdownOpen;
-                  });
+                  selectedGenderMaleNotifier.value = selectedGender == 'Male'
+                      ? RadioCharacter.characterOne
+                      : RadioCharacter.secondeCharacter;
+
+                  showCustomDialog(
+                    context,
+                    ValueListenableBuilder(
+                      valueListenable: selectedGenderMaleNotifier,
+                      builder: (context, value, child) {
+                        return Container(
+                          constraints: const BoxConstraints(
+                              maxWidth: 528, maxHeight: 420),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                spacing: 4,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (context.canPop()) {
+                                        context.pop();
+                                      }
+                                    },
+                                    child: const Icon(Icons.close_rounded),
+                                  ),
+                                  const Text(
+                                    'Gender',
+                                    style: AutilabTextStyle.small18_400,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              const Divider(
+                                thickness: 1,
+                                color: AutilabColor.gray,
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              RadioButtonWidget(
+                                radioCharacter:
+                                    selectedGenderMaleNotifier.value,
+                                value: RadioCharacter.characterOne,
+                                onChanged: (value) {
+                                  selectedGenderMaleNotifier.value =
+                                      RadioCharacter.characterOne;
+                                },
+                                title: 'Male',
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              RadioButtonWidget(
+                                radioCharacter:
+                                    selectedGenderMaleNotifier.value,
+                                value: RadioCharacter.secondeCharacter,
+                                onChanged: (value) {
+                                  selectedGenderMaleNotifier.value =
+                                      RadioCharacter.secondeCharacter;
+                                },
+                                title: 'Female',
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              CustomButtonWidget(
+                                onTap: () {
+                                  setState(() {
+                                    if (selectedGenderMaleNotifier.value ==
+                                        RadioCharacter.characterOne) {
+                                      selectedGender = 'Male';
+                                    } else {
+                                      selectedGender = 'Female';
+                                    }
+                                  });
+                                  context.pop();
+                                },
+                                height: 50,
+                                margin: const EdgeInsets.only(top: 16),
+                                color: AutilabColor.bb,
+                                text: 'Submit',
+                                textStyle: AutilabTextStyle.small18_400,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
               SliverToBoxAdapter(
@@ -525,7 +609,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     required BuildContext context,
     required Widget widget,
     required Function() onTap,
-    required String icon,
+    required String? icon,
   }) {
     return SliverToBoxAdapter(
       child: GestureDetector(
@@ -543,15 +627,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               widget,
-              GestureDetector(
-                onTap: onTap,
-                child: SvgPicture.asset(
-                  icon,
-                  width: 20,
-                  height: 20,
-                  fit: BoxFit.scaleDown,
+              if (icon != null) ...[
+                GestureDetector(
+                  onTap: onTap,
+                  child: SvgPicture.asset(
+                    icon,
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
-              ),
+              ],
             ],
           ),
         ),
