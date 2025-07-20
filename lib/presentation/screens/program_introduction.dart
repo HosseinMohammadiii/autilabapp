@@ -182,7 +182,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                           margin: EdgeInsets.only(
                             right: 20,
                             left: 20,
-                            top: 18,
+                            top: 30,
                           ),
                           textStyle:
                               Theme.of(context).textTheme.bodySmall!.copyWith(

@@ -34,7 +34,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
                   image,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

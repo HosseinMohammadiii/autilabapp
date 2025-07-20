@@ -56,7 +56,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AutilabRouter {
   static GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
-    initialLocation: '/',
+    initialLocation: '/homeScreen',
     routes: [
       GoRoute(
         path: '/',

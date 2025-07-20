@@ -1,5 +1,4 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
-import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
