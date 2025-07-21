@@ -132,27 +132,27 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   height: 48,
                                 ),
-                                const TitleAndIconWidget(
+                                TitleAndIconWidget(
                                   icon: 'assets/icons/info-circle.svg',
                                   title: 'Talent Assessment Report',
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   height: 26,
                                 ),
-                                const Text(
+                                Text(
                                   'Based on the results of the multi-dimensional talent assessment, this child has shown strong potential in several key areas.',
                                   style: AutilabTextStyle.small16_400,
-                                  textAlign: TextAlign.justify,
-                                  maxLines: 6,
+                                  textAlign: TextAlign.left,
+                                  maxLines: 10,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                _readeMoreButtonWidget(context),
+                                // _readeMoreButtonWidget(context),
                               ],
                             ),
                             const SizedBox(
@@ -208,9 +208,10 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                             const Text(
                               'Based on the completed personality assessment, this child exhibits a well-defined set of  personality traits that influence their behaviorl',
                               style: AutilabTextStyle.small16_400,
-                              textAlign: TextAlign.justify,
+                              maxLines: 10,
+                              textAlign: TextAlign.left,
                             ),
-                            _readeMoreButtonWidget(context),
+                            // _readeMoreButtonWidget(context),
                             const SizedBox(
                               height: 48,
                             ),
