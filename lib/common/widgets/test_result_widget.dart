@@ -108,7 +108,7 @@ class _TestResultWidgetState extends State<TestResultWidget> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: intelligenceList
-                    .map((data) => IntelligenceScoreWidget(
+                    .map((data) => TalentResultWidget(
                           title: data.title,
                           score: data.score,
                           gradient1: data.gradient1,

@@ -121,37 +121,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 236,
-                  child: PageView.builder(
+                  child: ListView.builder(
                     itemCount: 3,
-                    padEnds: false,
-                    pageSnapping: false,
-                    controller: PageController(viewportFraction: 0.9),
+                    scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(
                           left: index == 0 ? 20 : 12,
                           right: index == statusList.length - 1 ? 8 : 0,
                         ),
-                        child: NewAppointmentsCardWidget(
-                          color: statusList[index].statusColor,
-                          title: statusList[index].title,
-                          statusIcon: statusList[index].statusIcon,
-                          image: 'assets/images/doctor_image.jpg',
-                          margin: EdgeInsets.zero,
-                          raiteOnTap: () {},
-                          onTap: () {
-                            context.pushNamed(
-                              AutiLabRoutes.detailAppointmentScreen,
-                              extra: {
-                                'statusColor': statusList[index].statusColor,
-                                'statusIcon': statusList[index].statusIcon,
-                                'image': 'assets/images/doctor_image.jpg',
-                                'title': statusList[index].title,
-                                'descriptionStatus':
-                                    statusList[index].descriptionStatus,
-                              },
-                            );
-                          },
+                        child: SizedBox(
+                          width: 320,
+                          child: NewAppointmentsCardWidget(
+                            color: statusList[index].statusColor,
+                            title: statusList[index].title,
+                            statusIcon: statusList[index].statusIcon,
+                            image: 'assets/images/doctor_image.jpg',
+                            margin: EdgeInsets.zero,
+                            raiteOnTap: () {},
+                            onTap: () {
+                              context.pushNamed(
+                                AutiLabRoutes.detailAppointmentScreen,
+                                extra: {
+                                  'statusColor': statusList[index].statusColor,
+                                  'statusIcon': statusList[index].statusIcon,
+                                  'image': 'assets/images/doctor_image.jpg',
+                                  'title': statusList[index].title,
+                                  'descriptionStatus':
+                                      statusList[index].descriptionStatus,
+                                },
+                              );
+                            },
+                          ),
                         ),
                       );
                     },

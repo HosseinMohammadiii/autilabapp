@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 
-class IntelligenceScoreWidget extends StatelessWidget {
+class TalentResultWidget extends StatelessWidget {
   final String title;
 
   final Color gradient1;
@@ -11,7 +11,7 @@ class IntelligenceScoreWidget extends StatelessWidget {
   // final double activeLine;
   final int score;
 
-  const IntelligenceScoreWidget({
+  const TalentResultWidget({
     super.key,
     required this.title,
     required this.gradient1,
