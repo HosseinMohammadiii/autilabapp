@@ -8,12 +8,14 @@ import '../../../../core/constants/theme_constant.dart';
 class ToolsBoxWidget extends StatelessWidget {
   const ToolsBoxWidget({
     super.key,
+    this.isMobile = true,
     required this.title,
     required this.description,
     required this.titleButton,
     required this.svg,
     required this.onTap,
   });
+  final bool isMobile;
   final String title;
   final String description;
   final String titleButton;
@@ -32,17 +34,26 @@ class ToolsBoxWidget extends StatelessWidget {
       child: Column(
         spacing: 16,
         children: [
-          SvgPicture.asset(svg),
+          SizedBox(
+            width: isMobile ? null : 470,
+            height: isMobile ? null : 280,
+            child: SvgPicture.asset(svg),
+          ),
           Text(
             title,
-            style: AutilabTextStyle.medium18_500,
+            style: AutilabTextStyle.medium18_500.copyWith(
+              fontSize: isMobile ? 18 : 28,
+            ),
           ),
           Text(
             description,
-            style: AutilabTextStyle.small14_400,
+            style: AutilabTextStyle.small14_400.copyWith(
+              fontSize: isMobile ? 14 : 24,
+            ),
             textAlign: TextAlign.center,
           ),
           CustomButtonWidget(
+            isMobile: isMobile,
             onTap: () => onTap(),
             height: 50,
             margin: const EdgeInsets.all(0),

@@ -6,6 +6,7 @@ class CustomTextfield extends StatelessWidget {
   const CustomTextfield({
     super.key,
     required this.label,
+    this.borderWidth,
     this.textStyle,
     this.padding,
     this.maxLines,
@@ -23,6 +24,7 @@ class CustomTextfield extends StatelessWidget {
     this.isEnable,
     this.textfieldPadding,
   });
+  final double? borderWidth;
   final String label;
   final TextStyle? textStyle;
   final EdgeInsetsGeometry? padding;
@@ -80,7 +82,7 @@ class CustomTextfield extends StatelessWidget {
             ),
             borderSide: BorderSide(
               color: borderColor ?? Colors.grey,
-              width: 1,
+              width: borderWidth ?? 1,
             ),
           ),
           border: OutlineInputBorder(
@@ -89,7 +91,7 @@ class CustomTextfield extends StatelessWidget {
             ),
             borderSide: BorderSide(
               color: borderColor ?? Colors.grey,
-              width: 1,
+              width: borderWidth ?? 1,
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -99,7 +101,7 @@ class CustomTextfield extends StatelessWidget {
             gapPadding: 4,
             borderSide: BorderSide(
               color: borderColor ?? Colors.grey,
-              width: 1,
+              width: borderWidth ?? 1,
             ),
           ),
         ),

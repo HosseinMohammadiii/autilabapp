@@ -7,8 +7,10 @@ import '../page/quiz_multiselect_screen.dart';
 class MultiSelectAnswerWidget extends StatefulWidget {
   const MultiSelectAnswerWidget({
     super.key,
+    this.isMobile = true,
     required this.quizList,
   });
+  final bool isMobile;
   final List<QuizClass> quizList;
 
   @override
@@ -32,20 +34,21 @@ class _MultiSelectAnswerWidgetState extends State<MultiSelectAnswerWidget> {
             });
           },
           child: Container(
-            height: 50,
+            height: widget.isMobile ? 50 : 72,
             margin: const EdgeInsets.symmetric(vertical: 8),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: const Color(0xffECF0FF),
-              border: Border.all(color: AutilabColor.bb, width: 0.5),
-              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                  color: AutilabColor.bb, width: widget.isMobile ? 0.5 : 2),
+              borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
             ),
             child: Row(
               spacing: 12,
               children: [
                 SizedBox(
-                  width: 15,
-                  height: 15,
+                  width: widget.isMobile ? 15 : 24,
+                  height: widget.isMobile ? 15 : 24,
                   child: Checkbox(
                     value: widget.quizList[index].value,
                     activeColor: AutilabColor.blue,
@@ -58,7 +61,9 @@ class _MultiSelectAnswerWidgetState extends State<MultiSelectAnswerWidget> {
                 ),
                 Text(
                   widget.quizList[index].title,
-                  style: AutilabTextStyle.small18_400,
+                  style: AutilabTextStyle.small18_400.copyWith(
+                    fontSize: widget.isMobile ? 18 : 24,
+                  ),
                 ),
               ],
             ),

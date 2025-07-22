@@ -7,9 +7,12 @@ import '../page/quiz_multiselect_screen.dart';
 class SingleSelctedAnswerWidget extends StatefulWidget {
   const SingleSelctedAnswerWidget({
     super.key,
+    this.isMobile = true,
     required this.quizList,
     required this.selectedItems,
   });
+  final bool isMobile;
+
   final List<QuizClass> quizList;
   final List<bool> selectedItems;
 
@@ -36,19 +39,22 @@ class _SingleSelctedAnswerWidgetState extends State<SingleSelctedAnswerWidget> {
             });
           },
           child: Container(
-            height: 50,
+            height: widget.isMobile ? 50 : 72,
             margin: const EdgeInsets.symmetric(vertical: 8),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: widget.selectedItems[index]
                   ? AutilabColor.bb
                   : const Color(0xffECF0FF),
-              border: Border.all(color: AutilabColor.bb, width: 0.5),
-              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                  color: AutilabColor.bb, width: widget.isMobile ? 0.5 : 2),
+              borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
             ),
             child: Text(
               widget.quizList[index].title,
-              style: AutilabTextStyle.small18_400,
+              style: AutilabTextStyle.small18_400.copyWith(
+                fontSize: widget.isMobile ? 18 : 24,
+              ),
             ),
           ),
         );
