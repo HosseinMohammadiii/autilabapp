@@ -53,89 +53,115 @@ class _PayPackageScreenState extends State<PayPackageScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Package', isIcon: true),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: Text(
-                    'Your Selected Package',
-                    style: AutilabTextStyle.medium20_500,
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Center(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 48),
-                    child: PlanBoxWidget(
-                      title: widget.title,
-                      titleButton: 'Pay',
-                      description: widget.description,
-                      backgroundColor: const Color(0xffECF0FF),
-                      borderColor: Colors.transparent,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AutilabColor.black.withValues(alpha: 0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                      widget: const [
-                        PalnItemWidget(
-                          title: 'Full access to the tools section',
-                        ),
-                        PalnItemWidget(
-                          title: 'Access to aptitude test',
-                        ),
-                        PalnItemWidget(
-                          title: 'Access to Personality Screening test',
-                        ),
-                        PalnItemWidget(
-                          title: 'Unlimited appointment booking',
-                        ),
-                        PalnItemWidget(
-                          title: 'Access to nearby centers',
-                        ),
-                        PalnItemWidget(
-                          title: 'Doctor appointment booking discount',
-                        ),
-                      ],
-                      margin: 0,
-                      onTap: () {
-                        if (widget.title == 'Free Plan') {
-                          context.goNamed(AutiLabRoutes.homeScreen);
-                        } else {
-                          context.pushNamed(
-                            AutiLabRoutes.personalDetailPaymentScreen,
-                            extra: {
-                              'title': widget.title,
-                              'description': widget.description,
-                              'price': widget.price,
-                            },
-                          );
-                        }
-                      },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'Package',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
+                    Padding(
+                      padding: AutilabMargin.marginFullScreen,
+                      child: Text(
+                        'Your Selected Package',
+                        style: AutilabTextStyle.medium20_500.copyWith(
+                          fontSize: isMobile() ? 20 : 32,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 48),
+                        child: PlanBoxWidget(
+                          title: widget.title,
+                          isMobile: isMobile(),
+                          titleButton: 'Pay',
+                          description: widget.description,
+                          backgroundColor: const Color(0xffECF0FF),
+                          borderColor: Colors.transparent,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AutilabColor.black.withValues(alpha: 0.2),
+                              blurRadius: 8,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                          widget: [
+                            PalnItemWidget(
+                              isMobile: isMobile(),
+                              title: 'Full access to the tools section',
+                            ),
+                            PalnItemWidget(
+                              isMobile: isMobile(),
+                              title: 'Access to aptitude test',
+                            ),
+                            PalnItemWidget(
+                              isMobile: isMobile(),
+                              title: 'Access to Personality Screening test',
+                            ),
+                            PalnItemWidget(
+                              isMobile: isMobile(),
+                              title: 'Unlimited appointment booking',
+                            ),
+                            PalnItemWidget(
+                              isMobile: isMobile(),
+                              title: 'Access to nearby centers',
+                            ),
+                            PalnItemWidget(
+                              isMobile: isMobile(),
+                              title: 'Doctor appointment booking discount',
+                            ),
+                          ],
+                          margin: 0,
+                          onTap: () {
+                            if (widget.title == 'Free Plan') {
+                              context.goNamed(AutiLabRoutes.homeScreen);
+                            } else {
+                              context.pushNamed(
+                                AutiLabRoutes.personalDetailPaymentScreen,
+                                extra: {
+                                  'title': widget.title,
+                                  'description': widget.description,
+                                  'price': widget.price,
+                                },
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

@@ -6,9 +6,11 @@ import '../../../../core/constants/theme_constant.dart';
 class CartItemWidget extends StatelessWidget {
   const CartItemWidget({
     super.key,
+    this.isMobile = true,
     required this.title,
     required this.subTitle,
   });
+  final bool isMobile;
   final String title;
   final String subTitle;
   @override
@@ -18,7 +20,9 @@ class CartItemWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AutilabTextStyle.small14_400,
+          style: AutilabTextStyle.small14_400.copyWith(
+            fontSize: isMobile ? 14 : 20,
+          ),
         ),
         const Expanded(
           child: Divider(
@@ -30,7 +34,9 @@ class CartItemWidget extends StatelessWidget {
         ),
         Text(
           subTitle,
-          style: AutilabTextStyle.medium14_500,
+          style: AutilabTextStyle.medium14_500.copyWith(
+            fontSize: isMobile ? 14 : 24,
+          ),
         ),
       ],
     );

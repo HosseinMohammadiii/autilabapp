@@ -7,6 +7,7 @@ import '../../../../core/constants/theme_constant.dart';
 class TextFieldCardInfo extends StatelessWidget {
   const TextFieldCardInfo({
     super.key,
+    this.isMobile = true,
     required this.title,
     required this.width,
     required this.textEditingController,
@@ -16,6 +17,7 @@ class TextFieldCardInfo extends StatelessWidget {
     required this.keyboardType,
     this.textInputFormat,
   });
+  final bool isMobile;
   final String title;
 
   final double width;
@@ -33,13 +35,15 @@ class TextFieldCardInfo extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AutilabTextStyle.small16_400,
+          style: AutilabTextStyle.small16_400.copyWith(
+            fontSize: isMobile ? 16 : 20,
+          ),
         ),
         const SizedBox(
           height: 8,
         ),
         SizedBox(
-          height: 55,
+          height: isMobile ? 55 : 68,
           width: width,
           child: TextField(
             controller: textEditingController,
@@ -58,27 +62,29 @@ class TextFieldCardInfo extends StatelessWidget {
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
               hintText: hint,
-              hintStyle: AutilabTextStyle.small12_400
-                  .copyWith(color: AutilabColor.gray),
+              hintStyle: AutilabTextStyle.small12_400.copyWith(
+                color: AutilabColor.gray,
+                fontSize: isMobile ? 12 : 18,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                   color: AutilabColor.black,
-                  width: 0.5,
+                  width: isMobile ? 0.5 : 1.5,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                   color: AutilabColor.black,
-                  width: 0.5,
+                  width: isMobile ? 0.5 : 1.5,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(
+                borderSide: BorderSide(
                   color: AutilabColor.black,
-                  width: 0.5,
+                  width: isMobile ? 0.5 : 1.5,
                 ),
               ),
             ),

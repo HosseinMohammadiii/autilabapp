@@ -106,133 +106,163 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Payment', isIcon: true),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 16,
-              children: [
-                const SizedBox(
-                  height: 4,
-                ),
-                Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: Text(
-                    'Select Your Payment Method ',
-                    style: AutilabTextStyle.medium20_500,
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                SelectMethodPayBoxWidget(
-                  selectedIndexNotifier: selectedIndexNotifier,
-                  title: 'Paypal',
-                  logo: 'assets/icons/paypal_logo.svg',
-                  index: 0,
-                ),
-                SelectMethodPayBoxWidget(
-                  selectedIndexNotifier: selectedIndexNotifier,
-                  title: 'Google pay',
-                  logo: 'assets/icons/googlepay_logo.svg',
-                  index: 1,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  margin: AutilabMargin.marginFullScreen,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AutilabColor.black),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    children: [
-                      SelectMethodPayBoxWidget(
-                        selectedIndexNotifier: selectedIndexNotifier,
-                        title: 'Credit Card',
-                        logo: 'assets/icons/googlepay_logo.svg',
-                        index: 2,
-                        isBorder: false,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'Payment',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 16,
+                  children: [
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Padding(
+                      padding: AutilabMargin.marginFullScreen,
+                      child: Text(
+                        'Select Your Payment Method ',
+                        style: AutilabTextStyle.medium20_500.copyWith(
+                          fontSize: isMobile() ? 20 : 32,
+                        ),
                       ),
-                      const SizedBox(
-                        height: 32,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    SelectMethodPayBoxWidget(
+                      isMobile: isMobile(),
+                      selectedIndexNotifier: selectedIndexNotifier,
+                      title: 'Paypal',
+                      logo: 'assets/icons/paypal_logo.svg',
+                      index: 0,
+                    ),
+                    SelectMethodPayBoxWidget(
+                      isMobile: isMobile(),
+                      selectedIndexNotifier: selectedIndexNotifier,
+                      title: 'Google pay',
+                      logo: 'assets/icons/googlepay_logo.svg',
+                      index: 1,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      margin: AutilabMargin.marginFullScreen,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AutilabColor.black),
+                        borderRadius:
+                            BorderRadius.circular(isMobile() ? 16 : 24),
                       ),
-                      TextFieldCardInfo(
-                        textEditingController: bankCardNumberController,
-                        focusNode: bankCardNumberFocusNode,
-                        title: 'Card Number',
-                        width: double.infinity,
-                        maxLength: 19,
-                        hint: '1415 1415 1415 1415',
-                        keyboardType: TextInputType.number,
-                        textInputFormat: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          CardNumberFormatter(),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      TextFieldCardInfo(
-                        textEditingController: bankCardNameController,
-                        focusNode: bankCardNameFocusNode,
-                        title: 'Name On Card',
-                        width: double.infinity,
-                        hint: 'Name On Card',
-                        keyboardType: TextInputType.name,
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
                         children: [
-                          TextFieldCardInfo(
-                            textEditingController: bankCardCVVController,
-                            focusNode: bankCardCVVFocusNode,
-                            title: 'CVV',
-                            width: MediaQuery.sizeOf(context).width * 0.3,
-                            hint: 'CVV',
-                            maxLength: 4,
-                            keyboardType: TextInputType.number,
+                          SelectMethodPayBoxWidget(
+                            isMobile: isMobile(),
+                            selectedIndexNotifier: selectedIndexNotifier,
+                            title: 'Credit Card',
+                            logo: 'assets/icons/googlepay_logo.svg',
+                            index: 2,
+                            isBorder: false,
+                          ),
+                          const SizedBox(
+                            height: 32,
                           ),
                           TextFieldCardInfo(
-                            textEditingController: bankCardExpireDateController,
-                            focusNode: bankCardExpireDateFocusNode,
-                            title: 'Expire Date',
-                            width: MediaQuery.sizeOf(context).width * 0.3,
-                            hint: 'MM/YY',
-                            keyboardType: TextInputType.datetime,
-                            maxLength: 5,
+                            isMobile: isMobile(),
+                            textEditingController: bankCardNumberController,
+                            focusNode: bankCardNumberFocusNode,
+                            title: 'Card Number',
+                            width: double.infinity,
+                            maxLength: 19,
+                            hint: '1415 1415 1415 1415',
+                            keyboardType: TextInputType.number,
                             textInputFormat: [
                               FilteringTextInputFormatter.digitsOnly,
-                              CardExpirationFormatter(),
+                              CardNumberFormatter(),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          TextFieldCardInfo(
+                            isMobile: isMobile(),
+                            textEditingController: bankCardNameController,
+                            focusNode: bankCardNameFocusNode,
+                            title: 'Name On Card',
+                            width: double.infinity,
+                            hint: 'Name On Card',
+                            keyboardType: TextInputType.name,
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextFieldCardInfo(
+                                isMobile: isMobile(),
+                                textEditingController: bankCardCVVController,
+                                focusNode: bankCardCVVFocusNode,
+                                title: 'CVV',
+                                width: MediaQuery.sizeOf(context).width * 0.3,
+                                hint: 'CVV',
+                                maxLength: 4,
+                                keyboardType: TextInputType.number,
+                              ),
+                              TextFieldCardInfo(
+                                isMobile: isMobile(),
+                                textEditingController:
+                                    bankCardExpireDateController,
+                                focusNode: bankCardExpireDateFocusNode,
+                                title: 'Expire Date',
+                                width: MediaQuery.sizeOf(context).width * 0.3,
+                                hint: 'MM/YY',
+                                keyboardType: TextInputType.datetime,
+                                maxLength: 5,
+                                textInputFormat: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  CardExpirationFormatter(),
+                                ],
+                              ),
                             ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    CustomButtonWidget(
+                      onTap: () {
+                        context.pushNamed(
+                            AutiLabRoutes.notSuccessfulPaymentScreen);
+                      },
+                      height: 50,
+                      isMobile: isMobile(),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 24),
+                      color: AutilabColor.bb,
+                      text: 'Pay',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ],
                 ),
-                CustomButtonWidget(
-                  onTap: () {
-                    context.pushNamed(AutiLabRoutes.notSuccessfulPaymentScreen);
-                  },
-                  height: 50,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                  color: AutilabColor.bb,
-                  text: 'Pay',
-                  textStyle: AutilabTextStyle.small18_400,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
