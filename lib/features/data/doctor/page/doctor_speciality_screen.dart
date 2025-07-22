@@ -49,80 +49,119 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:
-          appBarWidget(context: context, title: 'Specialties', isIcon: true),
-      body: SafeArea(
-        child: FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverAppBar(
-                  leadingWidth: double.infinity,
-                  pinned: true,
-                  leading: Row(
-                    spacing: 8,
-                    children: [
-                      Expanded(
+    return FadeTransition(
+      opacity: animationHelper.fadeAnimation,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isMobile() {
+            if (constraints.maxWidth < 600) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+
+          return Scaffold(
+            appBar: appBarWidget(
+                context: context,
+                title: 'Specialties',
+                isIcon: true,
+                isMobile: isMobile()),
+            body: SafeArea(
+              child: FadeTransition(
+                opacity: animationHelper.fadeAnimation,
+                child: CustomScrollView(
+                  slivers: [
+                    if (!isMobile()) ...[
+                      const SliverToBoxAdapter(
                         child: SizedBox(
-                          height: 40,
-                          child: SearchTextFieldWidget(
-                            searchFocusNode: searchFocusNode,
-                            searchController: searchController,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showCustomDialog(
-                            context,
-                            _buildDialogSortIcon(
-                              context,
-                            ),
-                          );
-                        },
-                        child: SvgPicture.asset(
-                          fit: BoxFit.none,
-                          'assets/icons/sort_icon.svg',
+                          height: 32,
                         ),
                       ),
                     ],
-                  ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverAppBar(
+                        leadingWidth: double.infinity,
+                        pinned: true,
+                        leading: Row(
+                          spacing: 8,
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: isMobile() ? 40 : 74,
+                                child: SearchTextFieldWidget(
+                                  searchFocusNode: searchFocusNode,
+                                  searchController: searchController,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                color: AutilabColor.bb,
+                                shape: BoxShape.circle,
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  showCustomDialog(
+                                    context,
+                                    _buildDialogSortIcon(
+                                      context,
+                                    ),
+                                  );
+                                },
+                                child: SizedBox(
+                                  height: isMobile() ? 25 : 88,
+                                  child: SvgPicture.asset(
+                                    'assets/icons/sort_icon.svg',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 32,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: Text(
+                          'Doctor Specialty',
+                          style: AutilabTextStyle.small24_400.copyWith(
+                            fontSize: isMobile() ? 24 : 32,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 16,
+                      ),
+                    ),
+                    SliverList.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: DoctorBoxWidget(
+                            isMobile: isMobile(),
+                          ),
+                        );
+                      },
+                    )
+                  ],
                 ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 32,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'Doctor Specialty',
-                    style: AutilabTextStyle.small24_400,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
-              ),
-              SliverList.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: DoctorBoxWidget(),
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

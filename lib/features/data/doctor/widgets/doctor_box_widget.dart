@@ -13,8 +13,10 @@ class DoctorBoxWidget extends StatefulWidget {
   DoctorBoxWidget({
     super.key,
     this.isLike = false,
+    this.isMobile = true,
   });
   bool isLike;
+  final bool isMobile;
 
   @override
   State<DoctorBoxWidget> createState() => _DoctorBoxWidgetState();
@@ -31,7 +33,6 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -47,6 +48,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 'Male',
                 style: AutilabTextStyle.medium14_500.copyWith(
                   color: AutilabColor.gray,
+                  fontSize: widget.isMobile ? 14 : 20,
                 ),
               ),
               const Text(' | '),
@@ -54,27 +56,27 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 'Female',
                 style: AutilabTextStyle.medium14_500.copyWith(
                   color: AutilabColor.blue,
+                  fontSize: widget.isMobile ? 14 : 20,
                 ),
               ),
               const Spacer(
                 flex: 4,
               ),
-              Expanded(
-                flex: 3,
-                child: CustomButtonWidget(
-                  onTap: () {
-                    context.pushNamed(AutiLabRoutes.doctorInformationScreen,
-                        extra: {
-                          'isLike': widget.isLike,
-                        });
-                  },
-                  height: 32,
-                  width: 100,
-                  borderRadius: 12,
-                  margin: const EdgeInsets.all(0),
-                  color: const Color(0xffEDC757),
-                  text: 'Info',
-                  textStyle: AutilabTextStyle.small14_400,
+              CustomButtonWidget(
+                onTap: () {
+                  context
+                      .pushNamed(AutiLabRoutes.doctorInformationScreen, extra: {
+                    'isLike': widget.isLike,
+                  });
+                },
+                height: widget.isMobile ? 32 : 48,
+                width: widget.isMobile ? 100 : 200,
+                borderRadius: widget.isMobile ? 12 : 24,
+                margin: const EdgeInsets.all(0),
+                color: const Color(0xffEDC757),
+                text: 'Info',
+                textStyle: AutilabTextStyle.small14_400.copyWith(
+                  fontSize: widget.isMobile ? 14 : 20,
                 ),
               ),
             ],
@@ -87,23 +89,20 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
             height: 12,
           ),
           SizedBox(
-            height: 103,
+            height: widget.isMobile ? 116 : 200,
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      child: SizedBox(
-                        width: 116,
-                        height: 116,
-                        child: Image.asset(
-                          'assets/images/doctor_image.jpg',
-                          fit: BoxFit.cover,
-                        ),
+                      child: Image.asset(
+                        width: widget.isMobile ? 116 : 200,
+                        height: widget.isMobile ? 116 : 200,
+                        'assets/images/doctor_image.jpg',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -114,21 +113,23 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          FittedBox(
-                            child: Text(
-                              'Dr. Sophia Martinez',
-                              style: AutilabTextStyle.medium18_400.copyWith(
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
+                          Text(
+                            'Dr. Sophia Martinez',
+                            overflow: TextOverflow.ellipsis,
+                            style: widget.isMobile
+                                ? AutilabTextStyle.medium18_500
+                                : AutilabTextStyle.medium18_500
+                                    .copyWith(fontSize: 32),
                           ),
                           FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
                             child: Row(
                               children: [
                                 Text(
                                   'Speech Therapy',
                                   style: AutilabTextStyle.small14_400.copyWith(
-                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: widget.isMobile ? 14 : 24,
                                   ),
                                 ),
                                 const SizedBox(
@@ -140,7 +141,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                 ),
                                 Text(
                                   '5.0',
-                                  style: AutilabTextStyle.small14_400,
+                                  style: AutilabTextStyle.small14_400.copyWith(
+                                    fontSize: widget.isMobile ? 14 : 20,
+                                  ),
                                 ),
                               ],
                             ),
@@ -149,7 +152,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             child: Row(
                               children: [
                                 SizedBox(
-                                  height: 32,
+                                  height: widget.isMobile ? 32 : 68,
                                   child: ListView.builder(
                                     itemCount: icon.length,
                                     scrollDirection: Axis.horizontal,
@@ -158,6 +161,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                         const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       return ButtonCard(
+                                        isMobile: widget.isMobile,
                                         onTap: () {
                                           switch (index) {
                                             // case 0:
@@ -190,10 +194,11 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 32,
-                                  width: 32,
+                                  width: widget.isMobile ? 32 : 68,
+                                  height: widget.isMobile ? 32 : 68,
                                   child: LikeWidget(
                                     isLike: widget.isLike,
+                                    isMobile: widget.isMobile,
                                     backgroundColor: AutilabColor.bb,
                                     onTap: () {
                                       setState(() {
@@ -219,6 +224,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                 'isLike': widget.isLike,
               });
             },
+            isMobile: widget.isMobile,
             height: 50,
             margin: const EdgeInsets.only(top: 24),
             color: AutilabColor.bb,

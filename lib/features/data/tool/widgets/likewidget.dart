@@ -9,7 +9,9 @@ class LikeWidget extends StatefulWidget {
     this.isLike = true,
     this.backgroundColor,
     this.borderColor,
+    this.isMobile = true,
   });
+  final bool isMobile;
   final Function() onTap;
   final bool isLike;
   final Color? backgroundColor;
@@ -25,10 +27,10 @@ class _LikeWidgetState extends State<LikeWidget> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        padding: const EdgeInsets.all(6),
+        padding: EdgeInsets.all(widget.isMobile ? 6 : 15),
         decoration: BoxDecoration(
           color: widget.backgroundColor ?? AutilabColor.drawerWhite,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(widget.isMobile ? 12 : 24),
           border: Border.all(
             width: 0.5,
             color: widget.borderColor ?? AutilabColor.bb,

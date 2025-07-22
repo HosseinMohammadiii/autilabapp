@@ -1,8 +1,10 @@
+import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomButtonWidget extends StatelessWidget {
   const CustomButtonWidget({
     super.key,
+    this.isMobile = true,
     required this.onTap,
     this.width,
     required this.height,
@@ -15,6 +17,7 @@ class CustomButtonWidget extends StatelessWidget {
     required this.textStyle,
     this.boxShadow,
   });
+  final bool isMobile;
   final Function() onTap;
   final double? width;
   final double height;
@@ -32,7 +35,7 @@ class CustomButtonWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
-        height: height,
+        height: isMobile ? 50 : 72,
         margin:
             margin ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 2),
@@ -41,14 +44,16 @@ class CustomButtonWidget extends StatelessWidget {
           boxShadow: boxShadow,
           color: color,
           border: Border.all(color: bordeColor ?? Colors.transparent),
-          borderRadius: BorderRadius.circular(borderRadius ?? 16),
+          borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
         ),
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: textStyle,
+            style: AutilabTextStyle.small18_400.copyWith(
+              fontSize: isMobile ? 18 : 28,
+            ),
           ),
         ),
       ),
