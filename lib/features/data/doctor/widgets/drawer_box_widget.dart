@@ -7,10 +7,11 @@ import '../../../../core/constants/theme_constant.dart';
 class DrawerBoxWidget extends StatelessWidget {
   const DrawerBoxWidget({
     super.key,
+    this.isMobile = true,
     required this.drawerItem,
     required this.onTap,
   });
-
+  final bool isMobile;
   final List<DrawerItemClass> drawerItem;
   final Function(int index) onTap;
 
@@ -36,21 +37,25 @@ class DrawerBoxWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      width: 24,
-                      height: 24,
-                      padding: const EdgeInsets.all(4),
+                      width: isMobile ? 24 : 40,
+                      height: isMobile ? 24 : 40,
+                      padding: EdgeInsets.all(isMobile ? 6 : 8),
                       margin: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 6),
                       decoration: BoxDecoration(
                         color: drawerItem[index].backgroundColor,
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset(drawerItem[index].icon),
+                      child: SvgPicture.asset(
+                        drawerItem[index].icon,
+                      ),
                     ),
                     Expanded(
                       child: Text(
                         drawerItem[index].title,
-                        style: AutilabTextStyle.small14_400,
+                        style: AutilabTextStyle.small14_400.copyWith(
+                          fontSize: isMobile ? 14 : 20,
+                        ),
                       ),
                     ),
                   ],

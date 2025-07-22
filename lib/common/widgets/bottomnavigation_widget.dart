@@ -118,292 +118,324 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop:
-          GoRouterState.of(context).uri.path != '/homeScreen' ? false : true,
-      onPopInvokedWithResult: (didPop, result) {
-        if (GoRouterState.of(context).uri.path != '/homeScreen') {
-          context.go('/homeScreen');
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
         }
-      },
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: isMainScreen()
-            ? AppBar(
-                leadingWidth: double.infinity,
-                toolbarHeight: 100,
-                automaticallyImplyLeading: false,
-                flexibleSpace: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: Wrap(
-                    runAlignment: WrapAlignment.spaceBetween,
-                    alignment: WrapAlignment.center,
-                    direction: Axis.vertical,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          scaffoldKey.currentState?.openDrawer();
-                        },
-                        child: const Icon(Icons.menu),
+
+        return PopScope(
+          canPop: GoRouterState.of(context).uri.path != '/homeScreen'
+              ? false
+              : true,
+          onPopInvokedWithResult: (didPop, result) {
+            if (GoRouterState.of(context).uri.path != '/homeScreen') {
+              context.go('/homeScreen');
+            }
+          },
+          child: Scaffold(
+            key: scaffoldKey,
+            appBar: isMainScreen()
+                ? AppBar(
+                    leadingWidth: double.infinity,
+                    toolbarHeight: 100,
+                    automaticallyImplyLeading: false,
+                    flexibleSpace: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Wrap(
+                        runAlignment: WrapAlignment.spaceBetween,
+                        alignment: WrapAlignment.center,
+                        direction: Axis.vertical,
                         children: [
-                          Text(
-                            'Your Location',
-                            style: AutilabTextStyle.small16_400.copyWith(
-                              color: AutilabColor.gray,
+                          GestureDetector(
+                            onTap: () {
+                              scaffoldKey.currentState?.openDrawer();
+                            },
+                            child: Icon(
+                              Icons.menu,
+                              size: isMobile() ? 24 : 40,
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Row(
-                              spacing: 2,
-                              children: [
-                                SvgPicture.asset('assets/icons/gps.svg'),
-                                const Text(
-                                  'Toronto,Canada',
-                                  style: AutilabTextStyle.small18_400,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Your Location',
+                                style: AutilabTextStyle.small16_400.copyWith(
+                                  color: AutilabColor.gray,
+                                  fontSize: isMobile() ? 16 : 28,
                                 ),
-                              ],
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                child: Row(
+                                  spacing: 2,
+                                  children: [
+                                    SvgPicture.asset('assets/icons/gps.svg'),
+                                    Text(
+                                      'Toronto,Canada',
+                                      style:
+                                          AutilabTextStyle.small18_400.copyWith(
+                                        fontSize: isMobile() ? 18 : 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.goNamed(AutiLabRoutes.profileScreen);
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: CachednetworkimageWidget(
+                                imgUrl: '',
+                                img: Image.asset(
+                                  'assets/images/child2_image.jpg',
+                                  fit: BoxFit.cover,
+                                  width: isMobile() ? 52 : 84,
+                                  height: isMobile() ? 52 : 84,
+                                ),
+                                isNetworkImage: false,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          context.goNamed(AutiLabRoutes.profileScreen);
+                    ),
+                  )
+                : null,
+            bottomNavigationBar: SafeArea(
+              child: Container(
+                height: isMobile() ? 97 : 126,
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                decoration: BoxDecoration(
+                  color: AutilabColor.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AutilabColor.black.withValues(alpha: 0.2),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _bottomnavigationItem(
+                      isMobile: isMobile(),
+                      index: 0,
+                      selctItems: widget.navigationShell.currentIndex,
+                      lable: 'Home',
+                      icon: 'assets/icons/home_buttomnavigation.svg',
+                      context: context,
+                    ),
+                    _bottomnavigationItem(
+                      isMobile: isMobile(),
+                      index: 1,
+                      selctItems: widget.navigationShell.currentIndex,
+                      lable: 'Doctor',
+                      icon: 'assets/icons/doctor_buttomnavigation.svg',
+                      context: context,
+                    ),
+                    _bottomnavigationItem(
+                      isMobile: isMobile(),
+                      index: 2,
+                      selctItems: widget.navigationShell.currentIndex,
+                      lable: 'Tools',
+                      icon: 'assets/icons/tools_buttomnavigation.svg',
+                      context: context,
+                    ),
+                    _bottomnavigationItem(
+                      isMobile: isMobile(),
+                      index: 3,
+                      selctItems: widget.navigationShell.currentIndex,
+                      lable: 'Profile',
+                      icon: 'assets/icons/profile_buttomnavigation.svg',
+                      context: context,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            onDrawerChanged: (isOpened) {
+              setState(() {
+                isPlaying = isOpened;
+                isOpened
+                    ? _animationController.forward()
+                    : _animationController.reverse();
+              });
+            },
+            drawer: SafeArea(
+              child: SlideTransition(
+                position: _slideTransition,
+                child: Drawer(
+                  backgroundColor: AutilabColor.backgroundDrawer,
+                  elevation: 0,
+                  child: ListView(
+                    children: [
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      // Stack(
+                      //   alignment: Alignment.topCenter,
+                      //   children: [
+                      // FittedBox(
+                      //   child: Container(
+                      //     height: 124,
+                      //     margin: const EdgeInsets.only(
+                      //         left: 20, right: 20, top: 36, bottom: 8),
+                      //     padding: const EdgeInsets.symmetric(
+                      //         horizontal: 16, vertical: 25),
+                      //     decoration: BoxDecoration(
+                      //       color: AutilabColor.drawerWhite,
+                      //       borderRadius: BorderRadius.circular(16),
+                      //     ),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       crossAxisAlignment: CrossAxisAlignment.end,
+                      //       spacing: 22,
+                      //       children: [
+                      //         const Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           mainAxisAlignment: MainAxisAlignment.end,
+                      //           children: [
+                      //             Text(
+                      //               'Denis Iliev',
+                      //               style: AutilabTextStyle.medium16_500,
+                      //             ),
+                      //             SizedBox(
+                      //               height: 4,
+                      //             ),
+                      //             Text(
+                      //               'denis@gmail.com',
+                      //               style: AutilabTextStyle.small14_400,
+                      //             ),
+                      //           ],
+                      //         ),
+                      //         CustomButtonWidget(
+                      //           onTap: () {
+                      //             context.pop();
+                      //             context.pushNamed(
+                      //                 AutiLabRoutes.editProfileScreen);
+                      //           },
+                      //           width: 100,
+                      //           height: 32,
+                      //           borderRadius: 12,
+                      //           margin: const EdgeInsets.all(0),
+                      //           color: AutilabColor.blue,
+                      //           text: 'Edit Profile',
+                      //           textStyle:
+                      //               AutilabTextStyle.small12_400.copyWith(
+                      //             color: AutilabColor.white,
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      //     ClipRRect(
+                      //       borderRadius: BorderRadius.circular(100),
+                      //       child: CachednetworkimageWidget(
+                      //         imgUrl: '',
+                      //         img: Image.asset(
+                      //           'assets/images/child2_image.jpg',
+                      //           fit: BoxFit.cover,
+                      //           width: 72,
+                      //           height: 72,
+                      //         ),
+                      //         isNetworkImage: false,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      DrawerBoxWidget(
+                        isMobile: isMobile(),
+                        drawerItem: firstDrawerItemList,
+                        onTap: (index) {
+                          context.pop();
+
+                          switch (index) {
+                            case 0:
+                              context.pushNamed(AutiLabRoutes.myDoctorScreen);
+                              break;
+
+                            case 1:
+                              context.pushNamed(
+                                  AutiLabRoutes.allAppointmentScreen);
+                              break;
+
+                            case 2:
+                              context.pushNamed(
+                                  AutiLabRoutes.messageProfileScreen);
+                              break;
+
+                            case 3:
+                              context
+                                  .pushNamed(AutiLabRoutes.subscribtionScreen);
+                              break;
+                          }
                         },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: CachednetworkimageWidget(
-                            imgUrl: '',
-                            img: Image.asset(
-                              'assets/images/child2_image.jpg',
-                              fit: BoxFit.cover,
-                              width: 52,
-                              height: 52,
-                            ),
-                            isNetworkImage: false,
-                          ),
-                        ),
+                      ),
+                      DrawerBoxWidget(
+                        isMobile: isMobile(),
+                        drawerItem: secondDrawerItemList,
+                        onTap: (index) {
+                          context.pop();
+
+                          switch (index) {
+                            case 0:
+                              context
+                                  .pushNamed(AutiLabRoutes.notificationScreen);
+                              break;
+
+                            case 1:
+                              context
+                                  .pushNamed(AutiLabRoutes.testHistoryScreen);
+                              break;
+
+                            case 2:
+                              context.pushNamed(AutiLabRoutes.myFavoriteScreen);
+                              break;
+                          }
+                        },
+                      ),
+                      DrawerBoxWidget(
+                        isMobile: isMobile(),
+                        drawerItem: thirdDrawerItemList,
+                        onTap: (index) {
+                          context.pop();
+
+                          switch (index) {
+                            case 0:
+                              context.pushNamed(AutiLabRoutes.aboutScreen);
+                              break;
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
                       ),
                     ],
                   ),
                 ),
-              )
-            : null,
-        bottomNavigationBar: SafeArea(
-          child: Container(
-            height: 95,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            decoration: BoxDecoration(
-              color: AutilabColor.white,
-              boxShadow: [
-                BoxShadow(
-                  color: AutilabColor.black.withValues(alpha: 0.2),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _bottomnavigationItem(
-                  index: 0,
-                  selctItems: widget.navigationShell.currentIndex,
-                  lable: 'Home',
-                  icon: 'assets/icons/home_buttomnavigation.svg',
-                  context: context,
-                ),
-                _bottomnavigationItem(
-                  index: 1,
-                  selctItems: widget.navigationShell.currentIndex,
-                  lable: 'Doctor',
-                  icon: 'assets/icons/doctor_buttomnavigation.svg',
-                  context: context,
-                ),
-                _bottomnavigationItem(
-                  index: 2,
-                  selctItems: widget.navigationShell.currentIndex,
-                  lable: 'Tools',
-                  icon: 'assets/icons/tools_buttomnavigation.svg',
-                  context: context,
-                ),
-                _bottomnavigationItem(
-                  index: 3,
-                  selctItems: widget.navigationShell.currentIndex,
-                  lable: 'Profile',
-                  icon: 'assets/icons/profile_buttomnavigation.svg',
-                  context: context,
-                ),
-              ],
-            ),
-          ),
-        ),
-        onDrawerChanged: (isOpened) {
-          setState(() {
-            isPlaying = isOpened;
-            isOpened
-                ? _animationController.forward()
-                : _animationController.reverse();
-          });
-        },
-        drawer: SafeArea(
-          child: SlideTransition(
-            position: _slideTransition,
-            child: Drawer(
-              backgroundColor: AutilabColor.backgroundDrawer,
-              elevation: 0,
-              child: ListView(
-                children: [
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  // Stack(
-                  //   alignment: Alignment.topCenter,
-                  //   children: [
-                  // FittedBox(
-                  //   child: Container(
-                  //     height: 124,
-                  //     margin: const EdgeInsets.only(
-                  //         left: 20, right: 20, top: 36, bottom: 8),
-                  //     padding: const EdgeInsets.symmetric(
-                  //         horizontal: 16, vertical: 25),
-                  //     decoration: BoxDecoration(
-                  //       color: AutilabColor.drawerWhite,
-                  //       borderRadius: BorderRadius.circular(16),
-                  //     ),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       crossAxisAlignment: CrossAxisAlignment.end,
-                  //       spacing: 22,
-                  //       children: [
-                  //         const Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           mainAxisAlignment: MainAxisAlignment.end,
-                  //           children: [
-                  //             Text(
-                  //               'Denis Iliev',
-                  //               style: AutilabTextStyle.medium16_500,
-                  //             ),
-                  //             SizedBox(
-                  //               height: 4,
-                  //             ),
-                  //             Text(
-                  //               'denis@gmail.com',
-                  //               style: AutilabTextStyle.small14_400,
-                  //             ),
-                  //           ],
-                  //         ),
-                  //         CustomButtonWidget(
-                  //           onTap: () {
-                  //             context.pop();
-                  //             context.pushNamed(
-                  //                 AutiLabRoutes.editProfileScreen);
-                  //           },
-                  //           width: 100,
-                  //           height: 32,
-                  //           borderRadius: 12,
-                  //           margin: const EdgeInsets.all(0),
-                  //           color: AutilabColor.blue,
-                  //           text: 'Edit Profile',
-                  //           textStyle:
-                  //               AutilabTextStyle.small12_400.copyWith(
-                  //             color: AutilabColor.white,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  //     ClipRRect(
-                  //       borderRadius: BorderRadius.circular(100),
-                  //       child: CachednetworkimageWidget(
-                  //         imgUrl: '',
-                  //         img: Image.asset(
-                  //           'assets/images/child2_image.jpg',
-                  //           fit: BoxFit.cover,
-                  //           width: 72,
-                  //           height: 72,
-                  //         ),
-                  //         isNetworkImage: false,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  DrawerBoxWidget(
-                    drawerItem: firstDrawerItemList,
-                    onTap: (index) {
-                      context.pop();
-
-                      switch (index) {
-                        case 0:
-                          context.pushNamed(AutiLabRoutes.myDoctorScreen);
-                          break;
-
-                        case 1:
-                          context.pushNamed(AutiLabRoutes.allAppointmentScreen);
-                          break;
-
-                        case 2:
-                          context.pushNamed(AutiLabRoutes.messageProfileScreen);
-                          break;
-
-                        case 3:
-                          context.pushNamed(AutiLabRoutes.subscribtionScreen);
-                          break;
-                      }
-                    },
-                  ),
-                  DrawerBoxWidget(
-                    drawerItem: secondDrawerItemList,
-                    onTap: (index) {
-                      context.pop();
-
-                      switch (index) {
-                        case 0:
-                          context.pushNamed(AutiLabRoutes.notificationScreen);
-                          break;
-
-                        case 1:
-                          context.pushNamed(AutiLabRoutes.testHistoryScreen);
-                          break;
-
-                        case 2:
-                          context.pushNamed(AutiLabRoutes.myFavoriteScreen);
-                          break;
-                      }
-                    },
-                  ),
-                  DrawerBoxWidget(
-                    drawerItem: thirdDrawerItemList,
-                    onTap: (index) {
-                      context.pop();
-
-                      switch (index) {
-                        case 0:
-                          context.pushNamed(AutiLabRoutes.aboutScreen);
-                          break;
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
               ),
             ),
+            body: widget.navigationShell,
           ),
-        ),
-        body: widget.navigationShell,
-      ),
+        );
+      },
     );
   }
 
@@ -418,23 +450,30 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     required String lable,
     required String icon,
     required BuildContext context,
+    required bool isMobile,
   }) {
     return GestureDetector(
       onTap: () => widget.navigationShell.goBranch(index),
       child: Container(
-        width: 72,
+        width: isMobile ? 72 : 92,
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: setColorItems(index, selctItems),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
+          spacing: isMobile ? 6 : 8,
           children: [
             SvgPicture.asset(
               icon,
+              width: isMobile ? 32 : 40,
+              height: isMobile ? 32 : 40,
             ),
             Text(
               lable,
+              style: AutilabTextStyle.medium12_500.copyWith(
+                fontSize: isMobile ? 12 : 18,
+              ),
               overflow: TextOverflow.ellipsis,
             ),
           ],
