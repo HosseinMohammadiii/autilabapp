@@ -61,10 +61,11 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
               appBar: AppBar(
                 leadingWidth: double.infinity,
                 leading: appBarWidget(
-                    context: context,
-                    title: 'All Appointment',
-                    isIcon: true,
-                    isMobile: isMobile()),
+                  context: context,
+                  title: 'All Appointment',
+                  isIcon: true,
+                  isMobile: isMobile(),
+                ),
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(isMobile() ? 70 : 120),
                   child: Container(
@@ -158,7 +159,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       padding: AutilabMargin.marginFullScreen,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: isMobile() ? 252 : 385,
+                          height: isMobile() ? 252 : 388,
                           child: NewAppointmentsCardWidget(
                             isMobile: isMobile(),
                             color: const Color(0xffFF6363),
@@ -189,7 +190,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       padding: AutilabMargin.marginFullScreen,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: isMobile() ? 252 : 385,
+                          height: isMobile() ? 252 : 388,
                           child: NewAppointmentsCardWidget(
                             isMobile: isMobile(),
                             color: AutilabColor.gray,

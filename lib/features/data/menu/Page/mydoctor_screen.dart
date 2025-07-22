@@ -65,7 +65,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                 isMobile: isMobile(),
                 tabLength: 2,
                 tabbarSpace: 32,
-                tabBar: [
+                tabBar: const [
                   FittedBox(
                     child: Text(
                       'Valid Appointment',
@@ -75,7 +75,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                   FittedBox(
                     child: Text(
                       'Expired Appointment',
-                      style: AutilabTextStyle.small16_400,
+                      style: AutilabTextStyle.small24_400,
                     ),
                   ),
                 ],

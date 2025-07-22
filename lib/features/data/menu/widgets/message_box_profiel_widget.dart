@@ -8,9 +8,11 @@ import '../../../../core/constants/theme_constant.dart';
 class MesseageBoxProfile extends StatelessWidget {
   const MesseageBoxProfile({
     super.key,
+    this.isMobile = true,
     required this.isMessage,
     this.content,
   });
+  final bool isMobile;
   final bool isMessage;
   final String? content;
 
@@ -28,13 +30,13 @@ class MesseageBoxProfile extends StatelessWidget {
         );
       },
       child: Container(
-        height: 71,
-        padding: const EdgeInsets.all(10),
+        height: isMobile ? 71 : 112,
+        padding: EdgeInsets.all(isMobile ? 10 : 16),
         margin: AutilabMargin.marginFullScreen,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: AutilabColor.bb),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
         ),
         child: Row(
           spacing: 11,
@@ -44,22 +46,28 @@ class MesseageBoxProfile extends StatelessWidget {
               borderRadius: BorderRadius.circular(100),
               child: Image.asset(
                 'assets/images/doctor_image.jpg',
-                width: 45,
+                width: isMobile ? 45 : 80,
                 fit: BoxFit.cover,
               ),
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'Dr. Sophia Martinez',
-                    style: AutilabTextStyle.medium14_500,
+                    style: AutilabTextStyle.medium14_500.copyWith(
+                      fontSize: isMobile ? 14 : 18,
+                    ),
                   ),
                   Text(
                     'Use of social networks of experts and families',
-                    style: AutilabTextStyle.small12_400
-                        .copyWith(overflow: TextOverflow.ellipsis),
+                    overflow: TextOverflow.ellipsis,
+                    style: AutilabTextStyle.small12_400.copyWith(
+                      color: AutilabColor.gray,
+                      fontSize: isMobile ? 12 : 16,
+                    ),
                   ),
                 ],
               ),
@@ -67,14 +75,19 @@ class MesseageBoxProfile extends StatelessWidget {
             Visibility(
               visible: isMessage,
               child: Container(
-                padding: const EdgeInsets.all(8),
+                width: isMobile ? 26 : 40,
+                height: isMobile ? 26 : 40,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(2),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: AutilabColor.yellow,
                 ),
                 child: Text(
                   content ?? '',
-                  style: AutilabTextStyle.medium12_500,
+                  style: AutilabTextStyle.medium12_500.copyWith(
+                    fontSize: isMobile ? 12 : 16,
+                  ),
                 ),
               ),
             ),
