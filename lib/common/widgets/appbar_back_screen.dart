@@ -8,6 +8,7 @@ PreferredSizeWidget appBarWidget({
   required BuildContext context,
   required String title,
   bool? isIcon,
+  bool isMobile = true,
 }) {
   return AppBar(
     automaticallyImplyLeading: false,
@@ -29,7 +30,8 @@ PreferredSizeWidget appBarWidget({
                 },
                 child: Text(
                   title,
-                  style: AutilabTextStyle.small18_400,
+                  style: AutilabTextStyle.small18_400
+                      .copyWith(fontSize: isMobile ? 18 : 28),
                 ),
               ),
             ),
@@ -43,12 +45,17 @@ PreferredSizeWidget appBarWidget({
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: SvgPicture.asset('assets/icons/arrow_back.svg'),
+                    child: SvgPicture.asset(
+                      'assets/icons/arrow_back.svg',
+                      width: isMobile ? 24 : 48,
+                      height: isMobile ? 24 : 48,
+                    ),
                   ),
                 ),
                 Text(
                   title,
-                  style: AutilabTextStyle.small18_400,
+                  style: AutilabTextStyle.small18_400
+                      .copyWith(fontSize: isMobile ? 18 : 28),
                 ),
               ],
             ),
