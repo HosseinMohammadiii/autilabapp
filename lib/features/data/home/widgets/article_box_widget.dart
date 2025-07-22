@@ -8,12 +8,14 @@ import '../../../../core/constants/theme_constant.dart';
 class ArticleBoxWidget extends StatefulWidget {
   ArticleBoxWidget({
     super.key,
+    this.isMobile = true,
     required this.image,
     required this.title,
     required this.description,
     required this.ontap,
     this.isLike = false,
   });
+  final bool isMobile;
   final String image;
   final String title;
   final String description;
@@ -37,20 +39,20 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
     return GestureDetector(
       onTap: () => widget.ontap(),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(widget.isMobile ? 12 : 16),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: AutilabColor.bb),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
         ),
         child: SizedBox(
-          height: 90,
+          height: widget.isMobile ? 90 : 145,
           child: Row(
             spacing: 12,
             children: [
               SizedBox(
-                width: 90,
-                height: 90,
+                width: widget.isMobile ? 90 : 145,
+                height: widget.isMobile ? 90 : 145,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
@@ -85,17 +87,21 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                         Text(
                           widget.title,
                           overflow: TextOverflow.ellipsis,
-                          style: AutilabTextStyle.medium16_500,
+                          style: AutilabTextStyle.medium16_500.copyWith(
+                            fontSize: widget.isMobile ? 16 : 24,
+                          ),
                         ),
                         Text(
                           widget.description,
                           overflow: TextOverflow.ellipsis,
-                          style: AutilabTextStyle.small14_400,
+                          style: AutilabTextStyle.small14_400.copyWith(
+                            fontSize: widget.isMobile ? 14 : 20,
+                          ),
                         ),
                       ],
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
@@ -106,17 +112,20 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                               borderRadius: BorderRadius.circular(85),
                               child: Image.asset(
                                 'assets/images/doctor4.png',
-                                width: 16,
-                                height: 16,
+                                width: widget.isMobile ? 16 : 24,
+                                height: widget.isMobile ? 16 : 24,
                               ),
                             ),
                             Text(
                               'Dr.Masoomi',
-                              style: AutilabTextStyle.small12_400,
+                              style: AutilabTextStyle.small12_400.copyWith(
+                                fontSize: widget.isMobile ? 12 : 16,
+                              ),
                             ),
                           ],
                         ),
                         LikeWidget(
+                          isMobile: widget.isMobile,
                           isLike: widget.isLike,
                           onTap: () {
                             setState(() {

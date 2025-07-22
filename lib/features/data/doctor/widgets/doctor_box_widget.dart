@@ -62,21 +62,33 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               const Spacer(
                 flex: 4,
               ),
-              CustomButtonWidget(
+              GestureDetector(
                 onTap: () {
                   context
                       .pushNamed(AutiLabRoutes.doctorInformationScreen, extra: {
                     'isLike': widget.isLike,
                   });
                 },
-                height: widget.isMobile ? 32 : 48,
-                width: widget.isMobile ? 100 : 200,
-                borderRadius: widget.isMobile ? 12 : 24,
-                margin: const EdgeInsets.all(0),
-                color: const Color(0xffEDC757),
-                text: 'Info',
-                textStyle: AutilabTextStyle.small14_400.copyWith(
-                  fontSize: widget.isMobile ? 14 : 20,
+                child: Container(
+                  height: widget.isMobile ? 32 : 48,
+                  width: widget.isMobile ? 100 : 200,
+                  margin: EdgeInsets.zero,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color(0xffEDC757),
+                    borderRadius:
+                        BorderRadius.circular(widget.isMobile ? 16 : 24),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'Info',
+                      textAlign: TextAlign.center,
+                      style: AutilabTextStyle.small18_400.copyWith(
+                        fontSize: widget.isMobile ? 18 : 28,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

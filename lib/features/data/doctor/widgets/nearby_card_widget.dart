@@ -12,9 +12,11 @@ import '../../../../core/constants/color_constant.dart';
 class NearbyCardWidget extends StatefulWidget {
   NearbyCardWidget({
     super.key,
+    this.isMobile = true,
     this.isShowButton,
     this.isLike,
   });
+  final bool isMobile;
   final bool? isShowButton;
   bool? isLike;
 
@@ -27,23 +29,23 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(widget.isMobile ? 16 : 24),
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       decoration: BoxDecoration(
         color: AutilabColor.primary,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           FittedBox(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
               child: Image.asset(
-                'assets/images/autism_help_center.png',
+                'assets/images/autism_help_center.jpg',
                 fit: BoxFit.fill,
-                width: 320,
-                height: 213,
+                width: widget.isMobile ? 320 : 722,
+                height: widget.isMobile ? 213 : 315,
               ),
             ),
           ),
@@ -57,29 +59,13 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 Expanded(
                   child: Text(
                     'Autism Help Center',
-                    style: AutilabTextStyle.medium18_500,
-                  ),
-                ),
-                Container(
-                  width: 32,
-                  height: 32,
-                  margin: const EdgeInsets.only(right: 12),
-                  decoration: BoxDecoration(
-                    color: AutilabColor.bb,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: LikeWidget(
-                    backgroundColor: AutilabColor.bb,
-                    isLike: widget.isLike ?? false,
-                    onTap: () {
-                      setState(() {
-                        isLike = !isLike;
-                        widget.isLike = isLike;
-                      });
-                    },
+                    style: AutilabTextStyle.medium18_500.copyWith(
+                      fontSize: widget.isMobile ? 18 : 32,
+                    ),
                   ),
                 ),
                 ButtonCard(
+                  isMobile: widget.isMobile,
                   onTap: () {
                     context.pushNamed(
                       AutiLabRoutes.doctorMessageScreen,
@@ -93,6 +79,27 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                   margin: const EdgeInsets.all(0),
                   icon: 'assets/icons/messages.svg',
                 ),
+                Container(
+                  width: widget.isMobile ? 32 : 68,
+                  height: widget.isMobile ? 32 : 68,
+                  margin: const EdgeInsets.only(left: 12),
+                  decoration: BoxDecoration(
+                    color: AutilabColor.bb,
+                    borderRadius:
+                        BorderRadius.circular(widget.isMobile ? 12 : 24),
+                  ),
+                  child: LikeWidget(
+                    isMobile: widget.isMobile,
+                    backgroundColor: AutilabColor.bb,
+                    isLike: widget.isLike ?? false,
+                    onTap: () {
+                      setState(() {
+                        isLike = !isLike;
+                        widget.isLike = isLike;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -104,10 +111,10 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
             child: Text(
               'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
               style: AutilabTextStyle.small14_400.copyWith(
-                overflow: widget.isShowButton == false
-                    ? TextOverflow.visible
-                    : TextOverflow.ellipsis,
-              ),
+                  overflow: widget.isShowButton == false
+                      ? TextOverflow.visible
+                      : TextOverflow.ellipsis,
+                  fontSize: widget.isMobile ? 14 : 24),
               maxLines: 3,
               textAlign: TextAlign.left,
             ),
@@ -115,6 +122,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
           Visibility(
             visible: widget.isShowButton ?? true,
             child: CustomButtonWidget(
+              isMobile: widget.isMobile,
               onTap: () {
                 context
                     .pushNamed(AutiLabRoutes.nearbyCenterDetailScreen, extra: {

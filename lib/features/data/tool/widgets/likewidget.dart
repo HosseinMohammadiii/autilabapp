@@ -27,6 +27,8 @@ class _LikeWidgetState extends State<LikeWidget> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
+        width: widget.isMobile ? 32 : 68,
+        height: widget.isMobile ? 32 : 68,
         padding: EdgeInsets.all(widget.isMobile ? 6 : 15),
         decoration: BoxDecoration(
           color: widget.backgroundColor ?? AutilabColor.drawerWhite,
@@ -39,13 +41,13 @@ class _LikeWidgetState extends State<LikeWidget> {
         child: widget.isLike
             ? SvgPicture.asset(
                 'assets/icons/redheart.svg',
-                width: 16,
-                height: 16,
+                width: widget.isMobile ? 16 : 21,
+                height: widget.isMobile ? 16 : 21,
               )
             : SvgPicture.asset(
                 'assets/icons/heart.svg',
-                width: 16,
-                height: 16,
+                width: widget.isMobile ? 16 : 21,
+                height: widget.isMobile ? 16 : 21,
               ),
       ),
     );

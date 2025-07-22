@@ -41,87 +41,110 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-              width: double.infinity,
-              height: 441,
-              padding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 24, bottom: 46),
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-              decoration: BoxDecoration(
-                color: AutilabColor.white,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: AutilabColor.bb),
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        openMap(context, 49.2331, -123.0992);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: AutilabColor.bb,
-                          ),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            'assets/images/map_image.png',
-                            fit: BoxFit.cover,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                  // width: double.infinity,
+                  height: isMobile() ? 441 : 601,
+                  padding: EdgeInsets.all(isMobile() ? 24 : 32),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                  decoration: BoxDecoration(
+                    color: AutilabColor.white,
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: AutilabColor.bb),
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            openMap(context, 49.2331, -123.0992);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(isMobile() ? 16 : 24),
+                              border: Border.all(
+                                color: AutilabColor.bb,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(isMobile() ? 16 : 24),
+                              child: Image.asset(
+                                'assets/images/map_image.png',
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        'Find Nearby centers',
+                        style: AutilabTextStyle.medium20_500.copyWith(
+                          fontSize: isMobile() ? 20 : 28,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        'Tap The Map And Select Your Location To See The Centers Near You.',
+                        textAlign: TextAlign.center,
+                        style: AutilabTextStyle.small16_400.copyWith(
+                          fontSize: isMobile() ? 16 : 24,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 16),
+                  child: Text(
+                    'Suggestions',
+                    style: AutilabTextStyle.small20_400.copyWith(
+                      fontSize: isMobile() ? 20 : 40,
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    'Find Nearby centers',
-                    style: AutilabTextStyle.medium20_500,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    'Tap The Map And Select Your Location To See The Centers Near You.',
-                    textAlign: TextAlign.center,
-                    style: AutilabTextStyle.small16_400,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, top: 16),
-              child: Text(
-                'Suggestions',
-                style: AutilabTextStyle.small20_400,
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 24,
+                ),
               ),
-            ),
+              SliverList.builder(
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return NearbyCardWidget(
+                    isMobile: isMobile(),
+                  );
+                },
+              ),
+            ],
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 24,
-            ),
-          ),
-          SliverList.builder(
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return NearbyCardWidget();
-            },
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

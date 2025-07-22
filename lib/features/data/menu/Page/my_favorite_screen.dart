@@ -88,159 +88,182 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
   ];
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: DefaultTabController(
-        animationDuration: const Duration(seconds: 1),
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            leadingWidth: double.infinity,
-            leading: appBarWidget(
-                context: context, title: 'My Favorite', isIcon: true),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(70),
-              child: Container(
-                width: double.infinity,
-                color: AutilabColor.white,
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Container(
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: AutilabColor.lightGray,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: TabBar(
-                    labelStyle: AutilabTextStyle.small18_400.copyWith(
-                      color: Colors.black,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: DefaultTabController(
+            animationDuration: const Duration(seconds: 1),
+            length: 3,
+            child: Scaffold(
+              appBar: AppBar(
+                leadingWidth: double.infinity,
+                leading: appBarWidget(
+                  context: context,
+                  title: 'My Favorite',
+                  isIcon: true,
+                  isMobile: isMobile(),
+                ),
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(isMobile() ? 70 : 120),
+                  child: Container(
+                    width: double.infinity,
+                    color: AutilabColor.white,
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Container(
+                      height: isMobile() ? 50 : 72,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: AutilabColor.lightGray,
+                        borderRadius:
+                            BorderRadius.circular(isMobile() ? 16 : 32),
+                      ),
+                      child: TabBar(
+                        labelStyle: AutilabTextStyle.small18_400.copyWith(
+                          color: Colors.black,
+                        ),
+                        dividerColor: Colors.transparent,
+                        indicator: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(isMobile() ? 16 : 32),
+                          color: AutilabColor.bb,
+                        ),
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        tabs: const [
+                          FittedBox(
+                            child: Text(
+                              'Article',
+                              style: AutilabTextStyle.small16_400,
+                            ),
+                          ),
+                          FittedBox(
+                            child: Text(
+                              'Doctor',
+                              style: AutilabTextStyle.small16_400,
+                            ),
+                          ),
+                          FittedBox(
+                            child: Text(
+                              'Center',
+                              style: AutilabTextStyle.small16_400,
+                            ),
+                          ),
+                          // FittedBox(
+                          //   child: Text(
+                          //     'Post',
+                          //     style: AutilabTextStyle.small16_400,
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
-                    dividerColor: Colors.transparent,
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: AutilabColor.bb,
-                    ),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    tabs: [
-                      FittedBox(
-                        child: Text(
-                          'Article',
-                          style: AutilabTextStyle.small16_400,
-                        ),
-                      ),
-                      FittedBox(
-                        child: Text(
-                          'Doctor',
-                          style: AutilabTextStyle.small16_400,
-                        ),
-                      ),
-                      FittedBox(
-                        child: Text(
-                          'Center',
-                          style: AutilabTextStyle.small16_400,
-                        ),
-                      ),
-                      // FittedBox(
-                      //   child: Text(
-                      //     'Post',
-                      //     style: AutilabTextStyle.small16_400,
-                      //   ),
-                      // ),
-                    ],
                   ),
+                ),
+              ),
+              body: SafeArea(
+                child: TabBarView(
+                  children: [
+                    SingleChildScrollView(
+                      child: Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Column(
+                          children: [
+                            // const SizedBox(
+                            //   height: 32,
+                            // ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: newArticleList.length,
+                              padding: const EdgeInsets.only(top: 32),
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: ArticleBoxWidget(
+                                    isMobile: isMobile(),
+                                    isLike: true,
+                                    image: newArticleList[index].image!,
+                                    title: newArticleList[index].title,
+                                    description:
+                                        newArticleList[index].description,
+                                    ontap: () {
+                                      context.pushNamed(
+                                          AutiLabRoutes.mainContentScreen,
+                                          extra: {
+                                            'articleImage':
+                                                newArticleList[index].image,
+                                            'articleText':
+                                                newArticleList[index].file,
+                                            'articleDescription':
+                                                newArticleList[index]
+                                                    .description,
+                                            'articleTitle':
+                                                newArticleList[index].title,
+                                            'isLike': true,
+                                          });
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    ListView.builder(
+                      itemCount: 6,
+                      padding: AutilabMargin.marginFullScreen.copyWith(top: 24),
+                      itemBuilder: (context, index) {
+                        return DoctorBoxWidget(
+                          isMobile: isMobile(),
+                          isLike: true,
+                        );
+                      },
+                    ),
+                    ListView.builder(
+                      itemCount: 6,
+                      padding: const EdgeInsets.only(top: 32),
+                      itemBuilder: (context, index) {
+                        return NearbyCardWidget(
+                          isMobile: isMobile(),
+                          isLike: true,
+                        );
+                      },
+                    ),
+                    // GridView.builder(
+                    //   shrinkWrap: true,
+                    //   padding: AutilabMargin.marginFullScreen,
+                    //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //     crossAxisCount: 3,
+                    //     crossAxisSpacing: 12,
+                    //     mainAxisSpacing: 20,
+                    //   ),
+                    //   itemCount: 9,
+                    //   itemBuilder: (context, index) {
+                    //     return ClipRRect(
+                    //       borderRadius: BorderRadius.circular(8),
+                    //       child: Image.asset(
+                    //         'assets/images/child2_image.jpg',
+                    //         fit: BoxFit.cover,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                  ],
                 ),
               ),
             ),
           ),
-          body: SafeArea(
-            child: TabBarView(
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: AutilabMargin.marginFullScreen,
-                    child: Column(
-                      children: [
-                        // const SizedBox(
-                        //   height: 32,
-                        // ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: newArticleList.length,
-                          padding: const EdgeInsets.only(top: 32),
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 16),
-                              child: ArticleBoxWidget(
-                                isLike: true,
-                                image: newArticleList[index].image!,
-                                title: newArticleList[index].title,
-                                description: newArticleList[index].description,
-                                ontap: () {
-                                  context.pushNamed(
-                                      AutiLabRoutes.mainContentScreen,
-                                      extra: {
-                                        'articleImage':
-                                            newArticleList[index].image,
-                                        'articleText':
-                                            newArticleList[index].file,
-                                        'articleDescription':
-                                            newArticleList[index].description,
-                                        'articleTitle':
-                                            newArticleList[index].title,
-                                        'isLike': true,
-                                      });
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                ListView.builder(
-                  itemCount: 6,
-                  padding: AutilabMargin.marginFullScreen.copyWith(top: 24),
-                  itemBuilder: (context, index) {
-                    return DoctorBoxWidget(
-                      isLike: true,
-                    );
-                  },
-                ),
-                ListView.builder(
-                  itemCount: 6,
-                  padding: const EdgeInsets.only(top: 32),
-                  itemBuilder: (context, index) {
-                    return NearbyCardWidget(
-                      isLike: true,
-                    );
-                  },
-                ),
-                // GridView.builder(
-                //   shrinkWrap: true,
-                //   padding: AutilabMargin.marginFullScreen,
-                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //     crossAxisCount: 3,
-                //     crossAxisSpacing: 12,
-                //     mainAxisSpacing: 20,
-                //   ),
-                //   itemCount: 9,
-                //   itemBuilder: (context, index) {
-                //     return ClipRRect(
-                //       borderRadius: BorderRadius.circular(8),
-                //       child: Image.asset(
-                //         'assets/images/child2_image.jpg',
-                //         fit: BoxFit.cover,
-                //       ),
-                //     );
-                //   },
-                // ),
-              ],
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
