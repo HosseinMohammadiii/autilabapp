@@ -39,32 +39,50 @@ class _NotificationScreenState extends State<NotificationScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(
-            context: context, title: 'Notifications', isIcon: true),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 8,
-                  padding: AutilabMargin.marginVertical_48,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 12),
-                      child: NotificationBoxWidget(),
-                    );
-                  },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'Notifications',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 8,
+                      padding: AutilabMargin.marginVertical_48,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: NotificationBoxWidget(
+                            isMobile: isMobile(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
