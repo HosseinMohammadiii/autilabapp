@@ -8,7 +8,9 @@ import '../../home/widgets/new_appointment_card_widget.dart';
 class ExpiredAppointmentWidget extends StatelessWidget {
   const ExpiredAppointmentWidget({
     super.key,
+    this.isMobile = true,
   });
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,9 @@ class ExpiredAppointmentWidget extends StatelessWidget {
           itemCount: 6,
           itemBuilder: (context, index) {
             return SizedBox(
-              height: 245,
+              height: isMobile ? 252 : 409,
               child: NewAppointmentsCardWidget(
+                isMobile: isMobile,
                 color: const Color(0xff50DD81),
                 backgroundColor: AutilabColor.lightGray,
                 title: 'Approved',

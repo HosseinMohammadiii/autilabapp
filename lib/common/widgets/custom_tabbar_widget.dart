@@ -7,12 +7,14 @@ import '../../utils/tabbar_delegate.dart';
 class CustomTabBarWidget extends StatelessWidget {
   const CustomTabBarWidget({
     super.key,
+    this.isMobile = true,
     required this.tabLength,
     required this.tabBar,
     required this.tabBarView,
     this.isScrollable,
     this.tabbarSpace,
   });
+  final bool isMobile;
   final int tabLength;
   final List<Widget> tabBar;
   final List<Widget> tabBarView;
@@ -47,7 +49,7 @@ class CustomTabBarWidget extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: AutilabColor.lightGray,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                     ),
                     child: TabBar(
                       labelStyle: AutilabTextStyle.small18_400.copyWith(
@@ -55,7 +57,7 @@ class CustomTabBarWidget extends StatelessWidget {
                       ),
                       dividerColor: Colors.transparent,
                       indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                         color: AutilabColor.bb,
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,

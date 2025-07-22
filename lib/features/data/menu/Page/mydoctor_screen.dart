@@ -41,36 +41,57 @@ class _MydoctorScreenState extends State<MydoctorScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar:
-            appBarWidget(context: context, title: 'My Doctor', isIcon: true),
-        body: SafeArea(
-          child: CustomTabBarWidget(
-            tabLength: 2,
-            tabbarSpace: 32,
-            tabBar: [
-              FittedBox(
-                child: Text(
-                  'Valid Appointment',
-                  style: AutilabTextStyle.small16_400,
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'My Doctor',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: CustomTabBarWidget(
+                isMobile: isMobile(),
+                tabLength: 2,
+                tabbarSpace: 32,
+                tabBar: [
+                  FittedBox(
+                    child: Text(
+                      'Valid Appointment',
+                      style: AutilabTextStyle.small16_400,
+                    ),
+                  ),
+                  FittedBox(
+                    child: Text(
+                      'Expired Appointment',
+                      style: AutilabTextStyle.small16_400,
+                    ),
+                  ),
+                ],
+                tabBarView: [
+                  ValidAppointmentWidget(
+                    isMobile: isMobile(),
+                  ),
+                  ExpiredAppointmentWidget(
+                    isMobile: isMobile(),
+                  ),
+                ],
               ),
-              FittedBox(
-                child: Text(
-                  'Expired Appointment',
-                  style: AutilabTextStyle.small16_400,
-                ),
-              ),
-            ],
-            tabBarView: const [
-              ValidAppointmentWidget(),
-              ExpiredAppointmentWidget(),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

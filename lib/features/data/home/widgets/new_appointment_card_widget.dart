@@ -71,25 +71,27 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                     context.pushNamed(AutiLabRoutes.ratingScreen);
                   },
                   child: Container(
-                    height: 24,
+                    height: isMobile ? 24 : 32,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AutilabColor.bb,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       spacing: 4,
                       children: [
                         Icon(
                           Icons.star_rounded,
-                          color: Color(0xffEDC757),
-                          size: 16,
+                          color: const Color(0xffEDC757),
+                          size: isMobile ? 16 : 18,
                         ),
                         Text(
                           'Rate Now',
-                          style: AutilabTextStyle.small12_400,
+                          style: AutilabTextStyle.small12_400.copyWith(
+                            fontSize: isMobile ? 12 : 16,
+                          ),
                         ),
                       ],
                     ),
@@ -185,6 +187,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
           ),
           const Spacer(),
           CustomButtonWidget(
+            isMobile: isMobile,
             onTap: () {
               onTap();
             },

@@ -7,7 +7,9 @@ import '../../home/widgets/new_appointment_card_widget.dart';
 class ValidAppointmentWidget extends StatelessWidget {
   const ValidAppointmentWidget({
     super.key,
+    this.isMobile = true,
   });
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,9 @@ class ValidAppointmentWidget extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return SizedBox(
-          height: 245,
+          height: isMobile ? 252 : 409,
           child: NewAppointmentsCardWidget(
+            isMobile: isMobile,
             color: const Color(0xff50DD81),
             title: 'Approved',
             statusIcon: 'assets/icons/done_icon.svg',
