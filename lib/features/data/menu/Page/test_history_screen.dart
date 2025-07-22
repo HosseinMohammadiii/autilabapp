@@ -85,10 +85,11 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
             return Scaffold(
               appBar: AppBar(
                 leading: appBarWidget(
-                    context: context,
-                    title: 'Test History',
-                    isIcon: true,
-                    isMobile: isMobile()),
+                  context: context,
+                  title: 'Test History',
+                  isIcon: true,
+                  isMobile: isMobile(),
+                ),
                 leadingWidth: double.infinity,
                 centerTitle: false,
                 bottom: PreferredSize(
@@ -114,7 +115,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                           color: AutilabColor.bb,
                         ),
                         indicatorSize: TabBarIndicatorSize.tab,
-                        tabs: [
+                        tabs: const [
                           FittedBox(
                             child: Text(
                               'Talent Test',
@@ -151,7 +152,8 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                     const SizedBox(
                                       height: 48,
                                     ),
-                                    const TitleAndIconWidget(
+                                    TitleAndIconWidget(
+                                      isMobile: isMobile(),
                                       icon: 'assets/icons/info-circle.svg',
                                       title: 'Talent Assessment Report',
                                     ),
@@ -160,7 +162,10 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                     ),
                                     Text(
                                       'Based on the results of the multi-dimensional talent assessment, this child has shown strong potential in several key areas.',
-                                      style: AutilabTextStyle.small16_400,
+                                      style:
+                                          AutilabTextStyle.small16_400.copyWith(
+                                        fontSize: isMobile() ? 16 : 24,
+                                      ),
                                       textAlign: TextAlign.left,
                                       maxLines: 10,
                                       overflow: TextOverflow.ellipsis,
@@ -171,7 +176,8 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                 const SizedBox(
                                   height: 48,
                                 ),
-                                const TitleAndIconWidget(
+                                TitleAndIconWidget(
+                                  isMobile: isMobile(),
                                   icon: 'assets/icons/note.svg',
                                   title: 'Talent Test Chart',
                                 ),
@@ -182,6 +188,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                   isShowTitle: false,
                                 ),
                                 CustomButtonWidget(
+                                  isMobile: isMobile(),
                                   onTap: () {
                                     context.pushNamed(
                                         AutiLabRoutes.typeTestsScreen);
@@ -211,7 +218,8 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                 const SizedBox(
                                   height: 48,
                                 ),
-                                const TitleAndIconWidget(
+                                TitleAndIconWidget(
+                                  isMobile: isMobile(),
                                   icon: 'assets/icons/info-circle.svg',
                                   title: 'Personality Test Report',
                                 ),
@@ -220,7 +228,9 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                 ),
                                 Text(
                                   'Based on the completed personality assessment, this child exhibits a well-defined set of  personality traits that influence their behaviorl',
-                                  style: AutilabTextStyle.small16_400,
+                                  style: AutilabTextStyle.small16_400.copyWith(
+                                    fontSize: isMobile() ? 16 : 24,
+                                  ),
                                   maxLines: 10,
                                   textAlign: TextAlign.left,
                                 ),
@@ -228,7 +238,8 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                 const SizedBox(
                                   height: 48,
                                 ),
-                                const TitleAndIconWidget(
+                                TitleAndIconWidget(
+                                  isMobile: isMobile(),
                                   icon: 'assets/icons/note.svg',
                                   title: 'Personality Test Chart',
                                 ),
@@ -252,6 +263,9 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         itemCount: talentTestItem.length,
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: isMobile() ? 8 : 16,
+                                            horizontal: isMobile() ? 8 : 16),
                                         itemBuilder: (context, index) {
                                           return Column(
                                             children: [
@@ -261,8 +275,9 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                                 spacing: 8,
                                                 children: [
                                                   Container(
-                                                    width: 24,
-                                                    height: 24,
+                                                    width: isMobile() ? 24 : 40,
+                                                    height:
+                                                        isMobile() ? 24 : 40,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color:
@@ -273,14 +288,20 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                                   Text(
                                                     talentTestItem[index].title,
                                                     style: AutilabTextStyle
-                                                        .small16_400,
+                                                        .small16_400
+                                                        .copyWith(
+                                                      fontSize:
+                                                          isMobile() ? 16 : 20,
+                                                    ),
                                                     textAlign:
                                                         TextAlign.justify,
                                                   ),
                                                   const Spacer(),
                                                   Container(
-                                                    height: 24,
-                                                    width: 60,
+                                                    height:
+                                                        isMobile() ? 24 : 40,
+                                                    width:
+                                                        isMobile() ? 60 : 120,
                                                     alignment: Alignment.center,
                                                     decoration: BoxDecoration(
                                                       color: AutilabColor.bb,
@@ -292,7 +313,12 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                                       talentTestItem[index]
                                                           .percentage,
                                                       style: AutilabTextStyle
-                                                          .small14_400,
+                                                          .small14_400
+                                                          .copyWith(
+                                                        fontSize: isMobile()
+                                                            ? 14
+                                                            : 20,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -306,7 +332,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                                                       .length -
                                                                   1
                                                           ? 0
-                                                          : 16),
+                                                          : 12),
                                                   child: const Divider(
                                                     thickness: 0.5,
                                                     color: AutilabColor.bb,
@@ -320,6 +346,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                   ),
                                 ),
                                 CustomButtonWidget(
+                                  isMobile: isMobile(),
                                   onTap: () {
                                     context.pushNamed(
                                         AutiLabRoutes.typeTestsScreen);

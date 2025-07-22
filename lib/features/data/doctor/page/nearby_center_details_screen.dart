@@ -403,7 +403,10 @@ class TitleAndIconWidget extends StatelessWidget {
         ),
         Text(
           title,
-          style: textStyle ?? AutilabTextStyle.medium18_500,
+          style: textStyle ??
+              AutilabTextStyle.medium18_500.copyWith(
+                fontSize: isMobile ? 18 : 32,
+              ),
         ),
       ],
     );
