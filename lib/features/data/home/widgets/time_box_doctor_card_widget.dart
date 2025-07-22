@@ -14,7 +14,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: isMobile ? 30 : 64,
+      height: isMobile ? 30 : 56,
       width: isMobile ? null : 400,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(

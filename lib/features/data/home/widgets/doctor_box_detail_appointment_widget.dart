@@ -8,13 +8,15 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
   const DoctorBoxDetialAppointmentWidget({
     super.key,
     required this.image,
+    this.isMobile = true,
   });
   final String image;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: isMobile ? 150 : 248,
       width: double.infinity,
       margin: AutilabMargin.marginFullScreen,
       padding: const EdgeInsets.all(16),
@@ -23,15 +25,14 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: SizedBox(
-        height: 116,
+        height: isMobile ? 116 : 200,
         child: Row(
-          spacing: 12,
+          spacing: isMobile ? 12 : 25,
           children: [
             SizedBox(
-              width: 116,
-              height: 116,
+              width: isMobile ? 116 : 200,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                 child: Image.asset(
                   image,
                   fit: BoxFit.cover,
@@ -48,7 +49,10 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Dr. Sophia Martinez',
-                      style: AutilabTextStyle.medium18_500,
+                      style: isMobile
+                          ? AutilabTextStyle.medium18_500
+                          : AutilabTextStyle.medium18_500
+                              .copyWith(fontSize: 32),
                     ),
                   ),
                   FittedBox(
@@ -59,7 +63,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                         Text(
                           'Psychotherapy',
                           style: AutilabTextStyle.small14_400.copyWith(
-                            overflow: TextOverflow.ellipsis,
+                            fontSize: isMobile ? 14 : 24,
                           ),
                         ),
                         const SizedBox(
@@ -71,15 +75,19 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                         ),
                         Text(
                           '5.0',
-                          style: AutilabTextStyle.small14_400,
+                          style: AutilabTextStyle.small14_400.copyWith(
+                            fontSize: isMobile ? 14 : 20,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  const FittedBox(
+                  FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
-                    child: TimeBoxDoctorCard(),
+                    child: TimeBoxDoctorCard(
+                      isMobile: isMobile,
+                    ),
                   ),
                 ],
               ),

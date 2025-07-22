@@ -127,7 +127,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       padding: AutilabMargin.marginFullScreen,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: isMobile() ? 252 : 385,
+                          height: isMobile() ? 252 : 388,
                           child: NewAppointmentsCardWidget(
                             color: const Color(0xff50DD81),
                             isMobile: isMobile(),

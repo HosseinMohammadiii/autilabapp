@@ -49,7 +49,11 @@ class NewAppointmentsCardWidget extends StatelessWidget {
           Row(
             spacing: 4,
             children: [
-              StatusShapeWidget(color: color, statusIcon: statusIcon),
+              StatusShapeWidget(
+                color: color,
+                statusIcon: statusIcon,
+                isMobile: isMobile,
+              ),
               Text(
                 'Status :',
                 style: AutilabTextStyle.medium14_500
@@ -113,7 +117,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                       child: SizedBox(
                         width: isMobile ? 116 : 200,
                         height: isMobile ? 116 : 200,
@@ -147,7 +151,6 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                                 'Speech Therapy',
                                 style: AutilabTextStyle.small14_400.copyWith(
                                   fontSize: isMobile ? 14 : 24,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               const SizedBox(

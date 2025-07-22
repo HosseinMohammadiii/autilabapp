@@ -381,8 +381,10 @@ class TitleAndIconWidget extends StatelessWidget {
     this.icon,
     required this.title,
     this.textStyle,
+    this.isMobile = true,
     this.isShowIcon = true,
   });
+  final bool isMobile;
   final String? icon;
   final String title;
   final TextStyle? textStyle;

@@ -63,6 +63,7 @@ class CustomTextfield extends StatelessWidget {
                   : AutilabColor.gray,
             ),
         decoration: InputDecoration(
+          contentPadding: padding,
           suffixIcon: suffixIcon,
           filled: true,
           alignLabelWithHint: true,
