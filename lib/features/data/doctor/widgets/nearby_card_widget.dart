@@ -54,7 +54,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Autism Help Center',
                     style: AutilabTextStyle.medium18_500,
@@ -109,7 +109,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                     : TextOverflow.ellipsis,
               ),
               maxLines: 3,
-              textAlign: TextAlign.justify,
+              textAlign: TextAlign.left,
             ),
           ),
           Visibility(

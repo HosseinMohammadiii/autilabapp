@@ -149,7 +149,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                   padding: AutilabMargin.marginFullScreen,
                   child: Text(
                     'Popular Article',
@@ -203,7 +203,7 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
                 const SizedBox(
                   height: 48,
                 ),
-                const Padding(
+                Padding(
                   padding: AutilabMargin.marginFullScreen,
                   child: Text(
                     'New Articles',

@@ -7,17 +7,20 @@ import '../../../../core/constants/theme_constant.dart';
 class TimeBoxDoctorCard extends StatelessWidget {
   const TimeBoxDoctorCard({
     super.key,
+    this.isMobile = true,
   });
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
+      height: isMobile ? 30 : 64,
+      width: isMobile ? null : 400,
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: const Color(0xffECF0FF),
         border: Border.all(color: AutilabColor.bb),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(isMobile ? 12 : 24),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,23 +31,25 @@ class TimeBoxDoctorCard extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/icons/calendar.svg',
-                  width: 16,
-                  height: 16,
+                  width: isMobile ? 16 : 40,
+                  height: isMobile ? 16 : 40,
                   colorFilter: const ColorFilter.mode(
                     AutilabColor.blue,
                     BlendMode.srcIn,
                   ),
                 ),
-                const Text(
+                Text(
                   ' Tues 03 March ',
-                  style: AutilabTextStyle.medium14_500,
+                  style: isMobile
+                      ? AutilabTextStyle.medium14_500
+                      : AutilabTextStyle.small24_400,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
           ),
           Container(
-            height: 16,
+            height: isMobile ? 16 : 32,
             width: 2,
             margin: const EdgeInsets.symmetric(horizontal: 5),
             decoration: const BoxDecoration(
@@ -58,16 +63,18 @@ class TimeBoxDoctorCard extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/icons/clock_icon.svg',
-                  width: 16,
-                  height: 16,
+                  width: isMobile ? 16 : 40,
+                  height: isMobile ? 16 : 40,
                   colorFilter: const ColorFilter.mode(
                     AutilabColor.blue,
                     BlendMode.srcIn,
                   ),
                 ),
-                const Text(
+                Text(
                   '13:30',
-                  style: AutilabTextStyle.medium14_500,
+                  style: isMobile
+                      ? AutilabTextStyle.medium14_500
+                      : AutilabTextStyle.small24_400,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

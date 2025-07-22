@@ -6,7 +6,7 @@ import '../../features/data/home/widgets/talent_result_widget.dart';
 
 class IntelligenceData {
   final String title;
-  final int score; // امتیاز از 10
+  final int score;
   final Color gradient1;
   final Color gradient2;
 
@@ -22,8 +22,10 @@ class TestResultWidget extends StatefulWidget {
   const TestResultWidget({
     super.key,
     this.isShowTitle,
+    this.isMobile = true,
   });
   final bool? isShowTitle;
+  final bool isMobile;
 
   @override
   State<TestResultWidget> createState() => _TestResultWidgetState();
@@ -86,7 +88,7 @@ class _TestResultWidgetState extends State<TestResultWidget> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (widget.isShowTitle ?? false) ...[
-          const Text(
+          Text(
             'Aptitude Test Result',
             style: AutilabTextStyle.small18_400,
           ),
@@ -113,6 +115,9 @@ class _TestResultWidgetState extends State<TestResultWidget> {
                           score: data.score,
                           gradient1: data.gradient1,
                           gradient2: data.gradient2,
+                          textStyle: widget.isMobile
+                              ? AutilabTextStyle.small18_400
+                              : AutilabTextStyle.small20_400,
                         ))
                     .toList(),
               ),

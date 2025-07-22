@@ -106,7 +106,7 @@ class _RatingScreenState extends State<RatingScreen>
                   height: 16,
                 ),
               ),
-              const SliverPadding(
+              SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(
@@ -215,7 +215,7 @@ class _RatingScreenState extends State<RatingScreen>
                   child: Row(
                     spacing: 5,
                     children: [
-                      const Text(
+                      Text(
                         'What Did You Love Most?',
                         style: AutilabTextStyle.small14_400,
                       ),
@@ -284,7 +284,7 @@ class _RatingScreenState extends State<RatingScreen>
                   height: 48,
                 ),
               ),
-              const SliverPadding(
+              SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: TitleAndIconWidget(

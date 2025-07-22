@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
-import '../../../../core/constants/theme_constant.dart';
 
 class TalentResultWidget extends StatelessWidget {
-  final String title;
-
-  final Color gradient1;
-  final Color gradient2;
-  // final double activeLine;
-  final int score;
-
   const TalentResultWidget({
     super.key,
     required this.title,
     required this.gradient1,
     required this.gradient2,
-    // required this.activeLine,
     required this.score,
+    required this.textStyle,
   });
+  final String title;
+  final TextStyle textStyle;
+  final Color gradient1;
+  final Color gradient2;
+  final int score;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +28,7 @@ class TalentResultWidget extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: AutilabTextStyle.small18_400,
+                style: textStyle,
               ),
               const SizedBox(height: 12),
               Container(
@@ -43,7 +40,6 @@ class TalentResultWidget extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // بخش رنگی نوار
                     Expanded(
                       flex: score,
                       child: Stack(
@@ -76,12 +72,10 @@ class TalentResultWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // بخش نقطه‌چین
                     Expanded(
                       flex: 15 - score,
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 6.0), // فاصله بین بخش رنگی و نقطه‌ها
+                        padding: const EdgeInsets.only(left: 6.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: List.generate(
@@ -89,7 +83,6 @@ class TalentResultWidget extends StatelessWidget {
                             (index) => Container(
                               height: 4,
                               width: 4,
-                              // margin: EdgeInsets.only(right: spacing),
                               decoration: const BoxDecoration(
                                 color: Color(0xff454459),
                                 shape: BoxShape.circle,

@@ -247,7 +247,7 @@ class _MessageScreenState extends State<MessageScreen>
                       color: const Color(0xffECF0FF),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
+                    child: Text(
                       "I don't know why people are so anti pineapple pizza. I kind of like it.",
                       style: AutilabTextStyle.small12_400,
                     ),
@@ -272,7 +272,7 @@ class _MessageScreenState extends State<MessageScreen>
                       color: AutilabColor.bb,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
+                    child: Text(
                       "That's perfect. There's a new place on Main St I've been wanting to check out. I hear their hawaiian pizza is awesome!",
                       style: AutilabTextStyle.small12_400,
                     ),

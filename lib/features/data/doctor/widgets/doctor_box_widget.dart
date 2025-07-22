@@ -138,7 +138,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                   Icons.star_rounded,
                                   color: Color(0xffEDC757),
                                 ),
-                                const Text(
+                                Text(
                                   '5.0',
                                   style: AutilabTextStyle.small14_400,
                                 ),

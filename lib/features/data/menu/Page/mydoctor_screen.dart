@@ -46,7 +46,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
       child: Scaffold(
         appBar:
             appBarWidget(context: context, title: 'My Doctor', isIcon: true),
-        body: const SafeArea(
+        body: SafeArea(
           child: CustomTabBarWidget(
             tabLength: 2,
             tabbarSpace: 32,
@@ -64,7 +64,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                 ),
               ),
             ],
-            tabBarView: [
+            tabBarView: const [
               ValidAppointmentWidget(),
               ExpiredAppointmentWidget(),
             ],

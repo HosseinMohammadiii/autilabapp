@@ -110,7 +110,7 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                                 height: 16,
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Dr.Masoomi',
                               style: AutilabTextStyle.small12_400,
                             ),

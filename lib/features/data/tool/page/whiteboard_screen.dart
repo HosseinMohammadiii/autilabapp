@@ -249,7 +249,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                 },
                                 child: Row(
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Setting',
                                       style: AutilabTextStyle.small12_400,
                                     ),
@@ -499,7 +499,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                             width: 16,
                                             height: 16,
                                           ),
-                                          const Text(
+                                          Text(
                                             'Chatroom',
                                             style:
                                                 AutilabTextStyle.medium12_500,

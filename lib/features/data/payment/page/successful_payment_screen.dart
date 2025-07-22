@@ -60,7 +60,7 @@ class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen>
                       const SizedBox(
                         height: 32,
                       ),
-                      const Text(
+                      Text(
                         'Your Payment Was Successful',
                         style: AutilabTextStyle.medium20_500,
                       ),

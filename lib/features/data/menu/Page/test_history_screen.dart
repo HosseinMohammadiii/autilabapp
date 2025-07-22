@@ -101,7 +101,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                       color: AutilabColor.bb,
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
-                    tabs: const [
+                    tabs: [
                       FittedBox(
                         child: Text(
                           'Talent Test',
@@ -132,17 +132,17 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 48,
                                 ),
-                                TitleAndIconWidget(
+                                const TitleAndIconWidget(
                                   icon: 'assets/icons/info-circle.svg',
                                   title: 'Talent Assessment Report',
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 26,
                                 ),
                                 Text(
@@ -205,7 +205,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                             const SizedBox(
                               height: 24,
                             ),
-                            const Text(
+                            Text(
                               'Based on the completed personality assessment, this child exhibits a well-defined set of  personality traits that influence their behaviorl',
                               style: AutilabTextStyle.small16_400,
                               maxLines: 10,
@@ -352,7 +352,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
             child: Row(
               spacing: 4,
               children: [
-                const Text(
+                Text(
                   'Read More',
                   style: AutilabTextStyle.small14_400,
                 ),

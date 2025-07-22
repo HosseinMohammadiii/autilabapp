@@ -75,7 +75,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       color: AutilabColor.bb,
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
-                    tabs: const [
+                    tabs: [
                       FittedBox(
                         child: Text(
                           'Approved',

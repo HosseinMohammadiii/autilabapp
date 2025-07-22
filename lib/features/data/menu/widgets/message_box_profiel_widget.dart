@@ -52,7 +52,7 @@ class MesseageBoxProfile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Dr. Sophia Martinez',
                     style: AutilabTextStyle.medium14_500,
                   ),

@@ -16,7 +16,7 @@ class PersonalDetailWidget extends StatelessWidget {
         const SizedBox(
           width: 4,
         ),
-        const Text(
+        Text(
           'Personal Details',
           style: AutilabTextStyle.medium18_500,
         ),

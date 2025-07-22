@@ -97,7 +97,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                   height: 32,
                 ),
               ),
-              const SliverPadding(
+              SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(
@@ -160,7 +160,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                     },
                     child: const Icon(Icons.close_rounded),
                   ),
-                  const Text(
+                  Text(
                     'Filter',
                     style: AutilabTextStyle.small18_400,
                   ),
@@ -172,7 +172,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                       selectedGenderFemaleNotifier.value = false;
                       selectedIndexrating.value = null;
                     },
-                    child: const Text(
+                    child: Text(
                       'Rest Filter',
                       style: AutilabTextStyle.medium12_500,
                     ),
@@ -189,7 +189,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               const SizedBox(
                 height: 16,
               ),
-              const Text(
+              Text(
                 'Gender',
                 style: AutilabTextStyle.medium18_500,
               ),
@@ -227,7 +227,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               const SizedBox(
                 height: 16,
               ),
-              const Text(
+              Text(
                 'Rating',
                 style: AutilabTextStyle.medium18_500,
               ),

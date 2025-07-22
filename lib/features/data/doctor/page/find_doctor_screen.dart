@@ -58,108 +58,112 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: Row(
-                    spacing: 8,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 40,
-                          child: SearchTextFieldWidget(
-                            searchFocusNode: searchFocusNode,
-                            searchController: searchController,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showCustomDialog(
-                            context,
-                            _buildDialogSortIcon(
-                              context,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Padding(
+                      padding: AutilabMargin.marginFullScreen,
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 40,
+                              child: SearchTextFieldWidget(
+                                searchFocusNode: searchFocusNode,
+                                searchController: searchController,
+                              ),
                             ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showCustomDialog(
+                                context,
+                                _buildDialogSortIcon(
+                                  context,
+                                ),
+                              );
+                            },
+                            child: SvgPicture.asset(
+                              fit: BoxFit.none,
+                              'assets/icons/sort_icon.svg',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Padding(
+                      padding: AutilabMargin.marginFullScreen,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Specialties',
+                              style: AutilabTextStyle.small20_400,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showCustomDialog(
+                                context,
+                                _buildSpecialtiesDialog(
+                                  context,
+                                  (index) {},
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'See All',
+                              style: AutilabTextStyle.medium14_500.copyWith(
+                                color: AutilabColor.blue,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    SpecialtiesListWidget(
+                      height: 113,
+                      width: 112,
+                      textStyle: AutilabTextStyle.small14_400,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 48, bottom: 16, right: 20, left: 20),
+                      child: Text(
+                        'Specialist',
+                        style: AutilabTextStyle.small20_400,
+                      ),
+                    ),
+                    Padding(
+                      padding: AutilabMargin.marginFullScreen,
+                      child: ListView.builder(
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return DoctorBoxWidget(
+                            isLike: false,
                           );
                         },
-                        child: SvgPicture.asset(
-                          fit: BoxFit.none,
-                          'assets/icons/sort_icon.svg',
-                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 32,
-                ),
-                Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          'Specialties',
-                          style: AutilabTextStyle.small20_400,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showCustomDialog(
-                            context,
-                            _buildSpecialtiesDialog(
-                              context,
-                              (index) {},
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'See All',
-                          style: AutilabTextStyle.medium14_500.copyWith(
-                            color: AutilabColor.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const SpecialtiesListWidget(
-                  height: 113,
-                  width: 112,
-                  textStyle: AutilabTextStyle.small14_400,
-                ),
-                const Padding(
-                  padding:
-                      EdgeInsets.only(top: 48, bottom: 16, right: 20, left: 20),
-                  child: Text(
-                    'Specialist',
-                    style: AutilabTextStyle.small20_400,
-                  ),
-                ),
-                Padding(
-                  padding: AutilabMargin.marginFullScreen,
-                  child: ListView.builder(
-                    itemCount: 10,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return DoctorBoxWidget(
-                        isLike: false,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),
@@ -186,7 +190,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 child: const Icon(Icons.close_rounded),
               ),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 'All Specialties',
                 style: AutilabTextStyle.small18_400,
               ),
@@ -262,7 +266,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
     return FittedBox(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 680),
+        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 685),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -279,7 +283,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   },
                   child: const Icon(Icons.close_rounded),
                 ),
-                const Text(
+                Text(
                   'Filter',
                   style: AutilabTextStyle.small18_400,
                 ),
@@ -292,7 +296,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                     selectedGenderMaleNotifier.value = false;
                     selectedGenderFemaleNotifier.value = false;
                   },
-                  child: const Text(
+                  child: Text(
                     'Rest Filter',
                     style: AutilabTextStyle.medium14_500,
                   ),
@@ -309,7 +313,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             const SizedBox(
               height: 16,
             ),
-            const Text(
+            Text(
               "Doctor's specialty",
               style: AutilabTextStyle.medium18_500,
             ),
@@ -352,7 +356,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             const SizedBox(
               height: 16,
             ),
-            const Text(
+            Text(
               'Gender',
               style: AutilabTextStyle.medium18_500,
             ),
@@ -393,7 +397,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             const SizedBox(
               height: 16,
             ),
-            const Text(
+            Text(
               'Rating',
               style: AutilabTextStyle.medium18_500,
             ),

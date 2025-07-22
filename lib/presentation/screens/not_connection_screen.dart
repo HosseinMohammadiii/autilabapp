@@ -56,7 +56,7 @@ class _NotConnectionInternetScreenState
                     const SizedBox(
                       height: 32,
                     ),
-                    const Text(
+                    Text(
                       'No Internet Connection',
                       style: AutilabTextStyle.medium20_500,
                     ),

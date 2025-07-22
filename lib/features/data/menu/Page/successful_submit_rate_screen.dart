@@ -30,7 +30,7 @@ class SuccessfulSubmitRateScreen extends StatelessWidget {
                 fit: BoxFit.scaleDown,
               ),
             ),
-            const Text(
+            Text(
               'Thank You For Your Feedback!',
               textAlign: TextAlign.center,
               style: AutilabTextStyle.medium20_500,

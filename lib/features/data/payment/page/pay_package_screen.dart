@@ -66,7 +66,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                 const SizedBox(
                   height: 20,
                 ),
-                const Padding(
+                Padding(
                   padding: AutilabMargin.marginFullScreen,
                   child: Text(
                     'Your Selected Package',
@@ -156,7 +156,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
             fit: BoxFit.scaleDown,
           ),
         ),
-        const Text(
+        Text(
           ' Initial Test To Determine How Much You Are',
           style: AutilabTextStyle.small14_400,
         ),

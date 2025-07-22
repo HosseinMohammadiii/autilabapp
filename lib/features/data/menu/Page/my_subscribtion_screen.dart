@@ -65,7 +65,7 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
                   'assets/icons/crown_icon.svg',
                 ),
               ),
-              const Text(
+              Text(
                 'You Don’t Have Any Subscribtion',
                 style: AutilabTextStyle.medium20_500,
               ),

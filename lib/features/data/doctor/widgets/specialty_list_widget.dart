@@ -7,6 +7,7 @@ import '../../../../utils/Lists/category_items.dart';
 class SpecialtiesListWidget extends StatelessWidget {
   const SpecialtiesListWidget({
     super.key,
+    this.isMobile = true,
     required this.height,
     required this.width,
     this.heightImage,
@@ -15,6 +16,8 @@ class SpecialtiesListWidget extends StatelessWidget {
     this.itemCount,
     required this.textStyle,
   });
+  final bool isMobile;
+
   final double height;
   final double width;
   final double? heightImage;

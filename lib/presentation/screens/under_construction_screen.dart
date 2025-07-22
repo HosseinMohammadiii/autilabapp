@@ -56,7 +56,7 @@ class _UnderConstructionScreenState extends State<UnderConstructionScreen>
                     const SizedBox(
                       height: 32,
                     ),
-                    const Text(
+                    Text(
                       'Under Construction',
                       style: AutilabTextStyle.medium20_500,
                     ),

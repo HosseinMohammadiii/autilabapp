@@ -62,7 +62,7 @@ class _NotSuccessfulPaymentScreenState extends State<NotSuccessfulPaymentScreen>
                       const SizedBox(
                         height: 32,
                       ),
-                      const Text(
+                      Text(
                         'Your Payment Was Not Successful',
                         style: AutilabTextStyle.medium20_500,
                         textAlign: TextAlign.center,

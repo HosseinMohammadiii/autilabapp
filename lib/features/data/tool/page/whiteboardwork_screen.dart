@@ -90,7 +90,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
       builder: (context) {
         return FittedBox(
           child: AlertDialog(
-            title: const Text(
+            title: Text(
               "Enter Text",
               style: AutilabTextStyle.small20_400,
             ),
@@ -116,7 +116,7 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                   // Close the dialog
                   Navigator.of(context).pop();
                 },
-                child: const Text(
+                child: Text(
                   'Add',
                   style: AutilabTextStyle.small18_400,
                 ),

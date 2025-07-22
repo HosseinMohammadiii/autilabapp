@@ -7,8 +7,10 @@ class PalnItemWidget extends StatelessWidget {
   const PalnItemWidget({
     super.key,
     this.title,
+    this.isMobile = true,
   });
   final String? title;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,8 @@ class PalnItemWidget extends StatelessWidget {
           ),
           Text(
             title ?? ' Initial Test To Determine How Much You Are',
-            style: AutilabTextStyle.small14_400,
+            style: AutilabTextStyle.small14_400
+                .copyWith(fontSize: isMobile ? 14 : 18),
           ),
         ],
       ),

@@ -121,7 +121,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                       color: AutilabColor.bb,
                     ),
                     indicatorSize: TabBarIndicatorSize.tab,
-                    tabs: const [
+                    tabs: [
                       FittedBox(
                         child: Text(
                           'Article',

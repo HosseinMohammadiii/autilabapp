@@ -64,7 +64,7 @@ class _PersonalDetailPaymentScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                   padding: AutilabMargin.marginFullScreen,
                   child: Text(
                     'Your Package',
@@ -132,7 +132,7 @@ class _PersonalDetailPaymentScreenState
                 const SizedBox(
                   height: 32,
                 ),
-                const Padding(
+                Padding(
                   padding: AutilabMargin.marginFullScreen,
                   child: Text(
                     'Your Cart',
@@ -202,7 +202,7 @@ class _PersonalDetailPaymentScreenState
                               color: AutilabColor.yellow,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Check',
                               style: AutilabTextStyle.small14_400,
                             ),

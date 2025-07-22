@@ -85,303 +85,353 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       opacity: animationHelper.fadeAnimation,
       child: Scaffold(
         body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'New Appointments',
-                        style: AutilabTextStyle.small20_400,
-                      ),
-                      GestureDetector(
-                        child: Text(
-                          'See All',
-                          style: AutilabTextStyle.medium14_500.copyWith(
-                            color: AutilabColor.blue,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              bool isMobile() {
+                if (constraints.maxWidth < 600) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+
+              return CustomScrollView(
+                slivers: [
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'New Appointments',
+                            style: AutilabTextStyle.small20_400
+                                .copyWith(fontSize: isMobile() ? 20 : 32),
                           ),
-                        ),
-                        onTap: () {
-                          context.pushNamed(AutiLabRoutes.allAppointmentScreen);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 236,
-                  child: ListView.builder(
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          left: index == 0 ? 20 : 12,
-                          right: index == statusList.length - 1 ? 8 : 0,
-                        ),
-                        child: SizedBox(
-                          width: 320,
-                          child: NewAppointmentsCardWidget(
-                            color: statusList[index].statusColor,
-                            title: statusList[index].title,
-                            statusIcon: statusList[index].statusIcon,
-                            image: 'assets/images/doctor_image.jpg',
-                            margin: EdgeInsets.zero,
-                            raiteOnTap: () {},
+                          GestureDetector(
+                            child: Text(
+                              'See All',
+                              style: AutilabTextStyle.medium14_500.copyWith(
+                                color: AutilabColor.blue,
+                                fontSize: isMobile() ? 14 : 20,
+                              ),
+                            ),
                             onTap: () {
                               context.pushNamed(
-                                AutiLabRoutes.detailAppointmentScreen,
-                                extra: {
-                                  'statusColor': statusList[index].statusColor,
-                                  'statusIcon': statusList[index].statusIcon,
-                                  'image': 'assets/images/doctor_image.jpg',
-                                  'title': statusList[index].title,
-                                  'descriptionStatus':
-                                      statusList[index].descriptionStatus,
-                                },
-                              );
+                                  AutiLabRoutes.allAppointmentScreen);
                             },
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
-                sliver: const SliverToBoxAdapter(
-                  child: TitleAndIconWidget(
-                    isShowIcon: false,
-                    title: 'Recent Visited',
-                    textStyle: AutilabTextStyle.small20_400,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SpecialtiesListWidget(
-                  height: 113,
-                  width: 112,
-                  textStyle: AutilabTextStyle.small14_400,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
-                sliver: const SliverToBoxAdapter(
-                  child: TitleAndIconWidget(
-                    isShowIcon: false,
-                    title: 'AutiLab Test',
-                    textStyle: AutilabTextStyle.small20_400,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Container(
-                  margin: AutilabMargin.marginFullScreen,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffECF0FF),
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AutilabColor.black.withValues(alpha: 0.2),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                  child: Column(
-                    spacing: 26,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 10,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                FittedBox(
-                                  child: Text(
-                                    'AutiLab Test',
-                                    style:
-                                        AutilabTextStyle.medium20_500.copyWith(
-                                      color: AutilabColor.blue,
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  'Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment',
-                                  style: AutilabTextStyle.small14_400,
-                                ),
-                              ],
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: isMobile() ? 236 : 367,
+                      child: ListView.builder(
+                        itemCount: 3,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: index == 0 ? 20 : 12,
+                              right: index == statusList.length - 1 ? 8 : 0,
                             ),
-                          ),
-                          Image.asset(
-                            'assets/images/autilab_test_image.png',
-                            width: 143,
-                            height: 133,
-                          ),
-                        ],
-                      ),
-                      CustomButtonWidget(
-                        onTap: () {
-                          context.pushNamed(AutiLabRoutes.typeTestsScreen);
-                        },
-                        height: 50,
-                        margin: const EdgeInsets.all(0),
-                        color: AutilabColor.bb,
-                        text: 'Take A Test',
-                        textStyle: AutilabTextStyle.small18_400,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
-                sliver: const SliverToBoxAdapter(
-                  child: TitleAndIconWidget(
-                    isShowIcon: false,
-                    title: 'Talent Result',
-                    textStyle: AutilabTextStyle.small20_400,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              const SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: TestResultWidget(
-                    isShowTitle: false,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
-                sliver: const SliverToBoxAdapter(
-                  child: TitleAndIconWidget(
-                    isShowIcon: false,
-                    title: 'Plan',
-                    textStyle: AutilabTextStyle.small20_400,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 465,
-                  child: PageView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padEnds: false,
-                    pageSnapping: false,
-                    controller: PageController(viewportFraction: 0.9),
-                    itemCount: titlePlanList.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(
-                          left: index == 0 ? 20 : 12,
-                          right: index == titlePlanList.length - 1 ? 10 : 0),
-                      child: PlanBoxWidget(
-                        title: titlePlanList[index],
-                        description: descriptionPlanList[index],
-                        titleButton: 'Buy',
-                        widget: const [
-                          PalnItemWidget(
-                            title: 'Full access to the tools section',
-                          ),
-                          PalnItemWidget(
-                            title: 'Access to aptitude test',
-                          ),
-                          PalnItemWidget(
-                            title: 'Access to personality test',
-                          ),
-                          PalnItemWidget(
-                            title: 'Unlimited appointment booking',
-                          ),
-                          PalnItemWidget(
-                            title: 'Access to nearby centers',
-                          ),
-                          PalnItemWidget(
-                            title: 'Doctor appointment booking discount',
-                          ),
-                        ],
-                        margin: index == titlePlanList.length - 1 ? 0 : 16,
-                        onTap: () {
-                          int price = 0;
-                          if (index == 1) {
-                            price = 99;
-                          } else {
-                            price = 299;
-                          }
-                          context.pushNamed(
-                            AutiLabRoutes.payPackagesScreen,
-                            extra: {
-                              'title': titlePlanList[index],
-                              'description': descriptionPlanList[index],
-                              'price': price,
-                            },
+                            child: SizedBox(
+                              width: isMobile() ? 320 : 673,
+                              child: NewAppointmentsCardWidget(
+                                isMobile: isMobile(),
+                                color: statusList[index].statusColor,
+                                title: statusList[index].title,
+                                statusIcon: statusList[index].statusIcon,
+                                image: 'assets/images/doctor_image.jpg',
+                                margin: EdgeInsets.zero,
+                                raiteOnTap: () {},
+                                onTap: () {
+                                  context.pushNamed(
+                                    AutiLabRoutes.detailAppointmentScreen,
+                                    extra: {
+                                      'statusColor':
+                                          statusList[index].statusColor,
+                                      'statusIcon':
+                                          statusList[index].statusIcon,
+                                      'image': 'assets/images/doctor_image.jpg',
+                                      'title': statusList[index].title,
+                                      'descriptionStatus':
+                                          statusList[index].descriptionStatus,
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
                           );
                         },
                       ),
                     ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
-              ),
-            ],
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 48,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                    sliver: SliverToBoxAdapter(
+                      child: TitleAndIconWidget(
+                        isShowIcon: false,
+                        title: 'Recent Visited',
+                        textStyle: AutilabTextStyle.small20_400
+                            .copyWith(fontSize: isMobile() ? 20 : 32),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SpecialtiesListWidget(
+                      height: isMobile() ? 113 : 180,
+                      width: isMobile() ? 112 : 180,
+                      widthImage: isMobile() ? 56 : 76,
+                      heightImage: isMobile() ? 56 : 76,
+                      radius: isMobile() ? 24 : 40,
+                      textStyle: isMobile()
+                          ? AutilabTextStyle.small14_400
+                          : AutilabTextStyle.small20_400,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 48,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                    sliver: SliverToBoxAdapter(
+                      child: TitleAndIconWidget(
+                        isShowIcon: false,
+                        title: 'AutiLab Test',
+                        textStyle: AutilabTextStyle.small20_400
+                            .copyWith(fontSize: isMobile() ? 20 : 32),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      margin: AutilabMargin.marginFullScreen,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffECF0FF),
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AutilabColor.black.withValues(alpha: 0.2),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        spacing: 26,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: isMobile() ? 140 : 229,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 10,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      FittedBox(
+                                        child: Text(
+                                          'AutiLab Test',
+                                          style: AutilabTextStyle.medium20_500
+                                              .copyWith(
+                                            color: AutilabColor.blue,
+                                            fontSize: isMobile() ? 20 : 28,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          'Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment',
+                                          style: isMobile()
+                                              ? AutilabTextStyle.small14_400
+                                              : AutilabTextStyle.small20_400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Image.asset(
+                                  'assets/images/autilab_test_image.png',
+                                  width: isMobile() ? 143 : 372,
+                                  height: isMobile() ? 140 : 229,
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomButtonWidget(
+                            onTap: () {
+                              context.pushNamed(AutiLabRoutes.typeTestsScreen);
+                            },
+                            height: 50,
+                            margin: const EdgeInsets.all(0),
+                            color: AutilabColor.bb,
+                            text: 'Take A Test',
+                            textStyle: AutilabTextStyle.small18_400
+                                .copyWith(fontSize: isMobile() ? 18 : 28),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 48,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                    sliver: SliverToBoxAdapter(
+                      child: TitleAndIconWidget(
+                        isShowIcon: false,
+                        title: 'Talent Result',
+                        textStyle: AutilabTextStyle.small20_400
+                            .copyWith(fontSize: isMobile() ? 20 : 32),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: TestResultWidget(
+                        isShowTitle: false,
+                        isMobile: isMobile(),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 48,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen.copyWith(left: 16),
+                    sliver: SliverToBoxAdapter(
+                      child: TitleAndIconWidget(
+                        isShowIcon: false,
+                        title: 'Plan',
+                        textStyle: AutilabTextStyle.small20_400
+                            .copyWith(fontSize: isMobile() ? 20 : 32),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: isMobile() ? 465 : 560,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: titlePlanList.length,
+                        itemBuilder: (context, index) => SizedBox(
+                          width: isMobile() ? 340 : 478,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: index == 0 ? 20 : 0,
+                                right:
+                                    index == titlePlanList.length - 1 ? 10 : 0),
+                            child: PlanBoxWidget(
+                              isMobile: isMobile(),
+                              title: titlePlanList[index],
+                              description: descriptionPlanList[index],
+                              titleButton: 'Buy',
+                              widget: [
+                                PalnItemWidget(
+                                  isMobile: isMobile(),
+                                  title: 'Full access to the tools section',
+                                ),
+                                PalnItemWidget(
+                                  isMobile: isMobile(),
+                                  title: 'Access to aptitude test',
+                                ),
+                                PalnItemWidget(
+                                  isMobile: isMobile(),
+                                  title: 'Access to personality test',
+                                ),
+                                PalnItemWidget(
+                                  isMobile: isMobile(),
+                                  title: 'Unlimited appointment booking',
+                                ),
+                                PalnItemWidget(
+                                  isMobile: isMobile(),
+                                  title: 'Access to nearby centers',
+                                ),
+                                PalnItemWidget(
+                                  isMobile: isMobile(),
+                                  title: 'Doctor appointment booking discount',
+                                ),
+                              ],
+                              margin:
+                                  index == titlePlanList.length - 1 ? 0 : 16,
+                              onTap: () {
+                                int price = 0;
+                                if (index == 1) {
+                                  price = 99;
+                                } else {
+                                  price = 299;
+                                }
+                                context.pushNamed(
+                                  AutiLabRoutes.payPackagesScreen,
+                                  extra: {
+                                    'title': titlePlanList[index],
+                                    'description': descriptionPlanList[index],
+                                    'price': price,
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 48,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

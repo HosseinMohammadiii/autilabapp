@@ -9,6 +9,7 @@ class PlanBoxWidget extends StatelessWidget {
   const PlanBoxWidget({
     super.key,
     required this.title,
+    this.isMobile = true,
     this.description,
     required this.titleButton,
     required this.margin,
@@ -19,6 +20,8 @@ class PlanBoxWidget extends StatelessWidget {
     required this.onTap,
   });
   final String title;
+  final bool isMobile;
+
   final String? description;
   final String titleButton;
   final double margin;
@@ -86,7 +89,8 @@ class PlanBoxWidget extends StatelessWidget {
           Text(
             description ??
                 'An Initial Test To Determine How Much You Are At Risk Of Cancer Based Dr. Mitchell H',
-            style: AutilabTextStyle.small16_400,
+            style: AutilabTextStyle.small16_400
+                .copyWith(fontSize: isMobile ? 16 : 20),
           ),
           const SizedBox(
             height: 32,
@@ -99,11 +103,13 @@ class PlanBoxWidget extends StatelessWidget {
           ),
           CustomButtonWidget(
             onTap: () => onTap(),
-            height: 50,
+            height: isMobile ? 50 : 68,
             margin: const EdgeInsets.only(top: 32),
             color: AutilabColor.bb,
+            borderRadius: isMobile ? null : 24,
             text: titleButton,
-            textStyle: AutilabTextStyle.small18_400,
+            textStyle: AutilabTextStyle.small18_400
+                .copyWith(fontSize: isMobile ? 18 : 20),
           ),
         ],
       ),

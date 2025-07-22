@@ -113,7 +113,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                           height: 16,
                         ),
                       ),
-                      const Text(
+                      Text(
                         'Dr.Masoomi',
                         style: AutilabTextStyle.small14_400,
                       ),
@@ -187,7 +187,7 @@ class _MainContentScreenState extends State<MainContentScreen>
                             isLike: widget.isLike ?? false,
                             onTap: () {},
                           ),
-                          const Text(
+                          Text(
                             'Add To Favorite',
                             style: AutilabTextStyle.small12_400,
                           ),

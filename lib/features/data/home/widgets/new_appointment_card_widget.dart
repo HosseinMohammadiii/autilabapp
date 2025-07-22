@@ -13,6 +13,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
     super.key,
     required this.color,
     this.backgroundColor,
+    this.isMobile = true,
     this.isShowRate = false,
     required this.title,
     required this.statusIcon,
@@ -24,6 +25,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   final Function() onTap;
   final Function() raiteOnTap;
   final String image;
+  final bool isMobile;
   final bool isShowRate;
   final Color color;
   final Color? backgroundColor;
@@ -48,13 +50,15 @@ class NewAppointmentsCardWidget extends StatelessWidget {
             spacing: 4,
             children: [
               StatusShapeWidget(color: color, statusIcon: statusIcon),
-              const Text(
+              Text(
                 'Status :',
-                style: AutilabTextStyle.medium14_500,
+                style: AutilabTextStyle.medium14_500
+                    .copyWith(fontSize: isMobile ? 14 : 20),
               ),
               Text(
                 title,
-                style: AutilabTextStyle.medium14_500,
+                style: AutilabTextStyle.medium14_500
+                    .copyWith(fontSize: isMobile ? 14 : 20),
               ),
               if (isShowRate) ...[
                 const Spacer(),
@@ -90,16 +94,16 @@ class NewAppointmentsCardWidget extends StatelessWidget {
               ],
             ],
           ),
-          const SizedBox(
-            height: 0,
-          ),
           const Divider(
             thickness: 1,
             color: AutilabColor.black,
           ),
+          const SizedBox(
+            height: 6,
+          ),
           const Spacer(),
           SizedBox(
-            height: 96,
+            height: isMobile ? 96 : 200,
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
@@ -111,8 +115,8 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: SizedBox(
-                        width: 116,
-                        height: 116,
+                        width: isMobile ? 116 : 200,
+                        height: isMobile ? 116 : 200,
                         child: Image.asset(
                           image,
                           fit: BoxFit.cover,
@@ -126,10 +130,13 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       spacing: 8,
                       children: [
-                        const Text(
+                        Text(
                           'Dr. Sophia Martinez',
                           overflow: TextOverflow.ellipsis,
-                          style: AutilabTextStyle.medium18_500,
+                          style: isMobile
+                              ? AutilabTextStyle.medium18_500
+                              : AutilabTextStyle.medium18_500
+                                  .copyWith(fontSize: 32),
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,
@@ -139,6 +146,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                               Text(
                                 'Speech Therapy',
                                 style: AutilabTextStyle.small14_400.copyWith(
+                                  fontSize: isMobile ? 14 : 24,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -149,17 +157,21 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                                 Icons.star_rounded,
                                 color: Color(0xffEDC757),
                               ),
-                              const Text(
+                              Text(
                                 '5.0',
-                                style: AutilabTextStyle.small14_400,
+                                style: AutilabTextStyle.small14_400.copyWith(
+                                  fontSize: isMobile ? 14 : 20,
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        const FittedBox(
+                        FittedBox(
                           fit: BoxFit.scaleDown,
                           alignment: Alignment.centerLeft,
-                          child: TimeBoxDoctorCard(),
+                          child: TimeBoxDoctorCard(
+                            isMobile: isMobile,
+                          ),
                         ),
                       ],
                     ),
@@ -173,11 +185,13 @@ class NewAppointmentsCardWidget extends StatelessWidget {
             onTap: () {
               onTap();
             },
-            height: 50,
+            height: isMobile ? 50 : 72,
             margin: const EdgeInsets.only(top: 12),
             color: AutilabColor.bb,
             text: 'Detail Appointment',
-            textStyle: AutilabTextStyle.small18_400,
+            borderRadius: isMobile ? 16 : 24,
+            textStyle: AutilabTextStyle.small18_400
+                .copyWith(fontSize: isMobile ? 18 : 28),
           ),
         ],
       ),

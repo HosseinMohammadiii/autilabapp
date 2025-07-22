@@ -23,7 +23,7 @@ class NotificationBoxWidget extends StatelessWidget {
         spacing: 12,
         children: [
           Image.asset('assets/images/notification_image.png'),
-          const Text(
+          Text(
             'Someone’s Liked Your Post',
             style: AutilabTextStyle.small14_400,
           ),

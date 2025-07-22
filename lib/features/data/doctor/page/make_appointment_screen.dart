@@ -222,7 +222,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                         visible: selectDate.isNotEmpty,
                         child: Row(
                           children: [
-                            const Text(
+                            Text(
                               'You selected , ',
                               style: AutilabTextStyle.small16_400,
                             ),
@@ -298,7 +298,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                         visible: selectTime.isNotEmpty,
                         child: Row(
                           children: [
-                            const Text(
+                            Text(
                               'You selected , ',
                               style: AutilabTextStyle.small16_400,
                             ),
@@ -377,7 +377,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   height: 16,
                 ),
               ),
-              const SliverPadding(
+              SliverPadding(
                 padding: AutilabMargin.marginFullScreen,
                 sliver: SliverToBoxAdapter(
                   child: Text(

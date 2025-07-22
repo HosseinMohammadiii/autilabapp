@@ -58,7 +58,7 @@ class _ItemNotFoundScreenState extends State<ItemNotFoundScreen>
                     const SizedBox(
                       height: 32,
                     ),
-                    const Text(
+                    Text(
                       'Item Not Found',
                       style: AutilabTextStyle.medium20_500,
                     ),

@@ -84,14 +84,14 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
                   const SizedBox(
                     height: 24,
                   ),
-                  const Text(
+                  Text(
                     'Find Nearby centers',
                     style: AutilabTextStyle.medium20_500,
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  const Text(
+                  Text(
                     'Tap The Map And Select Your Location To See The Centers Near You.',
                     textAlign: TextAlign.center,
                     style: AutilabTextStyle.small16_400,
@@ -100,9 +100,9 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
               ),
             ),
           ),
-          const SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 16, top: 16),
+              padding: const EdgeInsets.only(left: 16, top: 16),
               child: Text(
                 'Suggestions',
                 style: AutilabTextStyle.small20_400,

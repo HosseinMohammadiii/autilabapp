@@ -132,7 +132,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   child: Column(
                     spacing: 12,
                     children: [
-                      const Text(
+                      Text(
                         'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
                         style: AutilabTextStyle.small14_400,
                         textAlign: TextAlign.justify,
@@ -268,7 +268,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   height: 24,
                 ),
               ),
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: SizedBox(
                   height: 80,
                   child: SpecialtiesListWidget(
@@ -380,12 +380,12 @@ class TitleAndIconWidget extends StatelessWidget {
     super.key,
     this.icon,
     required this.title,
-    this.textStyle = AutilabTextStyle.medium18_500,
+    this.textStyle,
     this.isShowIcon = true,
   });
   final String? icon;
   final String title;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final bool isShowIcon;
 
   @override
@@ -401,7 +401,7 @@ class TitleAndIconWidget extends StatelessWidget {
         ),
         Text(
           title,
-          style: textStyle,
+          style: textStyle ?? AutilabTextStyle.medium18_500,
         ),
       ],
     );
