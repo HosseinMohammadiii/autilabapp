@@ -75,278 +75,321 @@ class _RatingScreenState extends State<RatingScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(
-            context: context, title: 'Leave a Rating', isIcon: true),
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              const SliverToBoxAdapter(
-                child: DoctorBoxDetialAppointmentWidget(
-                  image: 'assets/images/doctor_image.jpg',
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 32,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Divider(
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 20,
-                  color: AutilabColor.gray,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'How Would You Rate Your Appointment?',
-                    style: AutilabTextStyle.small14_400,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'Leave a Rating',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  if (!isMobile()) ...[
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 32,
+                      ),
+                    ),
+                  ],
+                  SliverToBoxAdapter(
+                    child: DoctorBoxDetialAppointmentWidget(
+                      isMobile: isMobile(),
+                      image: 'assets/images/doctor_image.jpg',
+                    ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: RatingBar.builder(
-                      initialRating: 0,
-                      itemCount: 5,
-                      minRating: 1,
-                      maxRating: 5,
-                      updateOnDrag: true,
-                      itemSize: 65,
-                      itemPadding:
-                          const EdgeInsetsGeometry.symmetric(horizontal: 4),
-                      unratedColor: AutilabColor.gray,
-                      glow: false,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          spacing: 4,
-                          children: [
-                            const Icon(Icons.star_rounded,
-                                color: AutilabColor.yellow, size: 35),
-                            Text(
-                              ratingTitleList[index],
-                              style: AutilabTextStyle.small12_400,
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 32,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Divider(
+                      thickness: 1,
+                      indent: 20,
+                      endIndent: 20,
+                      color: AutilabColor.gray,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 16,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: Text(
+                        'How Would You Rate Your Appointment?',
+                        style: AutilabTextStyle.small14_400.copyWith(
+                          fontSize: isMobile() ? 14 : 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: RatingBar.builder(
+                          initialRating: 0,
+                          itemCount: 5,
+                          minRating: 1,
+                          maxRating: 5,
+                          updateOnDrag: true,
+                          itemSize: isMobile() ? 65 : 85,
+                          itemPadding:
+                              const EdgeInsetsGeometry.symmetric(horizontal: 4),
+                          unratedColor: AutilabColor.gray,
+                          glow: false,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              spacing: 4,
+                              children: [
+                                const Icon(Icons.star_rounded,
+                                    color: AutilabColor.yellow, size: 35),
+                                Text(
+                                  ratingTitleList[index],
+                                  style: AutilabTextStyle.small12_400.copyWith(
+                                    fontSize: isMobile() ? 12 : 16,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                          onRatingUpdate: (value) {
+                            setState(() {
+                              switch (value) {
+                                case 1.0:
+                                  rateDescription = rateDescriptionList[0];
+                                  break;
+                                case 2.0:
+                                  rateDescription = rateDescriptionList[1];
+                                  break;
+                                case 3.0:
+                                  rateDescription = rateDescriptionList[2];
+                                  break;
+                                case 4.0:
+                                  rateDescription = rateDescriptionList[3];
+                                  break;
+                                case 5.0:
+                                  rateDescription = rateDescriptionList[4];
+                                  break;
+                                default:
+                                  rateDescription = rateDescriptionList[0];
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 16,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: Divider(
+                      thickness: 1,
+                      indent: 20,
+                      endIndent: 20,
+                      color: AutilabColor.gray,
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 32,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: Text(
+                        rateDescription,
+                        style: AutilabTextStyle.small14_400.copyWith(
+                          fontSize: isMobile() ? 14 : 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 24,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: Row(
+                        spacing: 5,
+                        children: [
+                          Text(
+                            'What Did You Love Most?',
+                            style: AutilabTextStyle.small14_400.copyWith(
+                              fontSize: isMobile() ? 14 : 18,
                             ),
-                          ],
+                          ),
+                          Text(
+                            '(Required)',
+                            style: AutilabTextStyle.small14_400.copyWith(
+                              color: AutilabColor.bb,
+                              fontSize: isMobile() ? 14 : 18,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 16,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverList.builder(
+                      itemCount: checkListTitle.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                checkListTitle[index].value =
+                                    !checkListTitle[index].value;
+                              });
+                            },
+                            child: Row(
+                              spacing: 8,
+                              children: [
+                                SizedBox(
+                                  width: isMobile() ? 15 : 61,
+                                  height: isMobile() ? 15 : 61,
+                                  child: Checkbox(
+                                    value: checkListTitle[index].value,
+                                    activeColor: AutilabColor.blue,
+                                    checkColor: AutilabColor.white,
+                                    tristate: true,
+                                    side: const BorderSide(width: 1),
+                                    splashRadius: 0,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        checkListTitle[index].value =
+                                            !checkListTitle[index].value;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Text(
+                                  checkListTitle[index].title,
+                                  style: AutilabTextStyle.small14_400.copyWith(
+                                    fontSize: isMobile() ? 14 : 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         );
-                      },
-                      onRatingUpdate: (value) {
-                        setState(() {
-                          switch (value) {
-                            case 1.0:
-                              rateDescription = rateDescriptionList[0];
-                              break;
-                            case 2.0:
-                              rateDescription = rateDescriptionList[1];
-                              break;
-                            case 3.0:
-                              rateDescription = rateDescriptionList[2];
-                              break;
-                            case 4.0:
-                              rateDescription = rateDescriptionList[3];
-                              break;
-                            case 5.0:
-                              rateDescription = rateDescriptionList[4];
-                              break;
-                            default:
-                              rateDescription = rateDescriptionList[0];
-                          }
-                        });
                       },
                     ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Divider(
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 20,
-                  color: AutilabColor.gray,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 32,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    rateDescription,
-                    style: AutilabTextStyle.small14_400,
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 48,
+                    ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 24,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Row(
-                    spacing: 5,
-                    children: [
-                      Text(
-                        'What Did You Love Most?',
-                        style: AutilabTextStyle.small14_400,
-                      ),
-                      Text(
-                        '(Required)',
-                        style: AutilabTextStyle.small14_400
-                            .copyWith(color: AutilabColor.bb),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverList.builder(
-                  itemCount: checkListTitle.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 15),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            checkListTitle[index].value =
-                                !checkListTitle[index].value;
-                          });
-                        },
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            SizedBox(
-                              width: 15,
-                              height: 15,
-                              child: Checkbox(
-                                value: checkListTitle[index].value,
-                                activeColor: AutilabColor.blue,
-                                checkColor: AutilabColor.white,
-                                tristate: true,
-                                side: const BorderSide(width: 1),
-                                splashRadius: 0,
-                                onChanged: (value) {
-                                  setState(() {
-                                    checkListTitle[index].value =
-                                        !checkListTitle[index].value;
-                                  });
-                                },
-                              ),
-                            ),
-                            Text(
-                              checkListTitle[index].title,
-                              style: AutilabTextStyle.small14_400,
-                            ),
-                          ],
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: TitleAndIconWidget(
+                        isMobile: isMobile(),
+                        title: 'How Should Your Feedback Be Sent?',
+                        icon: 'assets/icons/information.svg',
+                        textStyle: AutilabTextStyle.small14_400.copyWith(
+                          fontSize: isMobile() ? 14 : 20,
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 48,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: TitleAndIconWidget(
-                    title: 'How Should Your Feedback Be Sent?',
-                    icon: 'assets/icons/information.svg',
-                    textStyle: AutilabTextStyle.small14_400,
+                    ),
                   ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 16,
-                ),
-              ),
-              SliverPadding(
-                padding: AutilabMargin.marginFullScreen,
-                sliver: SliverToBoxAdapter(
-                  child: Column(
-                    spacing: 12,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      RadioButtonWidget(
-                        value: RadioCharacter.characterOne,
-                        radioCharacter: character!,
-                        onChanged: (value) {
-                          setState(() {
-                            character = value;
-                          });
-                        },
-                        title: 'With My Name',
-                      ),
-                      RadioButtonWidget(
-                        value: RadioCharacter.secondeCharacter,
-                        radioCharacter: character!,
-                        onChanged: (value) {
-                          setState(() {
-                            character = value;
-                          });
-                        },
-                        title: 'Anonymously',
-                      ),
-                    ],
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 16,
+                    ),
                   ),
-                ),
+                  SliverPadding(
+                    padding: AutilabMargin.marginFullScreen,
+                    sliver: SliverToBoxAdapter(
+                      child: Column(
+                        spacing: 12,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RadioButtonWidget(
+                            isMobile: isMobile(),
+                            value: RadioCharacter.characterOne,
+                            radioCharacter: character!,
+                            onChanged: (value) {
+                              setState(() {
+                                character = value;
+                              });
+                            },
+                            title: 'With My Name',
+                          ),
+                          RadioButtonWidget(
+                            isMobile: isMobile(),
+                            value: RadioCharacter.secondeCharacter,
+                            radioCharacter: character!,
+                            onChanged: (value) {
+                              setState(() {
+                                character = value;
+                              });
+                            },
+                            title: 'Anonymously',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: CustomButtonWidget(
+                      isMobile: isMobile(),
+                      onTap: () {
+                        context.pushNamed(
+                            AutiLabRoutes.successfulSubmitRateScreen);
+                      },
+                      height: 50,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 48),
+                      color: AutilabColor.bb,
+                      text: 'Submit Feedback',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ),
+                ],
               ),
-              SliverToBoxAdapter(
-                child: CustomButtonWidget(
-                  onTap: () {
-                    context.pushNamed(AutiLabRoutes.successfulSubmitRateScreen);
-                  },
-                  height: 50,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 48),
-                  color: AutilabColor.bb,
-                  text: 'Submit Feedback',
-                  textStyle: AutilabTextStyle.small18_400,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

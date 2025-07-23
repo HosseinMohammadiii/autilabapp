@@ -75,7 +75,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                   FittedBox(
                     child: Text(
                       'Expired Appointment',
-                      style: AutilabTextStyle.small24_400,
+                      style: AutilabTextStyle.small16_400,
                     ),
                   ),
                 ],
