@@ -49,83 +49,108 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Choose Your Role Below'),
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                fillOverscroll: false,
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: ChoseRoleWidget(
-                        stackAlignment: Alignment.centerRight,
-                        textAlignment: Alignment.centerLeft,
-                        image: 'occupational_role.svg',
-                        title1: 'Occupational\nTherapist',
-                        margin: const EdgeInsets.only(right: 35),
-                        padding: const EdgeInsets.only(left: 24),
-                        checkBox: RadioButtonWidget(
-                          radioCharacter: character!,
-                          value: RadioCharacter.characterOne,
-                          onChanged: (value) {
-                            setState(() {
-                              character = value;
-                            });
-                          },
-                          title:
-                              'Provider Of Specialized Treatment And Education Services',
-                          textStyle: AutilabTextStyle.small16_400,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'Choose Your Role Below',
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    fillOverscroll: false,
+                    hasScrollBody: false,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: ChoseRoleWidget(
+                            isMobile: isMobile(),
+                            stackAlignment: Alignment.centerRight,
+                            textAlignment: Alignment.centerLeft,
+                            image: 'occupational_role.svg',
+                            title1: 'Occupational\nTherapist',
+                            margin: const EdgeInsets.only(right: 35),
+                            padding: const EdgeInsets.only(left: 24),
+                            checkBox: RadioButtonWidget(
+                              isMobile: isMobile(),
+                              radioCharacter: character!,
+                              value: RadioCharacter.characterOne,
+                              onChanged: (value) {
+                                setState(() {
+                                  character = value;
+                                });
+                              },
+                              title:
+                                  'Provider Of Specialized Treatment And Education Services',
+                              textStyle: AutilabTextStyle.small16_400.copyWith(
+                                fontSize: isMobile() ? 16 : 24,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ChoseRoleWidget(
-                        stackAlignment: Alignment.centerLeft,
-                        textAlignment: Alignment.centerRight,
-                        image: 'client_role.svg',
-                        title1: 'Occupational\nTherapy\nClient',
-                        margin: const EdgeInsets.only(left: 35),
-                        padding: const EdgeInsets.only(right: 24),
-                        checkBox: RadioButtonWidget(
-                          radioCharacter: character!,
-                          value: RadioCharacter.secondeCharacter,
-                          onChanged: (value) {
-                            setState(() {
-                              character = value;
-                            });
-                          },
-                          title:
-                              'User Of Medical Staff Services And Specialist Training',
-                          textStyle: AutilabTextStyle.small16_400,
+                        Expanded(
+                          child: ChoseRoleWidget(
+                            isMobile: isMobile(),
+                            stackAlignment: Alignment.centerLeft,
+                            textAlignment: Alignment.centerRight,
+                            image: 'client_role.svg',
+                            title1: 'Occupational\nTherapy\nClient',
+                            margin: const EdgeInsets.only(left: 35),
+                            padding: const EdgeInsets.only(right: 24),
+                            checkBox: RadioButtonWidget(
+                              isMobile: isMobile(),
+                              radioCharacter: character!,
+                              value: RadioCharacter.secondeCharacter,
+                              onChanged: (value) {
+                                setState(() {
+                                  character = value;
+                                });
+                              },
+                              title:
+                                  'User Of Medical Staff Services And Specialist Training',
+                              textStyle: AutilabTextStyle.small16_400.copyWith(
+                                fontSize: isMobile() ? 16 : 24,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        CustomButtonWidget(
+                          isMobile: isMobile(),
+                          onTap: () {
+                            if (selectedIndexNotifier.value != null) {
+                              context.pushNamed(AutiLabRoutes.welcomeScreen);
+                            }
+                          },
+                          height: 50,
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 32),
+                          color: AutilabColor.bb,
+                          text: 'Get Start',
+                          textStyle: AutilabTextStyle.small18_400,
+                        ),
+                      ],
                     ),
-                    CustomButtonWidget(
-                      onTap: () {
-                        if (selectedIndexNotifier.value != null) {
-                          context.pushNamed(AutiLabRoutes.welcomeScreen);
-                        }
-                      },
-                      height: 50,
-                      margin: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 32),
-                      color: AutilabColor.bb,
-                      text: 'Get Start',
-                      textStyle: AutilabTextStyle.small18_400,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -133,6 +158,7 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
 class ChoseRoleWidget extends StatelessWidget {
   const ChoseRoleWidget({
     super.key,
+    this.isMobile = true,
     required this.stackAlignment,
     required this.textAlignment,
     required this.image,
@@ -141,7 +167,7 @@ class ChoseRoleWidget extends StatelessWidget {
     required this.padding,
     required this.checkBox,
   });
-
+  final bool isMobile;
   final AlignmentGeometry stackAlignment;
   final AlignmentGeometry textAlignment;
   final EdgeInsetsGeometry margin;
@@ -159,18 +185,20 @@ class ChoseRoleWidget extends StatelessWidget {
           alignment: stackAlignment,
           children: [
             Container(
-              height: 110,
+              height: isMobile ? 110 : 212,
               margin: const EdgeInsets.only(left: 20, right: 20, top: 80),
               padding: padding,
               alignment: textAlignment,
               decoration: BoxDecoration(
                 color: AutilabColor.bb,
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(isMobile ? 24 : 40),
               ),
               child: FittedBox(
                 child: Text(
                   title1,
-                  style: AutilabTextStyle.medium18_500,
+                  style: AutilabTextStyle.medium18_500.copyWith(
+                    fontSize: isMobile ? 18 : 28,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -181,7 +209,7 @@ class ChoseRoleWidget extends StatelessWidget {
                 padding: margin,
                 child: SvgPicture.asset(
                   'assets/icons/$image',
-                  height: 135,
+                  height: isMobile ? 135 : 280,
                   fit: BoxFit.contain,
                 ),
               ),

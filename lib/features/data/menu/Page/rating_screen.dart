@@ -354,13 +354,14 @@ class _RatingScreenState extends State<RatingScreen>
 class RadioButtonWidget extends StatelessWidget {
   const RadioButtonWidget({
     super.key,
+    this.isMobile = true,
     required this.radioCharacter,
     required this.value,
     required this.onChanged,
     required this.title,
     this.textStyle,
   });
-
+  final bool isMobile;
   final RadioCharacter radioCharacter;
   final RadioCharacter value;
   final TextStyle? textStyle;
@@ -377,8 +378,8 @@ class RadioButtonWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 20,
-            height: 20,
+            width: isMobile ? 20 : 32,
+            height: isMobile ? 20 : 32,
             child: Radio<RadioCharacter>(
               activeColor: AutilabColor.bb,
               value: value,
