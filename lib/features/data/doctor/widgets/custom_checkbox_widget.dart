@@ -4,13 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/color_constant.dart';
 
 class CustomCheckbox extends StatelessWidget {
-  final String title;
-  final int index;
-  final ValueNotifier<bool?> selectedIndexNotifier;
-  final Function(bool? value) onChanged;
-  final TextStyle? textStyle;
-  final OutlinedBorder? shape;
-
   const CustomCheckbox({
     super.key,
     required this.title,
@@ -20,7 +13,12 @@ class CustomCheckbox extends StatelessWidget {
     this.textStyle,
     this.shape,
   });
-
+  final String title;
+  final int index;
+  final ValueNotifier<bool?> selectedIndexNotifier;
+  final Function(bool? value) onChanged;
+  final TextStyle? textStyle;
+  final OutlinedBorder? shape;
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool?>(

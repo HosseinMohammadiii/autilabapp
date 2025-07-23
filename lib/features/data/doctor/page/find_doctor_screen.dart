@@ -103,6 +103,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                       context,
                                       _buildDialogSortIcon(
                                         context,
+                                        isMobile(),
                                       ),
                                     );
                                   },
@@ -139,6 +140,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                     _buildSpecialtiesDialog(
                                       context,
                                       (index) {},
+                                      isMobile(),
                                     ),
                                   );
                                 },
@@ -157,9 +159,14 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                           height: 24,
                         ),
                         SpecialtiesListWidget(
-                          height: 113,
-                          width: 112,
-                          textStyle: AutilabTextStyle.small14_400,
+                          height: isMobile() ? 113 : 180,
+                          width: isMobile() ? 112 : 180,
+                          widthImage: isMobile() ? 56 : 76,
+                          heightImage: isMobile() ? 56 : 76,
+                          radius: isMobile() ? 24 : 40,
+                          textStyle: isMobile()
+                              ? AutilabTextStyle.small14_400
+                              : AutilabTextStyle.small20_400,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -200,9 +207,11 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
   Widget _buildSpecialtiesDialog(
     BuildContext context,
     Function(int index) onTap,
+    final bool isMobile,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 16 : 32, vertical: isMobile ? 16 : 32),
       constraints: const BoxConstraints(
         maxWidth: 512,
       ),
@@ -218,7 +227,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               const SizedBox(width: 8),
               Text(
                 'All Specialties',
-                style: AutilabTextStyle.small18_400,
+                style: AutilabTextStyle.medium18_500.copyWith(
+                  fontSize: isMobile ? 18 : 20,
+                ),
               ),
             ],
           ),
@@ -227,11 +238,11 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             itemCount: categoryItemsList.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 24,
               mainAxisSpacing: 24,
-              mainAxisExtent: 113,
+              mainAxisExtent: isMobile ? 113 : 200,
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
@@ -241,7 +252,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: categoryItemsList[index].color,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -250,8 +261,8 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       Flexible(
                         child: Image.asset(
                           categoryItemsList[index].image,
-                          width: 56,
-                          height: 56,
+                          width: isMobile ? 56 : 96,
+                          height: isMobile ? 56 : 96,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -261,7 +272,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                         child: Text(
                           categoryItemsList[index].title,
                           textAlign: TextAlign.center,
-                          style: AutilabTextStyle.medium14_500,
+                          style: AutilabTextStyle.medium14_500.copyWith(
+                            fontSize: isMobile ? 14 : 24,
+                          ),
                         ),
                       ),
                     ],
@@ -278,6 +291,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 //Widget for display filter dialog
   Widget _buildDialogSortIcon(
     BuildContext context,
+    final bool isMobile,
   ) {
     final ValueNotifier<bool?> selectedGenderMaleNotifier =
         ValueNotifier<bool?>(true);
@@ -292,8 +306,10 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
     return FittedBox(
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 320, maxHeight: 685),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        constraints: BoxConstraints(
+            maxWidth: isMobile ? 320 : 528, maxHeight: isMobile ? 685 : 884),
+        padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 16 : 32, vertical: isMobile ? 16 : 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -307,11 +323,16 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                       context.pop();
                     }
                   },
-                  child: const Icon(Icons.close_rounded),
+                  child: Icon(
+                    Icons.close_rounded,
+                    size: isMobile ? 20 : 40,
+                  ),
                 ),
                 Text(
                   'Filter',
-                  style: AutilabTextStyle.small18_400,
+                  style: AutilabTextStyle.small18_400.copyWith(
+                    fontSize: isMobile ? 18 : 20,
+                  ),
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -324,7 +345,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                   },
                   child: Text(
                     'Rest Filter',
-                    style: AutilabTextStyle.medium14_500,
+                    style: AutilabTextStyle.small14_500.copyWith(
+                      fontSize: isMobile ? 14 : 16,
+                    ),
                   ),
                 ),
               ],
@@ -341,7 +364,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             ),
             Text(
               "Doctor's specialty",
-              style: AutilabTextStyle.medium18_500,
+              style: AutilabTextStyle.medium18_500.copyWith(
+                fontSize: isMobile ? 18 : 20,
+              ),
             ),
             ValueListenableBuilder(
               valueListenable: selectedIndexSpecialty,
@@ -349,25 +374,39 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: 24),
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 8,
-                  mainAxisExtent: 52,
+                  crossAxisSpacing: isMobile ? 16 : 32,
+                  mainAxisSpacing: isMobile ? 8 : 16,
+                  mainAxisExtent: isMobile ? 52 : 80,
                 ),
-                itemCount: 6,
+                itemCount: categoryItemsList.length,
                 itemBuilder: (context, index) {
-                  return CustomButtonWidget(
-                    margin: EdgeInsets.zero,
+                  return GestureDetector(
                     onTap: () {
                       selectedIndexSpecialty.value = index;
                     },
-                    height: 0,
-                    color: selectedIndexSpecialty.value == index
-                        ? AutilabColor.bb
-                        : AutilabColor.lightGray,
-                    text: categoryItemsList[index].title,
-                    textStyle: AutilabTextStyle.small14_500,
+                    child: Container(
+                      height: isMobile ? 50 : 72,
+                      margin: EdgeInsets.zero,
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: selectedIndexSpecialty.value == index
+                            ? AutilabColor.bb
+                            : AutilabColor.lightGray,
+                        borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          categoryItemsList[index].title,
+                          textAlign: TextAlign.center,
+                          style: AutilabTextStyle.small14_500
+                              .copyWith(fontSize: isMobile ? 14 : 20),
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -384,13 +423,18 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             ),
             Text(
               'Gender',
-              style: AutilabTextStyle.medium18_500,
+              style: AutilabTextStyle.medium18_500.copyWith(
+                fontSize: isMobile ? 18 : 20,
+              ),
             ),
             const SizedBox(
               height: 16,
             ),
             CustomCheckbox(
               title: 'Male',
+              textStyle: AutilabTextStyle.small14_400.copyWith(
+                fontSize: isMobile ? 14 : 20,
+              ),
               index: 1,
               selectedIndexNotifier: selectedGenderMaleNotifier,
               onChanged: (value) {
@@ -404,6 +448,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             ),
             CustomCheckbox(
               title: 'Female',
+              textStyle: AutilabTextStyle.small14_400.copyWith(
+                fontSize: isMobile ? 14 : 20,
+              ),
               index: 2,
               selectedIndexNotifier: selectedGenderFemaleNotifier,
               onChanged: (value) {
@@ -425,7 +472,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             ),
             Text(
               'Rating',
-              style: AutilabTextStyle.medium18_500,
+              style: AutilabTextStyle.medium18_500.copyWith(
+                fontSize: isMobile ? 18 : 20,
+              ),
             ),
             const SizedBox(
               height: 16,
@@ -454,6 +503,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
               ),
             ),
             CustomButtonWidget(
+              isMobile: isMobile,
               onTap: () {
                 context.pop();
               },
