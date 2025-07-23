@@ -83,7 +83,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
 //Methode pickImage for select image from gallery or camera for profile image
-  Future<void> pickImage() async {
+  Future<void> pickImage(
+    final bool isMobile,
+  ) async {
     final imagePicker = ImagePicker();
 
     // Show modal bottom sheet to choose image source
@@ -94,9 +96,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           children: <Widget>[
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text(
+              title: Text(
                 'Gallery',
-                style: AutilabTextStyle.medium16_500,
+                style: AutilabTextStyle.medium16_500
+                    .copyWith(fontSize: isMobile ? 16 : 18),
               ),
               onTap: () async {
                 try {
@@ -138,9 +141,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             ),
             ListTile(
               leading: const Icon(Icons.photo_camera),
-              title: const Text(
+              title: Text(
                 'Camera',
-                style: AutilabTextStyle.medium16_500,
+                style: AutilabTextStyle.medium16_500
+                    .copyWith(fontSize: isMobile ? 16 : 18),
               ),
               onTap: () async {
                 // Handle camera image picking with permission
@@ -219,8 +223,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     child: Column(
                       children: [
                         Container(
-                          width: 104,
-                          height: 104,
+                          width: isMobile() ? 104 : 168,
+                          height: isMobile() ? 104 : 168,
                           margin: const EdgeInsets.only(bottom: 16),
                           child: Stack(
                             alignment: Alignment.bottomRight,
@@ -233,34 +237,37 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                       ? Image.file(
                                           File(pickedFile!.path),
                                           fit: BoxFit.cover,
-                                          width: 104,
-                                          height: 104,
+                                          width: isMobile() ? 104 : 168,
+                                          height: isMobile() ? 104 : 168,
                                         )
                                       : Image.asset(
                                           'assets/images/child2_image.jpg',
                                           fit: BoxFit.cover,
-                                          width: 104,
-                                          height: 104,
+                                          width: isMobile() ? 104 : 168,
+                                          height: isMobile() ? 104 : 168,
                                         ),
                                   isNetworkImage: false,
                                 ),
                               ),
                               Positioned(
-                                bottom: 8,
+                                bottom: isMobile() ? 8 : 16,
                                 child: GestureDetector(
                                   onTap: () {
-                                    pickImage();
+                                    pickImage(
+                                      isMobile(),
+                                    );
                                   },
                                   child: Container(
-                                    width: 30,
-                                    height: 30,
+                                    width: isMobile() ? 30 : 36,
+                                    height: isMobile() ? 30 : 36,
+                                    padding: const EdgeInsets.all(8),
                                     decoration: const BoxDecoration(
                                       color: AutilabColor.bb,
                                       shape: BoxShape.circle,
                                     ),
                                     child: SvgPicture.asset(
                                       'assets/icons/camera.svg',
-                                      fit: BoxFit.scaleDown,
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
                                 ),
@@ -268,13 +275,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                             ],
                           ),
                         ),
-                        const Text(
+                        Text(
                           'Denis Iliev',
-                          style: AutilabTextStyle.medium16_500,
+                          style: AutilabTextStyle.medium16_500.copyWith(
+                            fontSize: isMobile() ? 16 : 28,
+                          ),
                         ),
-                        const Text(
+                        Text(
                           'denis@gmail.com',
-                          style: AutilabTextStyle.small18_400,
+                          style: AutilabTextStyle.small18_400.copyWith(
+                            fontSize: isMobile() ? 18 : 20,
+                          ),
                         ),
                       ],
                     ),
@@ -288,7 +299,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     child: CustomTextfield(
                       textInputAction: TextInputAction.next,
                       borderColor: AutilabColor.bb,
-                      borderRaduis: 16,
+                      textStyle: AutilabTextStyle.small14_400.copyWith(
+                        color: firstNameController.text.isNotEmpty
+                            ? AutilabColor.black
+                            : AutilabColor.gray,
+                        fontSize: isMobile() ? 14 : 20,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 15),
+                      borderRaduis: isMobile() ? 16 : 24,
                       backgroundColor: const Color(0xffECF0FF),
                       lblColor: AutilabColor.gray,
                       label: 'What’s your first name?',
@@ -300,7 +319,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     child: CustomTextfield(
                       textInputAction: TextInputAction.next,
                       borderColor: AutilabColor.bb,
-                      borderRaduis: 16,
+                      textStyle: AutilabTextStyle.small14_400.copyWith(
+                        color: lasNameController.text.isNotEmpty
+                            ? AutilabColor.black
+                            : AutilabColor.gray,
+                        fontSize: isMobile() ? 14 : 20,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 15),
+                      borderRaduis: isMobile() ? 16 : 24,
                       backgroundColor: const Color(0xffECF0FF),
                       lblColor: AutilabColor.gray,
                       label: 'And your last name?',
@@ -313,7 +340,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       textInputAction: TextInputAction.next,
                       textInputType: TextInputType.emailAddress,
                       borderColor: AutilabColor.bb,
-                      borderRaduis: 16,
+                      textStyle: AutilabTextStyle.small14_400.copyWith(
+                        color: emailController.text.isNotEmpty
+                            ? AutilabColor.black
+                            : AutilabColor.gray,
+                        fontSize: isMobile() ? 14 : 20,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 15),
+                      borderRaduis: isMobile() ? 16 : 24,
                       backgroundColor: const Color(0xffECF0FF),
                       lblColor: AutilabColor.gray,
                       label: 'Your Email',
@@ -322,6 +357,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     ),
                   ),
                   _boxSelectDateAndGender(
+                    isMobile: isMobile(),
                     context: context,
                     widget: ValueListenableBuilder<DateTime?>(
                       valueListenable: _selectedDate,
@@ -380,6 +416,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     },
                   ),
                   _boxSelectDateAndGender(
+                    isMobile: isMobile(),
                     context: context,
                     widget: Text(
                       selectedGender,
@@ -419,9 +456,12 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                         },
                                         child: const Icon(Icons.close_rounded),
                                       ),
-                                      const Text(
+                                      Text(
                                         'Gender',
-                                        style: AutilabTextStyle.small18_400,
+                                        style: AutilabTextStyle.medium18_500
+                                            .copyWith(
+                                          fontSize: isMobile() ? 18 : 20,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -436,6 +476,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     height: 16,
                                   ),
                                   RadioButtonWidget(
+                                    isMobile: isMobile(),
                                     radioCharacter:
                                         selectedGenderMaleNotifier.value,
                                     value: RadioCharacter.characterOne,
@@ -449,6 +490,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     height: 16,
                                   ),
                                   RadioButtonWidget(
+                                    isMobile: isMobile(),
                                     radioCharacter:
                                         selectedGenderMaleNotifier.value,
                                     value: RadioCharacter.secondeCharacter,
@@ -462,6 +504,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     height: 16,
                                   ),
                                   CustomButtonWidget(
+                                    isMobile: isMobile(),
                                     onTap: () {
                                       setState(() {
                                         if (selectedGenderMaleNotifier.value ==
@@ -533,10 +576,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       height: 48,
                     ),
                   ),
-                  const SliverPadding(
+                  SliverPadding(
                     padding: AutilabMargin.marginFullScreen,
                     sliver: SliverToBoxAdapter(
                       child: TitleAndIconWidget(
+                        isMobile: isMobile(),
                         title: 'Address',
                         icon: 'assets/icons/location-tick.svg',
                       ),
@@ -549,10 +593,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       child: Stack(
                         children: [
                           TextFieldBoxEnterDescription(
+                            textStyle: AutilabTextStyle.small14_400.copyWith(
+                              fontSize: isMobile() ? 14 : 20,
+                            ),
                             hintText:
                                 'open the map and set your current location',
                             bordeColor: AutilabColor.gray,
-                            borderRadius: 16,
+                            borderRadius: isMobile() ? 16 : 24,
                             maxLine: 4,
                             descriptionController: addressController,
                             descriptionFocusNode: addressFocusNode,
@@ -577,10 +624,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       ),
                     ),
                   ),
-                  const SliverPadding(
+                  SliverPadding(
                     padding: AutilabMargin.marginFullScreen,
                     sliver: SliverToBoxAdapter(
                       child: TitleAndIconWidget(
+                        isMobile: isMobile(),
                         title: 'More Detail About You',
                         icon: 'assets/icons/info-circle.svg',
                       ),
@@ -591,9 +639,12 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         left: 20, right: 20, bottom: 48, top: 24),
                     sliver: SliverToBoxAdapter(
                       child: TextFieldBoxEnterDescription(
+                        textStyle: AutilabTextStyle.small14_400.copyWith(
+                          fontSize: isMobile() ? 14 : 20,
+                        ),
                         hintText: 'Enter Your Info Here...',
                         bordeColor: AutilabColor.gray,
-                        borderRadius: 16,
+                        borderRadius: isMobile() ? 16 : 24,
                         maxLine: 4,
                         descriptionController: descriptionController,
                         descriptionFocusNode: descriptionFocusNode,
@@ -602,6 +653,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomButtonWidget(
+                      isMobile: isMobile(),
                       onTap: () {},
                       height: 50,
                       width: double.infinity,
@@ -623,6 +675,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
 //Widget for display box select date of birth & select gender
   Widget _boxSelectDateAndGender({
+    required bool isMobile,
     required BuildContext context,
     required Widget widget,
     required Function() onTap,
@@ -634,11 +687,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           padding: const EdgeInsets.only(left: 10, right: 24),
-          height: 50,
+          height: isMobile ? 50 : 68,
           decoration: BoxDecoration(
             color: const Color(0xffECF0FF),
             border: Border.all(color: AutilabColor.bb),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -649,8 +702,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   onTap: onTap,
                   child: SvgPicture.asset(
                     icon,
-                    width: 20,
-                    height: 20,
+                    width: isMobile ? 20 : 24,
+                    height: isMobile ? 20 : 24,
                     fit: BoxFit.scaleDown,
                   ),
                 ),

@@ -545,7 +545,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                         spacing: 8,
                         children: [
                           TextFieldBoxEnterDescription(
-                            borderRadius: 24,
+                            textStyle: AutilabTextStyle.small14_400.copyWith(
+                              fontSize: isMobile() ? 14 : 20,
+                            ),
+                            borderRadius: isMobile() ? 16 : 24,
                             hintText: 'Enter your Problem here...',
                             descriptionController: descriptionController,
                             descriptionFocusNode: descriptionFocusNode,

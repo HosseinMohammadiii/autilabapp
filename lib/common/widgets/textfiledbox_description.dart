@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class TextFieldBoxEnterDescription extends StatelessWidget {
   const TextFieldBoxEnterDescription({
     super.key,
+    required this.textStyle,
     required this.descriptionController,
     required this.descriptionFocusNode,
     this.isEnable,
@@ -13,7 +14,7 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
     this.borderRadius,
     this.maxLine,
   });
-
+  final TextStyle textStyle;
   final TextEditingController descriptionController;
   final FocusNode descriptionFocusNode;
   final bool? isEnable;
@@ -30,6 +31,7 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
       enabled: isEnable,
       cursorColor: Colors.black,
       maxLines: maxLine ?? 6,
+      style: textStyle,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AutilabTextStyle.small14_400.copyWith(
