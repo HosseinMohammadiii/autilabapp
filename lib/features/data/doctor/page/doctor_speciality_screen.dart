@@ -49,24 +49,25 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          bool isMobile() {
-            if (constraints.maxWidth < 600) {
-              return true;
-            } else {
-              return false;
-            }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
           }
+        }
 
-          return Scaffold(
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
             appBar: appBarWidget(
-                context: context,
-                title: 'Specialties',
-                isIcon: true,
-                isMobile: isMobile()),
+              context: context,
+              title: 'Specialties',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
             body: SafeArea(
               child: FadeTransition(
                 opacity: animationHelper.fadeAnimation,
@@ -108,6 +109,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                                     context,
                                     _buildDialogSortIcon(
                                       context,
+                                      isMobile(),
                                     ),
                                   );
                                 },
@@ -160,15 +162,16 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
   //Widget for display filter dialog
   Widget _buildDialogSortIcon(
     BuildContext context,
+    final bool isMobile,
   ) {
     final ValueNotifier<bool> selectedGenderMaleNotifier =
         ValueNotifier<bool>(true);
@@ -182,7 +185,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          constraints: const BoxConstraints(maxWidth: 528, maxHeight: 420),
+          constraints: const BoxConstraints(maxWidth: 528, maxHeight: 524),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -201,7 +204,9 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                   ),
                   Text(
                     'Filter',
-                    style: AutilabTextStyle.small18_400,
+                    style: AutilabTextStyle.small18_400.copyWith(
+                      fontSize: isMobile ? 18 : 20,
+                    ),
                   ),
                   const Spacer(),
                   GestureDetector(
@@ -213,7 +218,9 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                     },
                     child: Text(
                       'Rest Filter',
-                      style: AutilabTextStyle.medium12_500,
+                      style: AutilabTextStyle.small14_500.copyWith(
+                        fontSize: isMobile ? 14 : 16,
+                      ),
                     ),
                   ),
                 ],
@@ -230,13 +237,18 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               ),
               Text(
                 'Gender',
-                style: AutilabTextStyle.medium18_500,
+                style: AutilabTextStyle.medium18_500.copyWith(
+                  fontSize: isMobile ? 18 : 20,
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
               CustomCheckbox(
                 title: 'Male',
+                textStyle: AutilabTextStyle.small14_400.copyWith(
+                  fontSize: isMobile ? 14 : 20,
+                ),
                 index: 1,
                 selectedIndexNotifier: selectedGenderMaleNotifier,
                 onChanged: (value) {
@@ -249,6 +261,9 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               ),
               CustomCheckbox(
                 title: 'Female',
+                textStyle: AutilabTextStyle.small14_400.copyWith(
+                  fontSize: isMobile ? 14 : 20,
+                ),
                 index: 2,
                 selectedIndexNotifier: selectedGenderFemaleNotifier,
                 onChanged: (value) {
@@ -268,7 +283,9 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
               ),
               Text(
                 'Rating',
-                style: AutilabTextStyle.medium18_500,
+                style: AutilabTextStyle.medium18_500.copyWith(
+                  fontSize: isMobile ? 18 : 20,
+                ),
               ),
               const SizedBox(
                 height: 16,
@@ -297,6 +314,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                 ),
               ),
               CustomButtonWidget(
+                isMobile: isMobile,
                 onTap: () {
                   context.pop();
                 },
