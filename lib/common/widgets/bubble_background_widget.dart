@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BubbleBackgroundWidget extends StatelessWidget {
-  const BubbleBackgroundWidget({super.key});
-
+  const BubbleBackgroundWidget({
+    super.key,
+    this.isMobile = true,
+  });
+  final bool isMobile;
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -10,9 +13,9 @@ class BubbleBackgroundWidget extends StatelessWidget {
         Align(
           alignment: Alignment.topRight,
           child: Container(
-            width: 47,
-            height: 47,
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            width: isMobile ? 47 : 137,
+            height: isMobile ? 47 : 137,
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               color: const Color(0xffE0E7FF),
@@ -20,9 +23,9 @@ class BubbleBackgroundWidget extends StatelessWidget {
           ),
         ),
         Container(
-          width: 86,
-          height: 86,
-          margin: const EdgeInsets.symmetric(horizontal: 16),
+          width: isMobile ? 86 : 171,
+          height: isMobile ? 86 : 171,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             color: const Color(0xffE0E7FF),

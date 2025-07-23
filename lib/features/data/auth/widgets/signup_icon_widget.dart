@@ -7,13 +7,14 @@ import '../../../../core/constants/color_constant.dart';
 Widget circularWidgetSignUp({
   required String image,
   required Function() onTap,
+  required bool isMobile,
 }) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      width: 52,
-      height: 52,
-      padding: const EdgeInsets.all(8),
+      width: isMobile ? 52 : 80,
+      height: isMobile ? 52 : 80,
+      padding: EdgeInsets.all(isMobile ? 8 : 12),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AutilabColor.lightGray,

@@ -50,64 +50,102 @@ class _SendEmailScreenState extends State<SendEmailScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(context: context, title: 'Back', isIcon: true),
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: SvgPicture.asset(
-                        'assets/images/enter_email_image.svg',
-                        width: 350,
-                        height: 271,
-                        fit: BoxFit.cover,
-                      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: appBarWidget(
+              context: context,
+              title: 'Back',
+              isIcon: true,
+              isMobile: isMobile(),
+            ),
+            body: SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    fillOverscroll: false,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: SvgPicture.asset(
+                            'assets/images/enter_email_image.svg',
+                            width: isMobile() ? 350 : 534,
+                            height: isMobile() ? 271 : 350,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 30),
+                          child: Text(
+                            'Enter Your Email Address',
+                            style: AutilabTextStyle.small16_400.copyWith(
+                              fontSize: isMobile() ? 16 : 24,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        CustomTextfield(
+                          textStyle: AutilabTextStyle.small14_400.copyWith(
+                            color: emailController.text.isNotEmpty
+                                ? AutilabColor.black
+                                : AutilabColor.gray,
+                            fontSize: isMobile() ? 14 : 20,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 15),
+                          borderRaduis: isMobile() ? 16 : 24,
+                          textfieldPadding: AutilabMargin.marginFullScreen,
+                          controller: emailController,
+                          focusNode: emailFocusNode,
+                          textInputType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.done,
+                          label: 'Email',
+                          borderColor: AutilabColor.blue,
+                        ),
+                        CustomButtonWidget(
+                          isMobile: isMobile(),
+                          margin: AutilabMargin.marginFullScreen
+                              .copyWith(top: 16, bottom: 16),
+                          onTap: () {
+                            context
+                                .pushNamed(AutiLabRoutes.sendEmailCodeScreen);
+                          },
+                          height: 50,
+                          color: AutilabColor.bb,
+                          text: 'Send Code',
+                          textStyle: AutilabTextStyle.small18_400,
+                        ),
+                        BubbleBackgroundWidget(
+                          isMobile: isMobile(),
+                        ),
+                      ],
                     ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                      child: Text(
-                        'Enter Your Email Address',
-                        style: AutilabTextStyle.small16_400,
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    CustomTextfield(
-                      textfieldPadding: AutilabMargin.marginFullScreen,
-                      controller: emailController,
-                      focusNode: emailFocusNode,
-                      textInputType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.done,
-                      label: 'Email',
-                      borderColor: AutilabColor.blue,
-                    ),
-                    CustomButtonWidget(
-                      margin: AutilabMargin.marginFullScreen
-                          .copyWith(top: 16, bottom: 16),
-                      onTap: () {
-                        context.pushNamed(AutiLabRoutes.sendEmailCodeScreen);
-                      },
-                      height: 50,
-                      color: AutilabColor.bb,
-                      text: 'Send Code',
-                      textStyle: AutilabTextStyle.small18_400,
-                    ),
-                    const BubbleBackgroundWidget(),
-                  ],
-                ),
+                  ),
+                  // const SliverToBoxAdapter(
+                  //   child: SizedBox(
+                  //     height: 20,
+                  //   ),
+                  // ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
