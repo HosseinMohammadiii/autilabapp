@@ -54,119 +54,145 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        body: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Row(
-                        spacing: 8,
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: 40,
-                              child: SearchTextFieldWidget(
-                                searchFocusNode: searchFocusNode,
-                                searchController: searchController,
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showCustomDialog(
-                                context,
-                                _buildDialogSortIcon(
-                                  context,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            body: SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Padding(
+                          padding: AutilabMargin.marginFullScreen,
+                          child: Row(
+                            spacing: 8,
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  height: 40,
+                                  child: SearchTextFieldWidget(
+                                    searchFocusNode: searchFocusNode,
+                                    searchController: searchController,
+                                  ),
                                 ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: const BoxDecoration(
+                                  color: AutilabColor.bb,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showCustomDialog(
+                                      context,
+                                      _buildDialogSortIcon(
+                                        context,
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 25,
+                                    child: SvgPicture.asset(
+                                      'assets/icons/sort_icon.svg',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        Padding(
+                          padding: AutilabMargin.marginFullScreen,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Specialties',
+                                  style: AutilabTextStyle.small20_400
+                                      .copyWith(fontSize: isMobile() ? 20 : 32),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  showCustomDialog(
+                                    context,
+                                    _buildSpecialtiesDialog(
+                                      context,
+                                      (index) {},
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'See All',
+                                  style: AutilabTextStyle.medium14_500.copyWith(
+                                    color: AutilabColor.blue,
+                                    fontSize: isMobile() ? 14 : 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        SpecialtiesListWidget(
+                          height: 113,
+                          width: 112,
+                          textStyle: AutilabTextStyle.small14_400,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 48, bottom: 16, right: 20, left: 20),
+                          child: Text(
+                            'Specialist',
+                            style: AutilabTextStyle.small20_400
+                                .copyWith(fontSize: isMobile() ? 20 : 32),
+                          ),
+                        ),
+                        Padding(
+                          padding: AutilabMargin.marginFullScreen,
+                          child: ListView.builder(
+                            itemCount: 10,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return DoctorBoxWidget(
+                                isMobile: isMobile(),
+                                isLike: false,
                               );
                             },
-                            child: SvgPicture.asset(
-                              fit: BoxFit.none,
-                              'assets/icons/sort_icon.svg',
-                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'Specialties',
-                              style: AutilabTextStyle.small20_400,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showCustomDialog(
-                                context,
-                                _buildSpecialtiesDialog(
-                                  context,
-                                  (index) {},
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'See All',
-                              style: AutilabTextStyle.medium14_500.copyWith(
-                                color: AutilabColor.blue,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    SpecialtiesListWidget(
-                      height: 113,
-                      width: 112,
-                      textStyle: AutilabTextStyle.small14_400,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 48, bottom: 16, right: 20, left: 20),
-                      child: Text(
-                        'Specialist',
-                        style: AutilabTextStyle.small20_400,
-                      ),
-                    ),
-                    Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: ListView.builder(
-                        itemCount: 10,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return DoctorBoxWidget(
-                            isLike: false,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
