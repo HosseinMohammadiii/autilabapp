@@ -82,17 +82,25 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size(0, 20),
-          child: AppBar(),
-        ),
-        body: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return CustomScrollView(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size(0, 20),
+              child: AppBar(),
+            ),
+            body: SafeArea(
+              child: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
                     hasScrollBody: false,
@@ -101,7 +109,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 480,
+                          height: isMobile() ? 480 : 762,
                           child: PageView.builder(
                             controller: pageController,
                             itemCount: 3,
@@ -114,8 +122,8 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                       fit: BoxFit.scaleDown,
                                       child: SvgPicture.asset(
                                         programIntroductionList[index].image,
-                                        width: 350,
-                                        height: 350,
+                                        width: isMobile() ? 350 : 550,
+                                        height: isMobile() ? 350 : 550,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -131,7 +139,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                         .textTheme
                                         .bodyMedium!
                                         .copyWith(
-                                          fontSize: 20,
+                                          fontSize: isMobile() ? 20 : 40,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
@@ -149,7 +157,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                           .textTheme
                                           .bodySmall!
                                           .copyWith(
-                                            fontSize: 16,
+                                            fontSize: isMobile() ? 16 : 32,
                                             fontWeight: FontWeight.w400,
                                           ),
                                     ),
@@ -175,6 +183,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                         ),
                         CustomButtonWidget(
                           onTap: nextPage,
+                          isMobile: isMobile(),
                           height: 50,
                           borderRadius: 16,
                           color: AutilabColor.bb,
@@ -191,6 +200,7 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                                   ),
                         ),
                         CustomButtonWidget(
+                          isMobile: isMobile(),
                           onTap: () {
                             context.goNamed(AutiLabRoutes.choseRoleScreen);
                           },
@@ -208,11 +218,11 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
                     ),
                   ),
                 ],
-              );
-            },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
