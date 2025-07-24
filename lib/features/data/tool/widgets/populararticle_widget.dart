@@ -8,6 +8,7 @@ import 'likewidget.dart';
 class PopularArticleWidget extends StatefulWidget {
   PopularArticleWidget({
     super.key,
+    this.isMobile = true,
     required this.index,
     required this.image,
     required this.title,
@@ -15,6 +16,7 @@ class PopularArticleWidget extends StatefulWidget {
     required this.ontap,
     this.isLike = false,
   });
+  final bool isMobile;
   final int index;
   final String image;
   final String title;
@@ -50,7 +52,7 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
             ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(16),
               child: SizedBox(
-                height: 171,
+                height: widget.isMobile ? 171 : 234,
                 child: Image.asset(
                   widget.image,
                   fit: BoxFit.cover,
@@ -76,7 +78,9 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
                 Text(
                   widget.title,
                   overflow: TextOverflow.ellipsis,
-                  style: AutilabTextStyle.medium16_500,
+                  style: AutilabTextStyle.medium16_500.copyWith(
+                    fontSize: widget.isMobile ? 16 : 24,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,10 +91,13 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
                       child: Text(
                         widget.description,
                         overflow: TextOverflow.ellipsis,
-                        style: AutilabTextStyle.small14_400,
+                        style: AutilabTextStyle.small14_400.copyWith(
+                          fontSize: widget.isMobile ? 14 : 20,
+                        ),
                       ),
                     ),
                     LikeWidget(
+                      isMobile: widget.isMobile,
                       isLike: isLike,
                       onTap: () {
                         setState(() {

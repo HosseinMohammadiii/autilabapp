@@ -39,6 +39,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
                       'statusIcon': 'assets/icons/done_icon.svg',
                       'title': 'Approved',
                       'image': 'assets/images/doctor_image.jpg',
+                      'descriptionStatus': 'Your Appointment Has Been Approved',
                     },
                   );
                 },
