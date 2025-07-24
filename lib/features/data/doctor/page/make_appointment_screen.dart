@@ -623,8 +623,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
             ),
             fillColor: backgroundColor ?? const Color(0xffECF0FF),
             filled: true,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+            // contentPadding:
+            //     const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+            contentPadding: EdgeInsets.symmetric(
+                vertical: isMobile ? 2 : 20, horizontal: 15),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
               borderSide: BorderSide.none,

@@ -14,7 +14,7 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
     this.borderRadius,
     this.maxLine,
   });
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final TextEditingController descriptionController;
   final FocusNode descriptionFocusNode;
   final bool? isEnable;
@@ -34,9 +34,10 @@ class TextFieldBoxEnterDescription extends StatelessWidget {
       style: textStyle,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: AutilabTextStyle.small14_400.copyWith(
-          color: AutilabColor.gray,
-        ),
+        hintStyle: textStyle ??
+            AutilabTextStyle.small14_400.copyWith(
+              color: AutilabColor.gray,
+            ),
         fillColor: AutilabColor.primary,
         filled: true,
         contentPadding:

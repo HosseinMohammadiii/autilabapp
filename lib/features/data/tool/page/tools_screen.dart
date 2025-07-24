@@ -73,69 +73,85 @@ class _ToolsScreenState extends State<ToolsScreen>
   ];
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverList.builder(
-                itemCount: toolsItems.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: ToolsBoxWidget(
-                      title: toolsItems[index].title,
-                      description: toolsItems[index].description,
-                      titleButton: toolsItems[index].titleButton,
-                      svg: toolsItems[index].svg,
-                      onTap: () {
-                        switch (index) {
-                          case 0:
-                            context.pushNamed(AutiLabRoutes.articleItemScreen);
-                            break;
-                          // case 1:
-                          //   context.pushNamed(AutiLabRoutes.whiteBoardScreen);
-                          //   break;
-                          case 1:
-                            context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
-                                extra: {
-                                  'image': 'assets/images/talent_image.svg',
-                                  'title': 'Aptitude Test',
-                                  'subTitle': 'Talent Identification Test',
-                                  'description':
-                                      "Discover your child's hidden potentials and help them grow endlessly.",
-                                  'onTap': () {
-                                    context.pushNamed(
-                                        AutiLabRoutes.quizMultiSelectScreen);
-                                  },
-                                });
-                            break;
-                          case 2:
-                            context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
-                                extra: {
-                                  'image':
-                                      'assets/images/personality_image.svg',
-                                  'title': 'Personality Test',
-                                  'subTitle': 'Personality Test',
-                                  'description':
-                                      "Discover your child's personality and help them find the right path in life.",
-                                  'onTap': () {
-                                    context.pushNamed(
-                                        AutiLabRoutes.quizMultiSelectScreen);
-                                  },
-                                });
-                            break;
-                        }
-                      },
-                    ),
-                  );
-                },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            body: SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  SliverList.builder(
+                    itemCount: toolsItems.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: ToolsBoxWidget(
+                          isMobile: isMobile(),
+                          title: toolsItems[index].title,
+                          description: toolsItems[index].description,
+                          titleButton: toolsItems[index].titleButton,
+                          svg: toolsItems[index].svg,
+                          onTap: () {
+                            switch (index) {
+                              case 0:
+                                context
+                                    .pushNamed(AutiLabRoutes.articleItemScreen);
+                                break;
+                              // case 1:
+                              //   context.pushNamed(AutiLabRoutes.whiteBoardScreen);
+                              //   break;
+                              case 1:
+                                context.pushNamed(
+                                    AutiLabRoutes.aptitudeTestScreen,
+                                    extra: {
+                                      'image': 'assets/images/talent_image.svg',
+                                      'title': 'Aptitude Test',
+                                      'subTitle': 'Talent Identification Test',
+                                      'description':
+                                          "Discover your child's hidden potentials and help them grow endlessly.",
+                                      'onTap': () {
+                                        context.pushNamed(AutiLabRoutes
+                                            .quizMultiSelectScreen);
+                                      },
+                                    });
+                                break;
+                              case 2:
+                                context.pushNamed(
+                                    AutiLabRoutes.aptitudeTestScreen,
+                                    extra: {
+                                      'image':
+                                          'assets/images/personality_image.svg',
+                                      'title': 'Personality Test',
+                                      'subTitle': 'Personality Test',
+                                      'description':
+                                          "Discover your child's personality and help them find the right path in life.",
+                                      'onTap': () {
+                                        context.pushNamed(AutiLabRoutes
+                                            .quizMultiSelectScreen);
+                                      },
+                                    });
+                                break;
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

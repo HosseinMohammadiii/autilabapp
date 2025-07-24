@@ -99,8 +99,8 @@ class _LogInScreenState extends State<LogInScreen>
                                 : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 15),
+                          padding: EdgeInsets.symmetric(
+                              vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
                           textfieldPadding: AutilabMargin.marginFullScreen,
                           controller: userNameController,
@@ -120,8 +120,8 @@ class _LogInScreenState extends State<LogInScreen>
                                 : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 15),
+                          padding: EdgeInsets.symmetric(
+                              vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
                           controller: passwordController,
                           focusNode: passwordFocusNode,

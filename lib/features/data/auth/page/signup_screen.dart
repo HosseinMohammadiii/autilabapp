@@ -105,8 +105,8 @@ class _SignupScreenState extends State<SignupScreen>
                                 : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 15),
+                          padding: EdgeInsets.symmetric(
+                              vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
                           textfieldPadding: AutilabMargin.marginFullScreen
                               .copyWith(bottom: 16),
@@ -126,8 +126,8 @@ class _SignupScreenState extends State<SignupScreen>
                                 : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 15),
+                          padding: EdgeInsets.symmetric(
+                              vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
                           controller: emailController,
                           focusNode: emailFocusNode,
@@ -146,8 +146,8 @@ class _SignupScreenState extends State<SignupScreen>
                                 : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 15),
+                          padding: EdgeInsets.symmetric(
+                              vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
                           controller: passwordController,
                           focusNode: passwordFocusNode,
