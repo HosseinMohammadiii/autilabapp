@@ -4,6 +4,7 @@ import 'package:autilab_project/features/data/doctor/widgets/nearby_card_widget.
 import 'package:flutter/material.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../utils/functions/open_location_function.dart';
 
 class NearbyCenterScreen extends StatefulWidget {
@@ -89,6 +90,10 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
                                 'assets/images/map_image.png',
                                 width: double.infinity,
                                 fit: BoxFit.cover,
+                                cacheWidth: cacheImageFunction(
+                                    isMobile() ? 150 : 309, context),
+                                cacheHeight: cacheImageFunction(
+                                    isMobile() ? 150 : 309, context),
                               ),
                             ),
                           ),

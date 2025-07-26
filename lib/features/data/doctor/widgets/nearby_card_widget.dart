@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/color_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 // ignore: must_be_immutable
 class NearbyCardWidget extends StatefulWidget {
@@ -46,6 +47,10 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 fit: BoxFit.fill,
                 width: widget.isMobile ? 320 : 722,
                 height: widget.isMobile ? 213 : 315,
+                cacheWidth:
+                    cacheImageFunction(widget.isMobile ? 320 : 722, context),
+                cacheHeight:
+                    cacheImageFunction(widget.isMobile ? 213 : 315, context),
               ),
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 class NotificationBoxWidget extends StatelessWidget {
   const NotificationBoxWidget({
@@ -28,6 +29,8 @@ class NotificationBoxWidget extends StatelessWidget {
             'assets/images/notification_image.png',
             width: isMobile ? 32 : 68,
             height: isMobile ? 32 : 68,
+            cacheWidth: cacheImageFunction(isMobile ? 32 : 68, context),
+            cacheHeight: cacheImageFunction(isMobile ? 32 : 68, context),
             fit: BoxFit.cover,
           ),
           Expanded(

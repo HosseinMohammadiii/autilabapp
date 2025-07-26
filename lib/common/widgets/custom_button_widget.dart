@@ -35,7 +35,7 @@ class CustomButtonWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
-        height: isMobile ? 50 : 72,
+        height: isMobile ? 40 : 46,
         margin:
             margin ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 2),
@@ -44,7 +44,7 @@ class CustomButtonWidget extends StatelessWidget {
           boxShadow: boxShadow,
           color: color,
           border: Border.all(color: bordeColor ?? Colors.transparent),
-          borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
+          borderRadius: BorderRadius.circular(isMobile ? 14 : 18),
         ),
         child: FittedBox(
           fit: BoxFit.scaleDown,
@@ -52,7 +52,7 @@ class CustomButtonWidget extends StatelessWidget {
             text,
             textAlign: TextAlign.center,
             style: AutilabTextStyle.small18_400.copyWith(
-              fontSize: isMobile ? 18 : 28,
+              fontSize: isMobile ? 16 : 22,
             ),
           ),
         ),

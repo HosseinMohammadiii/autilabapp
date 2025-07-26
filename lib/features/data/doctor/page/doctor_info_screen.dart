@@ -8,6 +8,7 @@ import '../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../tool/widgets/likewidget.dart';
 import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
@@ -102,6 +103,10 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                                   child: Image.asset(
                                     'assets/images/doctor_image.jpg',
                                     fit: BoxFit.cover,
+                                    cacheWidth: cacheImageFunction(
+                                        isMobile() ? 116 : 200, context),
+                                    cacheHeight: cacheImageFunction(
+                                        isMobile() ? 116 : 200, context),
                                   ),
                                 ),
                               ),

@@ -17,6 +17,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../utils/functions/permissioncotrol.dart';
 import '../model/whiteboard/drawing_tool.dart';
 import '../widgets/boxwhiteboard_widget.dart';
@@ -378,6 +379,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                   fit: BoxFit.cover,
                                   width: 72,
                                   height: 83,
+                                  cacheWidth: cacheImageFunction(72, context),
+                                  cacheHeight: cacheImageFunction(83, context),
                                 ),
                               ),
                               ClipRRect(
@@ -387,6 +390,8 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
                                   fit: BoxFit.cover,
                                   width: 72,
                                   height: 83,
+                                  cacheWidth: cacheImageFunction(72, context),
+                                  cacheHeight: cacheImageFunction(83, context),
                                 ),
                               ),
                             ],

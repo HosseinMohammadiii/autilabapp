@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({
@@ -130,6 +131,10 @@ class _MessageScreenState extends State<MessageScreen>
                           widget.image,
                           height: isMobile() ? 46 : 76,
                           width: isMobile() ? 46 : 76,
+                          cacheWidth:
+                              cacheImageFunction(isMobile() ? 46 : 76, context),
+                          cacheHeight:
+                              cacheImageFunction(isMobile() ? 46 : 76, context),
                           fit: BoxFit.cover,
                         ),
                       ),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 class MesseageBoxProfile extends StatelessWidget {
   const MesseageBoxProfile({
@@ -47,6 +48,8 @@ class MesseageBoxProfile extends StatelessWidget {
               child: Image.asset(
                 'assets/images/doctor_image.jpg',
                 width: isMobile ? 45 : 80,
+                cacheWidth: cacheImageFunction(isMobile ? 45 : 80, context),
+                cacheHeight: cacheImageFunction(isMobile ? 45 : 80, context),
                 fit: BoxFit.cover,
               ),
             ),

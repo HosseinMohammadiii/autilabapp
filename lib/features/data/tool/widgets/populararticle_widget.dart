@@ -50,24 +50,25 @@ class _PopularArticleWidgetState extends State<PopularArticleWidget> {
           spacing: 8,
           children: [
             ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(16),
+              borderRadius: BorderRadius.circular(16),
               child: SizedBox(
                 height: widget.isMobile ? 171 : 234,
                 child: Image.asset(
                   widget.image,
                   fit: BoxFit.cover,
+                  cacheWidth: 300,
+                  cacheHeight: 200,
                   frameBuilder:
                       (context, child, frame, wasSynchronouslyLoaded) {
-                    return frame != null
-                        ? FittedBox(
-                            fit: BoxFit.fill,
-                            child: child,
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(
-                              color: AutilabColor.bb,
-                            ),
-                          );
+                    if (frame == null) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AutilabColor.bb,
+                        ),
+                      );
+                    } else {
+                      return child;
+                    }
                   },
                 ),
               ),

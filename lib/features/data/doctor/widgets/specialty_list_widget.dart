@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/Lists/category_items.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 class SpecialtiesListWidget extends StatelessWidget {
   const SpecialtiesListWidget({
@@ -59,6 +60,10 @@ class SpecialtiesListWidget extends StatelessWidget {
                     height: heightImage ?? 56,
                     child: Image.asset(
                       categoryItemsList[index].image,
+                      cacheWidth: cacheImageFunction(
+                          widthImage?.toInt() ?? 56, context),
+                      cacheHeight: cacheImageFunction(
+                          widthImage?.toInt() ?? 56, context),
                     ),
                   ),
                   FittedBox(

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import 'box_shape_widget.dart';
 import 'time_box_doctor_card_widget.dart';
 
@@ -109,7 +110,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
           ),
           const Spacer(),
           SizedBox(
-            height: isMobile ? 96 : 200,
+            height: isMobile ? 100 : 200,
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
@@ -125,6 +126,10 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                         height: isMobile ? 116 : 200,
                         child: Image.asset(
                           image,
+                          cacheWidth:
+                              cacheImageFunction(isMobile ? 116 : 200, context),
+                          cacheHeight:
+                              cacheImageFunction(isMobile ? 116 : 200, context),
                           fit: BoxFit.cover,
                         ),
                       ),

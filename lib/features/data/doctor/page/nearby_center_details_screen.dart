@@ -9,6 +9,7 @@ import '../../../../common/widgets/custom_textfield.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../tool/widgets/likewidget.dart';
 import '../widgets/box_detail_widget.dart';
 import '../widgets/button_card.dart';
@@ -109,6 +110,10 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                               child: Image.asset(
                                 'assets/images/centerImage.jpg',
                                 fit: BoxFit.cover,
+                                cacheWidth: cacheImageFunction(
+                                    isMobile() ? 150 : 309, context),
+                                cacheHeight: cacheImageFunction(
+                                    isMobile() ? 150 : 309, context),
                               ),
                             ),
                           );

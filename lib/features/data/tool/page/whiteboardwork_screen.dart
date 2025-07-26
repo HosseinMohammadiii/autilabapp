@@ -6,6 +6,8 @@ import 'package:autilab_project/features/data/tool/model/whiteboard/notifieres/c
 import 'package:autilab_project/features/data/tool/model/whiteboard/sketch.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../utils/functions/cacheimahe_function.dart';
+
 final key = GlobalKey();
 
 // ignore: must_be_immutable
@@ -145,6 +147,8 @@ class _WhiteboardWorkScreenState extends State<WhiteboardWorkScreen> {
                     ? 'assets/images/upload_image_background.png'
                     : 'assets/images/whiteboardBackground.png',
                 fit: BoxFit.fill,
+                cacheWidth: cacheImageFunction(100, context),
+                cacheHeight: cacheImageFunction(100, context),
                 opacity: const AlwaysStoppedAnimation(.3),
               ),
             ),

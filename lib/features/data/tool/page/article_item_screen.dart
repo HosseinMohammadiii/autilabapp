@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../../home/widgets/article_box_widget.dart';
+import '../widgets/article_box_widget.dart';
 import '../widgets/populararticle_widget.dart';
 
 class ArticleContent {

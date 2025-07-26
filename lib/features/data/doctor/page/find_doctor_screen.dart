@@ -8,6 +8,7 @@ import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/Lists/category_items.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../utils/functions/custom_dialog_function.dart';
 import '../widgets/custom_checkbox_widget.dart';
 import '../widgets/doctor_box_widget.dart';
@@ -263,6 +264,10 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                           categoryItemsList[index].image,
                           width: isMobile ? 56 : 96,
                           height: isMobile ? 56 : 96,
+                          cacheWidth:
+                              cacheImageFunction(isMobile ? 56 : 96, context),
+                          cacheHeight:
+                              cacheImageFunction(isMobile ? 56 : 96, context),
                           fit: BoxFit.contain,
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:autilab_project/features/data/tool/widgets/likewidget.dart';
+import 'package:autilab_project/utils/functions/cacheimahe_function.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
@@ -46,34 +47,62 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
           borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
         ),
         child: SizedBox(
+          width: widget.isMobile ? 90 : 145,
           height: widget.isMobile ? 90 : 145,
           child: Row(
             spacing: 12,
             children: [
-              SizedBox(
-                width: widget.isMobile ? 90 : 145,
-                height: widget.isMobile ? 90 : 145,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: SizedBox(
+                  width: widget.isMobile ? 90 : 145,
+                  height: widget.isMobile ? 90 : 145,
                   child: Image.asset(
                     widget.image,
                     fit: BoxFit.cover,
+                    cacheWidth:
+                        cacheImageFunction(widget.isMobile ? 90 : 145, context),
+                    cacheHeight:
+                        cacheImageFunction(widget.isMobile ? 90 : 145, context),
                     frameBuilder:
                         (context, child, frame, wasSynchronouslyLoaded) {
-                      return frame != null
-                          ? FittedBox(
-                              fit: BoxFit.fill,
-                              child: child,
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(
-                                color: AutilabColor.bb,
-                              ),
-                            );
+                      if (frame == null) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: AutilabColor.bb,
+                          ),
+                        );
+                      } else {
+                        return child;
+                      }
                     },
                   ),
                 ),
               ),
+              // SizedBox(
+              //   width: widget.isMobile ? 90 : 145,
+              //   height: widget.isMobile ? 90 : 145,
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.circular(16),
+              //     child: Image.asset(
+              //       widget.image,
+              //       fit: BoxFit.cover,
+              //       frameBuilder:
+              //           (context, child, frame, wasSynchronouslyLoaded) {
+              //         return frame != null
+              //             ? FittedBox(
+              //                 fit: BoxFit.fill,
+              //                 child: child,
+              //               )
+              //             : const Center(
+              //                 child: CircularProgressIndicator(
+              //                   color: AutilabColor.bb,
+              //                 ),
+              //               );
+              //       },
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,6 +143,10 @@ class _ArticleBoxWidgetState extends State<ArticleBoxWidget> {
                                 'assets/images/doctor4.png',
                                 width: widget.isMobile ? 16 : 24,
                                 height: widget.isMobile ? 16 : 24,
+                                cacheWidth: cacheImageFunction(
+                                    widget.isMobile ? 16 : 24, context),
+                                cacheHeight: cacheImageFunction(
+                                    widget.isMobile ? 16 : 24, context),
                               ),
                             ),
                             Text(

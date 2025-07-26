@@ -10,6 +10,7 @@ import '../../../../common/widgets/test_result_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/Lists/package_info_list.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../doctor/page/nearby_center_details_screen.dart';
 import '../../doctor/widgets/specialty_list_widget.dart';
 import '../widgets/plan_item_widget.dart';
@@ -133,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: isMobile() ? 236 : 370,
+                      height: isMobile() ? 230 : 345,
                       child: ListView.builder(
                         itemCount: 3,
                         scrollDirection: Axis.horizontal,
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               right: index == statusList.length - 1 ? 8 : 0,
                             ),
                             child: SizedBox(
-                              width: isMobile() ? 320 : 673,
+                              width: isMobile() ? 320 : 643,
                               child: NewAppointmentsCardWidget(
                                 isMobile: isMobile(),
                                 color: statusList[index].statusColor,
@@ -286,6 +287,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   'assets/images/autilab_test_image.png',
                                   width: isMobile() ? 143 : 372,
                                   height: isMobile() ? 140 : 229,
+                                  cacheWidth: cacheImageFunction(
+                                      isMobile() ? 143 : 372, context),
+                                  cacheHeight: cacheImageFunction(
+                                      isMobile() ? 140 : 229, context),
                                 ),
                               ],
                             ),

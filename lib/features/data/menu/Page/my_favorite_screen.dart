@@ -1,7 +1,7 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
-import 'package:autilab_project/features/data/home/widgets/article_box_widget.dart';
+import 'package:autilab_project/features/data/tool/widgets/article_box_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/data/doctor/widgets/drawer_box_widget.dart';
+import '../../utils/functions/cacheimahe_function.dart';
 import 'cached_network_image_widget.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -204,6 +205,10 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                   fit: BoxFit.cover,
                                   width: isMobile() ? 52 : 84,
                                   height: isMobile() ? 52 : 84,
+                                  cacheWidth: cacheImageFunction(
+                                      isMobile() ? 52 : 84, context),
+                                  cacheHeight: cacheImageFunction(
+                                      isMobile() ? 52 : 84, context),
                                 ),
                                 isNetworkImage: false,
                               ),

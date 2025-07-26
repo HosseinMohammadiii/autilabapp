@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 // ignore: must_be_immutable
 class MainContentScreen extends StatefulWidget {
@@ -97,19 +98,23 @@ class _MainContentScreenState extends State<MainContentScreen>
                           height: isMobile() ? 170 : 270,
                           width: double.infinity,
                           child: Image.asset(
+                            fit: BoxFit.fill,
                             widget.articleImage,
+                            cacheWidth: cacheImageFunction(
+                                isMobile() ? 170 : 270, context),
+                            cacheHeight: cacheImageFunction(
+                                isMobile() ? 170 : 270, context),
                             frameBuilder: (context, child, frame,
                                 wasSynchronouslyLoaded) {
-                              return frame != null
-                                  ? FittedBox(
-                                      fit: BoxFit.fill,
-                                      child: child,
-                                    )
-                                  : const Center(
-                                      child: CircularProgressIndicator(
-                                        color: AutilabColor.bb,
-                                      ),
-                                    );
+                              if (frame == null) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AutilabColor.bb,
+                                  ),
+                                );
+                              } else {
+                                return child;
+                              }
                             },
                           ),
                         ),

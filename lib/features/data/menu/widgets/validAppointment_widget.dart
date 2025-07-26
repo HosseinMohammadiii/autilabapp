@@ -19,7 +19,7 @@ class ValidAppointmentWidget extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return SizedBox(
-          height: isMobile ? 252 : 409,
+          height: isMobile ? 256 : 360,
           child: NewAppointmentsCardWidget(
             isMobile: isMobile,
             color: const Color(0xff50DD81),

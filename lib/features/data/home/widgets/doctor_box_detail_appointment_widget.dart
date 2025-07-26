@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
   const DoctorBoxDetialAppointmentWidget({
@@ -35,6 +36,9 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                 child: Image.asset(
                   image,
+                  cacheWidth: cacheImageFunction(isMobile ? 116 : 200, context),
+                  cacheHeight:
+                      cacheImageFunction(isMobile ? 116 : 200, context),
                   fit: BoxFit.cover,
                 ),
               ),

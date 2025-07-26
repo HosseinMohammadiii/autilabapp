@@ -19,6 +19,7 @@ import '../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../utils/functions/open_location_function.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -239,12 +240,20 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                           fit: BoxFit.cover,
                                           width: isMobile() ? 104 : 168,
                                           height: isMobile() ? 104 : 168,
+                                          cacheWidth: cacheImageFunction(
+                                              isMobile() ? 104 : 168, context),
+                                          cacheHeight: cacheImageFunction(
+                                              isMobile() ? 104 : 168, context),
                                         )
                                       : Image.asset(
                                           'assets/images/child2_image.jpg',
                                           fit: BoxFit.cover,
                                           width: isMobile() ? 104 : 168,
                                           height: isMobile() ? 104 : 168,
+                                          cacheWidth: cacheImageFunction(
+                                              isMobile() ? 104 : 168, context),
+                                          cacheHeight: cacheImageFunction(
+                                              isMobile() ? 104 : 168, context),
                                         ),
                                   isNetworkImage: false,
                                 ),

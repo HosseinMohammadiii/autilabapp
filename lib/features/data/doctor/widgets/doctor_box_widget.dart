@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 import 'button_card.dart';
 
 // ignore: must_be_immutable
@@ -77,7 +78,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                   decoration: BoxDecoration(
                     color: const Color(0xffEDC757),
                     borderRadius:
-                        BorderRadius.circular(widget.isMobile ? 16 : 24),
+                        BorderRadius.circular(widget.isMobile ? 12 : 24),
                   ),
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
@@ -85,7 +86,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                       'Info',
                       textAlign: TextAlign.center,
                       style: AutilabTextStyle.small18_400.copyWith(
-                        fontSize: widget.isMobile ? 18 : 28,
+                        fontSize: widget.isMobile ? 14 : 28,
                       ),
                     ),
                   ),
@@ -113,6 +114,10 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                       child: Image.asset(
                         width: widget.isMobile ? 116 : 200,
                         height: widget.isMobile ? 116 : 200,
+                        cacheWidth: cacheImageFunction(
+                            widget.isMobile ? 116 : 200, context),
+                        cacheHeight: cacheImageFunction(
+                            widget.isMobile ? 116 : 200, context),
                         'assets/images/doctor_image.jpg',
                         fit: BoxFit.cover,
                       ),

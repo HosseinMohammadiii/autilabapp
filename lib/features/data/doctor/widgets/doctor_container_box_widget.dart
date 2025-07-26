@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../core/constants/theme_constant.dart';
+import '../../../../utils/functions/cacheimahe_function.dart';
 
 // ignore: must_be_immutable
 class DoctorBox extends StatefulWidget {
@@ -46,6 +47,10 @@ class _DoctorBoxState extends State<DoctorBox> {
                   'assets/images/doctor_image.jpg',
                   width: widget.isMobile ? 116 : 248,
                   height: widget.isMobile ? 116 : 248,
+                  cacheWidth:
+                      cacheImageFunction(widget.isMobile ? 116 : 248, context),
+                  cacheHeight:
+                      cacheImageFunction(widget.isMobile ? 116 : 248, context),
                   fit: BoxFit.cover,
                 ),
               ),
