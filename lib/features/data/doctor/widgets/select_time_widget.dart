@@ -10,8 +10,9 @@ class SelectTimeWidget extends StatefulWidget {
     required this.onTap,
     this.isSelect = true,
     this.backgroundColor,
+    this.isMobile = true,
   });
-
+  final bool isMobile;
   final Function(String? time) onTap;
   final bool? isSelect;
   final Color? backgroundColor;
@@ -62,11 +63,13 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
                   : (notAvailable.contains(timeAvailable[index]))
                       ? AutilabColor.bb
                       : widget.backgroundColor ?? const Color(0xffFBE4E4),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(widget.isMobile ? 8 : 24),
             ),
             child: Text(
               timeAvailable[index],
-              style: AutilabTextStyle.small14_400,
+              style: AutilabTextStyle.small14_400.copyWith(
+                fontSize: widget.isMobile ? 14 : 18,
+              ),
             ),
           ),
         );

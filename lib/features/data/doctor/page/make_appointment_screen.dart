@@ -166,6 +166,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     child: Stack(
                       children: [
                         CalendarGrid(
+                          isMobile: isMobile(),
                           date: montNumber,
                           onTap: (day) {
                             setState(() {
@@ -256,7 +257,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             isMobile(),
                           ),
                           const SizedBox(
-                            height: 8,
+                            height: 16,
                           ),
                           Visibility(
                             visible: selectDate.isNotEmpty,
@@ -317,6 +318,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                   SliverPadding(
                     padding: AutilabMargin.marginFullScreen,
                     sliver: SelectTimeWidget(
+                      isMobile: isMobile(),
                       onTap: (time) {
                         setState(() {
                           selectTime = time ?? '';
@@ -346,6 +348,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             'Already Booked',
                             const Color(0xffFBE4E4),
                             isMobile(),
+                          ),
+                          const SizedBox(
+                            height: 16,
                           ),
                           Visibility(
                             visible: selectTime.isNotEmpty,

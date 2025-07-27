@@ -10,8 +10,9 @@ class CalendarGrid extends StatefulWidget {
     required this.onTap,
     this.isSelect = true,
     required this.date,
+    this.isMobile = true,
   });
-
+  final bool isMobile;
   final Function(DateTime? day) onTap;
   final bool? isSelect;
   final int date;
@@ -154,7 +155,6 @@ class _CalendarGridState extends State<CalendarGrid> {
                 onTap: () {
                   if (!isSunday &&
                       day != null &&
-                      widget.isSelect == true &&
                       !notAvailableDay.contains(day.day) &&
                       !nonWorkDay.contains(day.day)) {
                     widget.onTap(day);
@@ -175,7 +175,8 @@ class _CalendarGridState extends State<CalendarGrid> {
                                     ? const Color(0xffFBE4E4)
                                     : AutilabColor.bb)
                         : Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius:
+                        BorderRadius.circular(widget.isMobile ? 8 : 24),
                   ),
                   child: Center(
                     child: Text(
@@ -184,6 +185,7 @@ class _CalendarGridState extends State<CalendarGrid> {
                         color: (day != null && !isSunday)
                             ? AutilabColor.black
                             : Colors.red,
+                        fontSize: widget.isMobile ? 16 : 18,
                       ),
                     ),
                   ),

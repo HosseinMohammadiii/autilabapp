@@ -34,7 +34,7 @@ class _DoctorBoxState extends State<DoctorBox> {
         borderRadius: BorderRadius.circular(24),
       ),
       child: SizedBox(
-        height: widget.isMobile ? 116 : 248,
+        height: widget.isMobile ? 116 : 200,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -55,36 +55,31 @@ class _DoctorBoxState extends State<DoctorBox> {
                 ),
               ),
             ),
-            const SizedBox(
-              width: 16,
+            SizedBox(
+              width: widget.isMobile ? 16 : 24,
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Dr. Sophia Martinez',
-                          style: widget.isMobile
-                              ? AutilabTextStyle.medium18_500
-                              : AutilabTextStyle.medium18_500
-                                  .copyWith(fontSize: 32),
-                        ),
-                      ),
-                      FittedBox(
-                        child: Text(
-                          'Speech Therapy',
-                          style: AutilabTextStyle.small16_400
-                              .copyWith(fontSize: widget.isMobile ? 16 : 24),
-                        ),
-                      ),
-                    ],
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Dr. Sophia Martinez',
+                      style: widget.isMobile
+                          ? AutilabTextStyle.medium18_500
+                          : AutilabTextStyle.medium18_500
+                              .copyWith(fontSize: 32),
+                    ),
+                  ),
+                  FittedBox(
+                    child: Text(
+                      'Speech Therapy',
+                      style: AutilabTextStyle.small16_400
+                          .copyWith(fontSize: widget.isMobile ? 16 : 24),
+                    ),
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
