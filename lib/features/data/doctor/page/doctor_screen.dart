@@ -40,33 +40,62 @@ class _DoctorScreenState extends State<DoctorScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: const Scaffold(
-        body: SafeArea(
-          child: CustomTabBarWidget(
-            tabLength: 2,
-            tabBar: [
-              FittedBox(
-                child: Text(
-                  'Find Specialist',
-                  style: AutilabTextStyle.small18_400,
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: Scaffold(
+            body: SafeArea(
+              child: CustomTabBarWidget(
+                tabLength: 2,
+                isMobile: isMobile(),
+                tabBar: [
+                  Visibility(
+                    visible: isMobile(),
+                    replacement: const Text(
+                      'Find Specialist',
+                      style: AutilabTextStyle.small24_400,
+                    ),
+                    child: const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'Find Specialist',
+                        style: AutilabTextStyle.small18_400,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: isMobile(),
+                    replacement: const Text(
+                      'Nearby centers',
+                      style: AutilabTextStyle.small24_400,
+                    ),
+                    child: const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'Nearby centers',
+                        style: AutilabTextStyle.small18_400,
+                      ),
+                    ),
+                  ),
+                ],
+                tabBarView: const [
+                  FindDoctorScreen(),
+                  NearbyCenterScreen(),
+                ],
               ),
-              FittedBox(
-                child: Text(
-                  'Nearby centers',
-                  style: AutilabTextStyle.small18_400,
-                ),
-              ),
-            ],
-            tabBarView: [
-              FindDoctorScreen(),
-              NearbyCenterScreen(),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

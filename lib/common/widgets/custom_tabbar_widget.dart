@@ -45,7 +45,7 @@ class CustomTabBarWidget extends StatelessWidget {
                   color: AutilabColor.white,
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Container(
-                    height: 60,
+                    height: isMobile ? 60 : 75,
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       color: AutilabColor.lightGray,
@@ -65,7 +65,7 @@ class CustomTabBarWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                height: 60,
+                height: isMobile ? 60 : 75,
               ),
             ),
             SliverToBoxAdapter(

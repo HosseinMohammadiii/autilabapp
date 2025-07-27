@@ -84,17 +84,16 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                       padding: AutilabMargin.marginFullScreen,
                       sliver: SliverAppBar(
                         leadingWidth: double.infinity,
+                        toolbarHeight: 90,
                         pinned: true,
                         leading: Row(
                           spacing: 8,
                           children: [
                             Expanded(
-                              child: SizedBox(
-                                height: isMobile() ? 40 : 74,
-                                child: SearchTextFieldWidget(
-                                  searchFocusNode: searchFocusNode,
-                                  searchController: searchController,
-                                ),
+                              child: SearchTextFieldWidget(
+                                isMobile: isMobile(),
+                                searchFocusNode: searchFocusNode,
+                                searchController: searchController,
                               ),
                             ),
                             Container(

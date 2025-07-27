@@ -78,7 +78,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       decoration: BoxDecoration(
                         color: AutilabColor.lightGray,
                         borderRadius:
-                            BorderRadius.circular(isMobile() ? 16 : 32),
+                            BorderRadius.circular(isMobile() ? 16 : 24),
                       ),
                       child: TabBar(
                         labelStyle: AutilabTextStyle.small18_400.copyWith(
@@ -87,7 +87,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                         dividerColor: Colors.transparent,
                         indicator: BoxDecoration(
                           borderRadius:
-                              BorderRadius.circular(isMobile() ? 16 : 32),
+                              BorderRadius.circular(isMobile() ? 16 : 24),
                           color: AutilabColor.bb,
                         ),
                         indicatorSize: TabBarIndicatorSize.tab,
@@ -128,7 +128,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       padding: AutilabMargin.marginFullScreen,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: isMobile() ? 252 : 388,
+                          height: isMobile() ? 256 : 388,
                           child: NewAppointmentsCardWidget(
                             color: const Color(0xff50DD81),
                             isMobile: isMobile(),
@@ -159,7 +159,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       padding: AutilabMargin.marginFullScreen,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: isMobile() ? 252 : 388,
+                          height: isMobile() ? 256 : 388,
                           child: NewAppointmentsCardWidget(
                             isMobile: isMobile(),
                             color: const Color(0xffFF6363),
@@ -190,7 +190,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                       padding: AutilabMargin.marginFullScreen,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: isMobile() ? 252 : 388,
+                          height: isMobile() ? 256 : 388,
                           child: NewAppointmentsCardWidget(
                             isMobile: isMobile(),
                             color: AutilabColor.gray,

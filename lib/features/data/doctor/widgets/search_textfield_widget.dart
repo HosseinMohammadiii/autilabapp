@@ -8,8 +8,10 @@ class SearchTextFieldWidget extends StatelessWidget {
     super.key,
     required this.searchFocusNode,
     required this.searchController,
+    this.isMobile = true,
   });
 
+  final bool isMobile;
   final FocusNode searchFocusNode;
   final TextEditingController searchController;
 
@@ -20,10 +22,13 @@ class SearchTextFieldWidget extends StatelessWidget {
       controller: searchController,
       cursorColor: Colors.black,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: 15, vertical: isMobile ? 16 : 26),
         prefixIcon: SvgPicture.asset(
           fit: BoxFit.none,
           'assets/icons/search_icon.svg',
+          width: isMobile ? 24 : 32,
+          height: isMobile ? 24 : 32,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32),

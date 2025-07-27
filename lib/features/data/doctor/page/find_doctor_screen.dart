@@ -84,12 +84,10 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                             spacing: 8,
                             children: [
                               Expanded(
-                                child: SizedBox(
-                                  height: 40,
-                                  child: SearchTextFieldWidget(
-                                    searchFocusNode: searchFocusNode,
-                                    searchController: searchController,
-                                  ),
+                                child: SearchTextFieldWidget(
+                                  isMobile: isMobile(),
+                                  searchFocusNode: searchFocusNode,
+                                  searchController: searchController,
                                 ),
                               ),
                               Container(
@@ -109,7 +107,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                     );
                                   },
                                   child: SizedBox(
-                                    height: 25,
+                                    height: isMobile() ? 25 : 88,
                                     child: SvgPicture.asset(
                                       'assets/icons/sort_icon.svg',
                                       fit: BoxFit.contain,
@@ -317,7 +315,6 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
             horizontal: isMobile ? 16 : 32, vertical: isMobile ? 16 : 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               spacing: 4,
@@ -507,6 +504,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 },
               ),
             ),
+            Spacer(),
             CustomButtonWidget(
               isMobile: isMobile,
               onTap: () {

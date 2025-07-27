@@ -124,7 +124,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                       decoration: BoxDecoration(
                         color: AutilabColor.lightGray,
                         borderRadius:
-                            BorderRadius.circular(isMobile() ? 16 : 32),
+                            BorderRadius.circular(isMobile() ? 16 : 24),
                       ),
                       child: TabBar(
                         labelStyle: AutilabTextStyle.small18_400.copyWith(
@@ -133,27 +133,31 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                         dividerColor: Colors.transparent,
                         indicator: BoxDecoration(
                           borderRadius:
-                              BorderRadius.circular(isMobile() ? 16 : 32),
+                              BorderRadius.circular(isMobile() ? 16 : 24),
                           color: AutilabColor.bb,
                         ),
                         indicatorSize: TabBarIndicatorSize.tab,
-                        tabs: const [
-                          FittedBox(
-                            child: Text(
-                              'Article',
-                              style: AutilabTextStyle.small16_400,
+                        tabs: [
+                          Text(
+                            'Article',
+                            style: AutilabTextStyle.small16_400.copyWith(
+                              fontSize: isMobile() ? 16 : 24,
                             ),
                           ),
                           FittedBox(
                             child: Text(
                               'Doctor',
-                              style: AutilabTextStyle.small16_400,
+                              style: AutilabTextStyle.small16_400.copyWith(
+                                fontSize: isMobile() ? 16 : 24,
+                              ),
                             ),
                           ),
                           FittedBox(
                             child: Text(
                               'Center',
-                              style: AutilabTextStyle.small16_400,
+                              style: AutilabTextStyle.small16_400.copyWith(
+                                fontSize: isMobile() ? 16 : 24,
+                              ),
                             ),
                           ),
                           // FittedBox(
