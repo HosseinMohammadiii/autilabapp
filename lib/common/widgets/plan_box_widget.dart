@@ -74,7 +74,7 @@ class PlanBoxWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           titlePlanWidget(
             title: title,
@@ -84,7 +84,7 @@ class PlanBoxWidget extends StatelessWidget {
             color: AutilabColor.black,
           ),
           const SizedBox(
-            height: 12,
+            height: 16,
           ),
           Text(
             description ??
@@ -101,7 +101,9 @@ class PlanBoxWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: widget ?? [],
           ),
+          const Spacer(),
           CustomButtonWidget(
+            isMobile: isMobile,
             onTap: () => onTap(),
             height: isMobile ? 50 : 68,
             margin: const EdgeInsets.only(top: 32),

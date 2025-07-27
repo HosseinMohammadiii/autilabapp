@@ -106,6 +106,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
             child: Align(
               alignment: Alignment.topLeft,
               child: Row(
+                spacing: 24,
                 children: [
                   FittedBox(
                     fit: BoxFit.scaleDown,

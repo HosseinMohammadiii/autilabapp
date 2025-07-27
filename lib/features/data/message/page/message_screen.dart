@@ -191,26 +191,32 @@ class _MessageScreenState extends State<MessageScreen>
                       displayIconButton(
                         AutilabIcon.selectDocumentIcon,
                         () {},
+                        isMobile(),
                       ),
                       Expanded(
                         child: TextField(
                           focusNode: typeMessageFocusNode,
                           controller: typeMessageController,
                           cursorColor: Colors.black,
+                          style: AutilabTextStyle.small12_400.copyWith(
+                            fontSize: isMobile() ? 12 : 18,
+                          ),
                           decoration: InputDecoration(
                             fillColor: AutilabColor.white,
                             filled: true,
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 2),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: isMobile() ? 22 : 34),
                             suffixIcon: GestureDetector(
                               onTap: () {},
                               child: SvgPicture.asset(
                                 fit: BoxFit.none,
+                                width: isMobile() ? 24 : 40,
+                                height: isMobile() ? 24 : 40,
                                 AutilabIcon.recordSoundIcon,
                               ),
                             ),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32),
+                              borderRadius: BorderRadius.circular(24),
                               borderSide: BorderSide.none,
                             ),
                           ),
@@ -224,6 +230,7 @@ class _MessageScreenState extends State<MessageScreen>
                       displayIconButton(
                         AutilabIcon.sendMessageIcon,
                         () {},
+                        isMobile(),
                       ),
                     ],
                   ),
@@ -302,12 +309,13 @@ class _MessageScreenState extends State<MessageScreen>
   Widget displayIconButton(
     String icon,
     Function() ontap,
+    final bool isMobile,
   ) {
     return GestureDetector(
       onTap: ontap,
       child: Container(
-        width: 35,
-        height: 35,
+        width: isMobile ? 35 : 68,
+        height: isMobile ? 35 : 68,
         padding: const EdgeInsets.all(8),
         alignment: Alignment.center,
         decoration: const BoxDecoration(
