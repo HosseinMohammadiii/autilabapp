@@ -20,7 +20,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
           itemCount: 6,
           itemBuilder: (context, index) {
             return SizedBox(
-              height: isMobile ? 256 : 360,
+              height: isMobile ? 252 : 409,
               child: NewAppointmentsCardWidget(
                 isMobile: isMobile,
                 color: const Color(0xff50DD81),

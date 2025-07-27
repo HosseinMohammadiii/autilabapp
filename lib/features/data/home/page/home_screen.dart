@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                   SliverToBoxAdapter(
                     child: SizedBox(
-                      height: isMobile() ? 230 : 345,
+                      height: isMobile() ? 236 : 370,
                       child: ListView.builder(
                         itemCount: 3,
                         scrollDirection: Axis.horizontal,
@@ -296,6 +296,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ),
                           ),
                           CustomButtonWidget(
+                            isMobile: isMobile(),
                             onTap: () {
                               context.pushNamed(AutiLabRoutes.typeTestsScreen);
                             },
