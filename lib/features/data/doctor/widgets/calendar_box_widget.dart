@@ -14,7 +14,7 @@ class CalendarGrid extends StatefulWidget {
   });
   final bool isMobile;
   final Function(DateTime? day) onTap;
-  final bool? isSelect;
+  final bool isSelect;
   final int date;
 
   @override
@@ -25,27 +25,27 @@ class _CalendarGridState extends State<CalendarGrid> {
   DateTime? selectedDate;
 
   /// Generates a list of days for a given month, including empty slots for alignment
-  List<DateTime?> generateMonthDays(int year, int month) {
-    List<DateTime?> days = [];
+  // List<DateTime?> generateMonthDays(int year, int month) {
+  //   List<DateTime?> days = [];
 
-    // Get the first day of the month
-    DateTime firstDayOfMonth = DateTime(year, month, 1);
-    // Get the number of days in the month
-    int daysInMonth = DateTime(year, month + 1, 0).day;
-    // Get the starting weekday (Monday = 1, Sunday = 7)
-    int startWeekday = firstDayOfMonth.weekday;
+  //   // Get the first day of the month
+  //   DateTime firstDayOfMonth = DateTime(year, month, 1);
+  //   // Get the number of days in the month
+  //   int daysInMonth = DateTime(year, month + 1, 0).day;
+  //   // Get the starting weekday (Monday = 1, Sunday = 7)
+  //   int startWeekday = firstDayOfMonth.weekday;
 
-    // Add empty slots before the first day of the month to align with the calendar grid
-    int emptySlots = startWeekday % 7;
-    days.addAll(List.filled(emptySlots, null));
+  //   // Add empty slots before the first day of the month to align with the calendar grid
+  //   int emptySlots = startWeekday % 7;
+  //   days.addAll(List.filled(emptySlots, null));
 
-    // Add the actual days of the month
-    for (int i = 1; i <= daysInMonth; i++) {
-      days.add(DateTime(year, month, i));
-    }
+  //   // Add the actual days of the month
+  //   for (int i = 1; i <= daysInMonth; i++) {
+  //     days.add(DateTime(year, month, i));
+  //   }
 
-    return days;
-  }
+  //   return days;
+  // }
 
   /// Calculates the number of weeks in a given month
   int getNumberOfWeeks(int year, int month) {
@@ -56,6 +56,28 @@ class _CalendarGridState extends State<CalendarGrid> {
     int totalDays = lastDay.day;
 
     return ((firstWeekday + totalDays) / 7).ceil();
+  }
+
+  List<DateTime?> generateMonthDays(int year, int month) {
+    List<DateTime?> days = [];
+
+    // Get the first day of the month
+    DateTime firstDayOfMonth = DateTime(year, month, 1);
+    // Get the number of days in the month
+    int daysInMonth = DateTime(year, month + 1, 0).day;
+
+    // Adjust start weekday to make Monday = 0, Sunday = 6
+    int startWeekday = (firstDayOfMonth.weekday + 6) % 7;
+
+    // Add empty slots before the first day of the month
+    days.addAll(List.filled(startWeekday, null));
+
+    // Add actual days
+    for (int i = 1; i <= daysInMonth; i++) {
+      days.add(DateTime(year, month, i));
+    }
+
+    return days;
   }
 
   @override
@@ -92,7 +114,6 @@ class _CalendarGridState extends State<CalendarGrid> {
     List<DateTime?> days = generateMonthDays(now.year, widget.date);
 
     return Container(
-      // height: containerHeight,
       padding: const EdgeInsets.all(16),
       margin: AutilabMargin.marginFullScreen,
       decoration: BoxDecoration(
@@ -127,6 +148,7 @@ class _CalendarGridState extends State<CalendarGrid> {
                         day,
                         style: AutilabTextStyle.medium14_500.copyWith(
                           color: day == 'Sun' ? Colors.red : AutilabColor.black,
+                          fontSize: widget.isMobile ? 14 : 20,
                         ),
                       ),
                     ),
@@ -139,22 +161,23 @@ class _CalendarGridState extends State<CalendarGrid> {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
               mainAxisExtent: 40,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 5,
+              mainAxisSpacing: widget.isMobile ? 4 : 13,
+              crossAxisSpacing: widget.isMobile ? 6 : 18,
             ),
             itemCount: days.length,
             itemBuilder: (context, index) {
               DateTime? day = days[index];
-              bool isSunday = day != null && day.weekday == 6;
+              bool isSunday = day != null && day.weekday == 7;
               bool isSelected = day != null && selectedDate == day;
 
               return GestureDetector(
                 onTap: () {
                   if (!isSunday &&
                       day != null &&
+                      widget.isSelect &&
                       !notAvailableDay.contains(day.day) &&
                       !nonWorkDay.contains(day.day)) {
                     widget.onTap(day);
@@ -170,8 +193,7 @@ class _CalendarGridState extends State<CalendarGrid> {
                             ? AutilabColor.blue
                             : notAvailableDay.contains(day.day)
                                 ? AutilabColor.lightGray
-                                : (nonWorkDay.contains(day.day) &&
-                                        widget.isSelect == true)
+                                : (nonWorkDay.contains(day.day))
                                     ? const Color(0xffFBE4E4)
                                     : AutilabColor.bb)
                         : Colors.transparent,

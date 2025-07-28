@@ -206,9 +206,9 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                   width: isMobile() ? 52 : 84,
                                   height: isMobile() ? 52 : 84,
                                   cacheWidth: cacheImageFunction(
-                                      isMobile() ? 52 : 84, context),
+                                      isMobile() ? 100 : 100, context),
                                   cacheHeight: cacheImageFunction(
-                                      isMobile() ? 52 : 84, context),
+                                      isMobile() ? 100 : 100, context),
                                 ),
                                 isNetworkImage: false,
                               ),

@@ -244,6 +244,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                 height: 16,
               ),
               CustomCheckbox(
+                isMobile: isMobile,
                 title: 'Male',
                 textStyle: AutilabTextStyle.small14_400.copyWith(
                   fontSize: isMobile ? 14 : 20,
@@ -259,6 +260,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                 },
               ),
               CustomCheckbox(
+                isMobile: isMobile,
                 title: 'Female',
                 textStyle: AutilabTextStyle.small14_400.copyWith(
                   fontSize: isMobile ? 14 : 20,
@@ -297,7 +299,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                   minRating: 1,
                   maxRating: 5,
                   updateOnDrag: true,
-                  itemSize: 30,
+                  itemSize: isMobile ? 30 : 45,
                   unratedColor: AutilabColor.gray,
                   glow: false,
                   itemBuilder: (context, index) {

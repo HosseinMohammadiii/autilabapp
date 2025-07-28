@@ -358,6 +358,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomTextfield(
+                      isMobile: isMobile(),
                       label: '',
                       isEnable: false,
                       borderRaduis: isMobile() ? 16 : 24,
@@ -392,6 +393,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomTextfield(
+                      isMobile: isMobile(),
                       label: '',
                       isEnable: false,
                       borderRaduis: isMobile() ? 16 : 24,
@@ -445,7 +447,11 @@ class TitleAndIconWidget extends StatelessWidget {
       children: [
         Visibility(
           visible: isShowIcon,
-          child: SvgPicture.asset(icon ?? 'assets/icons/location-tick.svg'),
+          child: SvgPicture.asset(
+            icon ?? 'assets/icons/location-tick.svg',
+            width: isMobile ? 24 : 40,
+            height: isMobile ? 24 : 40,
+          ),
         ),
         const SizedBox(
           width: 4,

@@ -353,6 +353,9 @@ class _RatingScreenState extends State<RatingScreen>
                               });
                             },
                             title: 'With My Name',
+                            textStyle: AutilabTextStyle.small14_400.copyWith(
+                              fontSize: isMobile() ? 14 : 18,
+                            ),
                           ),
                           RadioButtonWidget(
                             isMobile: isMobile(),
@@ -364,6 +367,9 @@ class _RatingScreenState extends State<RatingScreen>
                               });
                             },
                             title: 'Anonymously',
+                            textStyle: AutilabTextStyle.small14_400.copyWith(
+                              fontSize: isMobile() ? 14 : 18,
+                            ),
                           ),
                         ],
                       ),
@@ -421,8 +427,8 @@ class RadioButtonWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: isMobile ? 20 : 32,
-            height: isMobile ? 20 : 32,
+            width: isMobile ? 20 : 43,
+            height: isMobile ? 20 : 43,
             child: Radio<RadioCharacter>(
               activeColor: AutilabColor.bb,
               value: value,

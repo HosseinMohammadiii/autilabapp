@@ -99,6 +99,7 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                           ),
                         ),
                         CustomTextfield(
+                          isMobile: isMobile(),
                           textStyle: AutilabTextStyle.small14_400.copyWith(
                             color: emailController.text.isNotEmpty
                                 ? AutilabColor.black

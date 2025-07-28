@@ -34,11 +34,11 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
     ];
     return SliverGrid.builder(
       itemCount: 12,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisExtent: 40,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 6,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: widget.isMobile ? 10 : 38,
       ),
       itemBuilder: (context, index) {
         String time = timeAvailable[index];

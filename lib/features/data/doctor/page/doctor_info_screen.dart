@@ -372,6 +372,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                 ),
                 SliverToBoxAdapter(
                   child: CustomTextfield(
+                    isMobile: isMobile(),
                     label: '',
                     isEnable: false,
                     borderRaduis: isMobile() ? 16 : 24,
@@ -406,6 +407,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                 ),
                 SliverToBoxAdapter(
                   child: CustomTextfield(
+                    isMobile: isMobile(),
                     label: '',
                     isEnable: false,
                     borderRaduis: isMobile() ? 16 : 24,
@@ -440,6 +442,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                 ),
                 SliverToBoxAdapter(
                   child: CustomTextfield(
+                    isMobile: isMobile(),
                     label: '',
                     isEnable: false,
                     borderRaduis: isMobile() ? 16 : 24,

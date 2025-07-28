@@ -157,6 +157,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                       child: Stack(
                         children: [
                           CalendarGrid(
+                            isMobile: isMobile(),
                             date: montNumber,
                             onTap: (day) {
                               setState(() {
@@ -279,6 +280,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                     SliverPadding(
                       padding: AutilabMargin.marginFullScreen,
                       sliver: SelectTimeWidget(
+                        isMobile: isMobile(),
                         backgroundColor: AutilabColor.lightGray,
                         onTap: (time) {},
                         isSelect: false,

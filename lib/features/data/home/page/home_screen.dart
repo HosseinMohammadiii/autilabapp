@@ -250,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: isMobile() ? 140 : 229,
+                            height: isMobile() ? 140 : 250,
                             child: Row(
                               children: [
                                 Expanded(
@@ -274,7 +274,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment',
+                                          isMobile()
+                                              ? 'Discover deeper insights into your unique personality with our autism-focused assessment.'
+                                              : 'Gain deeper insight into your unique personality traits with our autism-focused assessment.Designed with care, this tool helps you better understand your strengths, preferences, and how you relate to the world around you.',
                                           style: isMobile()
                                               ? AutilabTextStyle.small14_400
                                               : AutilabTextStyle.small20_400,

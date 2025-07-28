@@ -6,6 +6,7 @@ import '../../../../core/constants/color_constant.dart';
 class CustomCheckbox extends StatelessWidget {
   const CustomCheckbox({
     super.key,
+    this.isMobile = true,
     required this.title,
     required this.index,
     required this.onChanged,
@@ -13,6 +14,7 @@ class CustomCheckbox extends StatelessWidget {
     this.textStyle,
     this.shape,
   });
+  final bool isMobile;
   final String title;
   final int index;
   final ValueNotifier<bool?> selectedIndexNotifier;
@@ -29,16 +31,19 @@ class CustomCheckbox extends StatelessWidget {
             SizedBox(
               height: 45,
               width: 30,
-              child: Checkbox(
-                activeColor: AutilabColor.blue,
-                checkColor: AutilabColor.white,
-                side: const BorderSide(width: 0.5),
-                splashRadius: 0,
-                shape: shape,
-                value: selectedIndexNotifier.value ?? false,
-                onChanged: (value) {
-                  onChanged(value);
-                },
+              child: Transform.scale(
+                scale: isMobile ? 1 : 1.5,
+                child: Checkbox(
+                  activeColor: AutilabColor.blue,
+                  checkColor: AutilabColor.white,
+                  side: const BorderSide(width: 0.5),
+                  splashRadius: 0,
+                  shape: shape,
+                  value: selectedIndexNotifier.value ?? false,
+                  onChanged: (value) {
+                    onChanged(value);
+                  },
+                ),
               ),
             ),
             const SizedBox(

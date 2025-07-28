@@ -99,12 +99,13 @@ class _SignupScreenState extends State<SignupScreen>
                           height: 32,
                         ),
                         CustomTextfield(
+                          isMobile: isMobile(),
                           textStyle: AutilabTextStyle.small14_400.copyWith(
-                            color: userNameController.text.isNotEmpty
-                                ? AutilabColor.black
-                                : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
+                          lblColor: passwordController.text.isNotEmpty
+                              ? AutilabColor.black
+                              : AutilabColor.gray,
                           padding: EdgeInsets.symmetric(
                               vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
@@ -118,14 +119,15 @@ class _SignupScreenState extends State<SignupScreen>
                           borderColor: AutilabColor.blue,
                         ),
                         CustomTextfield(
+                          isMobile: isMobile(),
                           textfieldPadding: AutilabMargin.marginFullScreen
                               .copyWith(bottom: 16),
                           textStyle: AutilabTextStyle.small14_400.copyWith(
-                            color: emailController.text.isNotEmpty
-                                ? AutilabColor.black
-                                : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
+                          lblColor: passwordController.text.isNotEmpty
+                              ? AutilabColor.black
+                              : AutilabColor.gray,
                           padding: EdgeInsets.symmetric(
                               vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,
@@ -138,14 +140,15 @@ class _SignupScreenState extends State<SignupScreen>
                           borderColor: AutilabColor.blue,
                         ),
                         CustomTextfield(
+                          isMobile: isMobile(),
                           textfieldPadding: AutilabMargin.marginFullScreen
                               .copyWith(bottom: 4),
                           textStyle: AutilabTextStyle.small14_400.copyWith(
-                            color: passwordController.text.isNotEmpty
-                                ? AutilabColor.black
-                                : AutilabColor.gray,
                             fontSize: isMobile() ? 14 : 20,
                           ),
+                          lblColor: passwordController.text.isNotEmpty
+                              ? AutilabColor.black
+                              : AutilabColor.gray,
                           padding: EdgeInsets.symmetric(
                               vertical: isMobile() ? 0 : 20, horizontal: 15),
                           borderRaduis: isMobile() ? 16 : 24,

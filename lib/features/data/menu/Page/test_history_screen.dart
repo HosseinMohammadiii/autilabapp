@@ -67,22 +67,22 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
   ];
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: DefaultTabController(
-        animationDuration: const Duration(seconds: 1),
-        length: 2,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            bool isMobile() {
-              if (constraints.maxWidth < 600) {
-                return true;
-              } else {
-                return false;
-              }
-            }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
 
-            return Scaffold(
+        return FadeTransition(
+          opacity: animationHelper.fadeAnimation,
+          child: DefaultTabController(
+            animationDuration: const Duration(seconds: 1),
+            length: 2,
+            child: Scaffold(
               appBar: AppBar(
                 leading: appBarWidget(
                   context: context,
@@ -115,17 +115,33 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                           color: AutilabColor.bb,
                         ),
                         indicatorSize: TabBarIndicatorSize.tab,
-                        tabs: const [
-                          FittedBox(
-                            child: Text(
+                        tabs: [
+                          Visibility(
+                            visible: isMobile(),
+                            replacement: const Text(
                               'Talent Test',
-                              style: AutilabTextStyle.small16_400,
+                              style: AutilabTextStyle.small24_400,
+                            ),
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Talent Test',
+                                style: AutilabTextStyle.small16_400,
+                              ),
                             ),
                           ),
-                          FittedBox(
-                            child: Text(
+                          Visibility(
+                            visible: isMobile(),
+                            replacement: const Text(
                               'Personality Test',
-                              style: AutilabTextStyle.small16_400,
+                              style: AutilabTextStyle.small24_400,
+                            ),
+                            child: const FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Personality Test',
+                                style: AutilabTextStyle.small16_400,
+                              ),
                             ),
                           ),
                         ],
@@ -367,10 +383,10 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                   ],
                 ),
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 

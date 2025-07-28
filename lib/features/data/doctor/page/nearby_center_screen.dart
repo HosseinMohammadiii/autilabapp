@@ -89,11 +89,11 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
                               child: Image.asset(
                                 'assets/images/map_image.png',
                                 width: double.infinity,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                                 cacheWidth: cacheImageFunction(
-                                    isMobile() ? 150 : 309, context),
+                                    isMobile() ? 450 : 600, context),
                                 cacheHeight: cacheImageFunction(
-                                    isMobile() ? 150 : 309, context),
+                                    isMobile() ? 450 : 600, context),
                               ),
                             ),
                           ),

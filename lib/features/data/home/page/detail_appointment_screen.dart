@@ -238,6 +238,7 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomTextfield(
+                      isMobile: isMobile(),
                       label: '',
                       isEnable: false,
                       borderRaduis: isMobile() ? 24 : 32,

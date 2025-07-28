@@ -44,6 +44,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
 
   bool isOpen = false;
 
+  DateTime date = DateTime.now();
+
   int montNumber = DateTime.now().month;
 
   @override
@@ -66,6 +68,14 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
   void didUpdateWidget(covariant MakeAppointmentScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
+  }
+
+  String formatSelectedDate(DateTime date) {
+    String weekday = DateFormat('E').format(date); // Mon, Tue, Wed...
+    String day = DateFormat('d').format(date); // 1, 2, 3...
+    String month = DateFormat('MMMM').format(date); // January, February...
+
+    return '$weekday $day $month';
   }
 
   @override
@@ -172,9 +182,11 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             setState(() {
                               selectDate = DateFormat('EEE d')
                                   .format(day ?? DateTime.now());
+
+                              date = day ?? DateTime.now();
                             });
                           },
-                          isSelect: false,
+                          isSelect: true,
                         ),
                         Visibility(
                           visible: isOpen,
@@ -269,7 +281,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                                       .copyWith(fontSize: isMobile() ? 16 : 20),
                                 ),
                                 Text(
-                                  '$selectDate $_monthName',
+                                  formatSelectedDate(date),
+                                  // '$selectDate $_monthName',
                                   style: AutilabTextStyle.medium16_500.copyWith(
                                       color: AutilabColor.bb,
                                       fontSize: isMobile() ? 16 : 20),
@@ -621,6 +634,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
           focusNode: focusNode,
           cursorColor: Colors.black,
           maxLines: lineCount ?? 1,
+          style: AutilabTextStyle.small14_400.copyWith(
+            fontSize: isMobile ? 14 : 20,
+          ),
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: AutilabTextStyle.small10_400.copyWith(
@@ -628,10 +644,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
             ),
             fillColor: backgroundColor ?? const Color(0xffECF0FF),
             filled: true,
-            // contentPadding:
-            //     const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
             contentPadding: EdgeInsets.symmetric(
-                vertical: isMobile ? 2 : 20, horizontal: 15),
+                vertical: isMobile ? 0 : 20, horizontal: 15),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
               borderSide: BorderSide.none,

@@ -127,6 +127,7 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 15),
                                   child: CustomTextfield(
+                                    isMobile: isMobile(),
                                     label: 'Type Here',
                                     controller: textEditingController,
                                     focusNode: textFocusNode,

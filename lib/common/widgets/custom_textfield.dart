@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class CustomTextfield extends StatelessWidget {
   const CustomTextfield({
     super.key,
+    this.isMobile = true,
     required this.label,
     this.borderWidth,
     this.textStyle,
@@ -24,6 +25,7 @@ class CustomTextfield extends StatelessWidget {
     this.isEnable,
     this.textfieldPadding,
   });
+  final bool isMobile;
   final double? borderWidth;
   final String label;
   final TextStyle? textStyle;
@@ -73,7 +75,7 @@ class CustomTextfield extends StatelessWidget {
           label: Text(label),
           labelStyle: AutilabTextStyle.small14_400.copyWith(
             color: lblColor ?? Colors.grey,
-            fontSize: 16,
+            fontSize: isMobile ? 14 : 24,
           ),
           floatingLabelBehavior: floatingLabelBehavior,
           enabledBorder: OutlineInputBorder(

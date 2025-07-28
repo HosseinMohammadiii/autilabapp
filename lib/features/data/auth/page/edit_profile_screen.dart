@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
@@ -306,6 +307,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomTextfield(
+                      isMobile: isMobile(),
                       textInputAction: TextInputAction.next,
                       borderColor: AutilabColor.bb,
                       textStyle: AutilabTextStyle.small14_400.copyWith(
@@ -326,6 +328,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomTextfield(
+                      isMobile: isMobile(),
                       textInputAction: TextInputAction.next,
                       borderColor: AutilabColor.bb,
                       textStyle: AutilabTextStyle.small14_400.copyWith(
@@ -346,6 +349,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   ),
                   SliverToBoxAdapter(
                     child: CustomTextfield(
+                      isMobile: isMobile(),
                       textInputAction: TextInputAction.next,
                       textInputType: TextInputType.emailAddress,
                       borderColor: AutilabColor.bb,
@@ -380,6 +384,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                             color: _selectedDate.value != null
                                 ? AutilabColor.black
                                 : AutilabColor.gray,
+                            fontSize: isMobile() ? 14 : 20,
                           ),
                         );
                       },
@@ -396,10 +401,23 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         height: 350,
                         theme: ThemeData(
                           primaryColor: AutilabColor.bb,
-                          textTheme: const TextTheme(
-                            titleMedium: AutilabTextStyle.small16_400,
+                          textButtonTheme: TextButtonThemeData(
+                            style: ButtonStyle(
+                              textStyle: WidgetStatePropertyAll(
+                                AutilabTextStyle.medium24_500.copyWith(
+                                  fontSize: isMobile() ? 14 : 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                          textTheme: TextTheme(
+                            titleMedium: AutilabTextStyle.small16_400.copyWith(
+                              fontSize: isMobile() ? 16 : 20,
+                            ),
                             bodyLarge: AutilabTextStyle.medium14_500,
-                            bodyMedium: AutilabTextStyle.medium14_500,
+                            bodyMedium: AutilabTextStyle.medium24_500.copyWith(
+                              fontSize: isMobile() ? 14 : 20,
+                            ),
                             bodySmall: AutilabTextStyle.medium14_500,
                           ),
                           colorScheme: const ColorScheme.light(
@@ -410,6 +428,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                           tempSelectedDate = dateTime;
                           return true;
                         },
+                        textDirection: ui.TextDirection.rtl,
                         textActionButton: "Submit",
                         onTapActionButton: () {
                           _selectedDate.value = tempSelectedDate;
@@ -431,6 +450,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       selectedGender,
                       style: AutilabTextStyle.small14_400.copyWith(
                         color: AutilabColor.black,
+                        fontSize: isMobile() ? 14 : 20,
                       ),
                     ),
                     icon: null,
@@ -486,6 +506,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                   ),
                                   RadioButtonWidget(
                                     isMobile: isMobile(),
+                                    textStyle:
+                                        AutilabTextStyle.small14_400.copyWith(
+                                      fontSize: isMobile() ? 14 : 18,
+                                    ),
                                     radioCharacter:
                                         selectedGenderMaleNotifier.value,
                                     value: RadioCharacter.characterOne,
@@ -508,6 +532,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                           RadioCharacter.secondeCharacter;
                                     },
                                     title: 'Female',
+                                    textStyle:
+                                        AutilabTextStyle.small14_400.copyWith(
+                                      fontSize: isMobile() ? 14 : 18,
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 16,
@@ -603,7 +631,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         children: [
                           TextFieldBoxEnterDescription(
                             textStyle: AutilabTextStyle.small14_400.copyWith(
-                              fontSize: isMobile() ? 14 : 20,
+                              fontSize: isMobile() ? 14 : 24,
                             ),
                             hintText:
                                 'open the map and set your current location',
@@ -649,7 +677,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     sliver: SliverToBoxAdapter(
                       child: TextFieldBoxEnterDescription(
                         textStyle: AutilabTextStyle.small14_400.copyWith(
-                          fontSize: isMobile() ? 14 : 20,
+                          fontSize: isMobile() ? 14 : 24,
                         ),
                         hintText: 'Enter Your Info Here...',
                         bordeColor: AutilabColor.gray,
