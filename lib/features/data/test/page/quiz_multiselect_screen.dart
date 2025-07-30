@@ -8,6 +8,7 @@ import 'package:autilab_project/features/data/test/widgets/singleselctedanswer_w
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 
 class QuizClass {
@@ -75,141 +76,143 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'Quiz',
-              isIcon: true,
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: AutilabMargin.marginFullScreen,
-                          child: Text(
-                            'Which Of The Following Is Correct Regarding Your Child?',
-                            style: AutilabTextStyle.small14_400.copyWith(
-                              fontSize: isMobile() ? 14 : 24,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 400,
-                          child: PageView.builder(
-                            onPageChanged: (value) {
-                              setState(() {
-                                currentPage = value;
-                              });
-                            },
-                            physics: const NeverScrollableScrollPhysics(),
-                            controller: pageController,
-                            itemCount: 3,
-                            itemBuilder: (context, index) {
-                              if (index == 0) {
-                                return MultiSelectAnswerWidget(
-                                  isMobile: isMobile(),
-                                  quizList: quizList,
-                                );
-                              } else if (index == 1) {
-                                return SingleSelctedAnswerWidget(
-                                  isMobile: isMobile(),
-                                  quizList: quizList,
-                                  selectedItems: selectedItems,
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: CustomTextfield(
-                                    isMobile: isMobile(),
-                                    label: 'Type Here',
-                                    controller: textEditingController,
-                                    focusNode: textFocusNode,
-                                    maxLines: 12,
-                                    borderWidth: isMobile() ? 0.5 : 2,
-                                    borderRaduis: isMobile() ? 16 : 24,
-                                    textStyle:
-                                        AutilabTextStyle.small18_400.copyWith(
-                                      fontSize: isMobile() ? 18 : 24,
-                                    ),
-                                    lblColor: AutilabColor.gray,
-                                    backgroundColor: const Color(0xffECF0FF),
-                                    borderColor: AutilabColor.bb,
-                                    textInputAction: TextInputAction.done,
-                                    textInputType: TextInputType.text,
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverFillRemaining(
-                      fillOverscroll: false,
-                      hasScrollBody: false,
-                      child: Row(
-                        spacing: 18,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Quiz',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          CustomButtonWidget(
-                            onTap: () {
-                              //Previous page
-                              pageController.animateToPage(
-                                pageController.page!.toInt() - 1,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            },
-                            width: MediaQuery.sizeOf(context).width * 0.4,
-                            height: 50,
-                            isMobile: isMobile(),
-                            bordeColor: AutilabColor.bb,
-                            margin: const EdgeInsets.only(bottom: 40),
-                            color: const Color(0xffECF0FF),
-                            text: 'Back',
-                            textStyle: AutilabTextStyle.small18_400.copyWith(
-                              fontSize: isMobile() ? 18 : 24,
+                          Padding(
+                            padding: AutilabMargin.marginFullScreen,
+                            child: Text(
+                              'Which Of The Following Is Correct Regarding Your Child?',
+                              style: AutilabTextStyle.small14_400.copyWith(
+                                fontSize: isMobile() ? 14 : 24,
+                              ),
                             ),
                           ),
-                          CustomButtonWidget(
-                            onTap: () {
-                              //Next page
-                              pageController.animateToPage(
-                                pageController.page!.toInt() + 1,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                              if (currentPage == 2) {
-                                context.pop();
-                                context.pop();
-                              }
-                            },
-                            width: MediaQuery.sizeOf(context).width * 0.4,
-                            height: 50,
-                            isMobile: isMobile(),
-                            margin: const EdgeInsets.only(bottom: 40),
-                            color: AutilabColor.bb,
-                            text: currentPage != 2 ? 'Next' : 'Submit',
-                            textStyle: AutilabTextStyle.small18_400.copyWith(
-                              fontSize: isMobile() ? 18 : 24,
+                          SizedBox(
+                            height: 400,
+                            child: PageView.builder(
+                              onPageChanged: (value) {
+                                setState(() {
+                                  currentPage = value;
+                                });
+                              },
+                              physics: const NeverScrollableScrollPhysics(),
+                              controller: pageController,
+                              itemCount: 3,
+                              itemBuilder: (context, index) {
+                                if (index == 0) {
+                                  return MultiSelectAnswerWidget(
+                                    isMobile: isMobile(),
+                                    quizList: quizList,
+                                  );
+                                } else if (index == 1) {
+                                  return SingleSelctedAnswerWidget(
+                                    isMobile: isMobile(),
+                                    quizList: quizList,
+                                    selectedItems: selectedItems,
+                                  );
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: CustomTextfield(
+                                      isMobile: isMobile(),
+                                      label: 'Type Here',
+                                      controller: textEditingController,
+                                      focusNode: textFocusNode,
+                                      maxLines: 12,
+                                      borderWidth: isMobile() ? 0.5 : 2,
+                                      borderRaduis: isMobile() ? 16 : 24,
+                                      textStyle:
+                                          AutilabTextStyle.small18_400.copyWith(
+                                        fontSize: isMobile() ? 18 : 24,
+                                      ),
+                                      lblColor: AutilabColor.gray,
+                                      backgroundColor: const Color(0xffECF0FF),
+                                      borderColor: AutilabColor.bb,
+                                      textInputAction: TextInputAction.done,
+                                      textInputType: TextInputType.text,
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverFillRemaining(
+                        fillOverscroll: false,
+                        hasScrollBody: false,
+                        child: Row(
+                          spacing: 18,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            CustomButtonWidget(
+                              onTap: () {
+                                //Previous page
+                                pageController.animateToPage(
+                                  pageController.page!.toInt() - 1,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
+                              width: MediaQuery.sizeOf(context).width * 0.4,
+                              height: 50,
+                              isMobile: isMobile(),
+                              bordeColor: AutilabColor.bb,
+                              margin: const EdgeInsets.only(bottom: 40),
+                              color: const Color(0xffECF0FF),
+                              text: 'Back',
+                              textStyle: AutilabTextStyle.small18_400.copyWith(
+                                fontSize: isMobile() ? 18 : 24,
+                              ),
+                            ),
+                            CustomButtonWidget(
+                              onTap: () {
+                                //Next page
+                                pageController.animateToPage(
+                                  pageController.page!.toInt() + 1,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                );
+                                if (currentPage == 2) {
+                                  context.pop();
+                                  context.pop();
+                                }
+                              },
+                              width: MediaQuery.sizeOf(context).width * 0.4,
+                              height: 50,
+                              isMobile: isMobile(),
+                              margin: const EdgeInsets.only(bottom: 40),
+                              color: AutilabColor.bb,
+                              text: currentPage != 2 ? 'Next' : 'Submit',
+                              textStyle: AutilabTextStyle.small18_400.copyWith(
+                                fontSize: isMobile() ? 18 : 24,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

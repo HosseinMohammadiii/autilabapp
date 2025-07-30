@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/calendar_box_widget.dart';
 import '../widgets/doctor_container_box_widget.dart';
@@ -69,253 +70,255 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'Work Schedule',
-              isIcon: true,
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 1),
-                child: CustomScrollView(
-                  slivers: [
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 32,
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: DoctorBox(
-                        isMobile: isMobile(),
-                        isLike: widget.isLike,
-                      ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 48,
-                      ),
-                    ),
-                    SliverPadding(
-                      padding: AutilabMargin.marginFullScreen,
-                      sliver: SliverToBoxAdapter(
-                        child: TitleAndIconWidget(
-                          isMobile: isMobile(),
-                          icon: 'assets/icons/calendar_tick_icon.svg',
-                          title: 'Available Date',
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Work Schedule',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1),
+                  child: CustomScrollView(
+                    slivers: [
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 32,
                         ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 24,
+                      SliverToBoxAdapter(
+                        child: DoctorBox(
+                          isMobile: isMobile(),
+                          isLike: widget.isLike,
+                        ),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Padding(
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 48,
+                        ),
+                      ),
+                      SliverPadding(
                         padding: AutilabMargin.marginFullScreen,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isOpen = !isOpen;
-                            });
-                          },
-                          child: Row(
-                            spacing: 14,
-                            children: [
-                              Text(
-                                _monthName,
-                                style: AutilabTextStyle.small18_400.copyWith(
-                                  fontSize: isMobile() ? 18 : 24,
-                                ),
-                              ),
-                              isOpen
-                                  ? SvgPicture.asset(
-                                      'assets/icons/arrow_up.svg',
-                                      width: isMobile() ? 16 : 24,
-                                      height: isMobile() ? 16 : 24,
-                                    )
-                                  : SvgPicture.asset(
-                                      'assets/icons/arrow_down.svg',
-                                      width: isMobile() ? 16 : 24,
-                                      height: isMobile() ? 16 : 24,
-                                    ),
-                            ],
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/calendar_tick_icon.svg',
+                            title: 'Available Date',
                           ),
                         ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 24,
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Stack(
-                        children: [
-                          CalendarGrid(
-                            isMobile: isMobile(),
-                            date: montNumber,
-                            onTap: (day) {
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: AutilabMargin.marginFullScreen,
+                          child: GestureDetector(
+                            onTap: () {
                               setState(() {
-                                selectDate = DateFormat('EEE d')
-                                    .format(day ?? DateTime.now());
+                                isOpen = !isOpen;
                               });
                             },
-                            isSelect: false,
-                          ),
-                          Visibility(
-                            visible: isOpen,
-                            child: Container(
-                              width: isMobile() ? 130 : 167,
-                              padding: const EdgeInsets.all(12),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                color: const Color(0xffF6F6F6),
-                                border: Border.all(color: AutilabColor.blue),
-                                borderRadius:
-                                    BorderRadius.circular(isMobile() ? 16 : 24),
-                              ),
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: montNameList.length,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            isOpen = false;
-                                            _monthName = montNameList[index];
-                                            montNumber = index;
-                                            selectDate = '';
-                                          });
-                                        },
-                                        child: Text(
-                                          montNameList[index],
-                                          style: AutilabTextStyle.small16_400
-                                              .copyWith(
-                                            fontSize: isMobile() ? 16 : 24,
-                                          ),
-                                        ),
+                            child: Row(
+                              spacing: 14,
+                              children: [
+                                Text(
+                                  _monthName,
+                                  style: AutilabTextStyle.small18_400.copyWith(
+                                    fontSize: isMobile() ? 18 : 24,
+                                  ),
+                                ),
+                                isOpen
+                                    ? SvgPicture.asset(
+                                        'assets/icons/arrow_up.svg',
+                                        width: isMobile() ? 16 : 24,
+                                        height: isMobile() ? 16 : 24,
+                                      )
+                                    : SvgPicture.asset(
+                                        'assets/icons/arrow_down.svg',
+                                        width: isMobile() ? 16 : 24,
+                                        height: isMobile() ? 16 : 24,
                                       ),
-                                      if (index < montNameList.length - 1)
-                                        const Divider(
-                                          thickness: 1,
-                                          color: AutilabColor.gray,
-                                        ),
-                                    ],
-                                  );
-                                },
-                              ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 24,
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Column(
-                        spacing: 8,
-                        children: [
-                          _displayIsAvailableWidget(
-                            context,
-                            'Open For Booking',
-                            AutilabColor.bb,
-                            isMobile(),
+                      SliverToBoxAdapter(
+                        child: Stack(
+                          children: [
+                            CalendarGrid(
+                              isMobile: isMobile(),
+                              date: montNumber,
+                              onTap: (day) {
+                                setState(() {
+                                  selectDate = DateFormat('EEE d')
+                                      .format(day ?? DateTime.now());
+                                });
+                              },
+                              isSelect: false,
+                            ),
+                            Visibility(
+                              visible: isOpen,
+                              child: Container(
+                                width: isMobile() ? 130 : 167,
+                                padding: const EdgeInsets.all(12),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffF6F6F6),
+                                  border: Border.all(color: AutilabColor.blue),
+                                  borderRadius: BorderRadius.circular(
+                                      isMobile() ? 16 : 24),
+                                ),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: montNameList.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              isOpen = false;
+                                              _monthName = montNameList[index];
+                                              montNumber = index;
+                                              selectDate = '';
+                                            });
+                                          },
+                                          child: Text(
+                                            montNameList[index],
+                                            style: AutilabTextStyle.small16_400
+                                                .copyWith(
+                                              fontSize: isMobile() ? 16 : 24,
+                                            ),
+                                          ),
+                                        ),
+                                        if (index < montNameList.length - 1)
+                                          const Divider(
+                                            thickness: 1,
+                                            color: AutilabColor.gray,
+                                          ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Column(
+                          spacing: 8,
+                          children: [
+                            _displayIsAvailableWidget(
+                              context,
+                              'Open For Booking',
+                              AutilabColor.bb,
+                              isMobile(),
+                            ),
+                            _displayIsAvailableWidget(
+                              context,
+                              'This Is A Non-Working Day',
+                              AutilabColor.lightGray,
+                              isMobile(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 48,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Padding(
+                          padding: AutilabMargin.marginFullScreen,
+                          child: Divider(
+                            thickness: 1,
+                            color: AutilabColor.gray,
                           ),
-                          _displayIsAvailableWidget(
-                            context,
-                            'This Is A Non-Working Day',
-                            AutilabColor.lightGray,
-                            isMobile(),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 48,
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 48,
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: Padding(
+                      SliverPadding(
                         padding: AutilabMargin.marginFullScreen,
-                        child: Divider(
-                          thickness: 1,
-                          color: AutilabColor.gray,
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/clock_icon.svg',
+                            title: 'Available Times',
+                          ),
                         ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 48,
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 16,
+                        ),
                       ),
-                    ),
-                    SliverPadding(
-                      padding: AutilabMargin.marginFullScreen,
-                      sliver: SliverToBoxAdapter(
-                        child: TitleAndIconWidget(
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SelectTimeWidget(
                           isMobile: isMobile(),
-                          icon: 'assets/icons/clock_icon.svg',
-                          title: 'Available Times',
+                          backgroundColor: AutilabColor.lightGray,
+                          onTap: (time) {},
+                          isSelect: false,
                         ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 16,
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 16,
+                        ),
                       ),
-                    ),
-                    SliverPadding(
-                      padding: AutilabMargin.marginFullScreen,
-                      sliver: SelectTimeWidget(
-                        isMobile: isMobile(),
-                        backgroundColor: AutilabColor.lightGray,
-                        onTap: (time) {},
-                        isSelect: false,
+                      SliverToBoxAdapter(
+                        child: Column(
+                          spacing: 8,
+                          children: [
+                            _displayIsAvailableWidget(
+                              context,
+                              'Open For Booking',
+                              AutilabColor.bb,
+                              isMobile(),
+                            ),
+                            _displayIsAvailableWidget(
+                              context,
+                              'This Is A Non-Working Day',
+                              AutilabColor.lightGray,
+                              isMobile(),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 16,
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Column(
-                        spacing: 8,
-                        children: [
-                          _displayIsAvailableWidget(
-                            context,
-                            'Open For Booking',
-                            AutilabColor.bb,
-                            isMobile(),
-                          ),
-                          _displayIsAvailableWidget(
-                            context,
-                            'This Is A Non-Working Day',
-                            AutilabColor.lightGray,
-                            isMobile(),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 24,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/message_box_profiel_widget.dart';
 
@@ -53,54 +54,56 @@ class _UserMessageScreenState extends State<UserMessageScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'Message',
-              isIcon: true,
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 48,
-                    ),
-                    MesseageBoxProfile(
-                      isMobile: isMobile(),
-                      isMessage: true,
-                      content: '2',
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    MesseageBoxProfile(
-                      isMobile: isMobile(),
-                      isMessage: true,
-                      content: '1',
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 6,
-                      padding: const EdgeInsets.only(bottom: 16),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: MesseageBoxProfile(
-                            isMobile: isMobile(),
-                            isMessage: false,
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 48,
-                    ),
-                  ],
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Message',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 48,
+                      ),
+                      MesseageBoxProfile(
+                        isMobile: isMobile(),
+                        isMessage: true,
+                        content: '2',
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      MesseageBoxProfile(
+                        isMobile: isMobile(),
+                        isMessage: true,
+                        content: '1',
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 6,
+                        padding: const EdgeInsets.only(bottom: 16),
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: MesseageBoxProfile(
+                              isMobile: isMobile(),
+                              isMessage: false,
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 48,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

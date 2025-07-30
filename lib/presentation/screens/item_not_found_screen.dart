@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../common/widgets/custom_button_widget.dart';
+import '../../common/widgets/responsive_widget.dart';
 import '../../core/constants/color_constant.dart';
 import '../../core/constants/theme_constant.dart';
 import '../../utils/functions/animation_control.dart';
@@ -40,57 +41,83 @@ class _ItemNotFoundScreenState extends State<ItemNotFoundScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        appBar: appBarWidget(
-            context: context, title: 'Dr Zhale Freit', isIcon: true),
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/item_notfound.svg'),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      'Item Not Found',
-                      style: AutilabTextStyle.medium20_500,
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      'Try Searching The Item With A Different\nKeyword.',
-                      style: AutilabTextStyle.small16_400.copyWith(
-                        color: AutilabColor.gray,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Dr Zhale Freit',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/icons/item_notfound.svg',
+                            width: isMobile() ? 160 : 240,
+                            height: isMobile() ? 160 : 240,
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Text(
+                            'Item Not Found',
+                            style: AutilabTextStyle.medium20_500.copyWith(
+                              fontSize: isMobile() ? 20 : 32,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Text(
+                            'Try Searching The Item With A Different\nKeyword.',
+                            style: AutilabTextStyle.small16_400.copyWith(
+                              color: AutilabColor.gray,
+                              fontSize: isMobile() ? 16 : 28,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          CustomButtonWidget(
+                            isMobile: isMobile(),
+                            onTap: () {},
+                            height: 50,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 32),
+                            color: AutilabColor.bb,
+                            text: 'Search Something Else',
+                            textStyle: AutilabTextStyle.small18_400,
+                          )
+                        ],
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    CustomButtonWidget(
-                      onTap: () {},
-                      height: 50,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 32),
-                      color: AutilabColor.bb,
-                      text: 'Search Something Else',
-                      textStyle: AutilabTextStyle.small18_400,
-                    )
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../common/widgets/responsive_widget.dart';
 import '../../utils/functions/animation_control.dart';
 
 class NotConnectionInternetScreen extends StatefulWidget {
@@ -40,55 +41,77 @@ class _NotConnectionInternetScreenState
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/no_internet.svg'),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      'No Internet Connection',
-                      style: AutilabTextStyle.medium20_500,
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    Text(
-                      'Your Internet Connection Is Currently\nNot Available Please Check Or Try Again.',
-                      style: AutilabTextStyle.small16_400.copyWith(
-                        color: AutilabColor.gray,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isMobile() {
+          if (constraints.maxWidth < 600) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/icons/no_internet.svg',
+                            width: isMobile() ? 160 : 240,
+                            height: isMobile() ? 160 : 240,
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Text(
+                            'No Internet Connection',
+                            style: AutilabTextStyle.medium20_500.copyWith(
+                              fontSize: isMobile() ? 20 : 32,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          Text(
+                            'Your Internet Connection Is Currently\nNot Available Please Check Or Try Again.',
+                            style: AutilabTextStyle.small16_400.copyWith(
+                              color: AutilabColor.gray,
+                              fontSize: isMobile() ? 16 : 28,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          CustomButtonWidget(
+                            isMobile: isMobile(),
+                            onTap: () {},
+                            height: 50,
+                            color: AutilabColor.bb,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 32),
+                            text: 'Try Again',
+                            textStyle: AutilabTextStyle.small18_400,
+                          )
+                        ],
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    CustomButtonWidget(
-                      onTap: () {},
-                      height: 50,
-                      color: AutilabColor.bb,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 32),
-                      text: 'Try Again',
-                      textStyle: AutilabTextStyle.small18_400,
-                    )
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

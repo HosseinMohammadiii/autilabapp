@@ -3,6 +3,7 @@ import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../widgets/article_box_widget.dart';
@@ -150,118 +151,123 @@ class _ArticleItemScreenState extends State<ArticleItemScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'Article',
-              isIcon: true,
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Text(
-                        'Popular Article',
-                        style: AutilabTextStyle.small20_400
-                            .copyWith(fontSize: isMobile() ? 20 : 32),
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Article',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Text(
+                          'Popular Article',
+                          style: AutilabTextStyle.small20_400
+                              .copyWith(fontSize: isMobile() ? 20 : 32),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    SizedBox(
-                      height: isMobile() ? 260 : 371,
-                      child: ListView.builder(
-                        itemCount: popularArticleList.length,
-                        scrollDirection: Axis.horizontal,
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      SizedBox(
+                        height: isMobile() ? 260 : 371,
+                        child: ListView.builder(
+                          itemCount: popularArticleList.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                left: index == 0 ? 20 : 0,
+                                right: index == popularArticleList.length - 1
+                                    ? 8
+                                    : 1,
+                              ),
+                              child: SizedBox(
+                                width: isMobile() ? 338 : 453,
+                                child: PopularArticleWidget(
+                                  isMobile: isMobile(),
+                                  index: index,
+                                  image: popularArticleList[index].image!,
+                                  title: popularArticleList[index].title,
+                                  description:
+                                      popularArticleList[index].description,
+                                  isLike: false,
+                                  ontap: () {
+                                    context.pushNamed(
+                                        AutiLabRoutes.mainContentScreen,
+                                        extra: {
+                                          'articleImage':
+                                              popularArticleList[index].image,
+                                          'articleText':
+                                              popularArticleList[index].file,
+                                          'articleDescription':
+                                              popularArticleList[index]
+                                                  .description,
+                                          'articleTitle':
+                                              popularArticleList[index].title,
+                                        });
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 48,
+                      ),
+                      Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Text(
+                          'New Articles',
+                          style: AutilabTextStyle.small20_400
+                              .copyWith(fontSize: isMobile() ? 20 : 32),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: newArticleList.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: EdgeInsets.only(
-                              left: index == 0 ? 20 : 0,
-                              right: index == popularArticleList.length - 1
-                                  ? 8
-                                  : 1,
-                            ),
-                            child: SizedBox(
-                              width: isMobile() ? 338 : 453,
-                              child: PopularArticleWidget(
-                                isMobile: isMobile(),
-                                index: index,
-                                image: popularArticleList[index].image!,
-                                title: popularArticleList[index].title,
-                                description:
-                                    popularArticleList[index].description,
-                                isLike: false,
-                                ontap: () {
-                                  context.pushNamed(
-                                      AutiLabRoutes.mainContentScreen,
-                                      extra: {
-                                        'articleImage':
-                                            popularArticleList[index].image,
-                                        'articleText':
-                                            popularArticleList[index].file,
-                                        'articleDescription':
-                                            popularArticleList[index]
-                                                .description,
-                                        'articleTitle':
-                                            popularArticleList[index].title,
-                                      });
-                                },
-                              ),
+                            padding: const EdgeInsets.only(
+                                bottom: 16, right: 20, left: 20),
+                            child: ArticleBoxWidget(
+                              isMobile: isMobile(),
+                              isLike: false,
+                              image: newArticleList[index].image!,
+                              title: newArticleList[index].title,
+                              description: newArticleList[index].description,
+                              ontap: () {
+                                context.pushNamed(
+                                    AutiLabRoutes.mainContentScreen,
+                                    extra: {
+                                      'articleImage':
+                                          newArticleList[index].image,
+                                      'articleText': newArticleList[index].file,
+                                      'articleDescription':
+                                          newArticleList[index].description,
+                                      'articleTitle':
+                                          newArticleList[index].title,
+                                    });
+                              },
                             ),
                           );
                         },
                       ),
-                    ),
-                    const SizedBox(
-                      height: 48,
-                    ),
-                    Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Text(
-                        'New Articles',
-                        style: AutilabTextStyle.small20_400
-                            .copyWith(fontSize: isMobile() ? 20 : 32),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: newArticleList.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 16, right: 20, left: 20),
-                          child: ArticleBoxWidget(
-                            isMobile: isMobile(),
-                            isLike: false,
-                            image: newArticleList[index].image!,
-                            title: newArticleList[index].title,
-                            description: newArticleList[index].description,
-                            ontap: () {
-                              context.pushNamed(AutiLabRoutes.mainContentScreen,
-                                  extra: {
-                                    'articleImage': newArticleList[index].image,
-                                    'articleText': newArticleList[index].file,
-                                    'articleDescription':
-                                        newArticleList[index].description,
-                                    'articleTitle': newArticleList[index].title,
-                                  });
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

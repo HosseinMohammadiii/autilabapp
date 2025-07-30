@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../common/widgets/appbar_back_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -56,110 +57,112 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'Back',
-              isIcon: true,
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: SvgPicture.asset(
-                            'assets/images/enter_code_email_image.svg',
-                            width: isMobile() ? 321 : 544,
-                            height: isMobile() ? 249 : 370,
-                            fit: BoxFit.cover,
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Back',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/images/enter_code_email_image.svg',
+                              width: isMobile() ? 321 : 544,
+                              height: isMobile() ? 249 : 370,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Padding(
-                              padding: isMobile()
-                                  ? AutilabMargin.marginFullScreen
-                                  : const EdgeInsetsGeometry.only(left: 20),
-                              child: Text(
-                                'We Will Send You One Time Password To',
-                                style: AutilabTextStyle.small16_400.copyWith(
-                                  fontSize: isMobile() ? 16 : 24,
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              Padding(
+                                padding: isMobile()
+                                    ? AutilabMargin.marginFullScreen
+                                    : const EdgeInsetsGeometry.only(left: 20),
+                                child: Text(
+                                  'We Will Send You One Time Password To',
+                                  style: AutilabTextStyle.small16_400.copyWith(
+                                    fontSize: isMobile() ? 16 : 24,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: isMobile()
-                                  ? AutilabMargin.marginFullScreen
-                                  : const EdgeInsetsGeometry.only(left: 4),
-                              child: Text(
-                                'Example@gmail.com',
-                                style: AutilabTextStyle.small18_400.copyWith(
-                                  color: AutilabColor.blue,
-                                  fontSize: isMobile() ? 18 : 24,
+                              Padding(
+                                padding: isMobile()
+                                    ? AutilabMargin.marginFullScreen
+                                    : const EdgeInsetsGeometry.only(left: 4),
+                                child: Text(
+                                  'Example@gmail.com',
+                                  style: AutilabTextStyle.small18_400.copyWith(
+                                    color: AutilabColor.blue,
+                                    fontSize: isMobile() ? 18 : 24,
+                                  ),
                                 ),
                               ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 60, vertical: 14),
+                            child: PinCodeTextField(
+                              appContext: context,
+                              length: 4,
+                              pinTheme: PinTheme(
+                                shape: PinCodeFieldShape.box,
+                                borderRadius:
+                                    BorderRadius.circular(isMobile() ? 12 : 24),
+                                fieldHeight: isMobile() ? 52 : 100,
+                                fieldWidth: isMobile() ? 52 : 100,
+                                inactiveBorderWidth: 0.5,
+                                activeColor: AutilabColor.blue,
+                                inactiveColor: AutilabColor.black,
+                              ),
+                              cursorColor: AutilabColor.black,
+                              onCompleted: (v) {
+                                FocusScope.of(context).unfocus();
+                              },
                             ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 60, vertical: 14),
-                          child: PinCodeTextField(
-                            appContext: context,
-                            length: 4,
-                            pinTheme: PinTheme(
-                              shape: PinCodeFieldShape.box,
-                              borderRadius:
-                                  BorderRadius.circular(isMobile() ? 12 : 24),
-                              fieldHeight: isMobile() ? 52 : 100,
-                              fieldWidth: isMobile() ? 52 : 100,
-                              inactiveBorderWidth: 0.5,
-                              activeColor: AutilabColor.blue,
-                              inactiveColor: AutilabColor.black,
-                            ),
-                            cursorColor: AutilabColor.black,
-                            onCompleted: (v) {
-                              FocusScope.of(context).unfocus();
+                          ),
+                          CustomButtonWidget(
+                            isMobile: isMobile(),
+                            onTap: () {
+                              context.pushReplacementNamed(
+                                  AutiLabRoutes.homeScreen);
                             },
+                            height: 50,
+                            margin: AutilabMargin.marginFullScreen,
+                            color: AutilabColor.bb,
+                            text: 'Send Code',
+                            textStyle: AutilabTextStyle.small18_400,
                           ),
-                        ),
-                        CustomButtonWidget(
-                          isMobile: isMobile(),
-                          onTap: () {
-                            context
-                                .pushReplacementNamed(AutiLabRoutes.homeScreen);
-                          },
-                          height: 50,
-                          margin: AutilabMargin.marginFullScreen,
-                          color: AutilabColor.bb,
-                          text: 'Send Code',
-                          textStyle: AutilabTextStyle.small18_400,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        BubbleBackgroundWidget(
-                          isMobile: isMobile(),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          BubbleBackgroundWidget(
+                            isMobile: isMobile(),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../common/widgets/snackbar_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 import '../../../../utils/functions/cacheimahe_function.dart';
@@ -221,427 +222,434 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              spacing: 17,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Stack(
-                  children: [
-                    FittedBox(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        spacing: 10,
-                        children: [
-                          Row(
-                            spacing: 4,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  //control for display setting menu
-                                  setState(() {
-                                    isShowMenu = !isShowMenu;
-                                  });
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Setting',
-                                      style: AutilabTextStyle.small12_400,
-                                    ),
-                                    isShowMenu
-                                        ? SvgPicture.asset(
-                                            'assets/icons/arrow_up.svg',
-                                            width: 16,
-                                            height: 16,
-                                          )
-                                        : SvgPicture.asset(
-                                            'assets/icons/arrow_down.svg',
-                                          ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              CustomButtonWhiteBoardWidget(
-                                onTap: () {
-                                  context.pop();
-                                },
-                                width: 81,
-                                height: 24,
-                                color: const Color(0xffE74747),
-                                icon: 'logout.svg',
-                                title: 'End',
-                              ),
-                            ],
-                          ),
-                          CustomButtonWhiteBoardWidget(
-                            onTap: () {
-                              setState(() {
-                                isShowChat = !isShowChat;
-                                //Scrolling to last chat list items
-                                Future.delayed(const Duration(milliseconds: 50),
-                                    () {
-                                  _scrollController.jumpTo(_scrollController
-                                      .position.maxScrollExtent);
-                                });
-                              });
-                            },
-                            width: 150,
-                            height: 30,
-                            color: AutilabColor.yellow,
-                            icon: 'messages.svg',
-                            title: 'Chat',
-                          ),
-                          BoxWhiteBoardWidget(
-                            onTapOne: () {
-                              //Call method for drawing download
-                              _saveDrawing();
-                            },
-                            colorOne: AutilabColor.lightGray,
-                            iconOne: 'download.svg',
-                            titleOne: 'Download',
-                            onTapSecond: () async {
-                              if (await isPermissionStorageGranted()) {
-                                final imagePicker = await ImagePicker()
-                                    .pickImage(source: ImageSource.gallery);
-
-                                try {
-                                  if (imagePicker?.path == null) {
-                                    return;
-                                  } else {
-                                    pickedFile = File(imagePicker!.path);
+    return ResponsiveLayout(
+      child: FadeTransition(
+        opacity: animationHelper.fadeAnimation,
+        child: Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                spacing: 17,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Stack(
+                    children: [
+                      FittedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          spacing: 10,
+                          children: [
+                            Row(
+                              spacing: 4,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    //control for display setting menu
                                     setState(() {
-                                      isUpload = true;
+                                      isShowMenu = !isShowMenu;
                                     });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Setting',
+                                        style: AutilabTextStyle.small12_400,
+                                      ),
+                                      isShowMenu
+                                          ? SvgPicture.asset(
+                                              'assets/icons/arrow_up.svg',
+                                              width: 16,
+                                              height: 16,
+                                            )
+                                          : SvgPicture.asset(
+                                              'assets/icons/arrow_down.svg',
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                CustomButtonWhiteBoardWidget(
+                                  onTap: () {
+                                    context.pop();
+                                  },
+                                  width: 81,
+                                  height: 24,
+                                  color: const Color(0xffE74747),
+                                  icon: 'logout.svg',
+                                  title: 'End',
+                                ),
+                              ],
+                            ),
+                            CustomButtonWhiteBoardWidget(
+                              onTap: () {
+                                setState(() {
+                                  isShowChat = !isShowChat;
+                                  //Scrolling to last chat list items
+                                  Future.delayed(
+                                      const Duration(milliseconds: 50), () {
+                                    _scrollController.jumpTo(_scrollController
+                                        .position.maxScrollExtent);
+                                  });
+                                });
+                              },
+                              width: 150,
+                              height: 30,
+                              color: AutilabColor.yellow,
+                              icon: 'messages.svg',
+                              title: 'Chat',
+                            ),
+                            BoxWhiteBoardWidget(
+                              onTapOne: () {
+                                //Call method for drawing download
+                                _saveDrawing();
+                              },
+                              colorOne: AutilabColor.lightGray,
+                              iconOne: 'download.svg',
+                              titleOne: 'Download',
+                              onTapSecond: () async {
+                                if (await isPermissionStorageGranted()) {
+                                  final imagePicker = await ImagePicker()
+                                      .pickImage(source: ImageSource.gallery);
+
+                                  try {
+                                    if (imagePicker?.path == null) {
+                                      return;
+                                    } else {
+                                      pickedFile = File(imagePicker!.path);
+                                      setState(() {
+                                        isUpload = true;
+                                      });
+                                    }
+                                  } catch (e) {
+                                    displaySnackBar(
+                                      context,
+                                      'Please try again',
+                                      AutilabColor.bb,
+                                    );
                                   }
-                                } catch (e) {
+                                } else {
+                                  // Permission denied: Show error message
                                   displaySnackBar(
                                     context,
-                                    'Please try again',
+                                    'Memory access permission denied.',
                                     AutilabColor.bb,
                                   );
                                 }
-                              } else {
-                                // Permission denied: Show error message
-                                displaySnackBar(
-                                  context,
-                                  'Memory access permission denied.',
-                                  AutilabColor.bb,
-                                );
-                              }
-                            },
-                            colorSecond: isUpload
-                                ? AutilabColor.bb
-                                : AutilabColor.lightGray,
-                            iconSecond: 'upload.svg',
-                            titleSecond: 'Upload File',
-                          ),
-                          BoxWhiteBoardWidget(
-                            onTapOne: () {},
-                            colorOne: AutilabColor.bb,
-                            iconOne: 'video_call_icon.svg',
-                            titleOne: 'Webcam',
-                            onTapSecond: () {
-                              setState(() {
-                                isUpload = false;
-                              });
-                            },
-                            colorSecond: !isUpload
-                                ? AutilabColor.bb
-                                : AutilabColor.lightGray,
-                            iconSecond: 'brush.svg',
-                            titleSecond: 'Whiteboard',
-                          ),
-                          BoxWhiteBoardWidget(
-                            onTapOne: () {},
-                            colorOne: AutilabColor.lightGray,
-                            iconOne: 'screenmirroring.svg',
-                            titleOne: 'Share Screen',
-                            onTapSecond: () {},
-                            colorSecond: AutilabColor.bb,
-                            iconSecond: 'microphone.svg',
-                            titleSecond: 'Voice',
-                          ),
-                          Row(
-                            spacing: 8,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  'assets/images/doctor_image.jpg',
-                                  fit: BoxFit.cover,
-                                  width: 72,
-                                  height: 83,
-                                  cacheWidth: cacheImageFunction(72, context),
-                                  cacheHeight: cacheImageFunction(83, context),
-                                ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  'assets/images/child2_image.jpg',
-                                  fit: BoxFit.cover,
-                                  width: 72,
-                                  height: 83,
-                                  cacheWidth: cacheImageFunction(72, context),
-                                  cacheHeight: cacheImageFunction(83, context),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Visibility(
-                      visible: isShowChat,
-                      child: Container(
-                        width: 241,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: AutilabColor.primary,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            ChatListWhiteboardWidget(
-                              scrollController: _scrollController,
-                              message: messageItems,
+                              },
+                              colorSecond: isUpload
+                                  ? AutilabColor.bb
+                                  : AutilabColor.lightGray,
+                              iconSecond: 'upload.svg',
+                              titleSecond: 'Upload File',
                             ),
-                            Container(
-                              width: double.infinity,
-                              color: AutilabColor.primary,
-                              padding: const EdgeInsets.only(top: 8),
-                              child: Row(
-                                spacing: 7,
-                                children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 32,
-                                      child: TextField(
-                                        focusNode: sendMessageFocusNode,
-                                        controller: sendMessageController,
-                                        cursorColor: Colors.black,
-                                        decoration: InputDecoration(
-                                          fillColor: AutilabColor.white,
-                                          filled: true,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 15, vertical: 5),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: AutilabColor.bb,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(
-                                              color: AutilabColor.bb,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                        ),
-                                        onChanged: (value) {},
-                                        onTapOutside: (event) {
-                                          //Unfocus TextField
-                                          sendMessageFocusNode.unfocus();
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 35,
-                                      height: 35,
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
-                                        color: AutilabColor.bb,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: SvgPicture.asset(
-                                          AutilabIcon.sendMessageIcon),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            BoxWhiteBoardWidget(
+                              onTapOne: () {},
+                              colorOne: AutilabColor.bb,
+                              iconOne: 'video_call_icon.svg',
+                              titleOne: 'Webcam',
+                              onTapSecond: () {
+                                setState(() {
+                                  isUpload = false;
+                                });
+                              },
+                              colorSecond: !isUpload
+                                  ? AutilabColor.bb
+                                  : AutilabColor.lightGray,
+                              iconSecond: 'brush.svg',
+                              titleSecond: 'Whiteboard',
                             ),
-                            Positioned(
-                              top: 0,
-                              child: Container(
-                                height: 30,
-                                width: 221,
-                                color: AutilabColor.primary,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          isShowChat = false;
-                                        });
-                                      },
-                                      child: Row(
-                                        spacing: 8,
-                                        children: [
-                                          SvgPicture.asset(
-                                            AutilabIcon.backIconRounded,
-                                            width: 16,
-                                            height: 16,
-                                          ),
-                                          Text(
-                                            'Chatroom',
-                                            style:
-                                                AutilabTextStyle.medium12_500,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    SvgPicture.asset(
-                                      'assets/icons/profile_icon.svg',
-                                      width: 16,
-                                      height: 16,
-                                    ),
-                                  ],
+                            BoxWhiteBoardWidget(
+                              onTapOne: () {},
+                              colorOne: AutilabColor.lightGray,
+                              iconOne: 'screenmirroring.svg',
+                              titleOne: 'Share Screen',
+                              onTapSecond: () {},
+                              colorSecond: AutilabColor.bb,
+                              iconSecond: 'microphone.svg',
+                              titleSecond: 'Voice',
+                            ),
+                            Row(
+                              spacing: 8,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.asset(
+                                    'assets/images/doctor_image.jpg',
+                                    fit: BoxFit.cover,
+                                    width: 72,
+                                    height: 83,
+                                    cacheWidth: cacheImageFunction(72, context),
+                                    cacheHeight:
+                                        cacheImageFunction(83, context),
+                                  ),
                                 ),
-                              ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.asset(
+                                    'assets/images/child2_image.jpg',
+                                    fit: BoxFit.cover,
+                                    width: 72,
+                                    height: 83,
+                                    cacheWidth: cacheImageFunction(72, context),
+                                    cacheHeight:
+                                        cacheImageFunction(83, context),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    Visibility(
-                      visible: isShowMenu,
-                      child: SettingMenuWidget(settingItems: settingItems),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: WhiteboardWorkScreen(
-                    selectedColor: ValueNotifier(strokeColor),
-                    strokeType: ValueNotifier(strokeType.value),
-                    isUpload: isUpload,
-                    image: pickedFile,
-                    onChanged: () {},
+                      Visibility(
+                        visible: isShowChat,
+                        child: Container(
+                          width: 241,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AutilabColor.primary,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              ChatListWhiteboardWidget(
+                                scrollController: _scrollController,
+                                message: messageItems,
+                              ),
+                              Container(
+                                width: double.infinity,
+                                color: AutilabColor.primary,
+                                padding: const EdgeInsets.only(top: 8),
+                                child: Row(
+                                  spacing: 7,
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 32,
+                                        child: TextField(
+                                          focusNode: sendMessageFocusNode,
+                                          controller: sendMessageController,
+                                          cursorColor: Colors.black,
+                                          decoration: InputDecoration(
+                                            fillColor: AutilabColor.white,
+                                            filled: true,
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 15,
+                                                    vertical: 5),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: AutilabColor.bb,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                color: AutilabColor.bb,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                          ),
+                                          onChanged: (value) {},
+                                          onTapOutside: (event) {
+                                            //Unfocus TextField
+                                            sendMessageFocusNode.unfocus();
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: const BoxDecoration(
+                                          color: AutilabColor.bb,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: SvgPicture.asset(
+                                            AutilabIcon.sendMessageIcon),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                child: Container(
+                                  height: 30,
+                                  width: 221,
+                                  color: AutilabColor.primary,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isShowChat = false;
+                                          });
+                                        },
+                                        child: Row(
+                                          spacing: 8,
+                                          children: [
+                                            SvgPicture.asset(
+                                              AutilabIcon.backIconRounded,
+                                              width: 16,
+                                              height: 16,
+                                            ),
+                                            Text(
+                                              'Chatroom',
+                                              style:
+                                                  AutilabTextStyle.medium12_500,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      SvgPicture.asset(
+                                        'assets/icons/profile_icon.svg',
+                                        width: 16,
+                                        height: 16,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: isShowMenu,
+                        child: SettingMenuWidget(settingItems: settingItems),
+                      ),
+                    ],
                   ),
-                ),
-                FittedBox(
-                  child: Container(
-                    width: 40,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 16),
-                    decoration: BoxDecoration(
-                      color: AutilabColor.bb,
-                      borderRadius: BorderRadius.circular(12),
+                  Expanded(
+                    child: WhiteboardWorkScreen(
+                      selectedColor: ValueNotifier(strokeColor),
+                      strokeType: ValueNotifier(strokeType.value),
+                      isUpload: isUpload,
+                      image: pickedFile,
+                      onChanged: () {},
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: drawTools.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: GestureDetector(
-                                onTap: () {
-                                  // Control for selecting the drawing tool
-                                  setState(() {
-                                    switch (index) {
-                                      case 0:
-                                        strokeType.value = StrokeType.undo;
-                                        break;
-                                      case 1:
-                                        strokeType.value = StrokeType.redo;
-                                        break;
-                                      case 2:
-                                        strokeType.value = StrokeType.normal;
-                                        break;
-                                      case 3:
-                                        strokeType.value = StrokeType.text;
-                                        break;
-                                      case 5:
-                                        strokeType.value = StrokeType.eraser;
-                                        break;
-                                      case 6:
-                                        strokeType.value = StrokeType.circle;
-                                        break;
-                                      case 7:
-                                        strokeType.value = StrokeType.deleteAll;
-                                        setState(() {
-                                          pickedFile = null;
-                                          isUpload = false;
-                                        });
-                                        break;
+                  ),
+                  FittedBox(
+                    child: Container(
+                      width: 40,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 16),
+                      decoration: BoxDecoration(
+                        color: AutilabColor.bb,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: drawTools.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // Control for selecting the drawing tool
+                                    setState(() {
+                                      switch (index) {
+                                        case 0:
+                                          strokeType.value = StrokeType.undo;
+                                          break;
+                                        case 1:
+                                          strokeType.value = StrokeType.redo;
+                                          break;
+                                        case 2:
+                                          strokeType.value = StrokeType.normal;
+                                          break;
+                                        case 3:
+                                          strokeType.value = StrokeType.text;
+                                          break;
+                                        case 5:
+                                          strokeType.value = StrokeType.eraser;
+                                          break;
+                                        case 6:
+                                          strokeType.value = StrokeType.circle;
+                                          break;
+                                        case 7:
+                                          strokeType.value =
+                                              StrokeType.deleteAll;
+                                          setState(() {
+                                            pickedFile = null;
+                                            isUpload = false;
+                                          });
+                                          break;
 
-                                      default:
-                                        strokeType.value = StrokeType.normal;
-                                        break;
+                                        default:
+                                          strokeType.value = StrokeType.normal;
+                                          break;
+                                      }
+                                    });
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/icons/${drawTools[index]}',
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          ListView.builder(
+                            itemCount: drawColor.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    //Initialize strokeColor with drawColor item
+                                    strokeColor = drawColor[index];
+
+                                    // Control for selecting the brush tool when using it after deleting all drawings
+                                    if (strokeType.value ==
+                                        StrokeType.deleteAll) {
+                                      strokeType.value = StrokeType.normal;
                                     }
                                   });
                                 },
-                                child: SvgPicture.asset(
-                                  'assets/icons/${drawTools[index]}',
+                                child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  margin: EdgeInsets.only(
+                                      bottom: drawColor.length - 1 == index
+                                          ? 0
+                                          : 8),
+                                  decoration: BoxDecoration(
+                                    color: drawColor[index],
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                        ListView.builder(
-                          itemCount: drawColor.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  //Initialize strokeColor with drawColor item
-                                  strokeColor = drawColor[index];
-
-                                  // Control for selecting the brush tool when using it after deleting all drawings
-                                  if (strokeType.value ==
-                                      StrokeType.deleteAll) {
-                                    strokeType.value = StrokeType.normal;
-                                  }
-                                });
-                              },
-                              child: Container(
-                                width: 20,
-                                height: 20,
-                                margin: EdgeInsets.only(
-                                    bottom:
-                                        drawColor.length - 1 == index ? 0 : 8),
-                                decoration: BoxDecoration(
-                                  color: drawColor[index],
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

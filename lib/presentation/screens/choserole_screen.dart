@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../common/widgets/responsive_widget.dart';
 import '../../utils/functions/animation_control.dart';
 
 class ChoseRoleScreen extends StatefulWidget {
@@ -59,93 +60,97 @@ class _ChoseRoleScreenState extends State<ChoseRoleScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'Choose Your Role Below',
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    fillOverscroll: false,
-                    hasScrollBody: false,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: ChoseRoleWidget(
-                            isMobile: isMobile(),
-                            stackAlignment: Alignment.centerRight,
-                            textAlignment: Alignment.centerLeft,
-                            image: 'occupational_role.svg',
-                            title1: 'Occupational\nTherapist',
-                            margin: const EdgeInsets.only(right: 35),
-                            padding: const EdgeInsets.only(left: 24),
-                            checkBox: RadioButtonWidget(
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'Choose Your Role Below',
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      fillOverscroll: false,
+                      hasScrollBody: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: ChoseRoleWidget(
                               isMobile: isMobile(),
-                              radioCharacter: character!,
-                              value: RadioCharacter.characterOne,
-                              onChanged: (value) {
-                                setState(() {
-                                  character = value;
-                                });
-                              },
-                              title:
-                                  'Provider Of Specialized Treatment And Education Services',
-                              textStyle: AutilabTextStyle.small16_400.copyWith(
-                                fontSize: isMobile() ? 16 : 24,
+                              stackAlignment: Alignment.centerRight,
+                              textAlignment: Alignment.centerLeft,
+                              image: 'occupational_role.svg',
+                              title1: 'Occupational\nTherapist',
+                              margin: const EdgeInsets.only(right: 35),
+                              padding: const EdgeInsets.only(left: 24),
+                              checkBox: RadioButtonWidget(
+                                isMobile: isMobile(),
+                                radioCharacter: character!,
+                                value: RadioCharacter.characterOne,
+                                onChanged: (value) {
+                                  setState(() {
+                                    character = value;
+                                  });
+                                },
+                                title:
+                                    'Provider Of Specialized Treatment And Education Services',
+                                textStyle:
+                                    AutilabTextStyle.small16_400.copyWith(
+                                  fontSize: isMobile() ? 16 : 24,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: ChoseRoleWidget(
-                            isMobile: isMobile(),
-                            stackAlignment: Alignment.centerLeft,
-                            textAlignment: Alignment.centerRight,
-                            image: 'client_role.svg',
-                            title1: 'Occupational\nTherapy\nClient',
-                            margin: const EdgeInsets.only(left: 35),
-                            padding: const EdgeInsets.only(right: 24),
-                            checkBox: RadioButtonWidget(
+                          Expanded(
+                            child: ChoseRoleWidget(
                               isMobile: isMobile(),
-                              radioCharacter: character!,
-                              value: RadioCharacter.secondeCharacter,
-                              onChanged: (value) {
-                                setState(() {
-                                  character = value;
-                                });
-                              },
-                              title:
-                                  'User Of Medical Staff Services And Specialist Training',
-                              textStyle: AutilabTextStyle.small16_400.copyWith(
-                                fontSize: isMobile() ? 16 : 24,
+                              stackAlignment: Alignment.centerLeft,
+                              textAlignment: Alignment.centerRight,
+                              image: 'client_role.svg',
+                              title1: 'Occupational\nTherapy\nClient',
+                              margin: const EdgeInsets.only(left: 35),
+                              padding: const EdgeInsets.only(right: 24),
+                              checkBox: RadioButtonWidget(
+                                isMobile: isMobile(),
+                                radioCharacter: character!,
+                                value: RadioCharacter.secondeCharacter,
+                                onChanged: (value) {
+                                  setState(() {
+                                    character = value;
+                                  });
+                                },
+                                title:
+                                    'User Of Medical Staff Services And Specialist Training',
+                                textStyle:
+                                    AutilabTextStyle.small16_400.copyWith(
+                                  fontSize: isMobile() ? 16 : 24,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        CustomButtonWidget(
-                          isMobile: isMobile(),
-                          onTap: () {
-                            if (selectedIndexNotifier.value != null) {
-                              context.pushNamed(AutiLabRoutes.welcomeScreen);
-                            }
-                          },
-                          height: 50,
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 32),
-                          color: AutilabColor.bb,
-                          text: 'Get Start',
-                          textStyle: AutilabTextStyle.small18_400,
-                        ),
-                      ],
+                          CustomButtonWidget(
+                            isMobile: isMobile(),
+                            onTap: () {
+                              if (selectedIndexNotifier.value != null) {
+                                context.pushNamed(AutiLabRoutes.welcomeScreen);
+                              }
+                            },
+                            height: 50,
+                            margin: const EdgeInsets.only(
+                                left: 20, right: 20, bottom: 32),
+                            color: AutilabColor.bb,
+                            text: 'Get Start',
+                            textStyle: AutilabTextStyle.small18_400,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

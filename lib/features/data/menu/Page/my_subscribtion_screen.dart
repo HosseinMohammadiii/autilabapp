@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
 
@@ -53,69 +54,71 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              title: 'My Subscribtion',
-              isIcon: true,
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(30),
-                    margin: const EdgeInsets.only(bottom: 48),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AutilabColor.yellow,
-                    ),
-                    child: SvgPicture.asset(
-                      'assets/icons/crown_icon.svg',
-                      height: isMobile() ? 128 : 240,
-                      width: isMobile() ? 128 : 240,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  Text(
-                    'You Don’t Have Any Subscribtion',
-                    style: AutilabTextStyle.medium20_500.copyWith(
-                      fontSize: isMobile() ? 20 : 32,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Padding(
-                    padding: AutilabMargin.marginFullScreen,
-                    child: Text(
-                      'You Have Not Activated Any Packages. You Can View All Packages From The Button Below.',
-                      textAlign: TextAlign.center,
-                      style: AutilabTextStyle.small16_400.copyWith(
-                        color: AutilabColor.gray,
-                        fontSize: isMobile() ? 16 : 28,
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                title: 'My Subscribtion',
+                isIcon: true,
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(30),
+                      margin: const EdgeInsets.only(bottom: 48),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AutilabColor.yellow,
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/crown_icon.svg',
+                        height: isMobile() ? 128 : 240,
+                        width: isMobile() ? 128 : 240,
+                        fit: BoxFit.contain,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  CustomButtonWidget(
-                    isMobile: isMobile(),
-                    onTap: () {
-                      context
-                          .pushNamed(AutiLabRoutes.subscribtionPackagesScreen);
-                    },
-                    height: 50,
-                    color: AutilabColor.bb,
-                    text: 'See Package',
-                    margin: AutilabMargin.marginFullScreen,
-                    textStyle: AutilabTextStyle.small18_400,
-                  ),
-                ],
+                    Text(
+                      'You Don’t Have Any Subscribtion',
+                      style: AutilabTextStyle.medium20_500.copyWith(
+                        fontSize: isMobile() ? 20 : 32,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Padding(
+                      padding: AutilabMargin.marginFullScreen,
+                      child: Text(
+                        'You Have Not Activated Any Packages. You Can View All Packages From The Button Below.',
+                        textAlign: TextAlign.center,
+                        style: AutilabTextStyle.small16_400.copyWith(
+                          color: AutilabColor.gray,
+                          fontSize: isMobile() ? 16 : 28,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    CustomButtonWidget(
+                      isMobile: isMobile(),
+                      onTap: () {
+                        context.pushNamed(
+                            AutiLabRoutes.subscribtionPackagesScreen);
+                      },
+                      height: 50,
+                      color: AutilabColor.bb,
+                      text: 'See Package',
+                      margin: AutilabMargin.marginFullScreen,
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

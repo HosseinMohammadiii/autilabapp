@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/custom_button_widget.dart';
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
 
 class SuccessfulSubmitRateScreen extends StatefulWidget {
@@ -51,59 +52,61 @@ class _SuccessfulSubmitRateScreenState extends State<SuccessfulSubmitRateScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            body: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: isMobile() ? 128 : 252,
-                    height: isMobile() ? 128 : 252,
-                    margin: const EdgeInsets.only(bottom: 48),
-                    decoration: const BoxDecoration(
-                      color: AutilabColor.yellow,
-                      shape: BoxShape.circle,
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              body: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: isMobile() ? 128 : 252,
+                      height: isMobile() ? 128 : 252,
+                      margin: const EdgeInsets.only(bottom: 48),
+                      decoration: const BoxDecoration(
+                        color: AutilabColor.yellow,
+                        shape: BoxShape.circle,
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/icons/tik.svg',
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
-                    child: SvgPicture.asset(
-                      'assets/icons/tik.svg',
-                      fit: BoxFit.scaleDown,
+                    Text(
+                      'Thank You For Your Feedback!',
+                      textAlign: TextAlign.center,
+                      style: AutilabTextStyle.medium20_500.copyWith(
+                        fontSize: isMobile() ? 20 : 24,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Thank You For Your Feedback!',
-                    textAlign: TextAlign.center,
-                    style: AutilabTextStyle.medium20_500.copyWith(
-                      fontSize: isMobile() ? 20 : 24,
+                    const SizedBox(
+                      height: 16,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    "We're always working to serve you better.",
-                    textAlign: TextAlign.center,
-                    style: AutilabTextStyle.small16_400.copyWith(
-                      color: AutilabColor.gray,
-                      fontSize: isMobile() ? 16 : 20,
+                    Text(
+                      "We're always working to serve you better.",
+                      textAlign: TextAlign.center,
+                      style: AutilabTextStyle.small16_400.copyWith(
+                        color: AutilabColor.gray,
+                        fontSize: isMobile() ? 16 : 20,
+                      ),
                     ),
-                  ),
-                  CustomButtonWidget(
-                    isMobile: isMobile(),
-                    onTap: () {
-                      context.pop();
-                      context.pop();
-                    },
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 32),
-                    color: AutilabColor.bb,
-                    text: 'OK ',
-                    textStyle: AutilabTextStyle.small18_400,
-                  ),
-                ],
+                    CustomButtonWidget(
+                      isMobile: isMobile(),
+                      onTap: () {
+                        context.pop();
+                        context.pop();
+                      },
+                      height: 50,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 32),
+                      color: AutilabColor.bb,
+                      text: 'OK ',
+                      textStyle: AutilabTextStyle.small18_400,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

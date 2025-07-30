@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../common/widgets/responsive_widget.dart';
 import '../../utils/functions/animation_control.dart';
 
 class ProgramIntroduction {
@@ -92,132 +93,136 @@ class _ProgramIntroductionScreenState extends State<ProgramIntroductionScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: const Size(0, 20),
-              child: AppBar(),
-            ),
-            body: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    fillOverscroll: false,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: isMobile() ? 480 : 762,
-                          child: PageView.builder(
-                            controller: pageController,
-                            itemCount: 3,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  Padding(
-                                    padding: AutilabMargin.marginFullScreen,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: SvgPicture.asset(
-                                        programIntroductionList[index].image,
-                                        width: isMobile() ? 350 : 550,
-                                        height: isMobile() ? 350 : 550,
-                                        fit: BoxFit.cover,
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: PreferredSize(
+                preferredSize: const Size(0, 20),
+                child: AppBar(),
+              ),
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      fillOverscroll: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: isMobile() ? 480 : 762,
+                            child: PageView.builder(
+                              controller: pageController,
+                              itemCount: 3,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    Padding(
+                                      padding: AutilabMargin.marginFullScreen,
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: SvgPicture.asset(
+                                          programIntroductionList[index].image,
+                                          width: isMobile() ? 350 : 550,
+                                          height: isMobile() ? 350 : 550,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.03,
-                                  ),
-                                  Text(
-                                    programIntroductionList[index].title,
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontSize: isMobile() ? 20 : 40,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.02,
-                                  ),
-                                  Padding(
-                                    padding: AutilabMargin.marginFullScreen,
-                                    child: Text(
-                                      programIntroductionList[index]
-                                          .description,
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.03,
+                                    ),
+                                    Text(
+                                      programIntroductionList[index].title,
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodySmall!
+                                          .bodyMedium!
                                           .copyWith(
-                                            fontSize: isMobile() ? 16 : 32,
-                                            fontWeight: FontWeight.w400,
+                                            fontSize: isMobile() ? 20 : 40,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                     ),
-                                  ),
-                                ],
-                              );
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.02,
+                                    ),
+                                    Padding(
+                                      padding: AutilabMargin.marginFullScreen,
+                                      child: Text(
+                                        programIntroductionList[index]
+                                            .description,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              fontSize: isMobile() ? 16 : 32,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 18,
+                          ),
+                          SmoothPageIndicator(
+                            controller: pageController,
+                            count: 3,
+                            effect: const ExpandingDotsEffect(
+                              expansionFactor: 5,
+                              dotHeight: 8,
+                              dotWidth: 8,
+                              dotColor: AutilabColor.bb,
+                              activeDotColor: AutilabColor.blue,
+                            ),
+                          ),
+                          CustomButtonWidget(
+                            onTap: nextPage,
+                            isMobile: isMobile(),
+                            height: 50,
+                            borderRadius: 16,
+                            color: AutilabColor.bb,
+                            text: 'Next',
+                            margin: EdgeInsets.only(
+                              right: 20,
+                              left: 20,
+                              top: 30,
+                            ),
+                            textStyle:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                          ),
+                          CustomButtonWidget(
+                            isMobile: isMobile(),
+                            onTap: () {
+                              context.goNamed(AutiLabRoutes.choseRoleScreen);
                             },
+                            height: MediaQuery.sizeOf(context).height * 0.037,
+                            width: 45,
+                            color: AutilabColor.white,
+                            text: 'skip',
+                            textStyle:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 18,
-                        ),
-                        SmoothPageIndicator(
-                          controller: pageController,
-                          count: 3,
-                          effect: const ExpandingDotsEffect(
-                            expansionFactor: 5,
-                            dotHeight: 8,
-                            dotWidth: 8,
-                            dotColor: AutilabColor.bb,
-                            activeDotColor: AutilabColor.blue,
-                          ),
-                        ),
-                        CustomButtonWidget(
-                          onTap: nextPage,
-                          isMobile: isMobile(),
-                          height: 50,
-                          borderRadius: 16,
-                          color: AutilabColor.bb,
-                          text: 'Next',
-                          margin: EdgeInsets.only(
-                            right: 20,
-                            left: 20,
-                            top: 30,
-                          ),
-                          textStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                        ),
-                        CustomButtonWidget(
-                          isMobile: isMobile(),
-                          onTap: () {
-                            context.goNamed(AutiLabRoutes.choseRoleScreen);
-                          },
-                          height: MediaQuery.sizeOf(context).height * 0.037,
-                          width: 45,
-                          color: AutilabColor.white,
-                          text: 'skip',
-                          textStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

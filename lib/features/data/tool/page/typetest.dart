@@ -4,6 +4,7 @@ import 'package:autilab_project/utils/functions/animation_control.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../core/constants/constant_routes.dart';
 
 class TypetestScreen extends StatefulWidget {
@@ -39,85 +40,87 @@ class _TypetestScreenState extends State<TypetestScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: animationHelper.fadeAnimation,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          bool isMobile() {
-            if (constraints.maxWidth < 600) {
-              return true;
-            } else {
-              return false;
+    return ResponsiveLayout(
+      child: FadeTransition(
+        opacity: animationHelper.fadeAnimation,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            bool isMobile() {
+              if (constraints.maxWidth < 600) {
+                return true;
+              } else {
+                return false;
+              }
             }
-          }
 
-          return Scaffold(
-            appBar: appBarWidget(
-                context: context,
-                title: 'Take A Test',
-                isIcon: true,
-                isMobile: isMobile()),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  spacing: 12,
-                  children: [
-                    SizedBox(
-                      height: isMobile() ? null : 32,
-                    ),
-                    ToolsBoxWidget(
-                      isMobile: isMobile(),
-                      title: 'Talent Identification Test',
-                      description:
-                          "Aptitude Test To Identify Children's Talents And Improve Their Future",
-                      titleButton: 'Do The Test',
-                      svg: 'assets/images/talent_image.svg',
-                      onTap: () {
-                        context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
-                            extra: {
-                              'image': 'assets/images/talent_image.svg',
-                              'title': 'Aptitude Test',
-                              'subTitle': 'Talent Identification Test',
-                              'description':
-                                  "Discover your child's hidden potentials and help them grow endlessly.",
-                              'onTap': () {
-                                context.pushNamed(
-                                    AutiLabRoutes.quizMultiSelectScreen);
-                              },
-                            });
-                      },
-                    ),
-                    ToolsBoxWidget(
-                      isMobile: isMobile(),
-                      title: 'Personality Test',
-                      description:
-                          "Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment",
-                      titleButton: 'Do The Test',
-                      svg: 'assets/images/personality_image.svg',
-                      onTap: () {
-                        context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
-                            extra: {
-                              'image': 'assets/images/personality_image.svg',
-                              'title': 'Personality Test',
-                              'subTitle': 'Personality Test',
-                              'description':
-                                  "Discover your child's personality and help them find the right path in life.",
-                              'onTap': () {
-                                context.pushNamed(
-                                    AutiLabRoutes.quizMultiSelectScreen);
-                              },
-                            });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                  ],
+            return Scaffold(
+              appBar: appBarWidget(
+                  context: context,
+                  title: 'Take A Test',
+                  isIcon: true,
+                  isMobile: isMobile()),
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    spacing: 12,
+                    children: [
+                      SizedBox(
+                        height: isMobile() ? null : 32,
+                      ),
+                      ToolsBoxWidget(
+                        isMobile: isMobile(),
+                        title: 'Talent Identification Test',
+                        description:
+                            "Aptitude Test To Identify Children's Talents And Improve Their Future",
+                        titleButton: 'Do The Test',
+                        svg: 'assets/images/talent_image.svg',
+                        onTap: () {
+                          context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
+                              extra: {
+                                'image': 'assets/images/talent_image.svg',
+                                'title': 'Aptitude Test',
+                                'subTitle': 'Talent Identification Test',
+                                'description':
+                                    "Discover your child's hidden potentials and help them grow endlessly.",
+                                'onTap': () {
+                                  context.pushNamed(
+                                      AutiLabRoutes.quizMultiSelectScreen);
+                                },
+                              });
+                        },
+                      ),
+                      ToolsBoxWidget(
+                        isMobile: isMobile(),
+                        title: 'Personality Test',
+                        description:
+                            "Discover Deeper Insights Into Your Unique Personality With Our Autism-Focused Assessment",
+                        titleButton: 'Do The Test',
+                        svg: 'assets/images/personality_image.svg',
+                        onTap: () {
+                          context.pushNamed(AutiLabRoutes.aptitudeTestScreen,
+                              extra: {
+                                'image': 'assets/images/personality_image.svg',
+                                'title': 'Personality Test',
+                                'subTitle': 'Personality Test',
+                                'description':
+                                    "Discover your child's personality and help them find the right path in life.",
+                                'onTap': () {
+                                  context.pushNamed(
+                                      AutiLabRoutes.quizMultiSelectScreen);
+                                },
+                              });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

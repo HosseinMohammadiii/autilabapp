@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
@@ -90,516 +91,525 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
           }
         }
 
-        return FadeTransition(
-          opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            appBar: appBarWidget(
-              context: context,
-              isIcon: true,
-              title: 'Make Appointment',
-              isMobile: isMobile(),
-            ),
-            body: SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 32,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: DoctorBox(
-                      isMobile: isMobile(),
-                      isLike: widget.isLike,
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: TitleAndIconWidget(
-                        isMobile: isMobile(),
-                        icon: 'assets/icons/calendar_tick_icon.svg',
-                        title: 'Available Dates',
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                isIcon: true,
+                title: 'Make Appointment',
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 32,
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
+                    SliverToBoxAdapter(
+                      child: DoctorBox(
+                        isMobile: isMobile(),
+                        isLike: widget.isLike,
+                      ),
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Padding(
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
+                      ),
+                    ),
+                    SliverPadding(
                       padding: AutilabMargin.marginFullScreen,
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isOpen = !isOpen;
-                          });
-                        },
-                        child: Row(
-                          spacing: 14,
-                          children: [
-                            Text(
-                              _monthName,
-                              style: AutilabTextStyle.small18_400.copyWith(
-                                fontSize: isMobile() ? 18 : 24,
+                      sliver: SliverToBoxAdapter(
+                        child: TitleAndIconWidget(
+                          isMobile: isMobile(),
+                          icon: 'assets/icons/calendar_tick_icon.svg',
+                          title: 'Available Dates',
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isOpen = !isOpen;
+                            });
+                          },
+                          child: Row(
+                            spacing: 14,
+                            children: [
+                              Text(
+                                _monthName,
+                                style: AutilabTextStyle.small18_400.copyWith(
+                                  fontSize: isMobile() ? 18 : 24,
+                                ),
+                              ),
+                              isOpen
+                                  ? SvgPicture.asset(
+                                      'assets/icons/arrow_up.svg',
+                                      width: isMobile() ? 16 : 24,
+                                      height: isMobile() ? 16 : 24,
+                                    )
+                                  : SvgPicture.asset(
+                                      'assets/icons/arrow_down.svg',
+                                      width: isMobile() ? 16 : 24,
+                                      height: isMobile() ? 16 : 24,
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Stack(
+                        children: [
+                          CalendarGrid(
+                            isMobile: isMobile(),
+                            date: montNumber,
+                            onTap: (day) {
+                              setState(() {
+                                selectDate = DateFormat('EEE d')
+                                    .format(day ?? DateTime.now());
+
+                                date = day ?? DateTime.now();
+                              });
+                            },
+                            isSelect: true,
+                          ),
+                          Visibility(
+                            visible: isOpen,
+                            child: Container(
+                              width: isMobile() ? 130 : 167,
+                              padding: const EdgeInsets.all(12),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              decoration: BoxDecoration(
+                                color: const Color(0xffF6F6F6),
+                                border: Border.all(color: AutilabColor.blue),
+                                borderRadius:
+                                    BorderRadius.circular(isMobile() ? 16 : 24),
+                              ),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: montNameList.length,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isOpen = false;
+                                            _monthName = montNameList[index];
+                                            montNumber = index;
+                                            selectDate = '';
+                                          });
+                                        },
+                                        child: Text(
+                                          montNameList[index],
+                                          style: AutilabTextStyle.small16_400
+                                              .copyWith(
+                                            fontSize: isMobile() ? 16 : 24,
+                                          ),
+                                        ),
+                                      ),
+                                      if (index < montNameList.length - 1)
+                                        const Divider(
+                                          thickness: 1,
+                                          color: AutilabColor.gray,
+                                        ),
+                                    ],
+                                  );
+                                },
                               ),
                             ),
-                            isOpen
-                                ? SvgPicture.asset(
-                                    'assets/icons/arrow_up.svg',
-                                    width: isMobile() ? 16 : 24,
-                                    height: isMobile() ? 16 : 24,
-                                  )
-                                : SvgPicture.asset(
-                                    'assets/icons/arrow_down.svg',
-                                    width: isMobile() ? 16 : 24,
-                                    height: isMobile() ? 16 : 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: Column(
+                          spacing: 8,
+                          children: [
+                            _displayIsAvailableWidget(
+                              context,
+                              'Open For Booking',
+                              AutilabColor.bb,
+                              isMobile(),
+                            ),
+                            _displayIsAvailableWidget(
+                              context,
+                              'Already Booked',
+                              const Color(0xffFBE4E4),
+                              isMobile(),
+                            ),
+                            _displayIsAvailableWidget(
+                              context,
+                              'This Is A Non-Working Day',
+                              AutilabColor.lightGray,
+                              isMobile(),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Visibility(
+                              visible: selectDate.isNotEmpty,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'You selected , ',
+                                    style: AutilabTextStyle.small16_400
+                                        .copyWith(
+                                            fontSize: isMobile() ? 16 : 20),
                                   ),
+                                  Text(
+                                    formatSelectedDate(date),
+                                    // '$selectDate $_monthName',
+                                    style: AutilabTextStyle.medium16_500
+                                        .copyWith(
+                                            color: AutilabColor.bb,
+                                            fontSize: isMobile() ? 16 : 20),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
+                      ),
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Stack(
-                      children: [
-                        CalendarGrid(
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Divider(
+                          thickness: 1,
+                          color: AutilabColor.gray,
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: TitleAndIconWidget(
                           isMobile: isMobile(),
-                          date: montNumber,
-                          onTap: (day) {
-                            setState(() {
-                              selectDate = DateFormat('EEE d')
-                                  .format(day ?? DateTime.now());
-
-                              date = day ?? DateTime.now();
-                            });
-                          },
-                          isSelect: true,
+                          icon: 'assets/icons/clock_icon.svg',
+                          title: 'Available Times',
                         ),
-                        Visibility(
-                          visible: isOpen,
-                          child: Container(
-                            width: isMobile() ? 130 : 167,
-                            padding: const EdgeInsets.all(12),
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            decoration: BoxDecoration(
-                              color: const Color(0xffF6F6F6),
-                              border: Border.all(color: AutilabColor.blue),
-                              borderRadius:
-                                  BorderRadius.circular(isMobile() ? 16 : 24),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 16,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SelectTimeWidget(
+                        isMobile: isMobile(),
+                        onTap: (time) {
+                          setState(() {
+                            selectTime = time ?? '';
+                          });
+                        },
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 16,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: Column(
+                          spacing: 8,
+                          children: [
+                            _displayIsAvailableWidget(
+                              context,
+                              'Open For Booking',
+                              AutilabColor.bb,
+                              isMobile(),
                             ),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: montNameList.length,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          isOpen = false;
-                                          _monthName = montNameList[index];
-                                          montNumber = index;
-                                          selectDate = '';
-                                        });
-                                      },
-                                      child: Text(
-                                        montNameList[index],
-                                        style: AutilabTextStyle.small16_400
-                                            .copyWith(
-                                          fontSize: isMobile() ? 16 : 24,
-                                        ),
-                                      ),
-                                    ),
-                                    if (index < montNameList.length - 1)
-                                      const Divider(
-                                        thickness: 1,
-                                        color: AutilabColor.gray,
-                                      ),
-                                  ],
-                                );
-                              },
+                            _displayIsAvailableWidget(
+                              context,
+                              'Already Booked',
+                              const Color(0xffFBE4E4),
+                              isMobile(),
                             ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Visibility(
+                              visible: selectTime.isNotEmpty,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'You selected , ',
+                                    style: AutilabTextStyle.small16_400
+                                        .copyWith(
+                                            fontSize: isMobile() ? 16 : 20),
+                                  ),
+                                  Text(
+                                    selectTime,
+                                    style: AutilabTextStyle.medium16_500
+                                        .copyWith(
+                                            color: AutilabColor.bb,
+                                            fontSize: isMobile() ? 16 : 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Divider(
+                          thickness: 1,
+                          color: AutilabColor.gray,
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: TitleAndIconWidget(
+                          isMobile: isMobile(),
+                          icon: 'assets/icons/profile_icon.svg',
+                          title: 'Patient Details',
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: textFieldWidget(
+                          isMobile: isMobile(),
+                          context: context,
+                          title: 'Full Name',
+                          controller: fullNameController,
+                          focusNode: fullNameFocusNode,
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 16,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: textFieldWidget(
+                          isMobile: isMobile(),
+                          context: context,
+                          title: 'Age',
+                          controller: ageController,
+                          focusNode: ageFocusNode,
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 16,
+                      ),
+                    ),
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: Text(
+                          'Gender',
+                          style: AutilabTextStyle.small14_400.copyWith(
+                            fontSize: isMobile() ? 14 : 20,
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 8,
+                      ),
                     ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        spacing: 8,
+                    SliverToBoxAdapter(
+                      child: Row(
                         children: [
-                          _displayIsAvailableWidget(
-                            context,
-                            'Open For Booking',
-                            AutilabColor.bb,
-                            isMobile(),
+                          CustomButtonWidget(
+                            onTap: () {
+                              setState(() {
+                                genderType = 'Male';
+                              });
+                            },
+                            height: 40,
+                            width: 100,
+                            margin: const EdgeInsets.only(left: 20),
+                            borderRadius: 12,
+                            color: genderType == 'Male'
+                                ? AutilabColor.blue
+                                : const Color(0xff9C9595)
+                                    .withValues(alpha: 0.44),
+                            text: 'Male',
+                            textStyle: genderType == 'Male'
+                                ? AutilabTextStyle.medium16_500.copyWith(
+                                    color: AutilabColor.white,
+                                  )
+                                : AutilabTextStyle.small16_400.copyWith(
+                                    color: AutilabColor.black,
+                                  ),
                           ),
-                          _displayIsAvailableWidget(
-                            context,
-                            'Already Booked',
-                            const Color(0xffFBE4E4),
-                            isMobile(),
-                          ),
-                          _displayIsAvailableWidget(
-                            context,
-                            'This Is A Non-Working Day',
-                            AutilabColor.lightGray,
-                            isMobile(),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Visibility(
-                            visible: selectDate.isNotEmpty,
-                            child: Row(
-                              children: [
-                                Text(
-                                  'You selected , ',
-                                  style: AutilabTextStyle.small16_400
-                                      .copyWith(fontSize: isMobile() ? 16 : 20),
-                                ),
-                                Text(
-                                  formatSelectedDate(date),
-                                  // '$selectDate $_monthName',
-                                  style: AutilabTextStyle.medium16_500.copyWith(
-                                      color: AutilabColor.bb,
-                                      fontSize: isMobile() ? 16 : 20),
-                                ),
-                              ],
-                            ),
+                          CustomButtonWidget(
+                            onTap: () {
+                              setState(() {
+                                genderType = 'Female';
+                              });
+                            },
+                            height: 40,
+                            width: 100,
+                            margin: const EdgeInsets.only(left: 12),
+                            borderRadius: 12,
+                            color: genderType == 'Female'
+                                ? AutilabColor.blue
+                                : const Color(0xff9C9595)
+                                    .withValues(alpha: 0.44),
+                            text: 'Female',
+                            textStyle: genderType == 'Female'
+                                ? AutilabTextStyle.medium16_500.copyWith(
+                                    color: AutilabColor.white,
+                                  )
+                                : AutilabTextStyle.small16_400.copyWith(
+                                    color: AutilabColor.black,
+                                  ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 16,
+                      ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: Padding(
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: AutilabMargin.marginFullScreen,
+                        child: Divider(
+                          thickness: 1,
+                          color: AutilabColor.gray,
+                        ),
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
+                      ),
+                    ),
+                    SliverPadding(
                       padding: AutilabMargin.marginFullScreen,
-                      child: Divider(
-                        thickness: 1,
-                        color: AutilabColor.gray,
+                      sliver: SliverToBoxAdapter(
+                        child: TitleAndIconWidget(
+                          isMobile: isMobile(),
+                          icon: 'assets/icons/info-circle.svg',
+                          title: 'Describe your problem',
+                        ),
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: TitleAndIconWidget(
-                        isMobile: isMobile(),
-                        icon: 'assets/icons/clock_icon.svg',
-                        title: 'Available Times',
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 16,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SelectTimeWidget(
-                      isMobile: isMobile(),
-                      onTap: (time) {
-                        setState(() {
-                          selectTime = time ?? '';
-                        });
-                      },
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 16,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        spacing: 8,
-                        children: [
-                          _displayIsAvailableWidget(
-                            context,
-                            'Open For Booking',
-                            AutilabColor.bb,
-                            isMobile(),
-                          ),
-                          _displayIsAvailableWidget(
-                            context,
-                            'Already Booked',
-                            const Color(0xffFBE4E4),
-                            isMobile(),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Visibility(
-                            visible: selectTime.isNotEmpty,
-                            child: Row(
-                              children: [
-                                Text(
-                                  'You selected , ',
-                                  style: AutilabTextStyle.small16_400
-                                      .copyWith(fontSize: isMobile() ? 16 : 20),
-                                ),
-                                Text(
-                                  selectTime,
-                                  style: AutilabTextStyle.medium16_500.copyWith(
-                                      color: AutilabColor.bb,
-                                      fontSize: isMobile() ? 16 : 20),
-                                ),
-                              ],
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
+                          children: [
+                            TextFieldBoxEnterDescription(
+                              textStyle: AutilabTextStyle.small14_400.copyWith(
+                                fontSize: isMobile() ? 14 : 20,
+                              ),
+                              borderRadius: isMobile() ? 16 : 24,
+                              hintText: 'Enter your Problem here...',
+                              descriptionController: descriptionController,
+                              descriptionFocusNode: descriptionFocusNode,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Divider(
-                        thickness: 1,
-                        color: AutilabColor.gray,
-                      ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: TitleAndIconWidget(
-                        isMobile: isMobile(),
-                        icon: 'assets/icons/profile_icon.svg',
-                        title: 'Patient Details',
-                      ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: textFieldWidget(
-                        isMobile: isMobile(),
-                        context: context,
-                        title: 'Full Name',
-                        controller: fullNameController,
-                        focusNode: fullNameFocusNode,
-                      ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 16,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: textFieldWidget(
-                        isMobile: isMobile(),
-                        context: context,
-                        title: 'Age',
-                        controller: ageController,
-                        focusNode: ageFocusNode,
-                      ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 16,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: Text(
-                        'Gender',
-                        style: AutilabTextStyle.small14_400.copyWith(
-                          fontSize: isMobile() ? 14 : 20,
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 8,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Row(
-                      children: [
-                        CustomButtonWidget(
-                          onTap: () {
-                            setState(() {
-                              genderType = 'Male';
-                            });
-                          },
-                          height: 40,
-                          width: 100,
-                          margin: const EdgeInsets.only(left: 20),
-                          borderRadius: 12,
-                          color: genderType == 'Male'
-                              ? AutilabColor.blue
-                              : const Color(0xff9C9595).withValues(alpha: 0.44),
-                          text: 'Male',
-                          textStyle: genderType == 'Male'
-                              ? AutilabTextStyle.medium16_500.copyWith(
-                                  color: AutilabColor.white,
-                                )
-                              : AutilabTextStyle.small16_400.copyWith(
-                                  color: AutilabColor.black,
-                                ),
-                        ),
-                        CustomButtonWidget(
-                          onTap: () {
-                            setState(() {
-                              genderType = 'Female';
-                            });
-                          },
-                          height: 40,
-                          width: 100,
-                          margin: const EdgeInsets.only(left: 12),
-                          borderRadius: 12,
-                          color: genderType == 'Female'
-                              ? AutilabColor.blue
-                              : const Color(0xff9C9595).withValues(alpha: 0.44),
-                          text: 'Female',
-                          textStyle: genderType == 'Female'
-                              ? AutilabTextStyle.medium16_500.copyWith(
-                                  color: AutilabColor.white,
-                                )
-                              : AutilabTextStyle.small16_400.copyWith(
-                                  color: AutilabColor.black,
-                                ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 16,
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: AutilabMargin.marginFullScreen,
-                      child: Divider(
-                        thickness: 1,
-                        color: AutilabColor.gray,
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: TitleAndIconWidget(
+                    SliverToBoxAdapter(
+                      child: CustomButtonWidget(
                         isMobile: isMobile(),
-                        icon: 'assets/icons/info-circle.svg',
-                        title: 'Describe your problem',
+                        onTap: () {
+                          context.pop();
+                        },
+                        height: 50,
+                        width: double.infinity,
+                        color: AutilabColor.bb,
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        text: 'Appointment Booking',
+                        textStyle: AutilabTextStyle.small18_400,
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 8,
-                        children: [
-                          TextFieldBoxEnterDescription(
-                            textStyle: AutilabTextStyle.small14_400.copyWith(
-                              fontSize: isMobile() ? 14 : 20,
-                            ),
-                            borderRadius: isMobile() ? 16 : 24,
-                            hintText: 'Enter your Problem here...',
-                            descriptionController: descriptionController,
-                            descriptionFocusNode: descriptionFocusNode,
-                          ),
-                        ],
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 48,
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: CustomButtonWidget(
-                      isMobile: isMobile(),
-                      onTap: () {
-                        context.pop();
-                      },
-                      height: 50,
-                      width: double.infinity,
-                      color: AutilabColor.bb,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      text: 'Appointment Booking',
-                      textStyle: AutilabTextStyle.small18_400,
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 48,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
