@@ -175,8 +175,8 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                       SliverPadding(
                         padding: AutilabMargin.marginFullScreen,
                         sliver: SliverFillRemaining(
-                          fillOverscroll: false,
-                          hasScrollBody: false,
+                          // fillOverscroll: false,
+                          // hasScrollBody: false,
                           child: Row(
                             spacing: 18,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,7 +194,7 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                       curve: Curves.easeInOut,
                                     );
                                   },
-                                  width: MediaQuery.sizeOf(context).width * 0.4,
+                                  width: isMobile() ? 166 : 350,
                                   height: 50,
                                   isMobile: isMobile(),
                                   bordeColor: AutilabColor.bb,
@@ -220,7 +220,7 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                     context.pop();
                                   }
                                 },
-                                width: MediaQuery.sizeOf(context).width * 0.4,
+                                width: isMobile() ? 166 : 350,
                                 height: 50,
                                 isMobile: isMobile(),
                                 margin: const EdgeInsets.only(bottom: 40),
