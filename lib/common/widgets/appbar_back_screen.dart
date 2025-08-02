@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/data/test/widgets/exit_page_dialog_widget.dart';
+
 PreferredSizeWidget appBarWidget({
   required BuildContext context,
   required String title,
   bool? isIcon,
   bool isMobile = true,
+  bool isQuizScreen = false,
 }) {
   return AppBar(
     automaticallyImplyLeading: false,
@@ -23,7 +26,7 @@ PreferredSizeWidget appBarWidget({
             visible: isIcon ?? false,
             replacement: Flexible(
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
                   if (context.canPop()) {
                     context.pop();
                   }
@@ -38,9 +41,20 @@ PreferredSizeWidget appBarWidget({
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    if (context.canPop()) {
-                      context.pop();
+                  onTap: () async {
+                    if (isQuizScreen) {
+                      final bool? shouldPop = await showDialog(
+                        context: context,
+                        builder: (context) =>
+                            ExitPageDialogWidget(isMobile: isMobile),
+                      );
+                      if (shouldPop ?? false) {
+                        context.pop();
+                      }
+                    } else {
+                      if (context.canPop()) {
+                        context.pop();
+                      }
                     }
                   },
                   child: Padding(
