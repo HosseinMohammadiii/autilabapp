@@ -1,21 +1,24 @@
 import 'package:autilab_project/features/data/auth/data/datasource/authentication_user_datasource.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
+import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/network/api_exception.dart';
 
 abstract class AuthenticationRepository {
-  Future<Either<String, String>> registerUser(UserModel userModel);
-  Future<Either<String, String>> logInUser(UserModel userModel);
+  Future<Either<String, String>> registerUser(UserParam userParam);
+  Future<Either<String, String>> logInUser(UserParam userParam);
+  Future<Either<String, String>> updateUserProfile(UserModel userModel);
+  Future<Either<String, UserModel>> fetchUserData();
 }
 
 final class AuthenticationRepositoryRemoot implements AuthenticationRepository {
   final AuthenticationUserDatasource _datasourceRemoot;
   AuthenticationRepositoryRemoot(this._datasourceRemoot);
   @override
-  Future<Either<String, String>> logInUser(UserModel userModel) async {
+  Future<Either<String, String>> logInUser(UserParam userParam) async {
     try {
-      var response = await _datasourceRemoot.logInUser(userModel);
+      var response = await _datasourceRemoot.logInUser(userParam);
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message);
@@ -23,9 +26,29 @@ final class AuthenticationRepositoryRemoot implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<String, String>> registerUser(UserModel userModel) async {
+  Future<Either<String, String>> registerUser(UserParam userParam) async {
     try {
-      var response = await _datasourceRemoot.registerUser(userModel);
+      var response = await _datasourceRemoot.registerUser(userParam);
+      return right(response);
+    } on ApiException catch (ex) {
+      return left(ex.message);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> updateUserProfile(UserModel userModel) async {
+    try {
+      var response = await _datasourceRemoot.updateUserProfile(userModel);
+      return right(response);
+    } on ApiException catch (ex) {
+      return left(ex.message);
+    }
+  }
+
+  @override
+  Future<Either<String, UserModel>> fetchUserData() async {
+    try {
+      var response = await _datasourceRemoot.fetchUserData();
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message);

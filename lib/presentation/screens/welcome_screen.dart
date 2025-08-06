@@ -59,8 +59,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             child: Scaffold(
               appBar: appBarWidget(
                 context: context,
-                title: 'Back',
-                isIcon: true,
+                title: '',
+                isIcon: false,
                 isMobile: isMobile(),
               ),
               body: SafeArea(

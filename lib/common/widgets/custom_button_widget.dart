@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +6,7 @@ class CustomButtonWidget extends StatelessWidget {
   const CustomButtonWidget({
     super.key,
     this.isMobile = true,
+    this.isLoading = false,
     required this.onTap,
     this.width,
     required this.height,
@@ -18,6 +20,7 @@ class CustomButtonWidget extends StatelessWidget {
     this.boxShadow,
   });
   final bool isMobile;
+  final bool isLoading;
   final Function() onTap;
   final double? width;
   final double height;
@@ -48,11 +51,19 @@ class CustomButtonWidget extends StatelessWidget {
         ),
         child: FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: AutilabTextStyle.small18_400.copyWith(
-              fontSize: isMobile ? 18 : 28,
+          child: Visibility(
+            visible: isLoading,
+            replacement: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: AutilabTextStyle.small18_400.copyWith(
+                fontSize: isMobile ? 18 : 28,
+              ),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(
+                color: AutilabColor.white,
+              ),
             ),
           ),
         ),

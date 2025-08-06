@@ -10,7 +10,7 @@ Future<void> getInInit() async {
   repository(locator);
 }
 
-Future<void> datasource(GetIt locator) async {
+void datasource(GetIt locator) {
   locator.registerFactory<AuthenticationUserDatasource>(
     () => AuthenticationUserDatasourceRemoot(
       locator.get(),
@@ -18,7 +18,7 @@ Future<void> datasource(GetIt locator) async {
   );
 }
 
-Future<void> repository(GetIt locator) async {
+void repository(GetIt locator) {
   locator.registerFactory<AuthenticationRepository>(
     () => AuthenticationRepositoryRemoot(
       locator.get(),

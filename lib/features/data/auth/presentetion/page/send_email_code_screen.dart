@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../common/widgets/appbar_back_screen.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../common/widgets/appbar_back_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class SendEmailCodeScreen extends StatefulWidget {

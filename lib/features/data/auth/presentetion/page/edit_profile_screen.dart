@@ -16,13 +16,13 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../common/widgets/cached_network_image_widget.dart';
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../common/widgets/snackbar_widget.dart';
-import '../../../../common/widgets/textfiledbox_description.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/cacheimahe_function.dart';
-import '../../../../utils/functions/open_location_function.dart';
+import '../../../../../common/widgets/cached_network_image_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../common/widgets/snackbar_widget.dart';
+import '../../../../../common/widgets/textfiledbox_description.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../../../utils/functions/open_location_function.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});

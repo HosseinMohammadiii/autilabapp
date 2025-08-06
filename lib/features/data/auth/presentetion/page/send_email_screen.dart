@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/bubble_background_widget.dart';
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../core/constants/constant_routes.dart';
-import '../../../../utils/functions/animation_control.dart';
+import '../../../../../common/widgets/bubble_background_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/constants/constant_routes.dart';
+import '../../../../../utils/functions/animation_control.dart';
 
 class SendEmailScreen extends StatefulWidget {
   const SendEmailScreen({super.key});

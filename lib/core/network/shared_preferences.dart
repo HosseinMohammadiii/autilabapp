@@ -11,8 +11,12 @@ class SharedPreferencesData {
     return await _prefs!.setString('Authorization', token);
   }
 
-  static Future<bool> userLogIn() async {
-    return await _prefs!.setBool('isLogIn', false);
+  static Future<bool> userLogIn(bool isLogIn) async {
+    return await _prefs!.setBool('isLogIn', isLogIn);
+  }
+
+  static Future<bool> isFirstTimeLogIn(bool isLogIn) async {
+    return await _prefs!.setBool('firstTimeLogIn', isLogIn);
   }
 
   static Future<String?> getUserToken() async {
@@ -21,5 +25,9 @@ class SharedPreferencesData {
 
   static Future<bool> isUserLogIn() async {
     return _prefs?.getBool('isLogIn') ?? false;
+  }
+
+  static Future<bool> firstTimeLogIn() async {
+    return _prefs?.getBool('firstTimeLogIn') ?? true;
   }
 }

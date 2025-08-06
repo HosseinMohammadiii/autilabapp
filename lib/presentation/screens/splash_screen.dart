@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/responsive_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
         if (status == AnimationStatus.completed) {
           animationHelper.animationController.reverse();
         } else if (status == AnimationStatus.dismissed) {
-          context.goNamed(AutiLabRoutes.programIntroductionScreen);
+          displaySplashPage(context);
         }
       },
     );
@@ -36,8 +37,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    super.dispose();
     animationHelper.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -66,5 +68,15 @@ class _SplashScreenState extends State<SplashScreen>
         ),
       ),
     );
+  }
+
+  displaySplashPage(BuildContext context) async {
+    if (await SharedPreferencesData.isUserLogIn()) {
+      context.goNamed(AutiLabRoutes.homeScreen);
+    } else if (!await SharedPreferencesData.firstTimeLogIn()) {
+      context.goNamed(AutiLabRoutes.welcomeScreen);
+    } else {
+      context.goNamed(AutiLabRoutes.programIntroductionScreen);
+    }
   }
 }

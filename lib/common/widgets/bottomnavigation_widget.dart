@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/responsive_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/core/network/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -428,6 +429,10 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                             switch (index) {
                               case 0:
                                 context.pushNamed(AutiLabRoutes.aboutScreen);
+                                break;
+                              case 1:
+                                context.pushNamed(AutiLabRoutes.welcomeScreen);
+                                SharedPreferencesData.userLogIn(false);
                                 break;
                             }
                           },

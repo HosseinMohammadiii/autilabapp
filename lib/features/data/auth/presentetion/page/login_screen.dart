@@ -1,42 +1,43 @@
+import 'package:autilab_project/common/widgets/custom_button_widget.dart';
+import 'package:autilab_project/common/widgets/custom_textfield.dart';
+import 'package:autilab_project/common/widgets/snackbar_widget.dart';
+import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
-import 'package:autilab_project/core/network/dio_provider.dart';
-import 'package:autilab_project/features/data/auth/data/datasource/authentication_user_datasource.dart';
-import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
-import 'package:autilab_project/features/data/auth/data/repository/authentication_repository.dart';
-import 'package:dio/dio.dart';
+import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/custom_button_widget.dart';
-import '../../../../common/widgets/custom_textfield.dart';
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../core/constants/color_constant.dart';
-import '../../../../core/constants/constant_routes.dart';
-import '../../../../core/network/shared_preferences.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../common/widgets/appbar_back_screen.dart';
-import '../widgets/signup_icon_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/network/shared_preferences.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../common/widgets/appbar_back_screen.dart';
+import '../../widgets/signup_icon_widget.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+// ignore: must_be_immutable
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({
+    super.key,
+  });
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen>
-    with SingleTickerProviderStateMixin {
+class _LogInScreenState extends State<LogInScreen>
+    with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
-  final emailController = TextEditingController();
 
   final userNameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
-  final emailFocusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
@@ -53,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen>
   }
 
   @override
-  void didUpdateWidget(covariant SignupScreen oldWidget) {
+  void didUpdateWidget(covariant LogInScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
   }
@@ -91,7 +92,7 @@ class _SignupScreenState extends State<SignupScreen>
                         children: [
                           Center(
                             child: SvgPicture.asset(
-                              'assets/images/signUp_image.svg',
+                              'assets/images/logIn_image.svg',
                               height: isMobile() ? 187 : 400,
                               width: isMobile() ? 276 : 574,
                               fit: BoxFit.cover,
@@ -111,30 +112,9 @@ class _SignupScreenState extends State<SignupScreen>
                             padding: EdgeInsets.symmetric(
                                 vertical: isMobile() ? 0 : 20, horizontal: 15),
                             borderRaduis: isMobile() ? 16 : 24,
-                            textfieldPadding: AutilabMargin.marginFullScreen
-                                .copyWith(bottom: 16),
+                            textfieldPadding: AutilabMargin.marginFullScreen,
                             controller: userNameController,
                             focusNode: userNameFocusNode,
-                            textInputAction: TextInputAction.next,
-                            label: 'UserName',
-                            maxLines: 1,
-                            borderColor: AutilabColor.blue,
-                          ),
-                          CustomTextfield(
-                            isMobile: isMobile(),
-                            textfieldPadding: AutilabMargin.marginFullScreen
-                                .copyWith(bottom: 16),
-                            textStyle: AutilabTextStyle.small14_400.copyWith(
-                              fontSize: isMobile() ? 14 : 20,
-                            ),
-                            lblColor: passwordController.text.isNotEmpty
-                                ? AutilabColor.black
-                                : AutilabColor.gray,
-                            padding: EdgeInsets.symmetric(
-                                vertical: isMobile() ? 0 : 20, horizontal: 15),
-                            borderRaduis: isMobile() ? 16 : 24,
-                            controller: emailController,
-                            focusNode: emailFocusNode,
                             textInputAction: TextInputAction.next,
                             textInputType: TextInputType.emailAddress,
                             label: 'Email',
@@ -144,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen>
                           CustomTextfield(
                             isMobile: isMobile(),
                             textfieldPadding: AutilabMargin.marginFullScreen
-                                .copyWith(bottom: 4),
+                                .copyWith(top: 16, bottom: 4),
                             textStyle: AutilabTextStyle.small14_400.copyWith(
                               fontSize: isMobile() ? 14 : 20,
                             ),
@@ -164,55 +144,83 @@ class _SignupScreenState extends State<SignupScreen>
                             borderColor: AutilabColor.blue,
                           ),
                           Padding(
-                            padding: AutilabMargin.marginFullScreen,
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: GestureDetector(
                               onTap: () {
-                                context.goNamed(AutiLabRoutes.loginScreen);
+                                context
+                                    .pushNamed(AutiLabRoutes.sendEmailScreen);
                               },
                               child: Text(
-                                'Already have an account?',
+                                'Forget Password?',
                                 style: AutilabTextStyle.small14_400.copyWith(
                                   fontSize: isMobile() ? 14 : 18,
                                 ),
                               ),
                             ),
                           ),
-                          CustomButtonWidget(
-                            isMobile: isMobile(),
-                            onTap: () async {
-                              // AuthenticationRepository auth =
-                              //     AuthenticationRepositoryRemoot(
-                              //   AuthenticationUserDatasourceRemoot(
-                              //     Dio(
-                              //       BaseOptions(
-                              //         baseUrl:
-                              //             "https://api.autilab.com/api/auth/register",
-                              //         headers: {
-                              //           'Content-Type': 'application/json',
-                              //           // 'Authorization':
-                              //           //     'Bearer ${SharedPreferencesData.getUserToken()}',
-                              //         },
-                              //       ),
-                              //     ),
-                              //   ),
-                              // );
-                              // var response = await auth.registerUser(
-                              //   UserModel(
-                              //     email: emailController.text,
-                              //     userName: userNameController.text,
-                              //     firstName: userNameController.text,
-                              //     lastName: userNameController.text,
-                              //     password: passwordController.text,
-                              //   ),
-                              // );
-                              context.goNamed(AutiLabRoutes.homeScreen);
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                            listener: (context, state) async {
+                              if (state is AuthenticationError) {
+                                displaySnackBar(
+                                  context,
+                                  state.errorMessage.toString(),
+                                  AutilabColor.bb,
+                                );
+                              }
+                              if (state is AuthenticationResponse) {
+                                state.response.fold(
+                                    (error) => displaySnackBar(
+                                          context,
+                                          error,
+                                          AutilabColor.bb,
+                                        ), (respose) async {
+                                  await SharedPreferencesData.userLogIn(true);
+                                  await SharedPreferencesData.isFirstTimeLogIn(
+                                      false);
+
+                                  context.goNamed(AutiLabRoutes.homeScreen);
+                                });
+                              }
                             },
-                            height: 50,
-                            margin: AutilabMargin.marginFullScreen
-                                .copyWith(bottom: 48, top: 32),
-                            color: AutilabColor.bb,
-                            text: 'Sign Up',
-                            textStyle: AutilabTextStyle.small16_400,
+                            builder: (context, state) {
+                              return CustomButtonWidget(
+                                isMobile: isMobile(),
+                                isLoading: state is AuthenticationLoading,
+                                margin: AutilabMargin.marginFullScreen
+                                    .copyWith(top: 32, bottom: 48),
+                                onTap: () {
+                                  if (userNameController.text.isNotEmpty &&
+                                      passwordController.text.isNotEmpty) {
+                                    //Call SignUpRequest Event
+                                    BlocProvider.of<AuthenticationBloc>(context)
+                                        .add(
+                                      LogInRequest(
+                                        userParam: UserParam(
+                                          email: userNameController.text,
+                                          password: passwordController.text,
+                                          firstName: 'ss',
+                                          lastName: 'ss',
+                                          userName: 'ss',
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    displaySnackBar(
+                                      context,
+                                      'Please fill in all fields.',
+                                      AutilabColor.bb,
+                                    );
+                                  }
+                                },
+                                height: 50,
+                                color: AutilabColor.bb,
+                                text: 'LogIn',
+                                textStyle: AutilabTextStyle.small16_400,
+                              );
+                            },
                           ),
                           Row(
                             children: [
@@ -228,8 +236,7 @@ class _SignupScreenState extends State<SignupScreen>
                                     const EdgeInsets.symmetric(horizontal: 8),
                                 child: Text(
                                   'Or Sign up With',
-                                  style: AutilabTextStyle.small14_400.copyWith(
-                                    color: const Color(0xff555252),
+                                  style: AutilabTextStyle.small12_400.copyWith(
                                     fontSize: isMobile() ? 12 : 18,
                                   ),
                                 ),

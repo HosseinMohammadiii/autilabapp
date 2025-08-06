@@ -1,9 +1,9 @@
 import 'package:autilab_project/common/widgets/bottomnavigation_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
-import 'package:autilab_project/features/data/auth/page/edit_profile_screen.dart';
-import 'package:autilab_project/features/data/auth/page/send_email_code_screen.dart';
-import 'package:autilab_project/features/data/auth/page/send_email_screen.dart';
-import 'package:autilab_project/features/data/auth/page/signup_screen.dart';
+import 'package:autilab_project/features/data/auth/presentetion/page/edit_profile_screen.dart';
+import 'package:autilab_project/features/data/auth/presentetion/page/send_email_code_screen.dart';
+import 'package:autilab_project/features/data/auth/presentetion/page/send_email_screen.dart';
+import 'package:autilab_project/features/data/auth/presentetion/page/signup_screen.dart';
 // import 'package:autilab_project/features/data/community/page/community_screen.dart';
 import 'package:autilab_project/features/data/community/page/doctor_socialmedia_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
@@ -46,7 +46,7 @@ import 'package:autilab_project/presentation/screens/under_construction_screen.d
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/data/auth/page/login_screen.dart';
+import '../../features/data/auth/presentetion/page/login_screen.dart';
 import '../../features/data/doctor/page/doctor_screen.dart';
 import '../../features/data/menu/widgets/packagessubscribtion.dart';
 import '../../presentation/screens/welcome_screen.dart';

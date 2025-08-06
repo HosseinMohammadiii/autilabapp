@@ -2,8 +2,10 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/core/network/locator.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/core/routes/routes.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +17,18 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthenticationBloc(
+            locator.get(),
+          ),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

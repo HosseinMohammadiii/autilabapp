@@ -9,6 +9,7 @@ import '../../features/data/test/widgets/exit_page_dialog_widget.dart';
 PreferredSizeWidget appBarWidget({
   required BuildContext context,
   required String title,
+  Function()? onChanged,
   bool? isIcon,
   bool isMobile = true,
   bool isQuizScreen = false,
@@ -26,7 +27,7 @@ PreferredSizeWidget appBarWidget({
             visible: isIcon ?? false,
             replacement: Flexible(
               child: GestureDetector(
-                onTap: () async {
+                onTap: () {
                   if (context.canPop()) {
                     context.pop();
                   }
@@ -42,6 +43,9 @@ PreferredSizeWidget appBarWidget({
               children: [
                 GestureDetector(
                   onTap: () async {
+                    if (onChanged != null) {
+                      onChanged();
+                    }
                     if (isQuizScreen) {
                       final bool? shouldPop = await showDialog(
                         context: context,
