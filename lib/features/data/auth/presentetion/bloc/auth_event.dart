@@ -21,3 +21,8 @@ final class SignUpRequest extends AuthenticationEvent {
     required this.userParam,
   });
 }
+
+final class UpdateUserProfile extends AuthenticationEvent {
+  final UserParam userParam;
+  UpdateUserProfile({required this.userParam});
+}

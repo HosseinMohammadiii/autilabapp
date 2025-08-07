@@ -206,10 +206,15 @@ class AutilabRouter {
         ],
       ),
       GoRoute(
-        path: '/send_email_code',
-        name: AutiLabRoutes.sendEmailCodeScreen,
-        builder: (context, state) => const SendEmailCodeScreen(),
-      ),
+          path: '/send_email_code',
+          name: AutiLabRoutes.sendEmailCodeScreen,
+          builder: (context, state) {
+            final Map<String, dynamic> extraData =
+                state.extra as Map<String, dynamic>;
+            return SendEmailCodeScreen(
+              email: extraData['email'],
+            );
+          }),
       GoRoute(
         path: '/send_email',
         name: AutiLabRoutes.sendEmailScreen,
@@ -310,10 +315,15 @@ class AutilabRouter {
         ],
       ),
       GoRoute(
-        path: '/notConnectionScreen',
-        name: AutiLabRoutes.notConnectionScreen,
-        builder: (context, state) => const NotConnectionInternetScreen(),
-      ),
+          path: '/notConnectionScreen',
+          name: AutiLabRoutes.notConnectionScreen,
+          builder: (context, state) {
+            final Map<String, dynamic> extraData =
+                state.extra as Map<String, dynamic>;
+            return NotConnectionInternetScreen(
+              onChange: extraData['extraData'],
+            );
+          }),
       GoRoute(
         path: '/itemNotFoundScreen',
         name: AutiLabRoutes.itemNotFoundScreen,

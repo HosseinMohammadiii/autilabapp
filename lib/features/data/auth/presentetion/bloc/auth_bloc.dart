@@ -53,5 +53,19 @@ final class AuthenticationBloc
         }
       },
     );
+
+    /// Handles updateUserProfile event by calling the repository and emitting the result.
+    on<UpdateUserProfile>(
+      (event, emit) async {
+        try {
+          emit(AuthenticationLoading());
+          var updateProfile =
+              await authenticationRepository.updateUserProfile(event.userParam);
+          emit(FetchUserDataResponse(updateProfile));
+        } catch (e) {
+          emit(AuthenticationError(e));
+        }
+      },
+    );
   }
 }

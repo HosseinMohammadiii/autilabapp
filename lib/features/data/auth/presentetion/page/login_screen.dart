@@ -17,7 +17,6 @@ import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../core/network/shared_preferences.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../common/widgets/appbar_back_screen.dart';
-import '../../widgets/signup_icon_widget.dart';
 
 // ignore: must_be_immutable
 class LogInScreen extends StatefulWidget {
@@ -143,6 +142,7 @@ class _LogInScreenState extends State<LogInScreen>
                             maxLines: 1,
                             borderColor: AutilabColor.blue,
                           ),
+
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: GestureDetector(
@@ -203,7 +203,6 @@ class _LogInScreenState extends State<LogInScreen>
                                           password: passwordController.text,
                                           firstName: 'ss',
                                           lastName: 'ss',
-                                          userName: 'ss',
                                         ),
                                       ),
                                     );
@@ -222,58 +221,58 @@ class _LogInScreenState extends State<LogInScreen>
                               );
                             },
                           ),
-                          Row(
-                            children: [
-                              const Expanded(
-                                child: Divider(
-                                  thickness: 3,
-                                  indent: 20,
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: Text(
-                                  'Or Sign up With',
-                                  style: AutilabTextStyle.small12_400.copyWith(
-                                    fontSize: isMobile() ? 12 : 18,
-                                  ),
-                                ),
-                              ),
-                              const Expanded(
-                                child: Divider(
-                                  thickness: 3,
-                                  endIndent: 20,
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Row(
-                            spacing: 16,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              circularWidgetSignUp(
-                                isMobile: isMobile(),
-                                image: 'assets/images/google_logo.svg',
-                                onTap: () {},
-                              ),
-                              circularWidgetSignUp(
-                                isMobile: isMobile(),
-                                image: 'assets/images/facbook_logo.svg',
-                                onTap: () {},
-                              ),
-                              circularWidgetSignUp(
-                                isMobile: isMobile(),
-                                image: 'assets/images/apple_logo.svg',
-                                onTap: () {},
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     const Expanded(
+                          //       child: Divider(
+                          //         thickness: 3,
+                          //         indent: 20,
+                          //         color: AutilabColor.bb,
+                          //       ),
+                          //     ),
+                          //     Padding(
+                          //       padding:
+                          //           const EdgeInsets.symmetric(horizontal: 8),
+                          //       child: Text(
+                          //         'Or Sign up With',
+                          //         style: AutilabTextStyle.small12_400.copyWith(
+                          //           fontSize: isMobile() ? 12 : 18,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     const Expanded(
+                          //       child: Divider(
+                          //         thickness: 3,
+                          //         endIndent: 20,
+                          //         color: AutilabColor.bb,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 16,
+                          // ),
+                          // Row(
+                          //   spacing: 16,
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     circularWidgetSignUp(
+                          //       isMobile: isMobile(),
+                          //       image: 'assets/images/google_logo.svg',
+                          //       onTap: () {},
+                          //     ),
+                          //     circularWidgetSignUp(
+                          //       isMobile: isMobile(),
+                          //       image: 'assets/images/facbook_logo.svg',
+                          //       onTap: () {},
+                          //     ),
+                          //     circularWidgetSignUp(
+                          //       isMobile: isMobile(),
+                          //       image: 'assets/images/apple_logo.svg',
+                          //       onTap: () {},
+                          //     ),
+                          //   ],
+                          // ),
                           const SizedBox(
                             height: 16,
                           ),

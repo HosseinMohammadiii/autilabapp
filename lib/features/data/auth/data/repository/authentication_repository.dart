@@ -8,7 +8,7 @@ import '../../../../../core/network/api_exception.dart';
 abstract class AuthenticationRepository {
   Future<Either<String, String>> registerUser(UserParam userParam);
   Future<Either<String, String>> logInUser(UserParam userParam);
-  Future<Either<String, String>> updateUserProfile(UserModel userModel);
+  Future<Either<String, UserModel>> updateUserProfile(UserParam userModel);
   Future<Either<String, UserModel>> fetchUserData();
 }
 
@@ -36,7 +36,8 @@ final class AuthenticationRepositoryRemoot implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<String, String>> updateUserProfile(UserModel userModel) async {
+  Future<Either<String, UserModel>> updateUserProfile(
+      UserParam userModel) async {
     try {
       var response = await _datasourceRemoot.updateUserProfile(userModel);
       return right(response);

@@ -17,7 +17,6 @@ import '../../../../../core/network/shared_preferences.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../common/widgets/appbar_back_screen.dart';
 import '../../data/model/user_param.dart';
-import '../../widgets/signup_icon_widget.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -30,11 +29,13 @@ class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
-  final userNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
 
-  final userNameFocusNode = FocusNode();
+  final firstNameFocusNode = FocusNode();
+  final lastNameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
   final emailFocusNode = FocusNode();
 
@@ -114,10 +115,30 @@ class _SignupScreenState extends State<SignupScreen>
                             borderRaduis: isMobile() ? 16 : 24,
                             textfieldPadding: AutilabMargin.marginFullScreen
                                 .copyWith(bottom: 16),
-                            controller: userNameController,
-                            focusNode: userNameFocusNode,
+                            controller: firstNameController,
+                            focusNode: firstNameFocusNode,
                             textInputAction: TextInputAction.next,
-                            label: 'UserName',
+                            label: 'FirstName',
+                            maxLines: 1,
+                            borderColor: AutilabColor.blue,
+                          ),
+                          CustomTextfield(
+                            isMobile: isMobile(),
+                            textStyle: AutilabTextStyle.small14_400.copyWith(
+                              fontSize: isMobile() ? 14 : 20,
+                            ),
+                            lblColor: passwordController.text.isNotEmpty
+                                ? AutilabColor.black
+                                : AutilabColor.gray,
+                            padding: EdgeInsets.symmetric(
+                                vertical: isMobile() ? 0 : 20, horizontal: 15),
+                            borderRaduis: isMobile() ? 16 : 24,
+                            textfieldPadding: AutilabMargin.marginFullScreen
+                                .copyWith(bottom: 16),
+                            controller: lastNameController,
+                            focusNode: lastNameFocusNode,
+                            textInputAction: TextInputAction.next,
+                            label: 'LastName',
                             maxLines: 1,
                             borderColor: AutilabColor.blue,
                           ),
@@ -211,7 +232,7 @@ class _SignupScreenState extends State<SignupScreen>
                                 isMobile: isMobile(),
                                 isLoading: state is AuthenticationLoading,
                                 onTap: () {
-                                  if (userNameController.text.isNotEmpty &&
+                                  if (firstNameController.text.isNotEmpty &&
                                       emailController.text.isNotEmpty &&
                                       passwordController.text.isNotEmpty) {
                                     //Call SignUpRequest Event
@@ -219,9 +240,8 @@ class _SignupScreenState extends State<SignupScreen>
                                         .add(
                                       SignUpRequest(
                                         userParam: UserParam(
-                                          userName: userNameController.text,
-                                          firstName: userNameController.text,
-                                          lastName: userNameController.text,
+                                          firstName: firstNameController.text,
+                                          lastName: lastNameController.text,
                                           email: emailController.text,
                                           password: passwordController.text,
                                         ),
@@ -244,59 +264,59 @@ class _SignupScreenState extends State<SignupScreen>
                               );
                             },
                           ),
-                          Row(
-                            children: [
-                              const Expanded(
-                                child: Divider(
-                                  thickness: 3,
-                                  indent: 20,
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: Text(
-                                  'Or Sign up With',
-                                  style: AutilabTextStyle.small14_400.copyWith(
-                                    color: const Color(0xff555252),
-                                    fontSize: isMobile() ? 12 : 18,
-                                  ),
-                                ),
-                              ),
-                              const Expanded(
-                                child: Divider(
-                                  thickness: 3,
-                                  endIndent: 20,
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Row(
-                            spacing: 16,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              circularWidgetSignUp(
-                                isMobile: isMobile(),
-                                image: 'assets/images/google_logo.svg',
-                                onTap: () {},
-                              ),
-                              circularWidgetSignUp(
-                                isMobile: isMobile(),
-                                image: 'assets/images/facbook_logo.svg',
-                                onTap: () {},
-                              ),
-                              circularWidgetSignUp(
-                                isMobile: isMobile(),
-                                image: 'assets/images/apple_logo.svg',
-                                onTap: () {},
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     const Expanded(
+                          //       child: Divider(
+                          //         thickness: 3,
+                          //         indent: 20,
+                          //         color: AutilabColor.bb,
+                          //       ),
+                          //     ),
+                          //     Padding(
+                          //       padding:
+                          //           const EdgeInsets.symmetric(horizontal: 8),
+                          //       child: Text(
+                          //         'Or Sign up With',
+                          //         style: AutilabTextStyle.small14_400.copyWith(
+                          //           color: const Color(0xff555252),
+                          //           fontSize: isMobile() ? 12 : 18,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     const Expanded(
+                          //       child: Divider(
+                          //         thickness: 3,
+                          //         endIndent: 20,
+                          //         color: AutilabColor.bb,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const SizedBox(
+                          //   height: 16,
+                          // ),
+                          // Row(
+                          //   spacing: 16,
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     circularWidgetSignUp(
+                          //       isMobile: isMobile(),
+                          //       image: 'assets/images/google_logo.svg',
+                          //       onTap: () {},
+                          //     ),
+                          //     circularWidgetSignUp(
+                          //       isMobile: isMobile(),
+                          //       image: 'assets/images/facbook_logo.svg',
+                          //       onTap: () {},
+                          //     ),
+                          //     circularWidgetSignUp(
+                          //       isMobile: isMobile(),
+                          //       image: 'assets/images/apple_logo.svg',
+                          //       onTap: () {},
+                          //     ),
+                          //   ],
+                          // ),
                           const SizedBox(
                             height: 16,
                           ),

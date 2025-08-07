@@ -8,7 +8,7 @@ import '../model/user_param.dart';
 abstract class AuthenticationUserDatasource {
   Future<String> registerUser(UserParam userParam);
   Future<String> logInUser(UserParam userParam);
-  Future<String> updateUserProfile(UserModel userModel);
+  Future<UserModel> updateUserProfile(UserParam userModel);
   Future<UserModel> fetchUserData();
 }
 
@@ -23,11 +23,10 @@ final class AuthenticationUserDatasourceRemoot
         '/auth/register',
         data: {
           "email": userParam.email,
-          "username": userParam.userName,
-          "first_name": userParam.userName,
-          "last_name": userParam.userName,
+          "first_name": userParam.firstName,
+          "last_name": userParam.lastName,
           "birthdate": "2025-08-04T11:47:42.304Z",
-          "role_id": 0,
+          "role_id": 5,
           "password": userParam.password,
         },
       );
@@ -76,37 +75,27 @@ final class AuthenticationUserDatasourceRemoot
   }
 
   @override
-  Future<String> updateUserProfile(UserModel userModel) async {
+  Future<UserModel> updateUserProfile(UserParam userParam) async {
     try {
       var response = await dio.post(
         '/user/update',
         data: {
           {
-            "email": userModel.email,
-            "username": userModel.userName,
-            "first_name": userModel.firstName,
-            "last_name": userModel.lastName,
-            // "mobile": "string",
-            "birthdate": userModel.birthdate,
-            // "phone": "string",
-            "gender": userModel.gender,
-            "photo": userModel.photo,
-            // "language": "string",
-            // "currency": "string",
-            // "active": true,
-            // "role_id": 0,
+            "email": userParam.email,
+            "first_name": userParam.firstName,
+            "last_name": userParam.lastName,
+            "birthdate": userParam.birthDate,
+            "gender": userParam.gender,
+            "photo": userParam.photo,
+            "role_id": 5,
           },
         },
       );
-      if (response.statusCode == 200) {
-        return response.data['data']
-            .map<UserModel>(
-              (jsonObject) => UserModel.fromJson(jsonObject),
-            )
-            .toList();
-      } else {
-        return '';
-      }
+      return response.data['data']
+          .map<UserModel>(
+            (jsonObject) => UserModel.fromJson(jsonObject),
+          )
+          .toList();
     } on DioException catch (ex) {
       throw ApiException(
           statusCode: ex.response!.statusCode!, message: ex.message!);
@@ -118,19 +107,31 @@ final class AuthenticationUserDatasourceRemoot
   @override
   Future<UserModel> fetchUserData() async {
     try {
+      var token = await SharedPreferencesData.getUserToken();
       var response = await dio.get(
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
         '/user/current',
       );
-
-      return response.data['data']
-          .map<UserModel>(
-            (jsonObject) => UserModel.fromJson(jsonObject),
-          )
-          .toList();
+      if (response.data != null &&
+          response.data['data'] is Map<String, dynamic>) {
+        return UserModel.fromJson(response.data['data']);
+      } else {
+        throw ApiException(statusCode: 0, message: 'Invalid response format');
+      }
     } on DioException catch (ex) {
+      print('Dio Error: ${ex.response?.statusCode} - ${ex.response?.data}');
       throw ApiException(
-          statusCode: ex.response!.statusCode!, message: ex.message!);
+        statusCode: ex.response?.statusCode ?? 0,
+        message: ex.response?.data['message'] ?? 'Unknown API error',
+      );
     } catch (e) {
+      print(e);
+
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }

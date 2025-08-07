@@ -7,34 +7,48 @@ class UserModel extends UserEntity {
     required final String firstName,
     required final String lastName,
     final String? password,
-    final String? birthdate,
-    final Gender? gender,
-    final String? photo,
-    final List<Address>? address,
+    required final String birthdate,
+    // required final Gender gender,
+    required final String photo,
+    required final List<Address> address,
   }) : super(
           userName: userName,
           email: email,
           firstName: firstName,
           lastName: lastName,
-          password: password,
+          password: password ?? '',
+          address: address,
+          birthdate: birthdate,
+          // gender: gender,
+          photo: photo,
         );
 
   factory UserModel.fromJson(Map<String, dynamic> jsonObject) {
-    List<Address>? addressList = (jsonObject['address'] as List<dynamic>?)
-        ?.map(
-          (item) => Address.fromJson(item),
-        )
-        .toList();
+    List<Address> addressList = (jsonObject['address'] as List<dynamic>?)
+            ?.map((item) => Address.fromJson(item))
+            .toList() ??
+        [];
+
     return UserModel(
       userName: jsonObject['username'] ?? '',
       email: jsonObject['email'] ?? '',
       firstName: jsonObject['first_name'] ?? '',
       lastName: jsonObject['last_name'] ?? '',
       birthdate: jsonObject['birthdate'] ?? '',
-      gender: Gender.fromJson(jsonObject['data']),
-      photo: jsonObject['photo'],
-      address: addressList ?? [],
+      // مستقیماً رشته gender را از json بخوانید و به enum تبدیل کنید
+      // gender: genderFromString(jsonObject['gender']),
+      photo: jsonObject['photo'] ?? '', // مقدار پیش‌فرض
+      address: addressList,
     );
+  }
+  static genderFromString(String? value) {
+    switch (value?.toUpperCase()) {
+      case 'MALE':
+        return GenderEnum.MALE;
+      case 'FEMALE':
+        return GenderEnum.FEMALE;
+    }
+    return GenderEnum.MALE;
   }
 }
 

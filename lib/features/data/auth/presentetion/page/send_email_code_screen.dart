@@ -10,10 +10,13 @@ import 'package:go_router/go_router.dart';
 import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../common/widgets/appbar_back_screen.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class SendEmailCodeScreen extends StatefulWidget {
-  const SendEmailCodeScreen({super.key});
+  const SendEmailCodeScreen({
+    super.key,
+    required this.email,
+  });
+  final String email;
 
   @override
   State<SendEmailCodeScreen> createState() => _SendEmailCodeScreenState();
@@ -73,14 +76,15 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                     SliverFillRemaining(
                       hasScrollBody: false,
                       child: Column(
+                        spacing: 15,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
                             child: SvgPicture.asset(
                               'assets/images/enter_code_email_image.svg',
-                              width: isMobile() ? 321 : 544,
-                              height: isMobile() ? 249 : 370,
+                              width: isMobile() ? 315 : 544,
+                              height: isMobile() ? 240 : 370,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -106,7 +110,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                                     ? AutilabMargin.marginFullScreen
                                     : const EdgeInsetsGeometry.only(left: 4),
                                 child: Text(
-                                  'Example@gmail.com',
+                                  widget.email,
                                   style: AutilabTextStyle.small18_400.copyWith(
                                     color: AutilabColor.blue,
                                     fontSize: isMobile() ? 18 : 24,
@@ -118,38 +122,16 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                           const SizedBox(
                             height: 16,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 60, vertical: 14),
-                            child: PinCodeTextField(
-                              appContext: context,
-                              length: 4,
-                              pinTheme: PinTheme(
-                                shape: PinCodeFieldShape.box,
-                                borderRadius:
-                                    BorderRadius.circular(isMobile() ? 12 : 24),
-                                fieldHeight: isMobile() ? 52 : 100,
-                                fieldWidth: isMobile() ? 52 : 100,
-                                inactiveBorderWidth: 0.5,
-                                activeColor: AutilabColor.blue,
-                                inactiveColor: AutilabColor.black,
-                              ),
-                              cursorColor: AutilabColor.black,
-                              onCompleted: (v) {
-                                FocusScope.of(context).unfocus();
-                              },
-                            ),
-                          ),
                           CustomButtonWidget(
                             isMobile: isMobile(),
                             onTap: () {
                               context.pushReplacementNamed(
-                                  AutiLabRoutes.homeScreen);
+                                  AutiLabRoutes.loginScreen);
                             },
                             height: 50,
                             margin: AutilabMargin.marginFullScreen,
                             color: AutilabColor.bb,
-                            text: 'Send Code',
+                            text: 'OK',
                             textStyle: AutilabTextStyle.small18_400,
                           ),
                           const SizedBox(

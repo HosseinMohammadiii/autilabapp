@@ -8,6 +8,7 @@ void displaySnackBar(
 ) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
+      duration: const Duration(seconds: 1),
       content: Text(
         text,
         style: AutilabTextStyle.medium18_400,

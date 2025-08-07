@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
+import 'package:autilab_project/common/widgets/snackbar_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
@@ -84,14 +85,14 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                           Center(
                             child: SvgPicture.asset(
                               'assets/images/enter_email_image.svg',
-                              width: isMobile() ? 350 : 534,
-                              height: isMobile() ? 271 : 350,
+                              width: isMobile() ? 345 : 534,
+                              height: isMobile() ? 255 : 350,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 30),
+                                horizontal: 20, vertical: 25),
                             child: Text(
                               'Enter Your Email Address',
                               style: AutilabTextStyle.small16_400.copyWith(
@@ -124,12 +125,23 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                             margin: AutilabMargin.marginFullScreen
                                 .copyWith(top: 16, bottom: 16),
                             onTap: () {
-                              context
-                                  .pushNamed(AutiLabRoutes.sendEmailCodeScreen);
+                              if (emailController.text.isEmpty) {
+                                displaySnackBar(
+                                  context,
+                                  'Please enter your email address',
+                                  AutilabColor.bb,
+                                );
+                              } else {
+                                context.pushNamed(
+                                    AutiLabRoutes.sendEmailCodeScreen,
+                                    extra: {
+                                      'email': emailController.text,
+                                    });
+                              }
                             },
                             height: 50,
                             color: AutilabColor.bb,
-                            text: 'Send Code',
+                            text: 'Send Link',
                             textStyle: AutilabTextStyle.small18_400,
                           ),
                           BubbleBackgroundWidget(
@@ -138,11 +150,6 @@ class _SendEmailScreenState extends State<SendEmailScreen>
                         ],
                       ),
                     ),
-                    // const SliverToBoxAdapter(
-                    //   child: SizedBox(
-                    //     height: 20,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

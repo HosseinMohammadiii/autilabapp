@@ -8,7 +8,11 @@ import '../../common/widgets/responsive_widget.dart';
 import '../../utils/functions/animation_control.dart';
 
 class NotConnectionInternetScreen extends StatefulWidget {
-  const NotConnectionInternetScreen({super.key});
+  const NotConnectionInternetScreen({
+    super.key,
+    required this.onChange,
+  });
+  final Function() onChange;
 
   @override
   State<NotConnectionInternetScreen> createState() =>
@@ -94,7 +98,7 @@ class _NotConnectionInternetScreenState
                           ),
                           CustomButtonWidget(
                             isMobile: isMobile(),
-                            onTap: () {},
+                            onTap: widget.onChange,
                             height: 50,
                             color: AutilabColor.bb,
                             margin: const EdgeInsets.symmetric(
