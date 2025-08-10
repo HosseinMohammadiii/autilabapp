@@ -4,6 +4,7 @@ import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.d
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -121,6 +122,10 @@ class _SignupScreenState extends State<SignupScreen>
                             label: 'FirstName',
                             maxLines: 1,
                             borderColor: AutilabColor.blue,
+                            textInputFormatter: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[a-zA-Z\s]')),
+                            ],
                           ),
                           CustomTextfield(
                             isMobile: isMobile(),
@@ -141,6 +146,10 @@ class _SignupScreenState extends State<SignupScreen>
                             label: 'LastName',
                             maxLines: 1,
                             borderColor: AutilabColor.blue,
+                            textInputFormatter: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'[a-zA-Z\s]')),
+                            ],
                           ),
                           CustomTextfield(
                             isMobile: isMobile(),

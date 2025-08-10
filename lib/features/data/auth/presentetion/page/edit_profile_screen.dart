@@ -46,9 +46,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final ValueNotifier<RadioCharacter> selectedGenderMaleNotifier =
       ValueNotifier<RadioCharacter>(RadioCharacter.characterOne);
 
-  final firstNameController = TextEditingController(text: 'Denis');
-  final lasNameController = TextEditingController(text: 'Iliev');
-  final emailController = TextEditingController(text: 'denis@gmail.com');
+  final firstNameController = TextEditingController();
+  final lasNameController = TextEditingController();
+  final emailController = TextEditingController();
   final addressController = TextEditingController();
   final descriptionController = TextEditingController();
 
@@ -68,7 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   DateTime? tempSelectedDate;
 
   String dateOfBirth = '';
-
+  String finalDate = '';
   final List<String> genderOptions = ['Male', 'Female'];
   String selectedGender = 'Male';
   bool isDropdownOpen = false;
@@ -232,7 +232,24 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               create: (context) => AuthenticationBloc(locator.get())
                 ..add(DisplayInformationUser()),
               child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is FetchUserDataResponse) {
+                    return state.response.fold(
+                      (l) {},
+                      (response) {
+                        firstNameController.text = response.firstName;
+                        lasNameController.text = response.lastName;
+                        emailController.text = response.email;
+                        String date = response.birthdate;
+                        String datePart = date.split('T')[0];
+                        selectedGender = response.gender == "not_given"
+                            ? 'Select your gender'
+                            : response.gender;
+                        finalDate = datePart.replaceAll('-', '/');
+                      },
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state is AuthenticationLoading) {
                     return const Center(
@@ -260,13 +277,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         );
                       },
                       (response) {
-                        firstNameController.text = response.firstName;
-                        lasNameController.text = response.lastName;
-                        emailController.text = response.email;
-                        String date = response.birthdate;
-                        String datePart = date.split('T')[0];
-                        String finalDate = datePart.replaceAll('-', '/');
-
                         return Scaffold(
                           body: SafeArea(
                             child: CustomScrollView(
@@ -311,7 +321,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                                 context),
                                                       )
                                                     : Image.asset(
-                                                        'assets/images/child2_image.jpg',
+                                                        'assets/images/avatar.png',
                                                         fit: BoxFit.cover,
                                                         width: isMobile()
                                                             ? 104
@@ -333,7 +343,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                                 context),
                                                       ),
                                                 isNetworkImage:
-                                                    response.photo.isNotEmpty,
+                                                    response.photo != 'string'
+                                                        ? true
+                                                        : false,
                                               ),
                                             ),
                                             Positioned(
@@ -555,14 +567,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     selectedGender,
                                     style:
                                         AutilabTextStyle.small14_400.copyWith(
-                                      color: AutilabColor.black,
+                                      color:
+                                          selectedGender == 'Select your gender'
+                                              ? AutilabColor.gray
+                                              : AutilabColor.black,
                                       fontSize: isMobile() ? 14 : 20,
                                     ),
                                   ),
                                   icon: null,
                                   onTap: () {
                                     selectedGenderMaleNotifier.value =
-                                        selectedGender == 'Male'
+                                        selectedGender == 'male'
                                             ? RadioCharacter.characterOne
                                             : RadioCharacter.secondeCharacter;
 
@@ -672,10 +687,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                               .value ==
                                                           RadioCharacter
                                                               .characterOne) {
-                                                        selectedGender = 'Male';
+                                                        selectedGenderMaleNotifier
+                                                                .value ==
+                                                            RadioCharacter
+                                                                .characterOne;
+                                                        selectedGender = 'male';
                                                       } else {
                                                         selectedGender =
-                                                            'Female';
+                                                            'female';
                                                       }
                                                     });
                                                     context.pop();
@@ -771,8 +790,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                               .copyWith(
                                             fontSize: isMobile() ? 14 : 24,
                                           ),
-                                          hintText:
-                                              'open the map and set your current location',
+                                          hintText: response.address.isEmpty
+                                              ? 'open the map and set your current location'
+                                              : response.address,
                                           bordeColor: AutilabColor.gray,
                                           borderRadius: isMobile() ? 16 : 24,
                                           maxLine: 4,
@@ -846,13 +866,12 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                             email: emailController.text,
                                             firstName: firstNameController.text,
                                             lastName: lasNameController.text,
-                                            birthDate: DateFormat('yyyy/MM/dd')
-                                                .format(tempSelectedDate!),
-                                            gender: selectedGenderMaleNotifier
-                                                        .value ==
-                                                    RadioCharacter.characterOne
-                                                ? GenderEnum.MALE
-                                                : GenderEnum.FEMALE,
+                                            birthDate: DateFormat('yyyy-MM-dd')
+                                                .format(tempSelectedDate ??
+                                                    DateTime.now()),
+                                            gender: selectedGender,
+                                            address: addressController.text,
+                                            photo: File(pickedFile!.path),
                                           ),
                                         ),
                                       );

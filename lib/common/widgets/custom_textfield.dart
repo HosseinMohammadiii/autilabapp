@@ -1,6 +1,7 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextfield extends StatelessWidget {
   const CustomTextfield({
@@ -24,6 +25,7 @@ class CustomTextfield extends StatelessWidget {
     this.floatingLabelBehavior,
     this.isEnable,
     this.textfieldPadding,
+    this.textInputFormatter,
   });
   final bool isMobile;
   final double? borderWidth;
@@ -44,6 +46,7 @@ class CustomTextfield extends StatelessWidget {
   final FloatingLabelBehavior? floatingLabelBehavior;
   final bool? isEnable;
   final EdgeInsetsGeometry? textfieldPadding;
+  final List<TextInputFormatter>? textInputFormatter;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -107,6 +110,7 @@ class CustomTextfield extends StatelessWidget {
             ),
           ),
         ),
+        inputFormatters: textInputFormatter,
         onTapOutside: (event) {
           //TextField unfocus
           focusNode?.unfocus();

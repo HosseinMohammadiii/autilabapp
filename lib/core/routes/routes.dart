@@ -11,9 +11,9 @@ import 'package:autilab_project/features/data/doctor/page/doctor_speciality_scre
 import 'package:autilab_project/features/data/doctor/page/doctor_work_schedule_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/make_appointment_screen.dart';
 import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
-import 'package:autilab_project/features/data/home/page/all_appointment_screen.dart';
-import 'package:autilab_project/features/data/home/page/detail_appointment_screen.dart';
-import 'package:autilab_project/features/data/home/page/home_screen.dart';
+import 'package:autilab_project/features/data/home/presentation/page/all_appointment_screen.dart';
+import 'package:autilab_project/features/data/home/presentation/page/detail_appointment_screen.dart';
+import 'package:autilab_project/features/data/home/presentation/page/home_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/about_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/my_favorite_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/mydoctor_screen.dart';

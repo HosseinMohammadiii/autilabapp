@@ -2,12 +2,12 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../core/constants/color_constant.dart';
-import '../../../../core/constants/constant_routes.dart';
-import '../../../../core/constants/theme_constant.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../widgets/new_appointment_card_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/constants/color_constant.dart';
+import '../../../../../core/constants/constant_routes.dart';
+import '../../../../../core/constants/theme_constant.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../widgets/new_appointment_card_widget.dart';
 
 class AllAppointmentScreen extends StatefulWidget {
   const AllAppointmentScreen({super.key});

@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../data/model/user_model.dart';
-
 class UserEntity extends Equatable {
   final String userName;
   final String email;
@@ -9,9 +7,9 @@ class UserEntity extends Equatable {
   final String lastName;
   final String password;
   final String birthdate;
-  // final Gender gender;
+  final String gender;
   final String photo;
-  final List<Address>? address;
+  final String address;
   const UserEntity({
     required this.userName,
     required this.email,
@@ -19,7 +17,7 @@ class UserEntity extends Equatable {
     required this.lastName,
     required this.password,
     required this.birthdate,
-    // required this.gender,
+    required this.gender,
     required this.photo,
     required this.address,
   });

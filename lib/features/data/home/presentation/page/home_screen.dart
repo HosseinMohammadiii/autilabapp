@@ -6,14 +6,14 @@ import 'package:autilab_project/features/data/home/widgets/new_appointment_card_
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/test_result_widget.dart';
-import '../../../../core/constants/color_constant.dart';
-import '../../../../utils/Lists/package_info_list.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/cacheimahe_function.dart';
-import '../../doctor/page/nearby_center_details_screen.dart';
-import '../../doctor/widgets/specialty_list_widget.dart';
-import '../widgets/plan_item_widget.dart';
+import '../../../../../common/widgets/test_result_widget.dart';
+import '../../../../../core/constants/color_constant.dart';
+import '../../../../../utils/Lists/package_info_list.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../doctor/page/nearby_center_details_screen.dart';
+import '../../../doctor/widgets/specialty_list_widget.dart';
+import '../../widgets/plan_item_widget.dart';
 
 class StatusClass {
   Color statusColor;

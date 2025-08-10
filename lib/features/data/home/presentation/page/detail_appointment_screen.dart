@@ -6,10 +6,10 @@ import 'package:autilab_project/features/data/doctor/widgets/box_detail_widget.d
 import 'package:autilab_project/features/data/home/widgets/box_shape_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../doctor/page/nearby_center_details_screen.dart';
-import '../widgets/doctor_box_detail_appointment_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../doctor/page/nearby_center_details_screen.dart';
+import '../../widgets/doctor_box_detail_appointment_widget.dart';
 
 class DetailAppointmentScreen extends StatefulWidget {
   const DetailAppointmentScreen({

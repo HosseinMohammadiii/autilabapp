@@ -77,26 +77,40 @@ final class AuthenticationUserDatasourceRemoot
   @override
   Future<UserModel> updateUserProfile(UserParam userParam) async {
     try {
-      var response = await dio.post(
+      print(userParam.photo);
+      MultipartFile? imageFile;
+      String fileName = userParam.photo!.path.split('/').last;
+
+      if (userParam.photo != null) {
+        imageFile = await MultipartFile.fromFile(
+          fileName,
+        );
+      }
+      FormData formData = FormData.fromMap({
+        "email": userParam.email,
+        "first_name": userParam.firstName,
+        "last_name": userParam.lastName,
+        "birthdate": userParam.birthDate,
+        "address": userParam.address,
+        "photo": imageFile,
+        "gender": userParam.gender
+        // 'photo': imageFile,
+      });
+      var response = await dio.put(
         '/user/update',
-        data: {
-          {
-            "email": userParam.email,
-            "first_name": userParam.firstName,
-            "last_name": userParam.lastName,
-            "birthdate": userParam.birthDate,
-            "gender": userParam.gender,
-            "photo": userParam.photo,
-            "role_id": 5,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
           },
-        },
+        ),
+        data: formData,
       );
-      return response.data['data']
-          .map<UserModel>(
-            (jsonObject) => UserModel.fromJson(jsonObject),
-          )
-          .toList();
+
+      return UserModel.fromJson(response.data['data']);
     } on DioException catch (ex) {
+      print(ex.response!.statusCode);
       throw ApiException(
           statusCode: ex.response!.statusCode!, message: ex.message!);
     } catch (e) {
@@ -124,14 +138,11 @@ final class AuthenticationUserDatasourceRemoot
         throw ApiException(statusCode: 0, message: 'Invalid response format');
       }
     } on DioException catch (ex) {
-      print('Dio Error: ${ex.response?.statusCode} - ${ex.response?.data}');
       throw ApiException(
         statusCode: ex.response?.statusCode ?? 0,
         message: ex.response?.data['message'] ?? 'Unknown API error',
       );
     } catch (e) {
-      print(e);
-
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }

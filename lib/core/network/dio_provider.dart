@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 class BaseUrl {
   // Define a static constant for the base URL of your API
   // static const String baseUrl = 'https://api.autilab.com/api';
-  static const String baseUrl = 'https://a8940535f4e2.ngrok-free.app/api';
+  static const String baseUrl = 'https://ba7cad7e2f47.ngrok-free.app/api';
 }
 
 class DioProvider {

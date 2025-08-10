@@ -1,4 +1,4 @@
-import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
+import 'dart:io';
 
 class UserParam {
   String email;
@@ -6,8 +6,9 @@ class UserParam {
   String lastName;
   String? password;
   String? birthDate;
-  GenderEnum? gender;
-  String? photo;
+  String? gender;
+  File? photo;
+  String? address;
   UserParam({
     required this.email,
     required this.firstName,
@@ -16,5 +17,6 @@ class UserParam {
     this.birthDate,
     this.gender,
     this.photo,
+    this.address,
   });
 }

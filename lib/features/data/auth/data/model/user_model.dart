@@ -1,4 +1,4 @@
-import 'package:autilab_project/features/data/auth/domain/user_entity.dart';
+import 'package:autilab_project/features/data/auth/domain/entity/user_entity.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
@@ -8,9 +8,9 @@ class UserModel extends UserEntity {
     required final String lastName,
     final String? password,
     required final String birthdate,
-    // required final Gender gender,
+    required final String gender,
     required final String photo,
-    required final List<Address> address,
+    required final String address,
   }) : super(
           userName: userName,
           email: email,
@@ -19,78 +19,20 @@ class UserModel extends UserEntity {
           password: password ?? '',
           address: address,
           birthdate: birthdate,
-          // gender: gender,
+          gender: gender,
           photo: photo,
         );
 
   factory UserModel.fromJson(Map<String, dynamic> jsonObject) {
-    List<Address> addressList = (jsonObject['address'] as List<dynamic>?)
-            ?.map((item) => Address.fromJson(item))
-            .toList() ??
-        [];
-
     return UserModel(
       userName: jsonObject['username'] ?? '',
       email: jsonObject['email'] ?? '',
       firstName: jsonObject['first_name'] ?? '',
       lastName: jsonObject['last_name'] ?? '',
       birthdate: jsonObject['birthdate'] ?? '',
-      // مستقیماً رشته gender را از json بخوانید و به enum تبدیل کنید
-      // gender: genderFromString(jsonObject['gender']),
-      photo: jsonObject['photo'] ?? '', // مقدار پیش‌فرض
-      address: addressList,
-    );
-  }
-  static genderFromString(String? value) {
-    switch (value?.toUpperCase()) {
-      case 'MALE':
-        return GenderEnum.MALE;
-      case 'FEMALE':
-        return GenderEnum.FEMALE;
-    }
-    return GenderEnum.MALE;
-  }
-}
-
-class Gender {
-  GenderEnum genderEnum;
-  Gender({required this.genderEnum});
-
-  factory Gender.fromJson(Map<String, dynamic> jsonObject) {
-    return Gender(genderEnum: _genderFromString(jsonObject['gender']));
-  }
-  static GenderEnum _genderFromString(String value) {
-    switch (value.toUpperCase()) {
-      case 'MALE':
-        return GenderEnum.MALE;
-      case 'FEMALE':
-        return GenderEnum.FEMALE;
-      default:
-        throw Exception('Unknown gender value: $value');
-    }
-  }
-}
-
-enum GenderEnum {
-  MALE,
-  FEMALE,
-}
-
-class Address {
-  final String? address;
-  final String? city;
-  final String? country;
-  Address({
-    required this.address,
-    required this.city,
-    required this.country,
-  });
-
-  factory Address.fromJson(Map<String, dynamic> jsonObject) {
-    return Address(
-      address: jsonObject['address'],
-      city: jsonObject['city'],
-      country: jsonObject['country'],
+      gender: jsonObject['gender'],
+      photo: jsonObject['photo'] ?? '',
+      address: jsonObject['address'] ?? '',
     );
   }
 }
