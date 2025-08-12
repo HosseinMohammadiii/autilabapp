@@ -112,11 +112,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             (l) {
               print(l);
             },
-            (r) {
-              for (var element in r) {
-                print(element.planModel);
-              }
-            },
+            (r) {},
           );
         }
       },
@@ -250,6 +246,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               AutiLabRoutes
                                                   .detailAppointmentScreen,
                                               extra: {
+                                                'doctorModel': response[index]
+                                                    .newappointmentModel[index]
+                                                    .doctorModel,
+                                                'doctorName':
+                                                    '${response[index].newappointmentModel[index].doctorModel.doctorUser.firstName} ${response[index].newappointmentModel[index].doctorModel.doctorUser.lastName}',
+                                                'doctorSpecialty': response[
+                                                        index]
+                                                    .newappointmentModel[index]
+                                                    .doctorModel
+                                                    .doctorSpecialities[index]
+                                                    .name,
                                                 'statusColor': statusCheckColor(
                                                         response[index]
                                                             .newappointmentModel[

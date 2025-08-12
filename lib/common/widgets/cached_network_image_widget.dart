@@ -10,12 +10,14 @@ class CachednetworkimageWidget extends StatelessWidget {
     required this.isNetworkImage,
     this.width,
     this.height,
+    this.borderRadius,
   });
   final String imgUrl;
   final Widget img;
   final bool isNetworkImage;
   final double? width;
   final double? height;
+  final double? borderRadius;
   @override
   Widget build(BuildContext context) {
     return isNetworkImage
@@ -27,10 +29,10 @@ class CachednetworkimageWidget extends StatelessWidget {
                 baseColor: const Color(0xffE1E1E1),
                 highlightColor: const Color(0xffF3F3F2),
                 child: Container(
-                  width: double.infinity,
+                  width: width ?? double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.grey,
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(borderRadius ?? 25),
                   ),
                 ),
               ),

@@ -171,6 +171,7 @@ class AutilabRouter {
           builder: (context, state) {
             final extraData = state.extra as Map<String, dynamic>;
             return DetailAppointmentScreen(
+              doctorModel: extraData['doctorModel'],
               statusColor: extraData['statusColor'],
               statusIcon: extraData['statusIcon'],
               image: extraData['image'],

@@ -9,8 +9,12 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
   const DoctorBoxDetialAppointmentWidget({
     super.key,
     required this.image,
+    this.doctorName,
+    this.doctorSpecialtyl,
     this.isMobile = true,
   });
+  final String? doctorName;
+  final String? doctorSpecialtyl;
   final String image;
   final bool isMobile;
 
@@ -52,7 +56,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Dr. Sophia Martinez',
+                      doctorName ?? 'Dr. Sophia Martinez',
                       style: isMobile
                           ? AutilabTextStyle.medium18_500
                           : AutilabTextStyle.medium18_500
@@ -65,7 +69,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Psychotherapy',
+                          doctorSpecialtyl ?? 'Psychotherapy',
                           style: AutilabTextStyle.small14_400.copyWith(
                             fontSize: isMobile ? 14 : 24,
                           ),

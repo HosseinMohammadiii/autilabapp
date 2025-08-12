@@ -9,6 +9,7 @@ final class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<DisplayHomeContent>(
       (event, emit) async {
         try {
+          emit(HomeLoading());
           var response = await homeRepository.getNewAppointmentList();
           emit(HomeFetchData(response));
         } catch (e) {

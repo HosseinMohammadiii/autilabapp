@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
 import 'package:autilab_project/features/data/doctor/widgets/box_detail_widget.dart';
 import 'package:autilab_project/features/data/home/widgets/box_shape_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import '../../widgets/doctor_box_detail_appointment_widget.dart';
 class DetailAppointmentScreen extends StatefulWidget {
   const DetailAppointmentScreen({
     super.key,
+    this.doctorModel,
     required this.statusColor,
     required this.statusIcon,
     required this.image,
@@ -21,6 +23,7 @@ class DetailAppointmentScreen extends StatefulWidget {
     required this.descriptionStatus,
   });
 
+  final DoctorModel? doctorModel;
   final Color? statusColor;
   final String statusIcon;
   final String image;
@@ -88,6 +91,10 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                     SliverToBoxAdapter(
                       child: DoctorBoxDetialAppointmentWidget(
                         image: widget.image,
+                        doctorName:
+                            '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}',
+                        doctorSpecialtyl:
+                            widget.doctorModel?.doctorSpecialities[0].name,
                         isMobile: isMobile(),
                       ),
                     ),
@@ -191,15 +198,17 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                             BoxDetailWidget(
                                 isMobile: isMobile(),
                                 title: 'Full Name',
-                                subtitle: 'Alexei Oppana'),
+                                subtitle:
+                                    '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}'),
                             BoxDetailWidget(
                                 isMobile: isMobile(),
                                 title: 'Age',
                                 subtitle: '8'),
                             BoxDetailWidget(
-                                isMobile: isMobile(),
-                                title: 'Gender',
-                                subtitle: 'Female'),
+                              isMobile: isMobile(),
+                              title: 'Gender',
+                              subtitle: 'Female',
+                            ),
                           ],
                         ),
                       ),

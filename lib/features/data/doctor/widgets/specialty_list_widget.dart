@@ -65,6 +65,7 @@ class SpecialtiesListWidget extends StatelessWidget {
                       imgUrl: recentModel?[index].imagePath ?? '',
                       width: widthImage,
                       height: heightImage,
+                      borderRadius: 8,
                       img: Image.asset(
                         categoryItemsList[index].image,
                         cacheWidth: cacheImageFunction(
