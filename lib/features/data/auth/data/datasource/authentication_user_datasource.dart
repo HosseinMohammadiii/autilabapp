@@ -2,6 +2,7 @@ import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 import '../model/user_param.dart';
 
@@ -77,25 +78,24 @@ final class AuthenticationUserDatasourceRemoot
   @override
   Future<UserModel> updateUserProfile(UserParam userParam) async {
     try {
-      print(userParam.photo);
-      MultipartFile? imageFile;
-      String fileName = userParam.photo!.path.split('/').last;
+      // MultipartFile? imageFile;
+      // String fileName = userParam.photo!.path.split('/').last;
 
-      if (userParam.photo != null) {
-        imageFile = await MultipartFile.fromFile(
-          fileName,
-        );
-      }
-      FormData formData = FormData.fromMap({
-        "email": userParam.email,
-        "first_name": userParam.firstName,
-        "last_name": userParam.lastName,
-        "birthdate": userParam.birthDate,
-        "address": userParam.address,
-        "photo": imageFile,
-        "gender": userParam.gender
-        // 'photo': imageFile,
-      });
+      // if (userParam.photo != null) {
+      //   imageFile = await MultipartFile.fromFile(
+      //     fileName,
+      //   );
+      // }
+      // FormData formData = FormData.fromMap({
+      //   "email": userParam.email,
+      //   "first_name": userParam.firstName,
+      //   "last_name": userParam.lastName,
+      //   "birthdate": userParam.birthDate,
+      //   // "address": userParam.address,
+      //   // "photo": imageFile,
+      //   "gender": userParam.gender
+      //   // 'photo': imageFile,
+      // });
       var response = await dio.put(
         '/user/update',
         options: Options(
@@ -105,12 +105,27 @@ final class AuthenticationUserDatasourceRemoot
                 'Bearer ${await SharedPreferencesData.getUserToken()}',
           },
         ),
-        data: formData,
+        data: {
+          "email": userParam.email,
+          "first_name": userParam.firstName,
+          "last_name": userParam.lastName,
+          if (userParam.birthDate != null &&
+              userParam.birthDate !=
+                  DateFormat('yyyy-MM-dd').format(
+                    DateTime.now(),
+                  ))
+            "birthdate": userParam.birthDate,
+          "address": userParam.address,
+          "description": userParam.description,
+          // "photo": imageFile,
+          if (userParam.gender != null &&
+              userParam.gender != 'Select your gender')
+            "gender": userParam.gender
+        },
       );
 
       return UserModel.fromJson(response.data['data']);
     } on DioException catch (ex) {
-      print(ex.response!.statusCode);
       throw ApiException(
           statusCode: ex.response!.statusCode!, message: ex.message!);
     } catch (e) {

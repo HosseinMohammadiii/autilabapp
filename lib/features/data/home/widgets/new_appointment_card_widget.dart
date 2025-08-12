@@ -22,6 +22,8 @@ class NewAppointmentsCardWidget extends StatelessWidget {
     required this.onTap,
     required this.raiteOnTap,
     required this.image,
+    this.doctorName,
+    this.doctorSpecialty,
   });
   final Function() onTap;
   final Function() raiteOnTap;
@@ -33,6 +35,8 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   final String title;
   final String statusIcon;
   final EdgeInsetsGeometry margin;
+  final String? doctorName;
+  final String? doctorSpecialty;
 
   @override
   Widget build(BuildContext context) {
@@ -142,39 +146,38 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                       spacing: 8,
                       children: [
                         Text(
-                          'Dr. Sophia Martinez',
+                          doctorName ?? 'Dr. Sophia Martinez',
                           overflow: TextOverflow.ellipsis,
                           style: isMobile
                               ? AutilabTextStyle.medium18_500
                               : AutilabTextStyle.medium18_500
                                   .copyWith(fontSize: 32),
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              Text(
-                                'Speech Therapy',
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                doctorSpecialty ?? 'Speech Therapy',
                                 style: AutilabTextStyle.small14_400.copyWith(
                                   fontSize: isMobile ? 14 : 24,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              const SizedBox(
-                                width: 16,
+                            ),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            const Icon(
+                              Icons.star_rounded,
+                              color: Color(0xffEDC757),
+                            ),
+                            Text(
+                              '5.0',
+                              style: AutilabTextStyle.small14_400.copyWith(
+                                fontSize: isMobile ? 14 : 20,
                               ),
-                              const Icon(
-                                Icons.star_rounded,
-                                color: Color(0xffEDC757),
-                              ),
-                              Text(
-                                '5.0',
-                                style: AutilabTextStyle.small14_400.copyWith(
-                                  fontSize: isMobile ? 14 : 20,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,

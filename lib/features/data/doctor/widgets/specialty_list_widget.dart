@@ -1,4 +1,6 @@
+import 'package:autilab_project/common/widgets/cached_network_image_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,6 +11,7 @@ class SpecialtiesListWidget extends StatelessWidget {
   const SpecialtiesListWidget({
     super.key,
     this.isMobile = true,
+    this.recentModel,
     required this.height,
     required this.width,
     this.heightImage,
@@ -18,7 +21,7 @@ class SpecialtiesListWidget extends StatelessWidget {
     required this.textStyle,
   });
   final bool isMobile;
-
+  final List<RecentVisitedModel>? recentModel;
   final double height;
   final double width;
   final double? heightImage;
@@ -33,7 +36,7 @@ class SpecialtiesListWidget extends StatelessWidget {
       height: height,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: itemCount ?? categoryItemsList.length,
+        itemCount: recentModel?.length ?? categoryItemsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
@@ -58,12 +61,19 @@ class SpecialtiesListWidget extends StatelessWidget {
                   SizedBox(
                     width: widthImage ?? 56,
                     height: heightImage ?? 56,
-                    child: Image.asset(
-                      categoryItemsList[index].image,
-                      cacheWidth: cacheImageFunction(
-                          widthImage?.toInt() ?? 56, context),
-                      cacheHeight: cacheImageFunction(
-                          widthImage?.toInt() ?? 56, context),
+                    child: CachednetworkimageWidget(
+                      imgUrl: recentModel?[index].imagePath ?? '',
+                      width: widthImage,
+                      height: heightImage,
+                      img: Image.asset(
+                        categoryItemsList[index].image,
+                        cacheWidth: cacheImageFunction(
+                            widthImage?.toInt() ?? 56, context),
+                        cacheHeight: cacheImageFunction(
+                            widthImage?.toInt() ?? 56, context),
+                      ),
+                      isNetworkImage:
+                          recentModel?[index].imagePath != null ? true : false,
                     ),
                   ),
                   FittedBox(
@@ -71,7 +81,8 @@ class SpecialtiesListWidget extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
-                        categoryItemsList[index].title,
+                        recentModel?[index].name.replaceAll(' ', '\n') ??
+                            categoryItemsList[index].title,
                         textAlign: TextAlign.center,
                         style: textStyle,
                       ),

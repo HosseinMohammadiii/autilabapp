@@ -8,16 +8,19 @@ class CachednetworkimageWidget extends StatelessWidget {
     required this.imgUrl,
     required this.img,
     required this.isNetworkImage,
+    this.width,
+    this.height,
   });
   final String imgUrl;
   final Widget img;
   final bool isNetworkImage;
+  final double? width;
+  final double? height;
   @override
   Widget build(BuildContext context) {
     return isNetworkImage
         ? CachedNetworkImage(
             imageUrl: imgUrl,
-            fit: BoxFit.fill,
             errorWidget: (context, url, error) => const SizedBox(),
             placeholder: (context, url) => Center(
               child: Shimmer.fromColors(

@@ -15,7 +15,7 @@ class TalentResultWidget extends StatelessWidget {
   final TextStyle textStyle;
   final Color gradient1;
   final Color gradient2;
-  final int score;
+  final double score;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class TalentResultWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: score,
+                      flex: score.round(),
                       child: Stack(
                         children: [
                           Container(
@@ -73,13 +73,13 @@ class TalentResultWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      flex: 15 - score,
+                      flex: 15 - score.round(),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: List.generate(
-                            15 - score,
+                            15 - score.round(),
                             (index) => Container(
                               height: 4,
                               width: 4,

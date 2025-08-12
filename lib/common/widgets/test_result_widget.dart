@@ -1,3 +1,4 @@
+import 'package:autilab_project/features/data/home/data/model/intelligence_test_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/color_constant.dart';
@@ -23,9 +24,11 @@ class TestResultWidget extends StatefulWidget {
     super.key,
     this.isShowTitle,
     this.isMobile = true,
+    this.intelligenceData,
   });
   final bool? isShowTitle;
   final bool isMobile;
+  final List<IntelligenceTestModel>? intelligenceData;
 
   @override
   State<TestResultWidget> createState() => _TestResultWidgetState();
@@ -88,7 +91,7 @@ class _TestResultWidgetState extends State<TestResultWidget> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (widget.isShowTitle ?? false) ...[
-          Text(
+          const Text(
             'Aptitude Test Result',
             style: AutilabTextStyle.small18_400,
           ),
@@ -109,12 +112,12 @@ class _TestResultWidgetState extends State<TestResultWidget> {
               ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                children: intelligenceList
+                children: widget.intelligenceData!
                     .map((data) => TalentResultWidget(
-                          title: data.title,
-                          score: data.score,
-                          gradient1: data.gradient1,
-                          gradient2: data.gradient2,
+                          title: data.type.replaceAll('_', '-'),
+                          score: data.percentage,
+                          gradient1: const Color(0xff72EAFF),
+                          gradient2: const Color(0xff23C1E4),
                           textStyle: widget.isMobile
                               ? AutilabTextStyle.small18_400
                               : AutilabTextStyle.small20_400,

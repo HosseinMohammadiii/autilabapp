@@ -6,7 +6,6 @@ import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/core/network/locator.dart';
-import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
@@ -70,16 +69,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   String dateOfBirth = '';
   String finalDate = '';
   final List<String> genderOptions = ['Male', 'Female'];
-  String selectedGender = 'Male';
+  String selectedGender = 'male';
   bool isDropdownOpen = false;
   @override
   void initState() {
+    BlocProvider.of<AuthenticationBloc>(context).add(DisplayInformationUser());
+
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
-    BlocProvider.of<AuthenticationBloc>(context).add(DisplayInformationUser());
   }
 
   @override
@@ -241,11 +241,16 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         lasNameController.text = response.lastName;
                         emailController.text = response.email;
                         String date = response.birthdate;
+                        addressController.text = response.address;
+                        descriptionController.text = response.description;
                         String datePart = date.split('T')[0];
                         selectedGender = response.gender == "not_given"
                             ? 'Select your gender'
                             : response.gender;
                         finalDate = datePart.replaceAll('-', '/');
+                        finalDate = response.birthdate == ''
+                            ? 'What is your date of birth?'
+                            : response.birthdate;
                       },
                     );
                   }
@@ -343,7 +348,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                                 context),
                                                       ),
                                                 isNetworkImage:
-                                                    response.photo != 'string'
+                                                    response.photo != ''
                                                         ? true
                                                         : false,
                                               ),
@@ -405,9 +410,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     borderColor: AutilabColor.bb,
                                     textStyle:
                                         AutilabTextStyle.small14_400.copyWith(
-                                      color: firstNameController.text.isNotEmpty
-                                          ? AutilabColor.black
-                                          : AutilabColor.gray,
+                                      color: AutilabColor.black,
                                       fontSize: isMobile() ? 14 : 20,
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -427,9 +430,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     borderColor: AutilabColor.bb,
                                     textStyle:
                                         AutilabTextStyle.small14_400.copyWith(
-                                      color: lasNameController.text.isNotEmpty
-                                          ? AutilabColor.black
-                                          : AutilabColor.gray,
+                                      color: AutilabColor.black,
                                       fontSize: isMobile() ? 14 : 20,
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -450,9 +451,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     borderColor: AutilabColor.bb,
                                     textStyle:
                                         AutilabTextStyle.small14_400.copyWith(
-                                      color: emailController.text.isNotEmpty
-                                          ? AutilabColor.black
-                                          : AutilabColor.gray,
+                                      color: AutilabColor.black,
                                       fontSize: isMobile() ? 14 : 20,
                                     ),
                                     padding: const EdgeInsets.symmetric(
@@ -478,7 +477,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                             : finalDate,
                                         style: AutilabTextStyle.small14_400
                                             .copyWith(
-                                          color: _selectedDate.value != null
+                                          color: _selectedDate.value != null &&
+                                                  isSelectedDate
                                               ? AutilabColor.black
                                               : AutilabColor.gray,
                                           fontSize: isMobile() ? 14 : 20,
@@ -790,9 +790,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                               .copyWith(
                                             fontSize: isMobile() ? 14 : 24,
                                           ),
-                                          hintText: response.address.isEmpty
-                                              ? 'open the map and set your current location'
-                                              : response.address,
+                                          hintText:
+                                              'open the map and set your current location',
                                           bordeColor: AutilabColor.gray,
                                           borderRadius: isMobile() ? 16 : 24,
                                           maxLine: 4,
@@ -869,9 +868,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                             birthDate: DateFormat('yyyy-MM-dd')
                                                 .format(tempSelectedDate ??
                                                     DateTime.now()),
+                                            // gender: selectedGender ==
+                                            //         'Select your gender'
+                                            //     ? "not_given"
+                                            //     : selectedGender,
                                             gender: selectedGender,
                                             address: addressController.text,
-                                            photo: File(pickedFile!.path),
+                                            description:
+                                                descriptionController.text,
+                                            // photo: File(pickedFile!.path),
                                           ),
                                         ),
                                       );

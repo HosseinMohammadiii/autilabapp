@@ -9,6 +9,7 @@ class UserParam {
   String? gender;
   File? photo;
   String? address;
+  String? description;
   UserParam({
     required this.email,
     required this.firstName,
@@ -18,5 +19,6 @@ class UserParam {
     this.gender,
     this.photo,
     this.address,
+    this.description,
   });
 }
