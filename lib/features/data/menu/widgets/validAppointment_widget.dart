@@ -1,3 +1,4 @@
+import 'package:autilab_project/features/data/home/data/model/newappointment_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,11 +9,13 @@ class ValidAppointmentWidget extends StatelessWidget {
   const ValidAppointmentWidget({
     super.key,
     this.isMobile = true,
+    this.newappointmentModel,
     required this.color,
     required this.title,
     required this.statusIcon,
   });
   final bool isMobile;
+  final NewappointmentModel? newappointmentModel;
   final Color color;
   final String title;
   final String statusIcon;
@@ -37,6 +40,7 @@ class ValidAppointmentWidget extends StatelessWidget {
               context.pushNamed(
                 AutiLabRoutes.detailAppointmentScreen,
                 extra: {
+                  'newappointmentModel': newappointmentModel?.description,
                   'statusColor': const Color(0xff50DD81),
                   'statusIcon': 'assets/icons/done_icon.svg',
                   'title': 'Approved',

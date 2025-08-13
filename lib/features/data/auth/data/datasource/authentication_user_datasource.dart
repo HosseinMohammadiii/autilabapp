@@ -123,7 +123,7 @@ final class AuthenticationUserDatasourceRemoot
             "gender": userParam.gender
         },
       );
-
+      print(response.data['data']);
       return UserModel.fromJson(response.data['data']);
     } on DioException catch (ex) {
       throw ApiException(

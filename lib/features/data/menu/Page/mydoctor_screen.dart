@@ -133,6 +133,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                                   in response[0].newappointmentModel) ...{
                                 if (element.status == 'APPROVED') ...{
                                   ValidAppointmentWidget(
+                                    newappointmentModel: element,
                                     color: statusCheckColor('APPROVED').$3,
                                     title: statusCheckColor('APPROVED').$2,
                                     statusIcon: statusCheckColor('APPROVED').$1,
@@ -147,6 +148,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                                 if (element.status == 'CANCELED') ...{
                                   ExpiredAppointmentWidget(
                                     isMobile: isMobile(),
+                                    newappointmentModel: element,
                                     color: statusCheckColor('CANCELED').$3,
                                     title: statusCheckColor('CANCELED').$2,
                                     statusIcon: statusCheckColor('CANCELED').$1,

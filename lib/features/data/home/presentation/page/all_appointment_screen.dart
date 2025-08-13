@@ -214,6 +214,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'doctorModel':
                                                     approvedList[index]
                                                         .doctorModel,
+                                                'newappointmentModel':
+                                                    pendingList[index],
                                                 'doctorName':
                                                     '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
                                                 'doctorSpecialty': approvedList[
@@ -266,6 +268,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'doctorModel':
                                                     cancelledList[index]
                                                         .doctorModel,
+                                                'newappointmentModel':
+                                                    pendingList[index],
                                                 'doctorName':
                                                     '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
                                                 'doctorSpecialty':
@@ -324,6 +328,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'doctorModel':
                                                     pendingList[index]
                                                         .doctorModel,
+                                                'newappointmentModel':
+                                                    pendingList[index],
                                                 'doctorName':
                                                     '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
                                                 'doctorSpecialty': pendingList[

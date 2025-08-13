@@ -3,17 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/constant_routes.dart';
+import '../../home/data/model/newappointment_model.dart';
 import '../../home/widgets/new_appointment_card_widget.dart';
 
 class ExpiredAppointmentWidget extends StatelessWidget {
   const ExpiredAppointmentWidget({
     super.key,
     this.isMobile = true,
+    this.newappointmentModel,
     required this.color,
     required this.title,
     required this.statusIcon,
   });
   final bool isMobile;
+  final NewappointmentModel? newappointmentModel;
+
   final Color color;
   final String title;
   final String statusIcon;
@@ -40,6 +44,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
                   context.pushNamed(
                     AutiLabRoutes.detailAppointmentScreen,
                     extra: {
+                      'newappointmentModel': newappointmentModel?.description,
                       'statusColor': const Color(0xff50DD81),
                       'statusIcon': 'assets/icons/done_icon.svg',
                       'title': 'Approved',
@@ -52,13 +57,6 @@ class ExpiredAppointmentWidget extends StatelessWidget {
             );
           },
         ),
-        // Positioned.fill(
-        //   child: IgnorePointer(
-        //     child: Container(
-        //       color: Colors.white.withValues(alpha: 0.3),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }

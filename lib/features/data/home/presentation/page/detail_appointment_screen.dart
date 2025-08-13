@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../doctor/page/nearby_center_details_screen.dart';
+import '../../data/model/newappointment_model.dart';
 import '../../widgets/doctor_box_detail_appointment_widget.dart';
 
 class DetailAppointmentScreen extends StatefulWidget {
   const DetailAppointmentScreen({
     super.key,
     this.doctorModel,
+    this.newappointmentModel,
     required this.statusColor,
     required this.statusIcon,
     required this.image,
@@ -24,6 +26,7 @@ class DetailAppointmentScreen extends StatefulWidget {
   });
 
   final DoctorModel? doctorModel;
+  final NewappointmentModel? newappointmentModel;
   final Color? statusColor;
   final String statusIcon;
   final String image;
@@ -198,12 +201,12 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                             BoxDetailWidget(
                                 isMobile: isMobile(),
                                 title: 'Full Name',
-                                subtitle:
-                                    '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}'),
+                                subtitle: 'Alexei Oppana'),
                             BoxDetailWidget(
-                                isMobile: isMobile(),
-                                title: 'Age',
-                                subtitle: '8'),
+                              isMobile: isMobile(),
+                              title: 'Age',
+                              subtitle: '8',
+                            ),
                             BoxDetailWidget(
                               isMobile: isMobile(),
                               title: 'Gender',
@@ -256,7 +259,7 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                         textfieldPadding: AutilabMargin.marginFullScreen,
                         padding: EdgeInsets.all(isMobile() ? 16 : 24),
                         controller: TextEditingController(
-                          text:
+                          text: widget.newappointmentModel?.description ??
                               'My son is 10 years old and on the more severe end of the autism spectrum. He often has high muscle tone and tends to keep his body very stiff, especially when sitting down or trying to stand up. Because of this muscle tightness, he sometimes struggles to move properly or go up stairs.',
                         ),
                         backgroundColor: AutilabColor.primary,

@@ -210,6 +210,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 'doctorModel': response[index]
                                                     .newappointmentModel[index]
                                                     .doctorModel,
+                                                'newappointmentModel': response[
+                                                        index]
+                                                    .newappointmentModel[index],
                                                 'doctorName':
                                                     '${response[index].newappointmentModel[index].doctorModel.doctorUser.firstName} ${response[index].newappointmentModel[index].doctorModel.doctorUser.lastName}',
                                                 'doctorSpecialty': response[
