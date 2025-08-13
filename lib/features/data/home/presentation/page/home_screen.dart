@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../common/widgets/loading_indicator_widget.dart';
 import '../../../../../common/widgets/test_result_widget.dart';
 import '../../../../../core/constants/color_constant.dart';
 import '../../../../../presentation/screens/not_connection_screen.dart';
@@ -82,11 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       },
       builder: (context, state) {
         if (state is HomeLoading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: AutilabColor.bb,
-            ),
-          );
+          return const LoadingProgressWidget();
         }
         if (state is HomeErrorHandling) {
           return NotConnectionInternetScreen(

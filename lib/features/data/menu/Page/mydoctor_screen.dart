@@ -1,17 +1,14 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
-import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_state.dart';
 import 'package:autilab_project/utils/functions/appointment_check_status_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/custom_button_widget.dart';
+import '../../../../common/widgets/item_not_found_widget.dart';
+import '../../../../common/widgets/loading_indicator_widget.dart';
 import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../presentation/screens/not_connection_screen.dart';
 import '../../../../utils/functions/animation_control.dart';
@@ -67,11 +64,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
         return BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: AutilabColor.bb,
-                ),
-              );
+              return const LoadingProgressWidget();
             }
             if (state is HomeErrorHandling) {
               return NotConnectionInternetScreen(
@@ -146,7 +139,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                                     isMobile: isMobile(),
                                   ),
                                 } else ...{
-                                  widgetNotFoundItem(isMobile, context),
+                                  ItemNotFoundWidget(isMobile: isMobile())
                                 }
                               },
                               for (var element
@@ -159,7 +152,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                                     statusIcon: statusCheckColor('CANCELED').$1,
                                   ),
                                 } else ...{
-                                  widgetNotFoundItem(isMobile, context),
+                                  ItemNotFoundWidget(isMobile: isMobile())
                                 }
                               },
                             ],
@@ -175,38 +168,6 @@ class _MydoctorScreenState extends State<MydoctorScreen>
           },
         );
       },
-    );
-  }
-
-//Widget for when an item is unavailable
-  Widget widgetNotFoundItem(bool Function() isMobile, BuildContext context) {
-    return Column(
-      spacing: 32,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          'assets/icons/item_notfound.svg',
-          width: isMobile() ? 160 : 240,
-          height: isMobile() ? 160 : 240,
-        ),
-        Text(
-          'Item Not Found',
-          style: AutilabTextStyle.medium20_500.copyWith(
-            fontSize: isMobile() ? 20 : 32,
-          ),
-        ),
-        CustomButtonWidget(
-          isMobile: isMobile(),
-          onTap: () {
-            context.goNamed(AutiLabRoutes.doctorScreen);
-          },
-          height: 50,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-          color: AutilabColor.bb,
-          text: 'Search Something Else',
-          textStyle: AutilabTextStyle.small18_400,
-        ),
-      ],
     );
   }
 }
