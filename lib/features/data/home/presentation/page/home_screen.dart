@@ -14,6 +14,7 @@ import '../../../../../core/constants/color_constant.dart';
 import '../../../../../presentation/screens/not_connection_screen.dart';
 import '../../../../../utils/Lists/package_info_list.dart';
 import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/appointment_check_status_function.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../doctor/page/nearby_center_details_screen.dart';
 import '../../../doctor/widgets/specialty_list_widget.dart';
@@ -64,43 +65,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void didUpdateWidget(covariant HomeScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
-  }
-
-//Method for display status NewAppointment card
-  (String, String, Color, String) statusCheckColor(String value) {
-    String statusIcon = '';
-    String statusDescription = '';
-    String status = '';
-
-    Color colorStatus = AutilabColor.gray;
-
-    switch (value) {
-      case 'PENDING':
-        statusIcon = 'assets/icons/minimize_icon.svg';
-        status = 'Pending';
-        statusDescription = 'Your Appointment Is Being Reviewed';
-        colorStatus = AutilabColor.gray;
-        break;
-
-      case 'CANCEL':
-        statusIcon = 'assets/icons/close_icon.svg';
-        status = 'Cancel';
-        statusDescription = 'Your Appointment Has Been Canceled';
-        colorStatus = const Color(0xffFF6363);
-        break;
-
-      case 'APPROVED':
-        statusIcon = 'assets/icons/done_icon.svg';
-        status = 'Approved';
-        statusDescription = 'Your Appointment Has Been Approved';
-        colorStatus = const Color(0xff50DD81);
-        break;
-
-      default:
-        status = 'Pending';
-        colorStatus = AutilabColor.gray;
-    }
-    return (statusIcon, status, colorStatus, statusDescription);
   }
 
   @override

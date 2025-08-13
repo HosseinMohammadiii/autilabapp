@@ -9,9 +9,14 @@ class ExpiredAppointmentWidget extends StatelessWidget {
   const ExpiredAppointmentWidget({
     super.key,
     this.isMobile = true,
+    required this.color,
+    required this.title,
+    required this.statusIcon,
   });
   final bool isMobile;
-
+  final Color color;
+  final String title;
+  final String statusIcon;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,7 +30,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
                 isMobile: isMobile,
                 color: const Color(0xff50DD81),
                 backgroundColor: AutilabColor.lightGray,
-                title: 'Approved',
+                title: 'Caceled',
                 isShowRate: true,
                 statusIcon: 'assets/icons/done_icon.svg',
                 image: 'assets/images/doctor_image.jpg',

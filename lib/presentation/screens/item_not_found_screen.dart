@@ -107,7 +107,7 @@ class _ItemNotFoundScreenState extends State<ItemNotFoundScreen>
                             color: AutilabColor.bb,
                             text: 'Search Something Else',
                             textStyle: AutilabTextStyle.small18_400,
-                          )
+                          ),
                         ],
                       ),
                     ),

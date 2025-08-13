@@ -8,9 +8,14 @@ class ValidAppointmentWidget extends StatelessWidget {
   const ValidAppointmentWidget({
     super.key,
     this.isMobile = true,
+    required this.color,
+    required this.title,
+    required this.statusIcon,
   });
   final bool isMobile;
-
+  final Color color;
+  final String title;
+  final String statusIcon;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -22,9 +27,9 @@ class ValidAppointmentWidget extends StatelessWidget {
           height: isMobile ? 256 : 409,
           child: NewAppointmentsCardWidget(
             isMobile: isMobile,
-            color: const Color(0xff50DD81),
-            title: 'Approved',
-            statusIcon: 'assets/icons/done_icon.svg',
+            color: color,
+            title: title,
+            statusIcon: statusIcon,
             image: 'assets/images/doctor_image.jpg',
             margin: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
             raiteOnTap: () {},
