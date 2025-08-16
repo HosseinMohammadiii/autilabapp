@@ -495,7 +495,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                           .context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2000),
-                                      lastDate: DateTime(2050),
+                                      lastDate: DateTime.now(),
                                       borderRadius: 16,
                                       height: 350,
                                       theme: ThemeData(
@@ -856,6 +856,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                   child: CustomButtonWidget(
                                     isMobile: isMobile(),
                                     onTap: () {
+                                      print(tempSelectedDate);
                                       //call UpdateUserProfile Event to edit profile user
                                       BlocProvider.of<AuthenticationBloc>(
                                               context)

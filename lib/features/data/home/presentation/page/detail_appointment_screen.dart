@@ -2,13 +2,18 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
 import 'package:autilab_project/features/data/doctor/widgets/box_detail_widget.dart';
 import 'package:autilab_project/features/data/home/widgets/box_shape_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/network/locator.dart';
 import '../../../../../utils/functions/animation_control.dart';
+import '../../../auth/presentetion/bloc/auth_bloc.dart';
+import '../../../auth/presentetion/bloc/auth_event.dart';
 import '../../../doctor/page/nearby_center_details_screen.dart';
 import '../../data/model/newappointment_model.dart';
 import '../../widgets/doctor_box_detail_appointment_widget.dart';
@@ -60,6 +65,26 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
   void didUpdateWidget(covariant DetailAppointmentScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
+  }
+
+  //Method for calculating age by receiving the date of birth API
+  int calculateAge(String dateFromApi) {
+    // convert DateTime to String
+    DateTime birthDate = DateTime.parse(dateFromApi);
+
+    // DateTime now
+    DateTime now = DateTime.now();
+
+    // Year difference
+    int age = now.year - birthDate.year;
+
+    //  Check if the month/day of birth is past or not
+    if (now.month < birthDate.month ||
+        (now.month == birthDate.month && now.day < birthDate.day)) {
+      age--;
+    }
+
+    return age;
   }
 
   @override
@@ -195,24 +220,53 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                     SliverPadding(
                       padding: AutilabMargin.marginFullScreen,
                       sliver: SliverToBoxAdapter(
-                        child: Column(
-                          spacing: 12,
-                          children: [
-                            BoxDetailWidget(
-                                isMobile: isMobile(),
-                                title: 'Full Name',
-                                subtitle: 'Alexei Oppana'),
-                            BoxDetailWidget(
-                              isMobile: isMobile(),
-                              title: 'Age',
-                              subtitle: '8',
-                            ),
-                            BoxDetailWidget(
-                              isMobile: isMobile(),
-                              title: 'Gender',
-                              subtitle: 'Female',
-                            ),
-                          ],
+                        child: BlocProvider(
+                          create: (context) => AuthenticationBloc(locator.get())
+                            ..add(DisplayInformationUser()),
+                          child: BlocBuilder<AuthenticationBloc,
+                              AuthenticationState>(
+                            builder: (context, state) {
+                              if (state is AuthenticationLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AutilabColor.bb,
+                                  ),
+                                );
+                              }
+                              if (state is FetchUserDataResponse) {
+                                return state.response.fold(
+                                  (error) {
+                                    return Text(error);
+                                  },
+                                  (userData) {
+                                    return Column(
+                                      spacing: 12,
+                                      children: [
+                                        BoxDetailWidget(
+                                            isMobile: isMobile(),
+                                            title: 'Full Name',
+                                            subtitle:
+                                                '${userData.firstName} ${userData.lastName}'),
+                                        BoxDetailWidget(
+                                          isMobile: isMobile(),
+                                          title: 'Age',
+                                          subtitle:
+                                              calculateAge(userData.birthdate)
+                                                  .toString(),
+                                        ),
+                                        BoxDetailWidget(
+                                          isMobile: isMobile(),
+                                          title: 'Gender',
+                                          subtitle: userData.gender,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              return const SizedBox();
+                            },
+                          ),
                         ),
                       ),
                     ),
