@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 class CachednetworkimageWidget extends StatelessWidget {
   const CachednetworkimageWidget({
     super.key,
+    this.isShowShimmer = true,
     required this.imgUrl,
     required this.img,
     required this.isNetworkImage,
@@ -12,6 +13,7 @@ class CachednetworkimageWidget extends StatelessWidget {
     this.height,
     this.borderRadius,
   });
+  final bool isShowShimmer;
   final String imgUrl;
   final Widget img;
   final bool isNetworkImage;
@@ -24,20 +26,24 @@ class CachednetworkimageWidget extends StatelessWidget {
         ? CachedNetworkImage(
             imageUrl: imgUrl,
             errorWidget: (context, url, error) => const SizedBox(),
-            placeholder: (context, url) => Center(
-              child: Shimmer.fromColors(
-                baseColor: const Color(0xffE1E1E1),
-                highlightColor: const Color(0xffF3F3F2),
-                child: Container(
-                  width: width ?? double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(borderRadius ?? 25),
+            placeholder: (context, url) {
+              if (isShowShimmer) {
+                Center(
+                  child: Shimmer.fromColors(
+                    baseColor: const Color(0xffE1E1E1),
+                    highlightColor: const Color(0xffF3F3F2),
+                    child: Container(
+                      width: width ?? double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(borderRadius ?? 25),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          )
+                );
+              }
+              return const SizedBox();
+            })
         : img;
   }
 }
