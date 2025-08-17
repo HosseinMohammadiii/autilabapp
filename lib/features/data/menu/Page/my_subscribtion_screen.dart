@@ -14,8 +14,7 @@ import '../../../../core/constants/color_constant.dart';
 import '../../../../core/network/locator.dart';
 import '../../../../presentation/screens/not_connection_screen.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../../auth/presentetion/bloc/auth_bloc.dart';
-import '../../auth/presentetion/bloc/auth_event.dart';
+
 import '../../home/data/model/plan_model.dart';
 import '../../home/presentation/bloc/home_bloc.dart';
 import '../../home/presentation/bloc/home_state.dart';

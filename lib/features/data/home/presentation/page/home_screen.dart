@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/plan_box_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
-import 'package:autilab_project/features/data/home/data/model/home_model.dart';
 import 'package:autilab_project/features/data/home/data/model/plan_model.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_state.dart';
@@ -26,7 +23,6 @@ import '../../../doctor/widgets/specialty_list_widget.dart';
 import '../../data/model/intelligence_test_model.dart';
 import '../../data/model/newappointment_model.dart';
 import '../../data/model/recent_visited_model.dart';
-import '../../widgets/plan_item_widget.dart';
 import '../bloc/home_event.dart';
 
 class StatusClass {
