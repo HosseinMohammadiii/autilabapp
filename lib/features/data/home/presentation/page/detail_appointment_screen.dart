@@ -14,7 +14,7 @@ import '../../../../../core/network/locator.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../auth/presentetion/bloc/auth_bloc.dart';
 import '../../../auth/presentetion/bloc/auth_event.dart';
-import '../../../doctor/page/nearby_center_details_screen.dart';
+import '../../../doctor/presentation/page/nearby_center_details_screen.dart';
 import '../../data/model/newappointment_model.dart';
 import '../../widgets/doctor_box_detail_appointment_widget.dart';
 

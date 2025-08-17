@@ -1,0 +1,36 @@
+import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
+import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:dartz/dartz.dart';
+
+//َ/ AuthenticationState abstract class
+abstract class DoctorState {}
+
+///The initial state of the doctor process
+final class DoctorInitiateState extends DoctorState {}
+
+///Loading state for fetch or send data
+final class DoctorLoading extends DoctorState {}
+
+///Represents the state when an error occurs during the doctor process
+final class DoctorError extends DoctorState {
+  Object errorMessage;
+  DoctorError(this.errorMessage);
+}
+
+/// State indicating successful receipt of doctor response
+final class DoctorResponse extends DoctorState {
+  Either<String, String> response;
+  DoctorResponse(this.response);
+}
+
+/// State indicating successful receipt of doctor response
+final class FetchDoctorDataResponse extends DoctorState {
+  Either<String, UserModel> response;
+  FetchDoctorDataResponse(this.response);
+}
+
+///Represents the response state after the user information process
+final class AllDoctorResponseState extends DoctorState {
+  Either<String, List<AllDoctorModel>> displayAllDoctor;
+  AllDoctorResponseState(this.displayAllDoctor);
+}

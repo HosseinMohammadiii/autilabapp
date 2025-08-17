@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../../doctor/page/nearby_center_details_screen.dart'
+import '../../doctor/presentation/page/nearby_center_details_screen.dart'
     show TitleAndIconWidget;
 
 class TalentTest {

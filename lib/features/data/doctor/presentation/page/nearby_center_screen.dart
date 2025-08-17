@@ -3,9 +3,9 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/nearby_card_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/cacheimahe_function.dart';
-import '../../../../utils/functions/open_location_function.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../../../utils/functions/open_location_function.dart';
 
 class NearbyCenterScreen extends StatefulWidget {
   const NearbyCenterScreen({

@@ -8,11 +8,16 @@ import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/Lists/package_info_list.dart';
 import '../../../../utils/functions/animation_control.dart';
-import '../../home/widgets/plan_item_widget.dart';
+import '../../home/data/model/plan_model.dart';
 
 class PackagesSubscribtion extends StatefulWidget {
-  const PackagesSubscribtion({super.key});
-
+  const PackagesSubscribtion({
+    super.key,
+    required this.planModel,
+    required this.planDescription,
+  });
+  final List<PlanModel> planModel;
+  final List<PlanFeatures>? planDescription;
   @override
   State<PackagesSubscribtion> createState() => _PackagesSubscribtionState();
 }
@@ -75,54 +80,30 @@ class _PackagesSubscribtionState extends State<PackagesSubscribtion>
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: PlanBoxWidget(
-                            isMobile: isMobile(),
-                            title: titlePlanList[index],
-                            description: descriptionPlanList[index],
-                            titleButton: 'Choose',
-                            widget: [
-                              PalnItemWidget(
-                                isMobile: isMobile(),
-                                title: 'Full access to the tools section',
-                              ),
-                              PalnItemWidget(
-                                isMobile: isMobile(),
-                                title: 'Access to aptitude test',
-                              ),
-                              PalnItemWidget(
-                                isMobile: isMobile(),
-                                title: 'Access to personality test',
-                              ),
-                              PalnItemWidget(
-                                isMobile: isMobile(),
-                                title: 'Unlimited appointment booking',
-                              ),
-                              PalnItemWidget(
-                                isMobile: isMobile(),
-                                title: 'Access to nearby centers',
-                              ),
-                              PalnItemWidget(
-                                isMobile: isMobile(),
-                                title: 'Doctor appointment booking discount',
-                              ),
-                            ],
-                            onTap: () {
-                              int price = 0;
-                              if (index == 1) {
-                                price = 99;
-                              } else {
-                                price = 299;
-                              }
-                              context.pushNamed(
-                                AutiLabRoutes.payPackagesScreen,
-                                extra: {
-                                  'title': titlePlanList[index],
-                                  'description': descriptionPlanList[index],
-                                  'price': price,
-                                },
-                              );
-                            },
-                            margin: 0,
+                          child: SizedBox(
+                            height: 430,
+                            child: PlanBoxWidget(
+                              isMobile: isMobile(),
+                              title: widget.planModel[index].name,
+                              description: widget.planModel[index].description,
+                              titleButton: 'Choose',
+                              widget: widget.planDescription,
+                              onTap: () {
+                                context.pushNamed(
+                                  AutiLabRoutes.payPackagesScreen,
+                                  extra: {
+                                    'title': widget.planModel[index].name,
+                                    'description': widget
+                                        .planDescription![index].description,
+                                    'planModel': widget.planModel[index],
+                                    'planDescription': widget.planDescription,
+                                    'price':
+                                        widget.planModel[index].price.toInt(),
+                                  },
+                                );
+                              },
+                              margin: 0,
+                            ),
                           ),
                         ),
                       ),

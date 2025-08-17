@@ -10,7 +10,7 @@ import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
-import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/nearby_center_details_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
 import 'package:autilab_project/utils/functions/custom_dialog_function.dart';

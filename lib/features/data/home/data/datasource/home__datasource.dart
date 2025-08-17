@@ -24,6 +24,7 @@ final class HomeDataSourceRemoot implements HomeDataSource {
           },
         ),
       );
+
       return response.data['data']
           .map<HomeModel>(
             (jsonObject) => HomeModel.fromJson(

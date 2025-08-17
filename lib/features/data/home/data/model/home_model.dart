@@ -25,11 +25,13 @@ class HomeModel {
                 ?.map((item) => IntelligenceTestModel.fromJson(item))
                 .toList() ??
             [];
-    var recentVisitedModelList =
-        (jsonObject['recent_visited'][0] as List<dynamic>?)
-                ?.map((item) => RecentVisitedModel.fromJson(item))
-                .toList() ??
-            [];
+    List<RecentVisitedModel> recentVisitedModelList =
+        (jsonObject['recent_visited'] != null &&
+                (jsonObject['recent_visited'] as List).isNotEmpty)
+            ? (jsonObject['recent_visited'][0] as List<dynamic>)
+                .map((item) => RecentVisitedModel.fromJson(item))
+                .toList()
+            : [];
     var planModelList = (jsonObject['plan'] as List<dynamic>?)
             ?.map((item) => PlanModel.fromJson(item))
             .toList() ??

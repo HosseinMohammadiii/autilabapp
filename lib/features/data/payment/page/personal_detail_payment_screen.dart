@@ -3,24 +3,27 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/home/data/model/plan_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/widgets/responsive_widget.dart';
+import '../../../../core/network/locator.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../auth/presentetion/bloc/auth_bloc.dart';
+import '../../auth/presentetion/bloc/auth_event.dart';
+import '../../auth/presentetion/bloc/auth_state.dart';
 import '../widgets/cart_item_widget.dart';
 
 class PersonalDetailPaymentScreen extends StatefulWidget {
   const PersonalDetailPaymentScreen({
     super.key,
-    required this.title,
-    required this.description,
-    required this.price,
+    required this.planModel,
   });
-  final String title;
-  final String? description;
-  final int price;
+
+  final PlanModel planModel;
 
   @override
   State<PersonalDetailPaymentScreen> createState() =>
@@ -122,15 +125,14 @@ class _PersonalDetailPaymentScreenState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.title,
+                                    widget.planModel.name,
                                     style:
                                         AutilabTextStyle.medium16_500.copyWith(
                                       fontSize: isMobile() ? 16 : 28,
                                     ),
                                   ),
                                   Text(
-                                    widget.description ??
-                                        'An Initial Test To Determine How Much You Are At Risk Of Cancer Based.',
+                                    widget.planModel.description,
                                     style:
                                         AutilabTextStyle.small14_400.copyWith(
                                       fontSize: isMobile() ? 14 : 18,
@@ -169,44 +171,73 @@ class _PersonalDetailPaymentScreenState
                       const SizedBox(
                         height: 32,
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        margin: AutilabMargin.marginFullScreen,
-                        decoration: BoxDecoration(
-                          color: const Color(0xffECF0FF),
-                          border: Border.all(color: AutilabColor.bb),
-                          borderRadius:
-                              BorderRadius.circular(isMobile() ? 16 : 24),
-                        ),
-                        child: Column(
-                          spacing: 16,
-                          children: [
-                            CartItemWidget(
-                              isMobile: isMobile(),
-                              title: 'Name',
-                              subTitle: 'Alexi',
-                            ),
-                            CartItemWidget(
-                              isMobile: isMobile(),
-                              title: 'Last Name',
-                              subTitle: 'Opaana',
-                            ),
-                            CartItemWidget(
-                              isMobile: isMobile(),
-                              title: 'Phone Namber',
-                              subTitle: '(+1) 289 2658558',
-                            ),
-                            CartItemWidget(
-                              isMobile: isMobile(),
-                              title: 'Email',
-                              subTitle: 'Alexii@gmail.com',
-                            ),
-                            CartItemWidget(
-                              isMobile: isMobile(),
-                              title: 'Invoice Number',
-                              subTitle: '1020',
-                            ),
-                          ],
+                      BlocProvider(
+                        create: (context) => AuthenticationBloc(locator.get())
+                          ..add(DisplayInformationUser()),
+                        child: BlocBuilder<AuthenticationBloc,
+                            AuthenticationState>(
+                          builder: (context, state) {
+                            if (state is AuthenticationLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  color: AutilabColor.bb,
+                                ),
+                              );
+                            }
+                            if (state is FetchUserDataResponse) {
+                              return state.response.fold(
+                                (l) {
+                                  return Center(
+                                    child: Text(l),
+                                  );
+                                },
+                                (userDetail) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(16),
+                                    margin: AutilabMargin.marginFullScreen,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffECF0FF),
+                                      border:
+                                          Border.all(color: AutilabColor.bb),
+                                      borderRadius: BorderRadius.circular(
+                                          isMobile() ? 16 : 24),
+                                    ),
+                                    child: Column(
+                                      spacing: 16,
+                                      children: [
+                                        CartItemWidget(
+                                          isMobile: isMobile(),
+                                          title: 'Name',
+                                          subTitle: userDetail.firstName,
+                                        ),
+                                        CartItemWidget(
+                                          isMobile: isMobile(),
+                                          title: 'Last Name',
+                                          subTitle: userDetail.lastName,
+                                        ),
+                                        // CartItemWidget(
+                                        //   isMobile: isMobile(),
+                                        //   title: 'Phone Namber',
+                                        //   subTitle: '(+1) 289 2658558',
+                                        // ),
+                                        CartItemWidget(
+                                          isMobile: isMobile(),
+                                          title: 'Email',
+                                          subTitle: userDetail.email,
+                                        ),
+                                        CartItemWidget(
+                                          isMobile: isMobile(),
+                                          title: 'Invoice Number',
+                                          subTitle: '1020',
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                            return const SizedBox();
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -295,7 +326,7 @@ class _PersonalDetailPaymentScreenState
                             CartItemWidget(
                               isMobile: isMobile(),
                               title: 'Price',
-                              subTitle: '\$${widget.price}',
+                              subTitle: '\$${widget.planModel.price.toInt()}',
                             ),
                             CartItemWidget(
                               isMobile: isMobile(),
@@ -305,12 +336,14 @@ class _PersonalDetailPaymentScreenState
                             CartItemWidget(
                               isMobile: isMobile(),
                               title: 'Discount',
-                              subTitle: '\$${widget.price - 3}',
+                              subTitle:
+                                  '\$${widget.planModel.price.toInt() - 3}',
                             ),
                             CartItemWidget(
                               isMobile: isMobile(),
                               title: 'Total',
-                              subTitle: '\$${widget.price + 9}',
+                              subTitle:
+                                  '\$${widget.planModel.price.toInt() + 9}',
                             ),
                           ],
                         ),

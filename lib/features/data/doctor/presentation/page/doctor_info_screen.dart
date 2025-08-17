@@ -4,15 +4,15 @@ import 'package:autilab_project/features/data/doctor/widgets/specialty_list_widg
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/appbar_back_screen.dart';
-import '../../../../common/widgets/custom_textfield.dart';
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../core/constants/constant_routes.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/cacheimahe_function.dart';
-import '../../tool/widgets/likewidget.dart';
-import '../widgets/box_detail_widget.dart';
-import '../widgets/button_card.dart';
+import '../../../../../common/widgets/appbar_back_screen.dart';
+import '../../../../../common/widgets/custom_textfield.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/constants/constant_routes.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../tool/widgets/likewidget.dart';
+import '../../widgets/box_detail_widget.dart';
+import '../../widgets/button_card.dart';
 import 'nearby_center_details_screen.dart';
 
 // ignore: must_be_immutable

@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/custom_textfield.dart';
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../core/constants/color_constant.dart';
-import '../../../../core/constants/constant_routes.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/cacheimahe_function.dart';
-import '../../tool/widgets/likewidget.dart';
-import '../widgets/box_detail_widget.dart';
-import '../widgets/button_card.dart';
-import '../widgets/specialty_list_widget.dart';
+import '../../../../../common/widgets/custom_textfield.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/constants/color_constant.dart';
+import '../../../../../core/constants/constant_routes.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../tool/widgets/likewidget.dart';
+import '../../widgets/box_detail_widget.dart';
+import '../../widgets/button_card.dart';
+import '../../widgets/specialty_list_widget.dart';
 
 // ignore: must_be_immutable
 class NearbyCenterDetailsScreen extends StatefulWidget {

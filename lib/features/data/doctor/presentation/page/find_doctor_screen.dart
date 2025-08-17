@@ -4,16 +4,16 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/widgets/custom_button_widget.dart';
-import '../../../../core/constants/color_constant.dart';
-import '../../../../utils/Lists/category_items.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../../../../utils/functions/cacheimahe_function.dart';
-import '../../../../utils/functions/custom_dialog_function.dart';
-import '../widgets/custom_checkbox_widget.dart';
-import '../widgets/doctor_box_widget.dart';
-import '../widgets/search_textfield_widget.dart';
-import '../widgets/specialty_list_widget.dart';
+import '../../../../../common/widgets/custom_button_widget.dart';
+import '../../../../../core/constants/color_constant.dart';
+import '../../../../../utils/Lists/category_items.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../../../utils/functions/custom_dialog_function.dart';
+import '../../widgets/custom_checkbox_widget.dart';
+import '../../widgets/doctor_box_widget.dart';
+import '../../widgets/search_textfield_widget.dart';
+import '../../widgets/specialty_list_widget.dart';
 
 class FindDoctorScreen extends StatefulWidget {
   const FindDoctorScreen({super.key});

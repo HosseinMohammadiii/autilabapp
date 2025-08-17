@@ -6,11 +6,11 @@ import 'package:autilab_project/features/data/auth/presentetion/page/send_email_
 import 'package:autilab_project/features/data/auth/presentetion/page/signup_screen.dart';
 // import 'package:autilab_project/features/data/community/page/community_screen.dart';
 import 'package:autilab_project/features/data/community/page/doctor_socialmedia_screen.dart';
-import 'package:autilab_project/features/data/doctor/page/doctor_info_screen.dart';
-import 'package:autilab_project/features/data/doctor/page/doctor_speciality_screen.dart';
-import 'package:autilab_project/features/data/doctor/page/doctor_work_schedule_screen.dart';
-import 'package:autilab_project/features/data/doctor/page/make_appointment_screen.dart';
-import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/doctor_info_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/doctor_speciality_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/doctor_work_schedule_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/make_appointment_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/nearby_center_details_screen.dart';
 import 'package:autilab_project/features/data/home/presentation/page/all_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/presentation/page/detail_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/presentation/page/home_screen.dart';
@@ -47,7 +47,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/data/auth/presentetion/page/login_screen.dart';
-import '../../features/data/doctor/page/doctor_screen.dart';
+import '../../features/data/doctor/presentation/page/doctor_screen.dart';
 import '../../features/data/menu/widgets/packagessubscribtion.dart';
 import '../../presentation/screens/welcome_screen.dart';
 
@@ -287,10 +287,16 @@ class AutilabRouter {
         builder: (context, state) => const MySubscribtionScreen(),
         routes: [
           GoRoute(
-            path: 'subscribtionPackagesScreen',
-            name: AutiLabRoutes.subscribtionPackagesScreen,
-            builder: (context, state) => const PackagesSubscribtion(),
-          ),
+              path: 'subscribtionPackagesScreen',
+              name: AutiLabRoutes.subscribtionPackagesScreen,
+              builder: (context, state) {
+                final Map<String, dynamic> extraData =
+                    state.extra as Map<String, dynamic>;
+                return PackagesSubscribtion(
+                  planDescription: extraData['planFeuture'],
+                  planModel: extraData['planModel'],
+                );
+              }),
         ],
       ),
       GoRoute(
@@ -355,6 +361,8 @@ class AutilabRouter {
           return PayPackageScreen(
             title: extraData['title'],
             description: extraData['description'],
+            planDescription: extraData['planDescription'],
+            planModel: extraData['planModel'],
             options: extraData['options'],
             price: extraData['price'],
           );
@@ -367,9 +375,7 @@ class AutilabRouter {
           final Map<String, dynamic> extraData =
               state.extra as Map<String, dynamic>;
           return PersonalDetailPaymentScreen(
-            title: extraData['title'],
-            description: extraData['description'],
-            price: extraData['price'],
+            planModel: extraData['planModel'],
           );
         },
       ),

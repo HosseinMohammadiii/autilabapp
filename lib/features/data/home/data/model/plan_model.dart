@@ -1,6 +1,6 @@
 class PlanModel {
   final String name;
-  final int price;
+  final double price;
   final String description;
   final List<PlanFeatures> planFeatures;
   PlanModel({

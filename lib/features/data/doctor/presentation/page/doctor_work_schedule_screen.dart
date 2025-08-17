@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../widgets/calendar_box_widget.dart';
-import '../widgets/doctor_container_box_widget.dart';
-import '../widgets/select_time_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../widgets/calendar_box_widget.dart';
+import '../../widgets/doctor_container_box_widget.dart';
+import '../../widgets/select_time_widget.dart';
 import 'nearby_center_details_screen.dart';
 
 // ignore: must_be_immutable

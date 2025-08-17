@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants/color_constant.dart';
 import '../../core/constants/theme_constant.dart';
+import '../../features/data/home/data/model/plan_model.dart';
+import '../../features/data/home/widgets/plan_item_widget.dart';
 
 class PlanBoxWidget extends StatelessWidget {
   const PlanBoxWidget({
@@ -25,7 +27,7 @@ class PlanBoxWidget extends StatelessWidget {
   final String? description;
   final String titleButton;
   final double margin;
-  final List<Widget>? widget;
+  final List<PlanFeatures>? widget;
   final Color? backgroundColor;
   final Color? borderColor;
   final List<BoxShadow>? boxShadow;
@@ -95,11 +97,19 @@ class PlanBoxWidget extends StatelessWidget {
           const SizedBox(
             height: 32,
           ),
-          Column(
-            spacing: 8,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: widget ?? [],
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: widget?.length ?? 0,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: PalnItemWidget(
+                  isMobile: isMobile,
+                  title: widget?[index].description,
+                ),
+              );
+            },
           ),
           const Spacer(),
           CustomButtonWidget(

@@ -1,20 +1,20 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
-import 'package:autilab_project/features/data/doctor/page/nearby_center_details_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/nearby_center_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../common/widgets/textfiledbox_description.dart';
-import '../../../../core/constants/color_constant.dart';
-import '../../../../core/constants/theme_constant.dart';
-import '../../../../utils/Lists/time_date_list.dart';
-import '../../../../utils/functions/animation_control.dart';
-import '../widgets/calendar_box_widget.dart';
-import '../widgets/doctor_container_box_widget.dart';
-import '../widgets/select_time_widget.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../common/widgets/textfiledbox_description.dart';
+import '../../../../../core/constants/color_constant.dart';
+import '../../../../../core/constants/theme_constant.dart';
+import '../../../../../utils/Lists/time_date_list.dart';
+import '../../../../../utils/functions/animation_control.dart';
+import '../../widgets/calendar_box_widget.dart';
+import '../../widgets/doctor_container_box_widget.dart';
+import '../../widgets/select_time_widget.dart';
 
 // ignore: must_be_immutable
 class MakeAppointmentScreen extends StatefulWidget {

@@ -1,10 +1,10 @@
-import 'package:autilab_project/features/data/doctor/page/find_doctor_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/find_doctor_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/custom_tabbar_widget.dart';
+import '../../../../../common/widgets/custom_tabbar_widget.dart';
 
-import '../../../../core/constants/theme_constant.dart';
-import '../../../../utils/functions/animation_control.dart';
+import '../../../../../core/constants/theme_constant.dart';
+import '../../../../../utils/functions/animation_control.dart';
 import 'nearby_center_screen.dart';
 
 class DoctorScreen extends StatefulWidget {
