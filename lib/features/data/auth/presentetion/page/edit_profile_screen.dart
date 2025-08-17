@@ -477,8 +477,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                             : finalDate,
                                         style: AutilabTextStyle.small14_400
                                             .copyWith(
-                                          color: _selectedDate.value != null &&
-                                                  isSelectedDate
+                                          color: (_selectedDate.value != null &&
+                                                      isSelectedDate) ||
+                                                  finalDate !=
+                                                      'What is your date of birth?'
                                               ? AutilabColor.black
                                               : AutilabColor.gray,
                                           fontSize: isMobile() ? 14 : 20,
