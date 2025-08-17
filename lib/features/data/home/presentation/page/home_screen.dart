@@ -8,6 +8,7 @@ import 'package:autilab_project/features/data/home/presentation/bloc/home_state.
 import 'package:autilab_project/features/data/home/widgets/new_appointment_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common/widgets/loading_indicator_widget.dart';
@@ -166,6 +167,78 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           SliverToBoxAdapter(
                             child: Visibility(
                               visible: newappointmentModel.isNotEmpty,
+                              replacement: Container(
+                                padding: const EdgeInsets.all(12),
+                                margin: AutilabMargin.marginFullScreen,
+                                decoration: BoxDecoration(
+                                  color: AutilabColor.primary,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 4),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffECF0FF),
+                                        border:
+                                            Border.all(color: AutilabColor.bb),
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'You Don’t Have Any Appointment',
+                                                  textAlign: TextAlign.center,
+                                                  style: AutilabTextStyle
+                                                      .medium14_500
+                                                      .copyWith(
+                                                    fontSize:
+                                                        isMobile() ? 14 : 28,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'You can view all appointment from the button below',
+                                                  textAlign: TextAlign.center,
+                                                  style: AutilabTextStyle
+                                                      .small12_400
+                                                      .copyWith(
+                                                    fontSize:
+                                                        isMobile() ? 12 : 20,
+                                                    color: AutilabColor.gray,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SvgPicture.asset(
+                                            'assets/images/notAvailbleDoctor.svg',
+                                            width: isMobile() ? 152 : 345,
+                                            height: isMobile() ? 113 : 258,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    CustomButtonWidget(
+                                      isMobile: isMobile(),
+                                      onTap: () {
+                                        context.goNamed(
+                                            AutiLabRoutes.doctorScreen);
+                                      },
+                                      height: 50,
+                                      margin: const EdgeInsets.only(top: 12),
+                                      color: AutilabColor.bb,
+                                      text: 'Make Appointment',
+                                      textStyle: AutilabTextStyle.small18_400,
+                                    ),
+                                  ],
+                                ),
+                              ),
                               child: SizedBox(
                                 height: isMobile() ? 240 : 370,
                                 child: ListView.builder(
