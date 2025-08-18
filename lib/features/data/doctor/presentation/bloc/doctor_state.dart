@@ -1,5 +1,7 @@
+import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:dartz/dartz.dart';
 
 //َ/ AuthenticationState abstract class
@@ -13,7 +15,7 @@ final class DoctorLoading extends DoctorState {}
 
 ///Represents the state when an error occurs during the doctor process
 final class DoctorError extends DoctorState {
-  Object errorMessage;
+  ApiException errorMessage;
   DoctorError(this.errorMessage);
 }
 
@@ -31,6 +33,7 @@ final class FetchDoctorDataResponse extends DoctorState {
 
 ///Represents the response state after the user information process
 final class AllDoctorResponseState extends DoctorState {
-  Either<String, List<AllDoctorModel>> displayAllDoctor;
-  AllDoctorResponseState(this.displayAllDoctor);
+  List<AllDoctorModel> displayAllDoctor;
+  List<RecentVisitedModel> displayAllSpecialty;
+  AllDoctorResponseState(this.displayAllDoctor, this.displayAllSpecialty);
 }

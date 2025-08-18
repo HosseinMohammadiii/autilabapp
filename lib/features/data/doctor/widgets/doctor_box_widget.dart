@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../common/widgets/custom_button_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../utils/functions/cacheimahe_function.dart';
+import '../data/model/doctor_model.dart';
 import 'button_card.dart';
 
 // ignore: must_be_immutable
@@ -15,9 +16,17 @@ class DoctorBoxWidget extends StatefulWidget {
     super.key,
     this.isLike = false,
     this.isMobile = true,
+    this.user,
+    this.doctorSpecialities,
+    this.doctorRate,
+    this.gender,
   });
   bool isLike;
   final bool isMobile;
+  final DoctorUser? user;
+  final DoctorSpecialities? doctorSpecialities;
+  final String? doctorRate;
+  final String? gender;
 
   @override
   State<DoctorBoxWidget> createState() => _DoctorBoxWidgetState();
@@ -30,6 +39,24 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
     'assets/icons/calendar.svg',
   ];
   bool isLike = false;
+
+  late String doctorFullName = '';
+  @override
+  void initState() {
+    doctorFullName = '${widget.user?.firstName} ${widget.user?.lastName}';
+    super.initState();
+  }
+
+//Control doctor gender
+  Color controlDoctorGender(String gender) {
+    if (gender == 'female') {
+      return AutilabColor.bb;
+    } else if (gender == 'male') {
+      return AutilabColor.bb;
+    } else {
+      return AutilabColor.gray;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +75,10 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               Text(
                 'Male',
                 style: AutilabTextStyle.medium14_500.copyWith(
-                  color: AutilabColor.gray,
+                  color: widget.gender == 'male'
+                      ? AutilabColor.bb
+                      : AutilabColor.gray,
+                  // controlDoctorGender(widget.gender ?? 'male'),
                   fontSize: widget.isMobile ? 14 : 20,
                 ),
               ),
@@ -56,7 +86,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               Text(
                 'Female',
                 style: AutilabTextStyle.medium14_500.copyWith(
-                  color: AutilabColor.blue,
+                  color: widget.gender == 'female'
+                      ? AutilabColor.bb
+                      : AutilabColor.gray,
                   fontSize: widget.isMobile ? 14 : 20,
                 ),
               ),
@@ -132,7 +164,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dr. Sophia Martinez',
+                            doctorFullName,
                             overflow: TextOverflow.ellipsis,
                             style: widget.isMobile
                                 ? AutilabTextStyle.medium18_500
@@ -145,7 +177,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             child: Row(
                               children: [
                                 Text(
-                                  'Speech Therapy',
+                                  widget.doctorSpecialities?.name ?? '',
                                   style: AutilabTextStyle.small14_400.copyWith(
                                     fontSize: widget.isMobile ? 14 : 24,
                                   ),
@@ -158,7 +190,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                   color: Color(0xffEDC757),
                                 ),
                                 Text(
-                                  '5.0',
+                                  widget.doctorRate ?? '4.0',
                                   style: AutilabTextStyle.small14_400.copyWith(
                                     fontSize: widget.isMobile ? 14 : 20,
                                   ),

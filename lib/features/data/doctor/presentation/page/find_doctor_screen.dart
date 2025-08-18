@@ -1,10 +1,22 @@
+import 'dart:math';
+
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_bloc.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_event.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_state.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
+import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
+import 'package:autilab_project/utils/functions/checkconnection_function.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common/widgets/custom_button_widget.dart';
+import '../../../../../common/widgets/loading_indicator_widget.dart';
 import '../../../../../core/constants/color_constant.dart';
 import '../../../../../utils/Lists/category_items.dart';
 import '../../../../../utils/functions/animation_control.dart';
@@ -26,11 +38,16 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
+  late List<AllDoctorModel> doctorsList = [];
+  late List<RecentVisitedModel> specialtyList = [];
+
   final searchController = TextEditingController();
 
   final searchFocusNode = FocusNode();
 
   bool isChecked = false;
+
+  bool icConnected = true;
 
   @override
   void initState() {
@@ -39,6 +56,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
+    BlocProvider.of<DoctorBloc>(context).add(DisplayDoctors());
   }
 
   @override
@@ -67,135 +85,174 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
         return FadeTransition(
           opacity: animationHelper.fadeAnimation,
-          child: Scaffold(
-            body: SafeArea(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Padding(
-                          padding: AutilabMargin.marginFullScreen,
-                          child: Row(
-                            spacing: 8,
+          child: BlocConsumer<DoctorBloc, DoctorState>(
+            listener: (context, state) {
+              if (state is AllDoctorResponseState) {
+                doctorsList = state.displayAllDoctor;
+                specialtyList = state.displayAllSpecialty;
+              }
+            },
+            builder: (context, state) {
+              if (state is DoctorError) {
+                if (state.errorMessage.type ==
+                    DioExceptionType.connectionError) {
+                  return NotConnectionInternetScreen(
+                    onChange: () async {
+                      context.read<DoctorBloc>().add(DisplayDoctors());
+                    },
+                  );
+                }
+              }
+              if (state is DoctorLoading) {
+                return const LoadingProgressWidget();
+              }
+
+              return RefreshIndicator(
+                color: AutilabColor.bb,
+                onRefresh: () async {
+                  context.read<DoctorBloc>().add(DisplayDoctors());
+                },
+                child: Scaffold(
+                  body: SafeArea(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: SearchTextFieldWidget(
-                                  isMobile: isMobile(),
-                                  searchFocusNode: searchFocusNode,
-                                  searchController: searchController,
-                                ),
+                              const SizedBox(
+                                height: 24,
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: const BoxDecoration(
-                                  color: AutilabColor.bb,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    showCustomDialog(
-                                      context,
-                                      _buildDialogSortIcon(
-                                        context,
-                                        isMobile(),
+                              Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: Row(
+                                  spacing: 8,
+                                  children: [
+                                    Expanded(
+                                      child: SearchTextFieldWidget(
+                                        isMobile: isMobile(),
+                                        searchFocusNode: searchFocusNode,
+                                        searchController: searchController,
                                       ),
-                                    );
-                                  },
-                                  child: SizedBox(
-                                    height: isMobile() ? 25 : 88,
-                                    child: SvgPicture.asset(
-                                      'assets/icons/sort_icon.svg',
-                                      fit: BoxFit.contain,
                                     ),
-                                  ),
+                                    Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: const BoxDecoration(
+                                        color: AutilabColor.bb,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          showCustomDialog(
+                                            context,
+                                            _buildDialogSortIcon(
+                                              context,
+                                              isMobile(),
+                                            ),
+                                          );
+                                        },
+                                        child: SizedBox(
+                                          height: isMobile() ? 25 : 88,
+                                          child: SvgPicture.asset(
+                                            'assets/icons/sort_icon.svg',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 32,
-                        ),
-                        Padding(
-                          padding: AutilabMargin.marginFullScreen,
-                          child: Row(
-                            children: [
-                              Expanded(
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Specialties',
+                                        style: AutilabTextStyle.small20_400
+                                            .copyWith(
+                                                fontSize: isMobile() ? 20 : 32),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showCustomDialog(
+                                          context,
+                                          _buildSpecialtiesDialog(
+                                            context,
+                                            (index) {},
+                                            isMobile(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'See All',
+                                        style: AutilabTextStyle.medium14_500
+                                            .copyWith(
+                                          color: AutilabColor.blue,
+                                          fontSize: isMobile() ? 14 : 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              SpecialtiesListWidget(
+                                itemCount: specialtyList.length,
+                                recentModel: specialtyList,
+                                height: isMobile() ? 113 : 180,
+                                width: isMobile() ? 112 : 180,
+                                widthImage: isMobile() ? 56 : 76,
+                                heightImage: isMobile() ? 56 : 76,
+                                radius: isMobile() ? 24 : 40,
+                                textStyle: isMobile()
+                                    ? AutilabTextStyle.small14_400
+                                    : AutilabTextStyle.small20_400,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 48, bottom: 16, right: 20, left: 20),
                                 child: Text(
-                                  'Specialties',
+                                  'Specialist',
                                   style: AutilabTextStyle.small20_400
                                       .copyWith(fontSize: isMobile() ? 20 : 32),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  showCustomDialog(
-                                    context,
-                                    _buildSpecialtiesDialog(
-                                      context,
-                                      (index) {},
-                                      isMobile(),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  'See All',
-                                  style: AutilabTextStyle.medium14_500.copyWith(
-                                    color: AutilabColor.blue,
-                                    fontSize: isMobile() ? 14 : 20,
-                                  ),
+                              Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: ListView.builder(
+                                  itemCount: doctorsList.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return DoctorBoxWidget(
+                                      isMobile: isMobile(),
+                                      isLike: false,
+                                      gender: doctorsList[index].user?.gender ??
+                                          'male',
+                                      user: doctorsList[index].user,
+                                      doctorSpecialities:
+                                          doctorsList[index].specialities,
+                                    );
+                                  },
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        SpecialtiesListWidget(
-                          height: isMobile() ? 113 : 180,
-                          width: isMobile() ? 112 : 180,
-                          widthImage: isMobile() ? 56 : 76,
-                          heightImage: isMobile() ? 56 : 76,
-                          radius: isMobile() ? 24 : 40,
-                          textStyle: isMobile()
-                              ? AutilabTextStyle.small14_400
-                              : AutilabTextStyle.small20_400,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 48, bottom: 16, right: 20, left: 20),
-                          child: Text(
-                            'Specialist',
-                            style: AutilabTextStyle.small20_400
-                                .copyWith(fontSize: isMobile() ? 20 : 32),
-                          ),
-                        ),
-                        Padding(
-                          padding: AutilabMargin.marginFullScreen,
-                          child: ListView.builder(
-                            itemCount: 10,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return DoctorBoxWidget(
-                                isMobile: isMobile(),
-                                isLike: false,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                ),
+              );
+            },
           ),
         );
       },

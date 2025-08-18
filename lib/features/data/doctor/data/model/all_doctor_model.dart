@@ -1,4 +1,3 @@
-import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
 
 class AllDoctorModel {
@@ -6,9 +5,9 @@ class AllDoctorModel {
   int? userid;
   String? degree;
   String? description;
-  UserModel? user;
+  DoctorUser? user;
   DoctorSpecialities? specialities;
-  int? ratingaverage;
+  String? ratingaverage;
 
   AllDoctorModel({
     this.id,
@@ -20,17 +19,15 @@ class AllDoctorModel {
     this.ratingaverage,
   });
 
-  AllDoctorModel.fromJson(Map<String, dynamic> jsonObject) {
-    id = jsonObject['id'];
-    userid = jsonObject['user_id'];
-    degree = jsonObject['degree'];
-    description = jsonObject['description'];
-    user = jsonObject['user'] != null
-        ? UserModel?.fromJson(jsonObject['user'])
-        : null;
-    specialities = jsonObject['specialities'] != null
-        ? DoctorSpecialities?.fromJson(jsonObject['specialities'])
-        : null;
-    ratingaverage = jsonObject['rating_average'];
+  factory AllDoctorModel.fromJson(Map<String, dynamic> jsonObject) {
+    return AllDoctorModel(
+      id: jsonObject['id'],
+      userid: jsonObject['user_id'],
+      degree: jsonObject['degree'] ?? '',
+      description: jsonObject['description'] ?? '',
+      user: DoctorUser.fromJson(jsonObject['user']),
+      specialities: DoctorSpecialities.fromJson(jsonObject['specialities']),
+      ratingaverage: jsonObject['rating_average'] ?? '',
+    );
   }
 }
