@@ -86,13 +86,14 @@ final class AuthenticationUserDatasourceRemoot
       //     fileName,
       //   );
       // }
+
       // FormData formData = FormData.fromMap({
       //   "email": userParam.email,
       //   "first_name": userParam.firstName,
       //   "last_name": userParam.lastName,
       //   "birthdate": userParam.birthDate,
-      //   // "address": userParam.address,
-      //   // "photo": imageFile,
+      //   "address": userParam.address,
+      //   "photo": imageFile,
       //   "gender": userParam.gender
       //   // 'photo': imageFile,
       // });
@@ -105,6 +106,7 @@ final class AuthenticationUserDatasourceRemoot
                 'Bearer ${await SharedPreferencesData.getUserToken()}',
           },
         ),
+        // data: formData,
         data: {
           "email": userParam.email,
           "first_name": userParam.firstName,

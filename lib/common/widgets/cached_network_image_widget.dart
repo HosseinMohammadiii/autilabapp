@@ -2,9 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../utils/functions/cacheimahe_function.dart';
+
 class CachednetworkimageWidget extends StatelessWidget {
   const CachednetworkimageWidget({
     super.key,
+    this.isMobile = true,
     this.isShowShimmer = true,
     required this.imgUrl,
     required this.img,
@@ -13,6 +16,7 @@ class CachednetworkimageWidget extends StatelessWidget {
     this.height,
     this.borderRadius,
   });
+  final bool isMobile;
   final bool isShowShimmer;
   final String imgUrl;
   final Widget img;
@@ -25,7 +29,19 @@ class CachednetworkimageWidget extends StatelessWidget {
     return isNetworkImage
         ? CachedNetworkImage(
             imageUrl: imgUrl,
-            errorWidget: (context, url, error) => const SizedBox(),
+            errorListener: (value) {},
+            errorWidget: (context, url, error) => SizedBox(
+                  child: Image.asset(
+                    'assets/images/avatar.png',
+                    fit: BoxFit.cover,
+                    width: isMobile ? 104 : 168,
+                    height: isMobile ? 104 : 168,
+                    cacheWidth:
+                        cacheImageFunction(isMobile ? 104 : 168, context),
+                    cacheHeight:
+                        cacheImageFunction(isMobile ? 104 : 168, context),
+                  ),
+                ),
             placeholder: (context, url) {
               if (isShowShimmer) {
                 Center(

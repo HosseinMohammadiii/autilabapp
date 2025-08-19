@@ -129,7 +129,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       setState(() {});
                     }
                   } else {
-                    Navigator.pop(context);
+                    if (context.canPop()) {
+                      Navigator.pop(context);
+                    }
                     // Permission denied: Show error message
                     displaySnackBar(
                       context,
@@ -139,7 +141,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     return;
                   }
                 } catch (e) {
-                  Navigator.pop(context);
+                  if (context.canPop()) {
+                    Navigator.pop(context);
+                  }
 
                   // Catch any unexpected errors and show message
                   displaySnackBar(
@@ -858,7 +862,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                   child: CustomButtonWidget(
                                     isMobile: isMobile(),
                                     onTap: () {
-                                      print(tempSelectedDate);
                                       //call UpdateUserProfile Event to edit profile user
                                       BlocProvider.of<AuthenticationBloc>(
                                               context)

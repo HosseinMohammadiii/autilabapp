@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_bloc.dart';
@@ -7,7 +5,6 @@ import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_ev
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_state.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
-import 'package:autilab_project/utils/functions/checkconnection_function.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
