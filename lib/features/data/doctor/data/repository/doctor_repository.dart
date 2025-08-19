@@ -4,11 +4,13 @@ import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
+import '../../../home/data/model/center_model.dart';
 import '../../../home/data/model/recent_visited_model.dart';
 
 abstract class DoctorRepository {
   Future<Either<ApiException, List<AllDoctorModel>>> fetchDoctorList();
   Future<Either<ApiException, List<RecentVisitedModel>>> fetchAllSpecialty();
+  Future<Either<ApiException, List<CenterModel>>> fetchAllCenters();
 }
 
 final class DoctorRepositoryRemoot implements DoctorRepository {
@@ -39,6 +41,25 @@ final class DoctorRepositoryRemoot implements DoctorRepository {
     try {
       var specialty = await datasource.fetchAllSpecialty();
       return right(specialty);
+    } on DioException catch (e) {
+      return left(ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown error',
+        type: e.type,
+      ));
+    } catch (e) {
+      return left(ApiException(
+        statusCode: 0,
+        message: 'Unknown error',
+      ));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, List<CenterModel>>> fetchAllCenters() async {
+    try {
+      var center = await datasource.fetchAllCenters();
+      return right(center);
     } on DioException catch (e) {
       return left(ApiException(
         statusCode: e.response?.statusCode ?? 0,

@@ -1,5 +1,8 @@
 /// Base class for all authentication-related events.
 abstract class DoctorEvent {}
 
-/// Event to trigger display of current user information.
+/// Event to trigger display of all doctors.
 final class DisplayDoctors extends DoctorEvent {}
+
+/// Event to trigger display of all centers
+final class DisplayAllCenters extends DoctorEvent {}

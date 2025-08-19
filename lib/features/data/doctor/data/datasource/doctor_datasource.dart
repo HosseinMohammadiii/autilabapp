@@ -1,6 +1,7 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/home/data/model/center_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../home/data/model/recent_visited_model.dart';
@@ -8,6 +9,7 @@ import '../../../home/data/model/recent_visited_model.dart';
 abstract class DoctorDatasource {
   Future<List<AllDoctorModel>> fetchAllDoctor();
   Future<List<RecentVisitedModel>> fetchAllSpecialty();
+  Future<List<CenterModel>> fetchAllCenters();
 }
 
 final class DoctorDatasourceRemoot implements DoctorDatasource {
@@ -36,8 +38,6 @@ final class DoctorDatasourceRemoot implements DoctorDatasource {
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
     } catch (e) {
-      print('Caught in generic catch: $e');
-
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }
@@ -67,7 +67,35 @@ final class DoctorDatasourceRemoot implements DoctorDatasource {
         type: e.type,
       );
     } catch (e) {
-      print('Caught in generic catch: $e');
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
+  }
+
+  @override
+  Future<List<CenterModel>> fetchAllCenters() async {
+    try {
+      var center = await dio.get(
+        '/center/',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+      List<dynamic> centerList = center.data['data'];
+
+      return centerList
+          .map((jsonObject) => CenterModel.fromJosn(jsonObject))
+          .toList();
+    } on DioException catch (e) {
+      throw ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown API error',
+        type: e.type,
+      );
+    } catch (e) {
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }

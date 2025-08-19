@@ -1,6 +1,7 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/home/data/model/center_model.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -31,9 +32,15 @@ final class FetchDoctorDataResponse extends DoctorState {
   FetchDoctorDataResponse(this.response);
 }
 
-///Represents the response state after the user information process
+///Represents the response state after the all doctors process
 final class AllDoctorResponseState extends DoctorState {
   List<AllDoctorModel> displayAllDoctor;
   List<RecentVisitedModel> displayAllSpecialty;
   AllDoctorResponseState(this.displayAllDoctor, this.displayAllSpecialty);
+}
+
+///Represents the response state after the all centers process
+final class AllCenterResponseState extends DoctorState {
+  List<CenterModel> displayAllCenters;
+  AllCenterResponseState(this.displayAllCenters);
 }

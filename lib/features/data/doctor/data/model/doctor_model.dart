@@ -33,10 +33,12 @@ class DoctorUser {
   final String firstName;
   final String lastName;
   final String gender;
+  final String birthDate;
   DoctorUser({
     required this.firstName,
     required this.lastName,
     required this.gender,
+    required this.birthDate,
   });
 
   factory DoctorUser.fromJson(Map<String, dynamic> jsonObject) {
@@ -44,6 +46,7 @@ class DoctorUser {
       firstName: jsonObject['first_name'] ?? '',
       lastName: jsonObject['last_name'] ?? '',
       gender: jsonObject['gender'] ?? '',
+      birthDate: jsonObject['birthdate'] ?? '',
     );
   }
 }
