@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 
 /// Base class for all authentication-related events.
@@ -22,6 +24,13 @@ final class SignUpRequest extends AuthenticationEvent {
   });
 }
 
+/// Event to initiate a photo profile request with photo file.
+final class UploadPhoto extends AuthenticationEvent {
+  File photo;
+  UploadPhoto(this.photo);
+}
+
+/// Event to initiate a update profile request with user parameter.
 final class UpdateUserProfile extends AuthenticationEvent {
   final UserParam userParam;
   UpdateUserProfile({required this.userParam});

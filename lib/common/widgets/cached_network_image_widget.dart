@@ -29,6 +29,9 @@ class CachednetworkimageWidget extends StatelessWidget {
     return isNetworkImage
         ? CachedNetworkImage(
             imageUrl: imgUrl,
+            fit: BoxFit.cover,
+            width: width,
+            height: height,
             errorListener: (value) {},
             errorWidget: (context, url, error) => SizedBox(
                   child: Image.asset(

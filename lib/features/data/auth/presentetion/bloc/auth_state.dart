@@ -28,6 +28,12 @@ final class FetchUserDataResponse extends AuthenticationState {
   FetchUserDataResponse(this.response);
 }
 
+///Represents the response state after the user profile photo process
+final class UploadPhotoResponse extends AuthenticationState {
+  String response;
+  UploadPhotoResponse(this.response);
+}
+
 ///Represents the response state after the user information process
 final class UserInfoResponseState extends AuthenticationState {
   Either<String, List<UserModel>> displayUserInfo;

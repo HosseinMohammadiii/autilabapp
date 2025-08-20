@@ -6,7 +6,6 @@ import 'package:autilab_project/common/widgets/custom_textfield.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/core/network/locator.dart';
-import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
@@ -30,6 +29,7 @@ import '../../../../../common/widgets/textfiledbox_description.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../../utils/functions/open_location_function.dart';
+import '../../data/model/user_param.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -71,6 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final List<String> genderOptions = ['Male', 'Female'];
   String selectedGender = 'male';
   bool isDropdownOpen = false;
+
   @override
   void initState() {
     BlocProvider.of<AuthenticationBloc>(context).add(DisplayInformationUser());
@@ -237,24 +238,50 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 ..add(DisplayInformationUser()),
               child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
                 listener: (context, state) {
+                  // When photo upload response is received
+                  if (state is UploadPhotoResponse) {
+                    // Dispatch event to update user profile with new data
+                    BlocProvider.of<AuthenticationBloc>(context).add(
+                      UpdateUserProfile(
+                        userParam: UserParam(
+                          email: emailController.text,
+                          firstName: firstNameController.text,
+                          lastName: lasNameController.text,
+                          birthDate: DateFormat('yyyy-MM-dd')
+                              .format(tempSelectedDate ?? DateTime.now()),
+                          gender: selectedGender,
+                          address: addressController.text,
+                          description: descriptionController.text,
+                          photo: state.response,
+                        ),
+                      ),
+                    );
+                  }
+                  // When user data is successfully fetched
                   if (state is FetchUserDataResponse) {
                     return state.response.fold(
-                      (l) {},
+                      (exception) {
+                        // Handle failure case if needed
+                        displaySnackBar(context, exception, AutilabColor.bb);
+                      },
+                      // Populate text controllers with fetched user data
                       (response) {
                         firstNameController.text = response.firstName;
                         lasNameController.text = response.lastName;
                         emailController.text = response.email;
-                        String date = response.birthdate;
                         addressController.text = response.address;
                         descriptionController.text = response.description;
-                        String datePart = date.split('T')[0];
+
+                        // Handle gender field (default if not provided)
                         selectedGender = response.gender == "not_given"
                             ? 'Select your gender'
                             : response.gender;
-                        finalDate = datePart.replaceAll('-', '/');
+
+                        // Handle birthdate field (set default if empty)
+                        finalDate = response.birthdate.replaceAll('-', '/');
                         finalDate = response.birthdate == ''
                             ? 'What is your date of birth?'
-                            : response.birthdate;
+                            : finalDate;
                       },
                     );
                   }
@@ -304,9 +331,67 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                             ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(100),
-                                              child: CachednetworkimageWidget(
-                                                imgUrl: response.photo,
-                                                img: pickedFile?.path != null
+                                              child: Visibility(
+                                                visible:
+                                                    pickedFile?.path != null,
+                                                replacement:
+                                                    CachednetworkimageWidget(
+                                                  imgUrl: response.photo,
+                                                  width: isMobile() ? 104 : 168,
+                                                  height:
+                                                      isMobile() ? 104 : 168,
+                                                  img: pickedFile?.path != null
+                                                      ? Image.file(
+                                                          File(
+                                                              pickedFile!.path),
+                                                          fit: BoxFit.cover,
+                                                          width: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          height: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          cacheWidth:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                          cacheHeight:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                        )
+                                                      : Image.asset(
+                                                          'assets/images/avatar.png',
+                                                          fit: BoxFit.cover,
+                                                          width: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          height: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          cacheWidth:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                          cacheHeight:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                        ),
+                                                  isNetworkImage:
+                                                      pickedFile?.path == null
+                                                          ? true
+                                                          : false,
+                                                ),
+                                                child: pickedFile?.path != null
                                                     ? Image.file(
                                                         File(pickedFile!.path),
                                                         fit: BoxFit.cover,
@@ -316,18 +401,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                         height: isMobile()
                                                             ? 104
                                                             : 168,
-                                                        cacheWidth:
-                                                            cacheImageFunction(
-                                                                isMobile()
-                                                                    ? 104
-                                                                    : 168,
-                                                                context),
-                                                        cacheHeight:
-                                                            cacheImageFunction(
-                                                                isMobile()
-                                                                    ? 104
-                                                                    : 168,
-                                                                context),
                                                       )
                                                     : Image.asset(
                                                         'assets/images/avatar.png',
@@ -351,10 +424,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                                     : 168,
                                                                 context),
                                                       ),
-                                                isNetworkImage:
-                                                    response.photo != ''
-                                                        ? true
-                                                        : false,
                                               ),
                                             ),
                                             Positioned(
@@ -863,29 +932,38 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                     isMobile: isMobile(),
                                     onTap: () {
                                       //call UpdateUserProfile Event to edit profile user
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(
-                                        UpdateUserProfile(
-                                          userParam: UserParam(
-                                            email: emailController.text,
-                                            firstName: firstNameController.text,
-                                            lastName: lasNameController.text,
-                                            birthDate: DateFormat('yyyy-MM-dd')
-                                                .format(tempSelectedDate ??
-                                                    DateTime.now()),
-                                            // gender: selectedGender ==
-                                            //         'Select your gender'
-                                            //     ? "not_given"
-                                            //     : selectedGender,
-                                            gender: selectedGender,
-                                            address: addressController.text,
-                                            description:
-                                                descriptionController.text,
-                                            // photo: File(pickedFile!.path),
+                                      if (pickedFile?.path != null) {
+                                        BlocProvider.of<AuthenticationBloc>(
+                                                context)
+                                            .add(
+                                          UploadPhoto(
+                                            File(pickedFile!.path),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      } else {
+                                        // If no file picked → directly update user profile
+                                        BlocProvider.of<AuthenticationBloc>(
+                                                context)
+                                            .add(
+                                          UpdateUserProfile(
+                                            userParam: UserParam(
+                                              email: emailController.text,
+                                              firstName:
+                                                  firstNameController.text,
+                                              lastName: lasNameController.text,
+                                              birthDate:
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(
+                                                          tempSelectedDate ??
+                                                              DateTime.now()),
+                                              gender: selectedGender,
+                                              address: addressController.text,
+                                              description:
+                                                  descriptionController.text,
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     },
                                     height: 50,
                                     width: double.infinity,

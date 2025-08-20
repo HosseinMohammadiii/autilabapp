@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
@@ -9,7 +11,8 @@ import '../model/user_param.dart';
 abstract class AuthenticationUserDatasource {
   Future<String> registerUser(UserParam userParam);
   Future<String> logInUser(UserParam userParam);
-  Future<UserModel> updateUserProfile(UserParam userModel);
+  Future<dynamic> updateUserProfile(UserParam userModel);
+  Future<String> uploadPhotoUser(File photo);
   Future<UserModel> fetchUserData();
 }
 
@@ -76,27 +79,8 @@ final class AuthenticationUserDatasourceRemoot
   }
 
   @override
-  Future<UserModel> updateUserProfile(UserParam userParam) async {
+  Future<dynamic> updateUserProfile(UserParam userParam) async {
     try {
-      // MultipartFile? imageFile;
-      // String fileName = userParam.photo!.path.split('/').last;
-
-      // if (userParam.photo != null) {
-      //   imageFile = await MultipartFile.fromFile(
-      //     fileName,
-      //   );
-      // }
-
-      // FormData formData = FormData.fromMap({
-      //   "email": userParam.email,
-      //   "first_name": userParam.firstName,
-      //   "last_name": userParam.lastName,
-      //   "birthdate": userParam.birthDate,
-      //   "address": userParam.address,
-      //   "photo": imageFile,
-      //   "gender": userParam.gender
-      //   // 'photo': imageFile,
-      // });
       var response = await dio.put(
         '/user/update',
         options: Options(
@@ -106,7 +90,6 @@ final class AuthenticationUserDatasourceRemoot
                 'Bearer ${await SharedPreferencesData.getUserToken()}',
           },
         ),
-        // data: formData,
         data: {
           "email": userParam.email,
           "first_name": userParam.firstName,
@@ -119,7 +102,7 @@ final class AuthenticationUserDatasourceRemoot
             "birthdate": userParam.birthDate,
           "address": userParam.address,
           "description": userParam.description,
-          // "photo": imageFile,
+          if (userParam.photo != null) "photo": userParam.photo,
           if (userParam.gender != null &&
               userParam.gender != 'Select your gender')
             "gender": userParam.gender
@@ -158,6 +141,34 @@ final class AuthenticationUserDatasourceRemoot
         statusCode: ex.response?.statusCode ?? 0,
         message: ex.response?.data['message'] ?? 'Unknown API error',
       );
+    } catch (e) {
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
+  }
+
+  @override
+  Future<String> uploadPhotoUser(File photo) async {
+    try {
+      FormData formData = FormData.fromMap({
+        "photo_file": await MultipartFile.fromFile(
+          photo.path,
+        )
+      });
+      var response = await dio.post(
+        '/user/upload-photo',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+        data: formData,
+      );
+      return response.data['data']['url'];
+    } on DioException catch (ex) {
+      throw ApiException(
+          statusCode: ex.response!.statusCode!, message: ex.message!);
     } catch (e) {
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }

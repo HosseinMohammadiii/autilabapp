@@ -7,7 +7,7 @@ class UserParam {
   String? password;
   String? birthDate;
   String? gender;
-  File? photo;
+  String? photo;
   String? address;
   String? description;
   UserParam({

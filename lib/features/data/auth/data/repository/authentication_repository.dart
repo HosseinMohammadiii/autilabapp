@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:autilab_project/features/data/auth/data/datasource/authentication_user_datasource.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
@@ -9,6 +11,7 @@ abstract class AuthenticationRepository {
   Future<Either<String, String>> registerUser(UserParam userParam);
   Future<Either<String, String>> logInUser(UserParam userParam);
   Future<Either<String, UserModel>> updateUserProfile(UserParam userModel);
+  Future<Either<String, String>> uploadPhotoUser(File photo);
   Future<Either<String, UserModel>> fetchUserData();
 }
 
@@ -50,6 +53,16 @@ final class AuthenticationRepositoryRemoot implements AuthenticationRepository {
   Future<Either<String, UserModel>> fetchUserData() async {
     try {
       var response = await _datasourceRemoot.fetchUserData();
+      return right(response);
+    } on ApiException catch (ex) {
+      return left(ex.message);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> uploadPhotoUser(File photo) async {
+    try {
+      var response = await _datasourceRemoot.uploadPhotoUser(photo);
       return right(response);
     } on ApiException catch (ex) {
       return left(ex.message);

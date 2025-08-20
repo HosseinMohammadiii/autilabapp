@@ -54,6 +54,24 @@ final class AuthenticationBloc
       },
     );
 
+    /// Handles updateUserProfilePhoto event by calling the repository and emitting the result.
+    on<UploadPhoto>(
+      (event, emit) async {
+        emit(AuthenticationLoading());
+
+        var uploadPhoto =
+            await authenticationRepository.uploadPhotoUser(event.photo);
+        uploadPhoto.fold(
+          (e) {
+            emit(AuthenticationError(e));
+          },
+          (response) {
+            emit(UploadPhotoResponse(response));
+          },
+        );
+      },
+    );
+
     /// Handles updateUserProfile event by calling the repository and emitting the result.
     on<UpdateUserProfile>(
       (event, emit) async {

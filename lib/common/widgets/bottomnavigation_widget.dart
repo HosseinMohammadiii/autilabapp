@@ -3,11 +3,16 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/network/locator.dart';
+import '../../features/data/auth/presentetion/bloc/auth_bloc.dart';
+import '../../features/data/auth/presentetion/bloc/auth_event.dart';
 import '../../features/data/doctor/widgets/drawer_box_widget.dart';
 import '../../utils/functions/cacheimahe_function.dart';
 import 'cached_network_image_widget.dart';
@@ -199,21 +204,49 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                               onTap: () {
                                 context.goNamed(AutiLabRoutes.profileScreen);
                               },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: CachednetworkimageWidget(
-                                  imgUrl: '',
-                                  img: Image.asset(
-                                    'assets/images/child2_image.jpg',
-                                    fit: BoxFit.cover,
-                                    width: isMobile() ? 52 : 84,
-                                    height: isMobile() ? 52 : 84,
-                                    cacheWidth: cacheImageFunction(
-                                        isMobile() ? 100 : 100, context),
-                                    cacheHeight: cacheImageFunction(
-                                        isMobile() ? 100 : 100, context),
-                                  ),
-                                  isNetworkImage: false,
+                              child: BlocProvider(
+                                create: (context) =>
+                                    AuthenticationBloc(locator.get())
+                                      ..add(DisplayInformationUser()),
+                                child: BlocBuilder<AuthenticationBloc,
+                                    AuthenticationState>(
+                                  builder: (context, state) {
+                                    if (state is FetchUserDataResponse) {
+                                      return state.response.fold(
+                                        (exception) {
+                                          return Center(
+                                            child: Text(exception),
+                                          );
+                                        },
+                                        (response) {
+                                          print(response.photo);
+                                          return ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: CachednetworkimageWidget(
+                                              width: isMobile() ? 52 : 84,
+                                              height: isMobile() ? 52 : 84,
+                                              imgUrl: response.photo,
+                                              img: Image.asset(
+                                                'assets/images/child2_image.jpg',
+                                                fit: BoxFit.cover,
+                                                width: isMobile() ? 52 : 84,
+                                                height: isMobile() ? 52 : 84,
+                                                cacheWidth: cacheImageFunction(
+                                                    isMobile() ? 100 : 100,
+                                                    context),
+                                                cacheHeight: cacheImageFunction(
+                                                    isMobile() ? 100 : 100,
+                                                    context),
+                                              ),
+                                              isNetworkImage: true,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
+                                    return const SizedBox();
+                                  },
                                 ),
                               ),
                             ),
