@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_tabbar_widget.dart';
+import 'package:autilab_project/features/data/home/data/model/newappointment_model.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_state.dart';
 import 'package:autilab_project/utils/functions/appointment_check_status_function.dart';
@@ -26,6 +27,9 @@ class MydoctorScreen extends StatefulWidget {
 class _MydoctorScreenState extends State<MydoctorScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+
+  List<NewappointmentModel> appointmenApprovedList = [];
+  List<NewappointmentModel> appointmenExpiredList = [];
 
   @override
   void initState() {
@@ -61,7 +65,23 @@ class _MydoctorScreenState extends State<MydoctorScreen>
           }
         }
 
-        return BlocBuilder<HomeBloc, HomeState>(
+        return BlocConsumer<HomeBloc, HomeState>(
+          listener: (context, state) {
+            if (state is HomeFetchData) {
+              state.homeResponse.fold(
+                (exception) {},
+                (response) {
+                  for (var home in response) {
+                    for (var appointment in home.newappointmentModel) {
+                      if (appointment.status == 'APPROVED') {
+                        appointmenApprovedList = home.newappointmentModel;
+                      }
+                    }
+                  }
+                },
+              );
+            }
+          },
           builder: (context, state) {
             if (state is HomeLoading) {
               return const LoadingProgressWidget();
@@ -129,33 +149,27 @@ class _MydoctorScreenState extends State<MydoctorScreen>
                               ),
                             ],
                             tabBarView: [
-                              for (var element
-                                  in response[0].newappointmentModel) ...{
-                                if (element.status == 'APPROVED') ...{
-                                  ValidAppointmentWidget(
-                                    newappointmentModel: element,
-                                    color: statusCheckColor('APPROVED').$3,
-                                    title: statusCheckColor('APPROVED').$2,
-                                    statusIcon: statusCheckColor('APPROVED').$1,
-                                    isMobile: isMobile(),
-                                  ),
-                                } else ...{
-                                  ItemNotFoundWidget(isMobile: isMobile())
-                                }
+                              if (appointmenApprovedList.isNotEmpty) ...{
+                                ValidAppointmentWidget(
+                                  newappointmentModel: appointmenApprovedList,
+                                  color: statusCheckColor('APPROVED').$3,
+                                  title: statusCheckColor('APPROVED').$2,
+                                  statusIcon: statusCheckColor('APPROVED').$1,
+                                  isMobile: isMobile(),
+                                ),
+                              } else ...{
+                                ItemNotFoundWidget(isMobile: isMobile())
                               },
-                              for (var element
-                                  in response[0].newappointmentModel) ...{
-                                if (element.status == 'CANCELED') ...{
-                                  ExpiredAppointmentWidget(
-                                    isMobile: isMobile(),
-                                    newappointmentModel: element,
-                                    color: statusCheckColor('CANCELED').$3,
-                                    title: statusCheckColor('CANCELED').$2,
-                                    statusIcon: statusCheckColor('CANCELED').$1,
-                                  ),
-                                } else ...{
-                                  ItemNotFoundWidget(isMobile: isMobile())
-                                }
+                              if (appointmenExpiredList.isNotEmpty) ...{
+                                ExpiredAppointmentWidget(
+                                  isMobile: isMobile(),
+                                  newappointmentModel: appointmenExpiredList,
+                                  color: statusCheckColor('CANCELED').$3,
+                                  title: statusCheckColor('CANCELED').$2,
+                                  statusIcon: statusCheckColor('CANCELED').$1,
+                                ),
+                              } else ...{
+                                ItemNotFoundWidget(isMobile: isMobile())
                               },
                             ],
                           ),

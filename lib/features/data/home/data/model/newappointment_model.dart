@@ -6,8 +6,9 @@ class NewappointmentModel {
   final int doctorId;
   final String status;
   final String description;
-  final List<RateModel> rateModel;
+  final RateModel rateModel;
   final DoctorModel doctorModel;
+  // final String created;
 
   NewappointmentModel({
     required this.doctorId,
@@ -15,18 +16,15 @@ class NewappointmentModel {
     required this.description,
     required this.rateModel,
     required this.doctorModel,
+    // required this.created,
   });
 
   factory NewappointmentModel.fromJson(Map<String, dynamic> jsonObject) {
-    var ratingList = (jsonObject['rating'] as List<dynamic>?)
-            ?.map((item) => RateModel.fromJson(item))
-            .toList() ??
-        [];
     return NewappointmentModel(
       doctorId: jsonObject['doctor_id'] ?? 0,
       status: jsonObject['status'] ?? '',
       description: jsonObject['description'] ?? '',
-      rateModel: ratingList,
+      rateModel: RateModel.fromJson(jsonObject['rating']),
       doctorModel: DoctorModel.fomJson(jsonObject['doctor']),
     );
   }

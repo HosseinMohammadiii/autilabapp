@@ -15,14 +15,14 @@ class ValidAppointmentWidget extends StatelessWidget {
     required this.statusIcon,
   });
   final bool isMobile;
-  final NewappointmentModel? newappointmentModel;
+  final List<NewappointmentModel>? newappointmentModel;
   final Color color;
   final String title;
   final String statusIcon;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 6,
+      itemCount: newappointmentModel?.length,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
@@ -33,14 +33,16 @@ class ValidAppointmentWidget extends StatelessWidget {
             color: color,
             title: title,
             statusIcon: statusIcon,
-            image: 'assets/images/doctor_image.jpg',
+            image: newappointmentModel?[index].doctorModel.doctorUser.photo ??
+                'assets/images/doctor_image.jpg',
             margin: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
             raiteOnTap: () {},
             onTap: () {
               context.pushNamed(
                 AutiLabRoutes.detailAppointmentScreen,
                 extra: {
-                  'newappointmentModel': newappointmentModel?.description,
+                  'newappointmentModel':
+                      newappointmentModel?[index].description,
                   'statusColor': const Color(0xff50DD81),
                   'statusIcon': 'assets/icons/done_icon.svg',
                   'title': 'Approved',

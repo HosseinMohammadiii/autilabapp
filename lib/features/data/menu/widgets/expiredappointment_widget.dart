@@ -16,7 +16,7 @@ class ExpiredAppointmentWidget extends StatelessWidget {
     required this.statusIcon,
   });
   final bool isMobile;
-  final NewappointmentModel? newappointmentModel;
+  final List<NewappointmentModel>? newappointmentModel;
 
   final Color color;
   final String title;
@@ -37,14 +37,17 @@ class ExpiredAppointmentWidget extends StatelessWidget {
                 title: 'Caceled',
                 isShowRate: true,
                 statusIcon: 'assets/icons/done_icon.svg',
-                image: 'assets/images/doctor_image.jpg',
+                image:
+                    newappointmentModel?[index].doctorModel.doctorUser.photo ??
+                        'assets/images/doctor_image.jpg',
                 margin: const EdgeInsets.only(right: 20, left: 20, bottom: 16),
                 raiteOnTap: () {},
                 onTap: () {
                   context.pushNamed(
                     AutiLabRoutes.detailAppointmentScreen,
                     extra: {
-                      'newappointmentModel': newappointmentModel?.description,
+                      'newappointmentModel':
+                          newappointmentModel?[index].description,
                       'statusColor': const Color(0xff50DD81),
                       'statusIcon': 'assets/icons/done_icon.svg',
                       'title': 'Approved',
