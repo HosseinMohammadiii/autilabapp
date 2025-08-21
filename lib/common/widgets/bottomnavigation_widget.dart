@@ -219,7 +219,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                           );
                                         },
                                         (response) {
-                                          print(response.photo);
                                           return ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(100),

@@ -15,6 +15,7 @@ class CachednetworkimageWidget extends StatelessWidget {
     this.width,
     this.height,
     this.borderRadius,
+    this.boxFit,
   });
   final bool isMobile;
   final bool isShowShimmer;
@@ -24,45 +25,51 @@ class CachednetworkimageWidget extends StatelessWidget {
   final double? width;
   final double? height;
   final double? borderRadius;
+  final BoxFit? boxFit;
   @override
   Widget build(BuildContext context) {
     return isNetworkImage
-        ? CachedNetworkImage(
-            imageUrl: imgUrl,
-            fit: BoxFit.cover,
+        ? SizedBox(
             width: width,
             height: height,
-            errorListener: (value) {},
-            errorWidget: (context, url, error) => SizedBox(
-                  child: Image.asset(
-                    'assets/images/avatar.png',
-                    fit: BoxFit.cover,
-                    width: isMobile ? 104 : 168,
-                    height: isMobile ? 104 : 168,
-                    cacheWidth:
-                        cacheImageFunction(isMobile ? 104 : 168, context),
-                    cacheHeight:
-                        cacheImageFunction(isMobile ? 104 : 168, context),
-                  ),
-                ),
-            placeholder: (context, url) {
-              if (isShowShimmer) {
-                Center(
-                  child: Shimmer.fromColors(
-                    baseColor: const Color(0xffE1E1E1),
-                    highlightColor: const Color(0xffF3F3F2),
-                    child: Container(
-                      width: width ?? double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(borderRadius ?? 25),
+            child: CachedNetworkImage(
+                imageUrl: imgUrl,
+                fit: boxFit ?? BoxFit.cover,
+                width: width,
+                height: height,
+                errorListener: (value) {},
+                errorWidget: (context, url, error) => SizedBox(
+                      child: Image.asset(
+                        'assets/images/avatar.png',
+                        fit: BoxFit.cover,
+                        width: isMobile ? 104 : 168,
+                        height: isMobile ? 104 : 168,
+                        cacheWidth:
+                            cacheImageFunction(isMobile ? 104 : 168, context),
+                        cacheHeight:
+                            cacheImageFunction(isMobile ? 104 : 168, context),
                       ),
                     ),
-                  ),
-                );
-              }
-              return const SizedBox();
-            })
+                placeholder: (context, url) {
+                  if (isShowShimmer) {
+                    Center(
+                      child: Shimmer.fromColors(
+                        baseColor: const Color(0xffE1E1E1),
+                        highlightColor: const Color(0xffF3F3F2),
+                        child: Container(
+                          width: width ?? double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.circular(borderRadius ?? 25),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                }),
+          )
         : img;
   }
 }

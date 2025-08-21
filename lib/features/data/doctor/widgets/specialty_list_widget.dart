@@ -51,7 +51,7 @@ class SpecialtiesListWidget extends StatelessWidget {
               ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: categoryItemsList[index].color,
+                color: Color(int.parse(recentModel![index].codeColor)),
                 borderRadius: BorderRadius.circular(radius ?? 24),
               ),
               child: Column(
@@ -65,6 +65,7 @@ class SpecialtiesListWidget extends StatelessWidget {
                       imgUrl: recentModel?[index].imagePath ?? '',
                       width: widthImage,
                       height: heightImage,
+                      boxFit: BoxFit.scaleDown,
                       isShowShimmer: false,
                       borderRadius: 8,
                       img: Image.asset(
