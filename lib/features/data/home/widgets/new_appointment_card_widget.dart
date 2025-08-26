@@ -24,6 +24,8 @@ class NewAppointmentsCardWidget extends StatelessWidget {
     required this.image,
     this.doctorName,
     this.doctorSpecialty,
+    this.date,
+    this.time,
   });
   final Function() onTap;
   final Function() raiteOnTap;
@@ -37,6 +39,8 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final String? doctorName;
   final String? doctorSpecialty;
+  final String? date;
+  final String? time;
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +188,8 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: TimeBoxDoctorCard(
                             isMobile: isMobile,
+                            date: date,
+                            time: time,
                           ),
                         ),
                       ],

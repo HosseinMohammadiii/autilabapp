@@ -11,6 +11,7 @@ import '../../../../../core/constants/constant_routes.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../tool/widgets/likewidget.dart';
+import '../../data/model/doctor_model.dart';
 import '../../widgets/box_detail_widget.dart';
 import '../../widgets/button_card.dart';
 import 'nearby_center_details_screen.dart';
@@ -20,8 +21,12 @@ class DoctorInfoScreen extends StatefulWidget {
   DoctorInfoScreen({
     super.key,
     this.isLike = false,
+    this.user,
+    this.doctorSpecialities,
   });
   bool isLike;
+  final DoctorUser? user;
+  final DoctorSpecialities? doctorSpecialities;
 
   @override
   State<DoctorInfoScreen> createState() => _DoctorInfoScreenState();
@@ -30,6 +35,8 @@ class DoctorInfoScreen extends StatefulWidget {
 class _DoctorInfoScreenState extends State<DoctorInfoScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
+  late String doctorFullName = '';
+  late String doctorSpecialty = '';
 
   @override
   void initState() {
@@ -38,6 +45,8 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
+    doctorFullName = '${widget.user?.firstName} ${widget.user?.lastName}';
+    doctorSpecialty = widget.doctorSpecialities?.name ?? '';
   }
 
   @override
@@ -123,7 +132,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                                       fit: BoxFit.scaleDown,
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Dr. Sophia Martinez',
+                                        doctorFullName,
                                         style: isMobile()
                                             ? AutilabTextStyle.medium18_500
                                             : AutilabTextStyle.medium18_500
@@ -163,10 +172,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                                                   extra: {
                                                     'image':
                                                         'assets/images/doctor_image.jpg',
-                                                    'name':
-                                                        'Dr. Sophia Martinez',
+                                                    'name': doctorFullName,
                                                     'expertise':
-                                                        'Speech Therapy',
+                                                        doctorSpecialty,
                                                   },
                                                 );
                                               },
@@ -270,7 +278,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                           BoxDetailWidget(
                             isMobile: isMobile(),
                             title: 'Full Name',
-                            subtitle: 'Dr. Sophia Martinez',
+                            subtitle: doctorFullName,
                           ),
                           BoxDetailWidget(
                             isMobile: isMobile(),
@@ -285,7 +293,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                           BoxDetailWidget(
                             isMobile: isMobile(),
                             title: 'Gender',
-                            subtitle: 'ّFemale',
+                            subtitle: widget.user?.gender ?? 'ّFemale',
                           ),
                         ],
                       ),
@@ -328,6 +336,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                     child: SizedBox(
                       height: isMobile() ? 90 : 174,
                       child: SpecialtiesListWidget(
+                        // specialtyModel: widget.doctorSpecialities,
                         isMobile: isMobile(),
                         height: isMobile() ? 80 : 174,
                         width: isMobile() ? 80 : 174,

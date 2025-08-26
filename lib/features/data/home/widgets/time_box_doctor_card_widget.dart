@@ -8,8 +8,12 @@ class TimeBoxDoctorCard extends StatelessWidget {
   const TimeBoxDoctorCard({
     super.key,
     this.isMobile = true,
+    this.date,
+    this.time,
   });
   final bool isMobile;
+  final String? date;
+  final String? time;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 2,
             children: [
               SvgPicture.asset(
                 'assets/icons/calendar.svg',
@@ -39,7 +43,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
                 ),
               ),
               Text(
-                ' Tues 03 March ',
+                date ?? ' Tues 03 March ',
                 style: isMobile
                     ? AutilabTextStyle.small14_400
                     : AutilabTextStyle.small24_400,
@@ -68,7 +72,7 @@ class TimeBoxDoctorCard extends StatelessWidget {
                 ),
               ),
               Text(
-                '13:30',
+                time ?? '13:30',
                 style: isMobile
                     ? AutilabTextStyle.small14_400
                     : AutilabTextStyle.small24_400,

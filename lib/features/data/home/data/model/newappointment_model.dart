@@ -6,9 +6,9 @@ class NewappointmentModel {
   final int doctorId;
   final String status;
   final String description;
-  final RateModel rateModel;
+  final List<RateModel> rateModel;
   final DoctorModel doctorModel;
-  // final String created;
+  WorkSchedule workSchedule;
 
   NewappointmentModel({
     required this.doctorId,
@@ -16,16 +16,56 @@ class NewappointmentModel {
     required this.description,
     required this.rateModel,
     required this.doctorModel,
-    // required this.created,
+    required this.workSchedule,
   });
 
   factory NewappointmentModel.fromJson(Map<String, dynamic> jsonObject) {
+    var planFeaturesList = (jsonObject['rating'] as List<dynamic>?)
+            ?.map(
+              (item) => RateModel.fromJson(item),
+            )
+            .toList() ??
+        [];
     return NewappointmentModel(
       doctorId: jsonObject['doctor_id'] ?? 0,
       status: jsonObject['status'] ?? '',
       description: jsonObject['description'] ?? '',
-      rateModel: RateModel.fromJson(jsonObject['rating']),
+      rateModel: planFeaturesList,
       doctorModel: DoctorModel.fomJson(jsonObject['doctor']),
+      workSchedule: WorkSchedule.fromJson(
+        jsonObject['work_schedule'],
+      ),
+    );
+  }
+}
+
+class WorkSchedule {
+  final int id;
+  final int doctorid;
+  String date;
+  String starttime;
+  final String endtime;
+  final bool isavailable;
+  final int slotduration;
+
+  WorkSchedule({
+    required this.id,
+    required this.doctorid,
+    required this.date,
+    required this.starttime,
+    required this.endtime,
+    required this.isavailable,
+    required this.slotduration,
+  });
+  factory WorkSchedule.fromJson(Map<String, dynamic> jsonObject) {
+    return WorkSchedule(
+      id: jsonObject['id'],
+      doctorid: jsonObject['doctor_id'],
+      date: jsonObject['date'],
+      starttime: jsonObject['start_time'],
+      endtime: jsonObject['end_time'],
+      isavailable: jsonObject['is_available'],
+      slotduration: jsonObject['slot_duration'],
     );
   }
 }

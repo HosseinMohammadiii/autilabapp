@@ -1,3 +1,4 @@
+import 'package:autilab_project/features/data/home/presentation/page/all_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/widgets/time_box_doctor_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,13 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
     this.doctorName,
     this.doctorSpecialtyl,
     this.isMobile = true,
+    this.dateTimeSchedule,
   });
   final String? doctorName;
   final String? doctorSpecialtyl;
   final String image;
   final bool isMobile;
+  final DateTimeSchedule? dateTimeSchedule;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +98,8 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: TimeBoxDoctorCard(
                       isMobile: isMobile,
+                      date: dateTimeSchedule?.date,
+                      time: dateTimeSchedule?.time,
                     ),
                   ),
                 ],

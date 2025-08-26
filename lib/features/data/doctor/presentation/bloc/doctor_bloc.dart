@@ -54,7 +54,6 @@ final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         var cenetrs = await doctorRepository.fetchAllCenters();
         cenetrs.fold(
           (exception) {
-            print(exception.message);
             emit(DoctorError(exception));
           },
           (displayAllCenters) {

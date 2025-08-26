@@ -5,11 +5,13 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/home/data/model/plan_model.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_state.dart';
+import 'package:autilab_project/features/data/home/presentation/page/all_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/widgets/new_appointment_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../common/widgets/loading_indicator_widget.dart';
 import '../../../../../common/widgets/test_result_widget.dart';
@@ -54,6 +56,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<RecentVisitedModel> recentVisitedModel = [];
   List<IntelligenceTestModel> intelligenceTestModel = [];
   List<PlanModel> planModel = [];
+
+  List<String> scheduleDate = [];
+  List<String> scheduleTime = [];
   @override
   void initState() {
     super.initState();
@@ -89,6 +94,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 recentVisitedModel = element.recentVisitedModel;
                 intelligenceTestModel = element.intelligenceTestModel;
                 planModel = element.planModel;
+                for (var element in element.newappointmentModel) {
+                  DateTime date = DateTime.parse(element.workSchedule.date);
+                  DateTime time = DateTime.parse(
+                      "${element.workSchedule.date} ${element.workSchedule.starttime}");
+                  var formatDate = DateFormat(
+                    'EEE، d MMM',
+                  ).format(date);
+                  var formatTime = DateFormat(
+                    'hh:mm',
+                  ).format(time);
+                  scheduleDate.add(formatDate);
+                  scheduleTime.add(formatTime);
+                }
               }
             },
           );
@@ -256,6 +274,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       child: SizedBox(
                                         width: isMobile() ? 320 : 643,
                                         child: NewAppointmentsCardWidget(
+                                          date: scheduleDate[index],
+                                          time: scheduleTime[index],
                                           isMobile: isMobile(),
                                           color: statusCheckColor(
                                                   newappointmentModel[index]
@@ -275,9 +295,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               '${newappointmentModel[index].doctorModel.doctorUser.firstName} ${newappointmentModel[index].doctorModel.doctorUser.lastName}',
                                           doctorSpecialty:
                                               newappointmentModel[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[index]
-                                                  .name,
+                                                      .doctorModel
+                                                      .doctorSpecialities[0]
+                                                      .name
+                                                      .isNotEmpty
+                                                  ? newappointmentModel[index]
+                                                      .doctorModel
+                                                      .doctorSpecialities[0]
+                                                      .name
+                                                  : '',
                                           margin: EdgeInsets.zero,
                                           raiteOnTap: () {},
                                           onTap: () {
@@ -295,8 +321,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 'doctorSpecialty':
                                                     newappointmentModel[index]
                                                         .doctorModel
-                                                        .doctorSpecialities[
-                                                            index]
+                                                        .doctorSpecialities[0]
                                                         .name,
                                                 'statusColor': statusCheckColor(
                                                         newappointmentModel[
@@ -321,6 +346,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                                     index]
                                                                 .status)
                                                         .$4,
+                                                'dateTimeSchedule':
+                                                    DateTimeSchedule(
+                                                  date: scheduleDate[index],
+                                                  time: scheduleTime[index],
+                                                ),
                                               },
                                             );
                                           },
@@ -366,10 +396,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 widthImage: isMobile() ? 56 : 76,
                                 heightImage: isMobile() ? 56 : 76,
                                 radius: isMobile() ? 24 : 40,
+                                itemCount: recentVisitedModel.length,
                                 textStyle: isMobile()
                                     ? AutilabTextStyle.small14_400
                                     : AutilabTextStyle.small20_400,
-                                recentModel: recentVisitedModel,
+                                specialtyModel: recentVisitedModel,
                               ),
                             ),
                           ),

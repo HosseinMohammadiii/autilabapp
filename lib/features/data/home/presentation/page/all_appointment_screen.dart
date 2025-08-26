@@ -6,6 +6,7 @@ import 'package:autilab_project/features/data/home/presentation/bloc/home_state.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../common/widgets/item_not_found_widget.dart';
 import '../../../../../common/widgets/responsive_widget.dart';
@@ -17,6 +18,15 @@ import '../../../../../utils/functions/animation_control.dart';
 import '../../widgets/new_appointment_card_widget.dart';
 import '../bloc/home_event.dart';
 
+class DateTimeSchedule {
+  String date;
+  String time;
+  DateTimeSchedule({
+    required this.date,
+    required this.time,
+  });
+}
+
 class AllAppointmentScreen extends StatefulWidget {
   const AllAppointmentScreen({super.key});
 
@@ -27,10 +37,17 @@ class AllAppointmentScreen extends StatefulWidget {
 class _AllAppointmentScreenState extends State<AllAppointmentScreen>
     with SingleTickerProviderStateMixin {
   late AnimationHelper animationHelper;
+
   List<NewappointmentModel> approvedList = [];
   List<NewappointmentModel> cancelledList = [];
   List<NewappointmentModel> pendingList = [];
 
+  List<DateTimeSchedule> dateTimeApprovedList = [];
+  List<DateTimeSchedule> dateTimeCancelledList = [];
+  List<DateTimeSchedule> dateTimePendingList = [];
+
+  List<String> scheduleDate = [];
+  List<String> scheduleTime = [];
   @override
   void initState() {
     super.initState();
@@ -62,15 +79,35 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
             (l) {},
             (response) {
               //Control list values based on status newappointmentModel
-              for (var element in response[0].newappointmentModel) {
-                if (element.status == 'APPROVED') {
-                  approvedList = response[0].newappointmentModel;
-                }
-                if (element.status == 'CANCELLED') {
-                  cancelledList = response[0].newappointmentModel;
-                }
-                if (element.status == 'PENDING') {
-                  pendingList = response[0].newappointmentModel;
+              for (var element in response) {
+                for (var element2 in element.newappointmentModel) {
+                  // Parse the appointment date
+                  DateTime date = DateTime.parse(element2.workSchedule.date);
+
+                  // Format date as "Day, d Month"
+                  String formattedDate = DateFormat('EEE، d MMM').format(date);
+
+                  // Parse and combine date with start time
+                  DateTime time = DateTime.parse(
+                      "${element2.workSchedule.date} ${element2.workSchedule.starttime}");
+
+                  // Format time as "HH:mm"
+                  String formattedTime = DateFormat('HH:mm').format(time);
+
+                  // Categorize appointments based on status
+                  if (element2.status == 'APPROVED') {
+                    approvedList.add(element2);
+                    dateTimeApprovedList.add(DateTimeSchedule(
+                        date: formattedDate, time: formattedTime));
+                  } else if (element2.status == 'CANCELLED') {
+                    cancelledList.add(element2);
+                    dateTimeCancelledList.add(DateTimeSchedule(
+                        date: formattedDate, time: formattedTime));
+                  } else {
+                    pendingList.add(element2);
+                    dateTimePendingList.add(DateTimeSchedule(
+                        date: formattedDate, time: formattedTime));
+                  }
                 }
               }
             },
@@ -199,6 +236,18 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                         child: NewAppointmentsCardWidget(
                                           color: const Color(0xff50DD81),
                                           isMobile: isMobile(),
+                                          doctorName:
+                                              '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
+                                          doctorSpecialty: approvedList[index]
+                                                  .doctorModel
+                                                  .doctorSpecialities[0]
+                                                  .name
+                                                  .isNotEmpty
+                                              ? approvedList[index]
+                                                  .doctorModel
+                                                  .doctorSpecialities[0]
+                                                  .name
+                                              : '',
                                           title: 'Approved',
                                           image: 'assets/images/doctor2.jpg',
                                           statusIcon:
@@ -206,6 +255,10 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 8),
                                           raiteOnTap: () {},
+                                          date:
+                                              dateTimeApprovedList[index].date,
+                                          time:
+                                              dateTimeApprovedList[index].time,
                                           onTap: () {
                                             context.pushNamed(
                                               AutiLabRoutes
@@ -218,11 +271,11 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                     pendingList[index],
                                                 'doctorName':
                                                     '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
-                                                'doctorSpecialty': approvedList[
-                                                        index]
-                                                    .doctorModel
-                                                    .doctorSpecialities[index]
-                                                    .name,
+                                                'doctorSpecialty':
+                                                    approvedList[index]
+                                                        .doctorModel
+                                                        .doctorSpecialities[0]
+                                                        .name,
                                                 'statusColor':
                                                     const Color(0xff50DD81),
                                                 'statusIcon':
@@ -232,6 +285,15 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'title': 'Approved',
                                                 'descriptionStatus':
                                                     'Your Appointment Has Been Approved',
+                                                'dateTimeSchedule':
+                                                    DateTimeSchedule(
+                                                  date: dateTimeApprovedList[
+                                                          index]
+                                                      .date,
+                                                  time: dateTimeApprovedList[
+                                                          index]
+                                                      .time,
+                                                ),
                                               },
                                             );
                                           },
@@ -260,6 +322,22 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 8),
                                           raiteOnTap: () {},
+                                          date:
+                                              dateTimeCancelledList[index].date,
+                                          time:
+                                              dateTimeCancelledList[index].time,
+                                          doctorName:
+                                              '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
+                                          doctorSpecialty: approvedList[index]
+                                                  .doctorModel
+                                                  .doctorSpecialities[0]
+                                                  .name
+                                                  .isNotEmpty
+                                              ? approvedList[index]
+                                                  .doctorModel
+                                                  .doctorSpecialities[0]
+                                                  .name
+                                              : '',
                                           onTap: () {
                                             context.pushNamed(
                                               AutiLabRoutes
@@ -275,8 +353,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'doctorSpecialty':
                                                     cancelledList[index]
                                                         .doctorModel
-                                                        .doctorSpecialities[
-                                                            index]
+                                                        .doctorSpecialities[0]
                                                         .name,
                                                 'statusColor':
                                                     const Color(0xffFF6363),
@@ -287,6 +364,15 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'title': 'Cancelled',
                                                 'descriptionStatus':
                                                     'Your Appointment Has Been Canceled',
+                                                'dateTimeSchedule':
+                                                    DateTimeSchedule(
+                                                  date: dateTimeCancelledList[
+                                                          index]
+                                                      .date,
+                                                  time: dateTimeCancelledList[
+                                                          index]
+                                                      .time,
+                                                ),
                                               },
                                             );
                                           },
@@ -314,12 +400,20 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 8),
                                           doctorName:
-                                              '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty: pendingList[index]
-                                              .doctorModel
-                                              .doctorSpecialities[index]
-                                              .name,
+                                              '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
+                                          doctorSpecialty: approvedList[index]
+                                                  .doctorModel
+                                                  .doctorSpecialities[0]
+                                                  .name
+                                                  .isNotEmpty
+                                              ? approvedList[index]
+                                                  .doctorModel
+                                                  .doctorSpecialities[0]
+                                                  .name
+                                              : '',
                                           raiteOnTap: () {},
+                                          date: dateTimePendingList[index].date,
+                                          time: dateTimePendingList[index].time,
                                           onTap: () {
                                             context.pushNamed(
                                               AutiLabRoutes
@@ -332,11 +426,11 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                     pendingList[index],
                                                 'doctorName':
                                                     '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
-                                                'doctorSpecialty': pendingList[
-                                                        index]
-                                                    .doctorModel
-                                                    .doctorSpecialities[index]
-                                                    .name,
+                                                'doctorSpecialty':
+                                                    pendingList[index]
+                                                        .doctorModel
+                                                        .doctorSpecialities[0]
+                                                        .name,
                                                 'statusColor':
                                                     AutilabColor.gray,
                                                 'statusIcon':
@@ -346,6 +440,15 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                 'title': 'Pending',
                                                 'descriptionStatus':
                                                     'Your Appointment Is Being Reviewed',
+                                                'dateTimeSchedule':
+                                                    DateTimeSchedule(
+                                                  date:
+                                                      dateTimePendingList[index]
+                                                          .date,
+                                                  time:
+                                                      dateTimePendingList[index]
+                                                          .time,
+                                                ),
                                               },
                                             );
                                           },

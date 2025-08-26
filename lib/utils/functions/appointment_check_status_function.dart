@@ -18,7 +18,7 @@ import '../../core/constants/color_constant.dart';
       colorStatus = AutilabColor.gray;
       break;
 
-    case 'CANCELED':
+    case 'CANCELLED':
       statusIcon = 'assets/icons/close_icon.svg';
       status = 'Cancel';
       statusDescription = 'Your Appointment Has Been Canceled';

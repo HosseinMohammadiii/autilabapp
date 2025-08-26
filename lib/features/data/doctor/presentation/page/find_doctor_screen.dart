@@ -207,7 +207,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                 ),
                                 SpecialtiesListWidget(
                                   itemCount: specialtyList.length,
-                                  recentModel: specialtyList,
+                                  specialtyModel: specialtyList,
                                   height: isMobile() ? 113 : 180,
                                   width: isMobile() ? 112 : 180,
                                   widthImage: isMobile() ? 56 : 76,

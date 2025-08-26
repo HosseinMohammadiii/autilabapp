@@ -178,6 +178,7 @@ class AutilabRouter {
               image: extraData['image'],
               title: extraData['title'],
               descriptionStatus: extraData['descriptionStatus'],
+              dateTimeSchedule: extraData['dateTimeSchedule'],
             );
           }),
       GoRoute(
@@ -254,6 +255,8 @@ class AutilabRouter {
                 state.extra as Map<String, dynamic>;
             return DoctorInfoScreen(
               isLike: extraData['isLike'] ?? false,
+              user: extraData['doctorUser'],
+              doctorSpecialities: extraData['doctorSpecialities'],
             );
           }),
       GoRoute(

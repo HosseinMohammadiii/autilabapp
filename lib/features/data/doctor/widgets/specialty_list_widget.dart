@@ -11,7 +11,7 @@ class SpecialtiesListWidget extends StatelessWidget {
   const SpecialtiesListWidget({
     super.key,
     this.isMobile = true,
-    this.recentModel,
+    this.specialtyModel,
     required this.height,
     required this.width,
     this.heightImage,
@@ -21,7 +21,7 @@ class SpecialtiesListWidget extends StatelessWidget {
     required this.textStyle,
   });
   final bool isMobile;
-  final List<RecentVisitedModel>? recentModel;
+  final List<RecentVisitedModel>? specialtyModel;
   final double height;
   final double width;
   final double? heightImage;
@@ -36,7 +36,7 @@ class SpecialtiesListWidget extends StatelessWidget {
       height: height,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: recentModel?.length ?? categoryItemsList.length,
+        itemCount: specialtyModel?.length ?? categoryItemsList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
@@ -51,7 +51,7 @@ class SpecialtiesListWidget extends StatelessWidget {
               ),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Color(int.parse(recentModel![index].codeColor)),
+                color: Color(int.parse(specialtyModel![index].codeColor)),
                 borderRadius: BorderRadius.circular(radius ?? 24),
               ),
               child: Column(
@@ -62,7 +62,7 @@ class SpecialtiesListWidget extends StatelessWidget {
                     width: widthImage ?? 56,
                     height: heightImage ?? 56,
                     child: CachednetworkimageWidget(
-                      imgUrl: recentModel?[index].imagePath ?? '',
+                      imgUrl: specialtyModel?[index].imagePath ?? '',
                       width: widthImage,
                       height: heightImage,
                       boxFit: BoxFit.scaleDown,
@@ -75,8 +75,9 @@ class SpecialtiesListWidget extends StatelessWidget {
                         cacheHeight: cacheImageFunction(
                             widthImage?.toInt() ?? 56, context),
                       ),
-                      isNetworkImage:
-                          recentModel?[index].imagePath != null ? true : false,
+                      isNetworkImage: specialtyModel?[index].imagePath != null
+                          ? true
+                          : false,
                     ),
                   ),
                   FittedBox(
@@ -84,7 +85,7 @@ class SpecialtiesListWidget extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
-                        recentModel?[index].name.replaceAll(' ', '\n') ??
+                        specialtyModel?[index].name.replaceAll(' ', '\n') ??
                             categoryItemsList[index].title,
                         textAlign: TextAlign.center,
                         style: textStyle,

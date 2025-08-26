@@ -5,6 +5,7 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
 import 'package:autilab_project/features/data/doctor/widgets/box_detail_widget.dart';
+import 'package:autilab_project/features/data/home/presentation/page/all_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/widgets/box_shape_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,7 @@ class DetailAppointmentScreen extends StatefulWidget {
     required this.image,
     required this.title,
     required this.descriptionStatus,
+    this.dateTimeSchedule,
   });
 
   final DoctorModel? doctorModel;
@@ -37,6 +39,7 @@ class DetailAppointmentScreen extends StatefulWidget {
   final String image;
   final String title;
   final String descriptionStatus;
+  final DateTimeSchedule? dateTimeSchedule;
   @override
   State<DetailAppointmentScreen> createState() =>
       _DetailAppointmentScreenState();
@@ -124,6 +127,7 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                         doctorSpecialtyl:
                             widget.doctorModel?.doctorSpecialities[0].name,
                         isMobile: isMobile(),
+                        dateTimeSchedule: widget.dateTimeSchedule,
                       ),
                     ),
                     const SliverToBoxAdapter(
