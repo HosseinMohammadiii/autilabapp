@@ -197,7 +197,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                                     context.pushNamed(
                                       AutiLabRoutes.doctorMessageScreen,
                                       extra: {
-                                        'image':
+                                        'image': widget.centerModel?.imageurl ??
                                             'assets/images/autism_help_center.png',
                                         'name': widget.centerModel?.name ??
                                             'Autism Help Center',

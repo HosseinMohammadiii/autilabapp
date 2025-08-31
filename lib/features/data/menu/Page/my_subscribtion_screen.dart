@@ -85,12 +85,12 @@ class _MySubscribtionScreenState extends State<MySubscribtionScreen>
                         state.homeResponse.fold(
                           (l) {},
                           (response) {
-                            // for (var plan in response) {
-                            //   planModel = plan.planModel;
-                            //   for (var feature in plan.planModel) {
-                            //     feuturePlanModel = feature.planFeatures;
-                            //   }
-                            // }
+                            for (var plan in response) {
+                              planModel = plan.planModel;
+                              for (var feature in plan.planModel) {
+                                feuturePlanModel = feature.planFeatures;
+                              }
+                            }
                           },
                         );
                       }

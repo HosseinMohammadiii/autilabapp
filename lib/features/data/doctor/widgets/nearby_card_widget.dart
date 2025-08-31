@@ -83,7 +83,8 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                     context.pushNamed(
                       AutiLabRoutes.doctorMessageScreen,
                       extra: {
-                        'image': 'assets/images/autism_help_center.png',
+                        'image': widget.center?.imageurl ??
+                            'assets/images/autism_help_center.png',
                         'name': widget.center?.name ?? 'Autism Help Center',
                         'expertise': '',
                       },

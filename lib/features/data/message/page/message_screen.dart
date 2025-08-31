@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/animation_control.dart';
@@ -128,17 +129,36 @@ class _MessageScreenState extends State<MessageScreen>
                         const SizedBox(
                           width: 16,
                         ),
+                        // ClipRRect(
+                        //   borderRadius: BorderRadius.circular(100),
+                        //   child: Image.asset(
+                        //     widget.image,
+                        //     height: isMobile() ? 46 : 76,
+                        //     width: isMobile() ? 46 : 76,
+                        //     cacheWidth: cacheImageFunction(
+                        //         isMobile() ? 46 : 76, context),
+                        //     cacheHeight: cacheImageFunction(
+                        //         isMobile() ? 46 : 76, context),
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        // ),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
-                          child: Image.asset(
-                            widget.image,
+                          child: CachednetworkimageWidget(
                             height: isMobile() ? 46 : 76,
                             width: isMobile() ? 46 : 76,
-                            cacheWidth: cacheImageFunction(
-                                isMobile() ? 46 : 76, context),
-                            cacheHeight: cacheImageFunction(
-                                isMobile() ? 46 : 76, context),
-                            fit: BoxFit.cover,
+                            imgUrl: widget.image,
+                            img: Image.asset(
+                              'assets/images/autism_help_center.jpg',
+                              fit: BoxFit.fill,
+                              height: isMobile() ? 46 : 76,
+                              width: isMobile() ? 46 : 76,
+                              cacheWidth: cacheImageFunction(
+                                  isMobile() ? 320 : 722, context),
+                              cacheHeight: cacheImageFunction(
+                                  isMobile() ? 213 : 315, context),
+                            ),
+                            isNetworkImage: true,
                           ),
                         ),
                         const SizedBox(
