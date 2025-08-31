@@ -1,6 +1,8 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:autilab_project/utils/Lists/time_date_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,8 +20,12 @@ class DoctorWorkScheduleScreen extends StatefulWidget {
   DoctorWorkScheduleScreen({
     super.key,
     this.isLike = false,
+    this.doctorUser,
+    this.specialty,
   });
   bool? isLike;
+  final DoctorUser? doctorUser;
+  final RecentVisitedModel? specialty;
 
   @override
   State<DoctorWorkScheduleScreen> createState() =>
@@ -31,6 +37,7 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
   late AnimationHelper animationHelper;
   String _monthName = '';
   String selectDate = '';
+  String doctorFullName = '';
 
   bool isOpen = false;
 
@@ -44,6 +51,8 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
 
     animationHelper.animationController.forward();
     _monthName = DateFormat.MMMM().format(DateTime.now());
+    doctorFullName =
+        '${widget.doctorUser?.firstName} ${widget.doctorUser?.lastName}';
   }
 
   @override
@@ -93,7 +102,9 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                       SliverToBoxAdapter(
                         child: DoctorBox(
                           isMobile: isMobile(),
+                          user: widget.doctorUser,
                           isLike: widget.isLike,
+                          specialty: widget.specialty,
                         ),
                       ),
                       const SliverToBoxAdapter(

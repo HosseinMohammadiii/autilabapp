@@ -1,7 +1,7 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/doctor/data/repository/doctor_repository.dart';
-import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_event.dart';
-import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_state.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_event.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
@@ -47,20 +47,20 @@ final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
       },
     );
 
-    on<DisplayAllCenters>(
-      (event, emit) async {
-        emit(DoctorLoading());
+    // on<DisplayAllCenters>(
+    //   (event, emit) async {
+    //     emit(DoctorLoading());
 
-        var cenetrs = await doctorRepository.fetchAllCenters();
-        cenetrs.fold(
-          (exception) {
-            emit(DoctorError(exception));
-          },
-          (displayAllCenters) {
-            emit(AllCenterResponseState(displayAllCenters));
-          },
-        );
-      },
-    );
+    //     var cenetrs = await doctorRepository.fetchAllCenters();
+    //     cenetrs.fold(
+    //       (exception) {
+    //         emit(DoctorError(exception));
+    //       },
+    //       (displayAllCenters) {
+    //         emit(AllCenterResponseState(displayAllCenters));
+    //       },
+    //     );
+    //   },
+    // );
   }
 }

@@ -148,17 +148,17 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                           height: 16,
                         ),
                       ),
-                      SliverList.builder(
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: DoctorBoxWidget(
-                              isMobile: isMobile(),
-                            ),
-                          );
-                        },
-                      )
+                      // SliverList.builder(
+                      //   itemCount: 10,
+                      //   itemBuilder: (context, index) {
+                      //     return Padding(
+                      //       padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //       child: DoctorBoxWidget(
+                      //         isMobile: isMobile(),
+                      //       ),
+                      //     );
+                      //   },
+                      // )
                     ],
                   ),
                 ),

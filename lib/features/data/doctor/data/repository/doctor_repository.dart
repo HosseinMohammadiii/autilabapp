@@ -4,8 +4,8 @@ import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../home/data/model/center_model.dart';
 import '../../../home/data/model/recent_visited_model.dart';
+import '../model/center_model.dart';
 
 abstract class DoctorRepository {
   Future<Either<ApiException, List<AllDoctorModel>>> fetchDoctorList();

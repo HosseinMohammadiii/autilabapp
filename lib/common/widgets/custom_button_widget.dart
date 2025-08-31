@@ -16,7 +16,7 @@ class CustomButtonWidget extends StatelessWidget {
     this.bordeColor,
     this.borderRadius,
     required this.text,
-    required this.textStyle,
+    this.textStyle,
     this.boxShadow,
   });
   final bool isMobile;
@@ -30,7 +30,7 @@ class CustomButtonWidget extends StatelessWidget {
   final Color? bordeColor;
   final double? borderRadius;
   final String text;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final List<BoxShadow>? boxShadow;
   @override
   Widget build(BuildContext context) {

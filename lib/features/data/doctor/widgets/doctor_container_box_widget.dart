@@ -1,4 +1,5 @@
 import 'package:autilab_project/features/data/doctor/widgets/button_card.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:autilab_project/features/data/tool/widgets/likewidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../core/constants/theme_constant.dart';
 import '../../../../utils/functions/cacheimahe_function.dart';
+import '../data/model/doctor_model.dart';
 
 // ignore: must_be_immutable
 class DoctorBox extends StatefulWidget {
@@ -14,15 +16,27 @@ class DoctorBox extends StatefulWidget {
     super.key,
     this.isMobile = true,
     this.isLike,
+    this.user,
+    this.specialty,
   });
   final bool isMobile;
   bool? isLike;
+  final DoctorUser? user;
+  final RecentVisitedModel? specialty;
 
   @override
   State<DoctorBox> createState() => _DoctorBoxState();
 }
 
 class _DoctorBoxState extends State<DoctorBox> {
+  String fullName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fullName = '${widget.user?.firstName} ${widget.user?.lastName}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,7 +81,7 @@ class _DoctorBoxState extends State<DoctorBox> {
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Dr. Sophia Martinez',
+                      fullName,
                       style: widget.isMobile
                           ? AutilabTextStyle.medium18_500
                           : AutilabTextStyle.medium18_500
@@ -76,7 +90,7 @@ class _DoctorBoxState extends State<DoctorBox> {
                   ),
                   FittedBox(
                     child: Text(
-                      'Speech Therapy',
+                      widget.specialty?.name ?? 'Speech Therapy',
                       style: AutilabTextStyle.small16_400
                           .copyWith(fontSize: widget.isMobile ? 16 : 24),
                     ),
@@ -88,10 +102,12 @@ class _DoctorBoxState extends State<DoctorBox> {
                         flex: 6,
                         child: GestureDetector(
                           onTap: () {
-                            context.pushNamed(
+                            context.pushReplacementNamed(
                                 AutiLabRoutes.doctorInformationScreen,
                                 extra: {
                                   'isLike': widget.isLike,
+                                  'doctorUser': widget.user,
+                                  'doctorSpecialities': widget.specialty,
                                 });
                           },
                           child: Container(
@@ -126,8 +142,8 @@ class _DoctorBoxState extends State<DoctorBox> {
                             AutiLabRoutes.doctorMessageScreen,
                             extra: {
                               'image': 'assets/images/doctor_image.jpg',
-                              'name': 'Dr. Sophia Martinez',
-                              'expertise': 'Speech Therapy',
+                              'name': fullName,
+                              'expertise': widget.specialty?.name,
                             },
                           );
                         },

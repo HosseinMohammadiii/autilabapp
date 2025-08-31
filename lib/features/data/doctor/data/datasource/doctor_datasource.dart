@@ -1,10 +1,10 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
-import 'package:autilab_project/features/data/home/data/model/center_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../home/data/model/recent_visited_model.dart';
+import '../model/center_model.dart';
 
 abstract class DoctorDatasource {
   Future<List<AllDoctorModel>> fetchAllDoctor();
@@ -87,7 +87,7 @@ final class DoctorDatasourceRemoot implements DoctorDatasource {
       List<dynamic> centerList = center.data['data'];
 
       return centerList
-          .map((jsonObject) => CenterModel.fromJosn(jsonObject))
+          .map((jsonObject) => CenterModel.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
       throw ApiException(

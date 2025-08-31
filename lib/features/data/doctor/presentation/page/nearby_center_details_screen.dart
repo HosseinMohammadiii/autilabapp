@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/data/model/center_model.dart';
 import 'package:autilab_project/features/data/tool/widgets/populararticle_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,15 +15,16 @@ import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../tool/widgets/likewidget.dart';
 import '../../widgets/box_detail_widget.dart';
 import '../../widgets/button_card.dart';
-import '../../widgets/specialty_list_widget.dart';
 
 // ignore: must_be_immutable
 class NearbyCenterDetailsScreen extends StatefulWidget {
   NearbyCenterDetailsScreen({
     super.key,
     this.isLike,
+    this.centerModel,
   });
   bool? isLike;
+  final CenterModel? centerModel;
 
   @override
   State<NearbyCenterDetailsScreen> createState() =>
@@ -158,7 +160,8 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                           spacing: 12,
                           children: [
                             Text(
-                              'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
+                              widget.centerModel?.centerinformation ??
+                                  'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
                               style: AutilabTextStyle.small14_400.copyWith(
                                 fontSize: isMobile() ? 14 : 24,
                               ),
@@ -196,7 +199,8 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                                       extra: {
                                         'image':
                                             'assets/images/autism_help_center.png',
-                                        'name': 'Autism Help Center',
+                                        'name': widget.centerModel?.name ??
+                                            'Autism Help Center',
                                         'expertise': '',
                                       },
                                     );
@@ -242,9 +246,11 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                       padding: AutilabMargin.marginFullScreen,
                       sliver: SliverToBoxAdapter(
                         child: BoxDetailWidget(
-                            isMobile: isMobile(),
-                            title: 'Full Name',
-                            subtitle: 'Autism Help Center'),
+                          isMobile: isMobile(),
+                          title: 'Full Name',
+                          subtitle:
+                              widget.centerModel?.name ?? 'Autism Help Center',
+                        ),
                       ),
                     ),
                     const SliverToBoxAdapter(
@@ -258,7 +264,8 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                         child: BoxDetailWidget(
                             isMobile: isMobile(),
                             title: 'For Ages',
-                            subtitle: '6-18'),
+                            subtitle:
+                                '${widget.centerModel?.agemin}-${widget.centerModel?.agemax}'),
                       ),
                     ),
                     const SliverToBoxAdapter(
@@ -308,23 +315,23 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                         height: 24,
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: isMobile() ? 80 : 174,
-                        child: SpecialtiesListWidget(
-                          isMobile: isMobile(),
-                          height: isMobile() ? 80 : 174,
-                          width: isMobile() ? 80 : 174,
-                          heightImage: isMobile() ? 32 : 72,
-                          widthImage: isMobile() ? 32 : 72,
-                          radius: isMobile() ? 16 : 24,
-                          itemCount: 1,
-                          textStyle: AutilabTextStyle.small10_400.copyWith(
-                            fontSize: isMobile() ? 10 : 20,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // SliverToBoxAdapter(
+                    //   child: SizedBox(
+                    //     height: isMobile() ? 80 : 174,
+                    //     child: SpecialtiesListWidget(
+                    //       specialtyModel: widget.centerModel?.specialty,
+                    //       isMobile: isMobile(),
+                    //       height: isMobile() ? 80 : 174,
+                    //       width: isMobile() ? 80 : 174,
+                    //       heightImage: isMobile() ? 32 : 72,
+                    //       widthImage: isMobile() ? 32 : 72,
+                    //       radius: isMobile() ? 16 : 24,
+                    //       textStyle: AutilabTextStyle.small10_400.copyWith(
+                    //         fontSize: isMobile() ? 10 : 20,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     const SliverToBoxAdapter(
                       child: SizedBox(
                         height: 32,
@@ -367,7 +374,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                         textfieldPadding: AutilabMargin.marginFullScreen,
                         padding: EdgeInsets.all(isMobile() ? 16 : 24),
                         controller: TextEditingController(
-                          text:
+                          text: widget.centerModel?.address ??
                               '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
                         ),
                         backgroundColor: AutilabColor.primary,
@@ -403,7 +410,8 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                         textfieldPadding:
                             AutilabMargin.marginFullScreen.copyWith(top: 24),
                         controller: TextEditingController(
-                          text: '+1 123456789',
+                          text:
+                              widget.centerModel?.phonenumber ?? '+1 123456789',
                         ),
                         backgroundColor: AutilabColor.primary,
                         borderColor: AutilabColor.gray,

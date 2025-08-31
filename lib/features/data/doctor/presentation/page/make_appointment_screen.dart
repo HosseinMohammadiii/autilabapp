@@ -1,6 +1,7 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/features/data/doctor/presentation/page/nearby_center_details_screen.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,7 @@ import '../../../../../core/constants/color_constant.dart';
 import '../../../../../core/constants/theme_constant.dart';
 import '../../../../../utils/Lists/time_date_list.dart';
 import '../../../../../utils/functions/animation_control.dart';
+import '../../data/model/doctor_model.dart';
 import '../../widgets/calendar_box_widget.dart';
 import '../../widgets/doctor_container_box_widget.dart';
 import '../../widgets/select_time_widget.dart';
@@ -21,8 +23,13 @@ class MakeAppointmentScreen extends StatefulWidget {
   MakeAppointmentScreen({
     super.key,
     this.isLike = false,
+    this.user,
+    this.specialty,
   });
   bool? isLike;
+  final DoctorUser? user;
+  final RecentVisitedModel? specialty;
+
   @override
   State<MakeAppointmentScreen> createState() => _MakeAppointmentScreenState();
 }
@@ -113,6 +120,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                       child: DoctorBox(
                         isMobile: isMobile(),
                         isLike: widget.isLike,
+                        user: widget.user,
+                        specialty: widget.specialty,
                       ),
                     ),
                     const SliverToBoxAdapter(
@@ -481,52 +490,122 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                     SliverToBoxAdapter(
                       child: Row(
                         children: [
-                          CustomButtonWidget(
+                          GestureDetector(
                             onTap: () {
                               setState(() {
                                 genderType = 'Male';
                               });
                             },
-                            height: 40,
-                            width: 100,
-                            margin: const EdgeInsets.only(left: 20),
-                            borderRadius: 12,
-                            color: genderType == 'Male'
-                                ? AutilabColor.blue
-                                : const Color(0xff9C9595)
-                                    .withValues(alpha: 0.44),
-                            text: 'Male',
-                            textStyle: genderType == 'Male'
-                                ? AutilabTextStyle.medium16_500.copyWith(
-                                    color: AutilabColor.white,
-                                  )
-                                : AutilabTextStyle.small16_400.copyWith(
-                                    color: AutilabColor.black,
-                                  ),
+                            child: Container(
+                              height: 40,
+                              width: 100,
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(left: 20),
+                              decoration: BoxDecoration(
+                                color: genderType == 'Male'
+                                    ? AutilabColor.blue
+                                    : Colors.transparent,
+                                border: Border.all(
+                                    color: genderType == 'Male'
+                                        ? Colors.transparent
+                                        : AutilabColor.blue),
+                                borderRadius:
+                                    BorderRadius.circular(isMobile() ? 16 : 24),
+                              ),
+                              child: Text(
+                                'Male',
+                                style: AutilabTextStyle.medium16_500.copyWith(
+                                  color: genderType == 'Male'
+                                      ? AutilabColor.white
+                                      : AutilabColor.black,
+                                ),
+                              ),
+                            ),
                           ),
-                          CustomButtonWidget(
+                          GestureDetector(
                             onTap: () {
                               setState(() {
                                 genderType = 'Female';
                               });
                             },
-                            height: 40,
-                            width: 100,
-                            margin: const EdgeInsets.only(left: 12),
-                            borderRadius: 12,
-                            color: genderType == 'Female'
-                                ? AutilabColor.blue
-                                : const Color(0xff9C9595)
-                                    .withValues(alpha: 0.44),
-                            text: 'Female',
-                            textStyle: genderType == 'Female'
-                                ? AutilabTextStyle.medium16_500.copyWith(
-                                    color: AutilabColor.white,
-                                  )
-                                : AutilabTextStyle.small16_400.copyWith(
-                                    color: AutilabColor.black,
-                                  ),
+                            child: Container(
+                              height: 40,
+                              width: 100,
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(left: 20),
+                              decoration: BoxDecoration(
+                                color: genderType == 'Female'
+                                    ? AutilabColor.blue
+                                    : Colors.transparent,
+                                border: Border.all(
+                                    color: genderType == 'Female'
+                                        ? Colors.transparent
+                                        : AutilabColor.blue),
+                                borderRadius:
+                                    BorderRadius.circular(isMobile() ? 16 : 24),
+                              ),
+                              child: Text(
+                                'Female',
+                                style: AutilabTextStyle.medium16_500.copyWith(
+                                  color: genderType == 'Female'
+                                      ? AutilabColor.white
+                                      : AutilabColor.black,
+                                ),
+                              ),
+                            ),
                           ),
+                          // CustomButtonWidget(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       genderType = 'Male';
+                          //     });
+                          //   },
+                          //   height: 40,
+                          //   width: 100,
+                          //   margin: const EdgeInsets.only(left: 20),
+                          //   borderRadius: 12,
+                          //   color: genderType == 'Male'
+                          //       ? AutilabColor.blue
+                          //       : Colors.transparent,
+                          //   bordeColor: genderType == 'Male'
+                          //       ? Colors.transparent
+                          //       : AutilabColor.blue,
+                          //   text: 'Male',
+                          //   // textStyle: genderType == 'Male'
+                          //   //     ? AutilabTextStyle.medium16_500.copyWith(
+                          //   //         color: AutilabColor.white,
+                          //   //       )
+                          //   //     : AutilabTextStyle.small16_400.copyWith(
+                          //   //         color: AutilabColor.black,
+                          //   //       ),
+                          //   textStyle: AutilabTextStyle.medium16_500.copyWith(
+                          //     color: AutilabColor.white,
+                          //   ),
+                          //   isMobile: isMobile(),
+                          // ),
+                          // CustomButtonWidget(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       genderType = 'Female';
+                          //     });
+                          //   },
+                          //   height: 40,
+                          //   width: 100,
+                          //   margin: const EdgeInsets.only(left: 12),
+                          //   borderRadius: 12,
+                          //   color: genderType == 'Female'
+                          //       ? AutilabColor.blue
+                          //       : const Color(0xff9C9595)
+                          //           .withValues(alpha: 0.44),
+                          //   text: 'Female',
+                          //   textStyle: genderType == 'Female'
+                          //       ? AutilabTextStyle.medium16_500.copyWith(
+                          //           color: AutilabColor.white,
+                          //         )
+                          //       : AutilabTextStyle.small16_400.copyWith(
+                          //           color: AutilabColor.black,
+                          //         ),
+                          // ),
                         ],
                       ),
                     ),

@@ -3,6 +3,3 @@ abstract class DoctorEvent {}
 
 /// Event to trigger display of all doctors.
 final class DisplayDoctors extends DoctorEvent {}
-
-/// Event to trigger display of all centers
-final class DisplayAllCenters extends DoctorEvent {}

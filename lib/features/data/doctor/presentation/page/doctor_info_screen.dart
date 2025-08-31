@@ -1,8 +1,10 @@
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/widgets/specialty_list_widget.dart';
+import 'package:autilab_project/utils/functions/calculatbirthdate_function.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../common/widgets/appbar_back_screen.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
@@ -10,6 +12,8 @@ import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../core/constants/constant_routes.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../../../utils/functions/specifygender_function.dart';
+import '../../../home/data/model/recent_visited_model.dart';
 import '../../../tool/widgets/likewidget.dart';
 import '../../data/model/doctor_model.dart';
 import '../../widgets/box_detail_widget.dart';
@@ -22,11 +26,11 @@ class DoctorInfoScreen extends StatefulWidget {
     super.key,
     this.isLike = false,
     this.user,
-    this.doctorSpecialities,
+    required this.doctorSpecialities,
   });
   bool isLike;
   final DoctorUser? user;
-  final DoctorSpecialities? doctorSpecialities;
+  final RecentVisitedModel doctorSpecialities;
 
   @override
   State<DoctorInfoScreen> createState() => _DoctorInfoScreenState();
@@ -46,7 +50,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
 
     animationHelper.animationController.forward();
     doctorFullName = '${widget.user?.firstName} ${widget.user?.lastName}';
-    doctorSpecialty = widget.doctorSpecialities?.name ?? '';
+    doctorSpecialty = widget.doctorSpecialities.name;
   }
 
   @override
@@ -188,11 +192,14 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                                               margin: EdgeInsets.zero,
                                               icon: 'assets/icons/calendar.svg',
                                               onTap: () {
-                                                context.pushNamed(
+                                                context.pushReplacementNamed(
                                                   AutiLabRoutes
                                                       .doctorWorkscheduleScreen,
                                                   extra: {
                                                     'isLike': widget.isLike,
+                                                    'doctorUser': widget.user,
+                                                    'specialty': widget
+                                                        .doctorSpecialities,
                                                   },
                                                 );
                                               },
@@ -288,12 +295,17 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                           BoxDetailWidget(
                             isMobile: isMobile(),
                             title: 'Age',
-                            subtitle: '30',
+                            subtitle: calculateAge(widget.user?.birthDate == ''
+                                    ? DateFormat('yyyy-MM-dd')
+                                        .format(DateTime.now())
+                                    : widget.user!.birthDate)
+                                .toString(),
                           ),
                           BoxDetailWidget(
                             isMobile: isMobile(),
                             title: 'Gender',
-                            subtitle: widget.user?.gender ?? 'ّFemale',
+                            subtitle:
+                                displayGender(widget.user?.gender ?? 'female'),
                           ),
                         ],
                       ),
@@ -333,17 +345,16 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: isMobile() ? 90 : 174,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
                       child: SpecialtiesListWidget(
-                        // specialtyModel: widget.doctorSpecialities,
+                        specialtyModel: widget.doctorSpecialities,
                         isMobile: isMobile(),
                         height: isMobile() ? 80 : 174,
                         width: isMobile() ? 80 : 174,
                         heightImage: isMobile() ? 32 : 72,
                         widthImage: isMobile() ? 32 : 72,
                         radius: isMobile() ? 16 : 24,
-                        itemCount: 1,
                         textStyle: AutilabTextStyle.small10_400.copyWith(
                           fontSize: isMobile() ? 10 : 20,
                         ),
@@ -392,7 +403,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                       textfieldPadding: AutilabMargin.marginFullScreen,
                       padding: EdgeInsets.all(isMobile() ? 16 : 24),
                       controller: TextEditingController(
-                        text:
+                        text: widget.user?.address ??
                             '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
                       ),
                       backgroundColor: AutilabColor.primary,
@@ -463,9 +474,9 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                       textfieldPadding:
                           AutilabMargin.marginFullScreen.copyWith(top: 24),
                       controller: TextEditingController(
-                        text:
-                            "Hi, I’m Dr. Sophia Martinez – a speech therapist with over 8 years of experience helping children with autism, speech delays, and communication challenges.My goal is to support every child in finding their unique voice — with patience, care, and family collaboration.You can easily book a session or consultation through this app. I’d be honored to support your child’s journey.",
-                      ),
+                          text: widget.user!.description
+                          // "Hi, I’m Dr. Sophia Martinez – a speech therapist with over 8 years of experience helping children with autism, speech delays, and communication challenges.My goal is to support every child in finding their unique voice — with patience, care, and family collaboration.You can easily book a session or consultation through this app. I’d be honored to support your child’s journey.",
+                          ),
                       backgroundColor: AutilabColor.primary,
                       borderColor: AutilabColor.gray,
                       textStyle: AutilabTextStyle.small14_400.copyWith(

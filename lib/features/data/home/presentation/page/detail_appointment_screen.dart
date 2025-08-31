@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../core/network/locator.dart';
 import '../../../../../utils/functions/animation_control.dart';
+import '../../../../../utils/functions/calculatbirthdate_function.dart';
 import '../../../auth/presentetion/bloc/auth_bloc.dart';
 import '../../../auth/presentetion/bloc/auth_event.dart';
 import '../../../doctor/presentation/page/nearby_center_details_screen.dart';
@@ -68,26 +69,6 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
   void didUpdateWidget(covariant DetailAppointmentScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     animationHelper.restartAnimation();
-  }
-
-  //Method for calculating age by receiving the date of birth API
-  int calculateAge(String dateFromApi) {
-    // convert DateTime to String
-    DateTime birthDate = DateTime.parse(dateFromApi);
-
-    // DateTime now
-    DateTime now = DateTime.now();
-
-    // Year difference
-    int age = now.year - birthDate.year;
-
-    //  Check if the month/day of birth is past or not
-    if (now.month < birthDate.month ||
-        (now.month == birthDate.month && now.day < birthDate.day)) {
-      age--;
-    }
-
-    return age;
   }
 
   @override

@@ -157,6 +157,7 @@ class AutilabRouter {
               state.extra as Map<String, dynamic>;
           return NearbyCenterDetailsScreen(
             isLike: extraData['isLike'] ?? false,
+            centerModel: extraData['centerModel'],
           );
         },
       ),
@@ -245,6 +246,8 @@ class AutilabRouter {
                 state.extra as Map<String, dynamic>;
             return MakeAppointmentScreen(
               isLike: extraData['isLike'],
+              user: extraData['doctorUser'],
+              specialty: extraData['specialty'],
             );
           }),
       GoRoute(
@@ -272,6 +275,8 @@ class AutilabRouter {
                 state.extra as Map<String, dynamic>;
             return DoctorWorkScheduleScreen(
               isLike: extraData['isLike'] ?? false,
+              doctorUser: extraData['doctorUser'],
+              specialty: extraData['specialty'],
             );
           }),
       GoRoute(

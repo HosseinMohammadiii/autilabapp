@@ -1,5 +1,6 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:autilab_project/features/data/tool/widgets/likewidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,7 @@ class DoctorBoxWidget extends StatefulWidget {
   bool isLike;
   final bool isMobile;
   final DoctorUser? user;
-  final DoctorSpecialities? doctorSpecialities;
+  final RecentVisitedModel? doctorSpecialities;
   final String? doctorRate;
   final String? gender;
 
@@ -100,6 +101,8 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                   context
                       .pushNamed(AutiLabRoutes.doctorInformationScreen, extra: {
                     'isLike': widget.isLike,
+                    'doctorUser': widget.user,
+                    'doctorSpecialities': widget.doctorSpecialities,
                   });
                 },
                 child: Container(
@@ -171,32 +174,32 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                 : AutilabTextStyle.medium18_500
                                     .copyWith(fontSize: 32),
                           ),
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              children: [
-                                Text(
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
                                   widget.doctorSpecialities?.name ?? '',
                                   style: AutilabTextStyle.small14_400.copyWith(
                                     fontSize: widget.isMobile ? 14 : 24,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
-                                const SizedBox(
-                                  width: 16,
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              const Icon(
+                                Icons.star_rounded,
+                                color: Color(0xffEDC757),
+                              ),
+                              Text(
+                                widget.doctorRate ?? '4.0',
+                                style: AutilabTextStyle.small14_400.copyWith(
+                                  fontSize: widget.isMobile ? 14 : 20,
                                 ),
-                                const Icon(
-                                  Icons.star_rounded,
-                                  color: Color(0xffEDC757),
-                                ),
-                                Text(
-                                  widget.doctorRate ?? '4.0',
-                                  style: AutilabTextStyle.small14_400.copyWith(
-                                    fontSize: widget.isMobile ? 14 : 20,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           FittedBox(
                             child: Row(
@@ -224,8 +227,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                                 extra: {
                                                   'image':
                                                       'assets/images/doctor_image.jpg',
-                                                  'name': 'Dr. Sophia Martinez',
-                                                  'expertise': 'Speech Therapy',
+                                                  'name': doctorFullName,
+                                                  'expertise': widget
+                                                      .doctorSpecialities?.name,
                                                 },
                                               );
                                             case 1:
@@ -234,6 +238,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                                     .doctorWorkscheduleScreen,
                                                 extra: {
                                                   'isLike': widget.isLike,
+                                                  'doctorUser': widget.user,
+                                                  'specialty':
+                                                      widget.doctorSpecialities,
                                                 },
                                               );
                                           }
@@ -270,9 +277,14 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
           ),
           CustomButtonWidget(
             onTap: () {
-              context.pushNamed(AutiLabRoutes.makeAppointmentScreen, extra: {
-                'isLike': widget.isLike,
-              });
+              context.pushNamed(
+                AutiLabRoutes.makeAppointmentScreen,
+                extra: {
+                  'isLike': widget.isLike,
+                  'doctorUser': widget.user,
+                  'specialty': widget.doctorSpecialities,
+                },
+              );
             },
             isMobile: widget.isMobile,
             height: 50,

@@ -3,7 +3,8 @@ import 'package:autilab_project/core/network/locator.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/core/routes/routes.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
-import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_bloc.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/center/center_bloc.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,11 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => DoctorBloc(
+            locator.get(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => CenterBloc(
             locator.get(),
           ),
         ),

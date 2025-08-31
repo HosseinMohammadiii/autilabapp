@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../common/widgets/cached_network_image_widget.dart';
 import '../../../../../common/widgets/loading_indicator_widget.dart';
 import '../../../../../common/widgets/test_result_widget.dart';
 import '../../../../../core/constants/color_constant.dart';
@@ -22,7 +23,6 @@ import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/appointment_check_status_function.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../doctor/presentation/page/nearby_center_details_screen.dart';
-import '../../../doctor/widgets/specialty_list_widget.dart';
 import '../../data/model/intelligence_test_model.dart';
 import '../../data/model/newappointment_model.dart';
 import '../../data/model/recent_visited_model.dart';
@@ -390,17 +390,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           SliverToBoxAdapter(
                             child: Visibility(
                               visible: recentVisitedModel.isNotEmpty,
-                              child: SpecialtiesListWidget(
-                                height: isMobile() ? 113 : 180,
-                                width: isMobile() ? 112 : 180,
-                                widthImage: isMobile() ? 56 : 76,
-                                heightImage: isMobile() ? 56 : 76,
-                                radius: isMobile() ? 24 : 40,
-                                itemCount: recentVisitedModel.length,
-                                textStyle: isMobile()
-                                    ? AutilabTextStyle.small14_400
-                                    : AutilabTextStyle.small20_400,
-                                specialtyModel: recentVisitedModel,
+                              child: SpecialtyListWidget(
+                                isMobile: isMobile(),
+                                recentVisitedModel: recentVisitedModel,
                               ),
                             ),
                           ),
@@ -666,6 +658,97 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         }
         return const SizedBox();
       },
+    );
+  }
+}
+
+class SpecialtyListWidget extends StatelessWidget {
+  const SpecialtyListWidget({
+    super.key,
+    required this.recentVisitedModel,
+    required this.isMobile,
+  });
+  final bool isMobile;
+
+  final List<RecentVisitedModel> recentVisitedModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: isMobile ? 113 : 180,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: recentVisitedModel.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              context.pushNamed(AutiLabRoutes.doctorSpecialityScreen);
+            },
+            child: Container(
+              height: isMobile ? 113 : 180,
+              width: isMobile ? 112 : 180,
+              margin: EdgeInsets.only(
+                left: index == 0 ? 20 : 0,
+                right: index == recentVisitedModel.length - 1 ? 8 : 14,
+              ),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Color(int.parse(recentVisitedModel[index].codeColor)),
+                borderRadius: BorderRadius.circular(
+                  isMobile ? 24 : 40,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    width: isMobile ? 56 : 76,
+                    height: isMobile ? 56 : 76,
+                    child: CachednetworkimageWidget(
+                      imgUrl: recentVisitedModel[index].imagePath,
+                      width: isMobile ? 56 : 76,
+                      height: isMobile ? 56 : 76,
+                      boxFit: BoxFit.scaleDown,
+                      isShowShimmer: false,
+                      borderRadius: 8,
+                      // img: Image.asset(
+                      //   recentVisitedModel[index]
+                      //       .image,
+                      //   cacheWidth:
+                      //       cacheImageFunction(
+                      //           widthImage?.toInt() ??
+                      //               56,
+                      //           context),
+                      //   cacheHeight:
+                      //       cacheImageFunction(
+                      //           widthImage?.toInt() ??
+                      //               56,
+                      //           context),
+                      // ),
+                      img: Text('data'),
+                      isNetworkImage: true,
+                    ),
+                  ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        recentVisitedModel[index].name.replaceAll(' ', '\n'),
+                        textAlign: TextAlign.center,
+                        style: isMobile
+                            ? AutilabTextStyle.small14_400
+                            : AutilabTextStyle.small20_400,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

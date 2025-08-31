@@ -1,8 +1,8 @@
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
-import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_bloc.dart';
-import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_event.dart';
-import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor_state.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_bloc.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_event.dart';
+import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_state.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
 import 'package:dio/dio.dart';
@@ -20,10 +20,10 @@ import '../../../../../utils/Lists/category_items.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../../utils/functions/custom_dialog_function.dart';
+import '../../../home/presentation/page/home_screen.dart';
 import '../../widgets/custom_checkbox_widget.dart';
 import '../../widgets/doctor_box_widget.dart';
 import '../../widgets/search_textfield_widget.dart';
-import '../../widgets/specialty_list_widget.dart';
 
 class FindDoctorScreen extends StatefulWidget {
   const FindDoctorScreen({super.key});
@@ -37,7 +37,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
   late AnimationHelper animationHelper;
 
   late List<AllDoctorModel> doctorsList = [];
-  late List<RecentVisitedModel> specialtyList = [];
+  List<RecentVisitedModel> specialtyList = [];
 
   final searchController = TextEditingController();
 
@@ -205,17 +205,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                 const SizedBox(
                                   height: 24,
                                 ),
-                                SpecialtiesListWidget(
-                                  itemCount: specialtyList.length,
-                                  specialtyModel: specialtyList,
-                                  height: isMobile() ? 113 : 180,
-                                  width: isMobile() ? 112 : 180,
-                                  widthImage: isMobile() ? 56 : 76,
-                                  heightImage: isMobile() ? 56 : 76,
-                                  radius: isMobile() ? 24 : 40,
-                                  textStyle: isMobile()
-                                      ? AutilabTextStyle.small14_400
-                                      : AutilabTextStyle.small20_400,
+                                SpecialtyListWidget(
+                                  isMobile: isMobile(),
+                                  recentVisitedModel: specialtyList,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(

@@ -9,12 +9,12 @@ class CenterModel {
   String phonenumber;
   String centerinformation;
   String imageurl;
-  int latitude;
-  int longitude;
+  double latitude;
+  double longitude;
   int doctorinfocount;
-  DoctorUser doctorinfo;
+  List<DoctorUser> doctorinfo;
   int specialitycount;
-  RecentVisitedModel speciality;
+  RecentVisitedModel specialty;
 
   CenterModel({
     required this.name,
@@ -29,14 +29,20 @@ class CenterModel {
     required this.doctorinfocount,
     required this.doctorinfo,
     required this.specialitycount,
-    required this.speciality,
+    required this.specialty,
   });
 
   factory CenterModel.fromJson(Map<String, dynamic> jsonObject) {
+    var doctorInfoList = (jsonObject['doctor_info'] as List<dynamic>?)
+            ?.map(
+              (item) => DoctorUser.fromJson(item),
+            )
+            .toList() ??
+        [];
     return CenterModel(
       name: jsonObject['name'] ?? '',
-      agemin: jsonObject['age_min'] ?? '',
-      agemax: jsonObject['age_min'] ?? '',
+      agemin: jsonObject['age_min'] ?? 0,
+      agemax: jsonObject['age_max'] ?? 0,
       address: jsonObject['address'] ?? '',
       phonenumber: jsonObject['phone_number'] ?? '',
       centerinformation: jsonObject['center_information'] ?? '',
@@ -44,11 +50,9 @@ class CenterModel {
       latitude: jsonObject['latitude'] ?? 0,
       longitude: jsonObject['longitude'] ?? 0,
       doctorinfocount: jsonObject['doctor_info_count'] ?? 0,
-      doctorinfo: DoctorUser.fromJson(jsonObject['doctor_info']),
+      doctorinfo: doctorInfoList,
       specialitycount: jsonObject['speciality_count'] ?? 0,
-      speciality: RecentVisitedModel.fromJson(
-        jsonObject['speciality'],
-      ),
+      specialty: RecentVisitedModel.fromJson(jsonObject['speciality']),
     );
   }
 }

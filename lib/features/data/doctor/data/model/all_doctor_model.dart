@@ -1,4 +1,5 @@
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 
 class AllDoctorModel {
   int? id;
@@ -6,7 +7,7 @@ class AllDoctorModel {
   String? degree;
   String? description;
   DoctorUser? user;
-  DoctorSpecialities? specialities;
+  RecentVisitedModel? specialities;
   String? ratingaverage;
 
   AllDoctorModel({
@@ -20,13 +21,19 @@ class AllDoctorModel {
   });
 
   factory AllDoctorModel.fromJson(Map<String, dynamic> jsonObject) {
+    // var doctorSpecialitiesList = (jsonObject['specialities'] as List<dynamic>?)
+    //         ?.map(
+    //           (item) => DoctorSpecialities.fromJson(item),
+    //         )
+    //         .toList() ??
+    //     [];
     return AllDoctorModel(
       id: jsonObject['id'],
       userid: jsonObject['user_id'],
       degree: jsonObject['degree'] ?? '',
       description: jsonObject['description'] ?? '',
       user: DoctorUser.fromJson(jsonObject['user']),
-      specialities: DoctorSpecialities.fromJson(jsonObject['specialities']),
+      specialities: RecentVisitedModel.fromJson(jsonObject['specialities']),
       ratingaverage: jsonObject['rating_average'] ?? '',
     );
   }

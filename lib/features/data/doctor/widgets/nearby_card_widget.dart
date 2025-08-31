@@ -1,6 +1,8 @@
+import 'package:autilab_project/common/widgets/cached_network_image_widget.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/data/model/center_model.dart';
 import 'package:autilab_project/features/data/doctor/widgets/button_card.dart';
 import 'package:autilab_project/features/data/tool/widgets/likewidget.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +18,12 @@ class NearbyCardWidget extends StatefulWidget {
     this.isMobile = true,
     this.isShowButton,
     this.isLike,
+    this.center,
   });
   final bool isMobile;
   final bool? isShowButton;
   bool? isLike;
+  final CenterModel? center;
 
   @override
   State<NearbyCardWidget> createState() => _NearbyCardWidgetState();
@@ -39,10 +43,13 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          FittedBox(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
-              child: Image.asset(
+          ClipRRect(
+            borderRadius: BorderRadius.circular(widget.isMobile ? 16 : 24),
+            child: CachednetworkimageWidget(
+              width: widget.isMobile ? 320 : 722,
+              height: widget.isMobile ? 213 : 315,
+              imgUrl: widget.center?.imageurl ?? '',
+              img: Image.asset(
                 'assets/images/autism_help_center.jpg',
                 fit: BoxFit.fill,
                 width: widget.isMobile ? 320 : 722,
@@ -52,6 +59,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 cacheHeight:
                     cacheImageFunction(widget.isMobile ? 213 : 315, context),
               ),
+              isNetworkImage: widget.center?.imageurl == null ? false : true,
             ),
           ),
           const SizedBox(
@@ -63,7 +71,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
               children: [
                 Expanded(
                   child: Text(
-                    'Autism Help Center',
+                    widget.center?.name ?? 'Autism Help Center',
                     style: AutilabTextStyle.medium18_500.copyWith(
                       fontSize: widget.isMobile ? 18 : 32,
                     ),
@@ -76,7 +84,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                       AutiLabRoutes.doctorMessageScreen,
                       extra: {
                         'image': 'assets/images/autism_help_center.png',
-                        'name': 'Autism Help Center',
+                        'name': widget.center?.name ?? 'Autism Help Center',
                         'expertise': '',
                       },
                     );
@@ -114,7 +122,8 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
           SizedBox(
             height: 72,
             child: Text(
-              'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
+              widget.center?.centerinformation ??
+                  'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
               style: AutilabTextStyle.small14_400.copyWith(
                   overflow: widget.isShowButton == false
                       ? TextOverflow.visible
@@ -132,6 +141,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 context
                     .pushNamed(AutiLabRoutes.nearbyCenterDetailScreen, extra: {
                   'isLike': widget.isLike,
+                  'centerModel': widget.center,
                 });
               },
               height: 50,

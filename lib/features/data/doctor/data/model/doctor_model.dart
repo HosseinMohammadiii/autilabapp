@@ -1,9 +1,11 @@
+import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
+
 class DoctorModel {
   final int id;
   final String degree;
   final String description;
   final DoctorUser doctorUser;
-  final List<DoctorSpecialities> doctorSpecialities;
+  final List<RecentVisitedModel> doctorSpecialities;
 
   DoctorModel({
     required this.id,
@@ -15,7 +17,7 @@ class DoctorModel {
   factory DoctorModel.fomJson(Map<String, dynamic> jsonObject) {
     var doctorSpecialitiesList = (jsonObject['specialities'] as List<dynamic>?)
             ?.map(
-              (item) => DoctorSpecialities.fromJson(item),
+              (item) => RecentVisitedModel.fromJson(item),
             )
             .toList() ??
         [];
@@ -30,26 +32,36 @@ class DoctorModel {
 }
 
 class DoctorUser {
+  final int id;
+
   final String firstName;
   final String lastName;
   final String gender;
   final String birthDate;
   final String photo;
+  final String description;
+  final String address;
   DoctorUser({
+    required this.id,
     required this.firstName,
     required this.lastName,
     required this.gender,
     required this.birthDate,
     required this.photo,
+    required this.description,
+    required this.address,
   });
 
   factory DoctorUser.fromJson(Map<String, dynamic> jsonObject) {
     return DoctorUser(
+      id: jsonObject['id'],
       firstName: jsonObject['first_name'] ?? '',
       lastName: jsonObject['last_name'] ?? '',
       gender: jsonObject['gender'] ?? '',
       birthDate: jsonObject['birthdate'] ?? '',
       photo: jsonObject['photo'] ?? '',
+      description: jsonObject['description'] ?? '',
+      address: jsonObject['address'] ?? '',
     );
   }
 }

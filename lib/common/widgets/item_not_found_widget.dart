@@ -39,7 +39,6 @@ class ItemNotFoundWidget extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           color: AutilabColor.bb,
           text: 'Search Something Else',
-          textStyle: AutilabTextStyle.small18_400,
         ),
       ],
     );
