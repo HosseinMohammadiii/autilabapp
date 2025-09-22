@@ -362,11 +362,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 48,
+                          if (newappointmentModel.isNotEmpty) ...[
+                            const SliverToBoxAdapter(
+                              child: SizedBox(
+                                height: 48,
+                              ),
                             ),
-                          ),
+                          ],
                           SliverPadding(
                             padding: AutilabMargin.marginFullScreen
                                 .copyWith(left: 16),
@@ -726,7 +728,7 @@ class SpecialtyListWidget extends StatelessWidget {
                       //               56,
                       //           context),
                       // ),
-                      img: Text('data'),
+                      img: const Text(''),
                       isNetworkImage: true,
                     ),
                   ),

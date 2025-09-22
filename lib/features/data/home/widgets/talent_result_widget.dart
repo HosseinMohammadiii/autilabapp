@@ -15,6 +15,7 @@ class TalentResultWidget extends StatelessWidget {
   final TextStyle textStyle;
   final Color gradient1;
   final Color gradient2;
+
   final double score;
 
   @override
