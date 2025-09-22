@@ -19,6 +19,8 @@ class TalentResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int filledFlex = ((score / 100) * 15).round().clamp(0, 15);
+    int emptyFlex = (15 - filledFlex).clamp(0, 15);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Stack(
@@ -41,7 +43,7 @@ class TalentResultWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: score.round(),
+                      flex: filledFlex,
                       child: Stack(
                         children: [
                           Container(
@@ -73,13 +75,13 @@ class TalentResultWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      flex: 15 - score.round(),
+                      flex: emptyFlex,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: List.generate(
-                            15 - score.round(),
+                            emptyFlex,
                             (index) => Container(
                               height: 4,
                               width: 4,

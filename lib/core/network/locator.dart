@@ -5,6 +5,8 @@ import 'package:autilab_project/features/data/doctor/data/datasource/doctor_data
 import 'package:autilab_project/features/data/doctor/data/repository/doctor_repository.dart';
 import 'package:autilab_project/features/data/home/data/datasource/home__datasource.dart';
 import 'package:autilab_project/features/data/home/data/repository/home_repository.dart';
+import 'package:autilab_project/features/data/test/data/datasource/testdatasource.dart';
+import 'package:autilab_project/features/data/test/data/repository/testrepository.dart';
 import 'package:get_it/get_it.dart';
 
 var locator = GetIt.instance;
@@ -30,6 +32,11 @@ void datasource(GetIt locator) {
       locator.get(),
     ),
   );
+  locator.registerFactory<Testdatasource>(
+    () => TestdatasourceRemoot(
+      locator.get(),
+    ),
+  );
 }
 
 void repository(GetIt locator) {
@@ -45,6 +52,11 @@ void repository(GetIt locator) {
   );
   locator.registerFactory<DoctorRepository>(
     () => DoctorRepositoryRemoot(
+      locator.get(),
+    ),
+  );
+  locator.registerFactory<TestRepository>(
+    () => TestRepositoryRemoot(
       locator.get(),
     ),
   );

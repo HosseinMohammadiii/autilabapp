@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
-import '../page/quiz_multiselect_screen.dart';
+import '../presentation/page/quiz_multiselect_screen.dart';
 
 class MultiSelectAnswerWidget extends StatefulWidget {
   const MultiSelectAnswerWidget({

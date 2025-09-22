@@ -6,6 +6,7 @@ import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.d
 import 'package:autilab_project/features/data/doctor/presentation/bloc/center/center_bloc.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
+import 'package:autilab_project/features/data/test/presentation/bloc/test_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,11 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => CenterBloc(
+            locator.get(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => TestBloc(
             locator.get(),
           ),
         ),

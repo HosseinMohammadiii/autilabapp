@@ -93,6 +93,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 newappointmentModel = element.newappointmentModel;
                 recentVisitedModel = element.recentVisitedModel;
                 intelligenceTestModel = element.intelligenceTestModel;
+                for (var element in intelligenceTestModel) {
+                  print(element.percentage);
+                }
                 planModel = element.planModel;
                 for (var element in element.newappointmentModel) {
                   DateTime date = DateTime.parse(element.workSchedule.date);

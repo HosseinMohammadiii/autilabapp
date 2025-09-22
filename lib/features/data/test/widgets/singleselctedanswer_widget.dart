@@ -1,8 +1,9 @@
+import 'package:autilab_project/features/data/test/data/model/intelligence_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart';
-import '../page/quiz_multiselect_screen.dart';
+import '../presentation/page/quiz_multiselect_screen.dart';
 
 class SingleSelctedAnswerWidget extends StatefulWidget {
   const SingleSelctedAnswerWidget({
@@ -10,11 +11,13 @@ class SingleSelctedAnswerWidget extends StatefulWidget {
     this.isMobile = true,
     required this.quizList,
     required this.selectedItems,
+    this.onTap,
   });
   final bool isMobile;
 
-  final List<QuizClass> quizList;
+  final List<TestClass> quizList;
   final List<bool> selectedItems;
+  final Function(int questionId, int awnserId)? onTap;
 
   @override
   State<SingleSelctedAnswerWidget> createState() =>
@@ -26,7 +29,7 @@ class _SingleSelctedAnswerWidgetState extends State<SingleSelctedAnswerWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: 4,
+      itemCount: widget.quizList.length,
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       itemBuilder: (context, index) {
@@ -37,6 +40,10 @@ class _SingleSelctedAnswerWidgetState extends State<SingleSelctedAnswerWidget> {
                 widget.selectedItems[i] = i == index;
               }
             });
+            if (widget.onTap != null) {
+              widget.onTap!(widget.quizList[index].questionId,
+                  widget.quizList[index].awnserId);
+            }
           },
           child: Container(
             height: widget.isMobile ? 50 : 72,

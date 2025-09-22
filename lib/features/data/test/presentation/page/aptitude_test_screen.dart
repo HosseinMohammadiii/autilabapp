@@ -5,8 +5,8 @@ import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../common/widgets/responsive_widget.dart';
-import '../../../../utils/functions/animation_control.dart';
+import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../utils/functions/animation_control.dart';
 
 class AptitudeTestScreen extends StatefulWidget {
   const AptitudeTestScreen({

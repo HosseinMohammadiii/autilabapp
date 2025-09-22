@@ -4,7 +4,7 @@ import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/presentation/page/nearby_center_details_screen.dart';
-import 'package:autilab_project/features/data/test/page/quiz_multiselect_screen.dart';
+import 'package:autilab_project/features/data/test/presentation/page/quiz_multiselect_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_router/go_router.dart';
