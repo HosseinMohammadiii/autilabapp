@@ -35,13 +35,10 @@ final class TestdatasourceRemoot implements Testdatasource {
               (jsonObject) => IntelligenceModel.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
-      print(e.response?.statusMessage);
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
     } catch (e) {
-      print(e);
-
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }
@@ -65,13 +62,10 @@ final class TestdatasourceRemoot implements Testdatasource {
               (jsonObject) => IntelligenceModel.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
-      print(e.response?.statusMessage);
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
     } catch (e) {
-      print(e);
-
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }
@@ -95,13 +89,10 @@ final class TestdatasourceRemoot implements Testdatasource {
       );
       return response.data['message'];
     } on DioException catch (e) {
-      print(e.response?.statusMessage);
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
     } catch (e) {
-      print(e);
-
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }
@@ -125,13 +116,10 @@ final class TestdatasourceRemoot implements Testdatasource {
               (jsonObject) => AutismTestModel.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
-      print(e.response?.statusMessage);
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
     } catch (e) {
-      print(e);
-
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
   }

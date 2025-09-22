@@ -1,7 +1,9 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
+import 'package:autilab_project/common/widgets/cached_network_image_widget.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/data/model/center_model.dart';
 import 'package:autilab_project/features/data/tool/widgets/populararticle_widget.dart';
+import 'package:autilab_project/utils/functions/specifygender_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -98,27 +100,38 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                       child: SizedBox(
                         height: isMobile() ? 150 : 309,
                         child: PageView.builder(
-                          itemCount: 3,
+                          itemCount: widget.centerModel?.images.length ?? 3,
                           padEnds: false,
                           pageSnapping: false,
                           controller: PageController(viewportFraction: 0.9),
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.only(
-                                left: index == 0 ? 20 : 12,
-                                right: index == 2 ? 8 : 0,
+                                left: index == 0 ? 20 : 8,
+                                right: widget.centerModel?.images.length ==
+                                        index - 1
+                                    ? 0
+                                    : 8,
                               ),
                               child: ClipRRect(
                                 borderRadius:
                                     BorderRadius.circular(isMobile() ? 16 : 24),
-                                child: Image.asset(
-                                  'assets/images/centerImage.jpg',
-                                  fit: BoxFit.cover,
-                                  cacheWidth: cacheImageFunction(
-                                      isMobile() ? 150 : 309, context),
-                                  cacheHeight: cacheImageFunction(
-                                      isMobile() ? 150 : 309, context),
-                                ),
+                                child: CachednetworkimageWidget(
+                                    width: isMobile() ? 280 : 566,
+                                    height: isMobile() ? 150 : 309,
+                                    boxFit: BoxFit.cover,
+                                    imgUrl: widget.centerModel?.images[index]
+                                            .imageUrl ??
+                                        '',
+                                    img: Image.asset(
+                                      'assets/images/centerImage.jpg',
+                                      fit: BoxFit.cover,
+                                      cacheWidth: cacheImageFunction(
+                                          isMobile() ? 150 : 309, context),
+                                      cacheHeight: cacheImageFunction(
+                                          isMobile() ? 150 : 309, context),
+                                    ),
+                                    isNetworkImage: true),
                               ),
                             );
                           },
@@ -197,7 +210,8 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                                     context.pushNamed(
                                       AutiLabRoutes.doctorMessageScreen,
                                       extra: {
-                                        'image': widget.centerModel?.imageurl ??
+                                        'image': widget.centerModel?.images[0]
+                                                .imageUrl ??
                                             'assets/images/autism_help_center.png',
                                         'name': widget.centerModel?.name ??
                                             'Autism Help Center',
@@ -262,10 +276,11 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                       padding: AutilabMargin.marginFullScreen,
                       sliver: SliverToBoxAdapter(
                         child: BoxDetailWidget(
-                            isMobile: isMobile(),
-                            title: 'For Ages',
-                            subtitle:
-                                '${widget.centerModel?.agemin}-${widget.centerModel?.agemax}'),
+                          isMobile: isMobile(),
+                          title: 'For Ages',
+                          subtitle:
+                              '${widget.centerModel?.agemin}-${widget.centerModel?.agemax}',
+                        ),
                       ),
                     ),
                     const SliverToBoxAdapter(
@@ -277,9 +292,10 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                       padding: AutilabMargin.marginFullScreen,
                       sliver: SliverToBoxAdapter(
                         child: BoxDetailWidget(
-                            isMobile: isMobile(),
-                            title: 'Gender',
-                            subtitle: 'Both'),
+                          isMobile: isMobile(),
+                          title: 'Gender',
+                          subtitle: displayGender(widget.centerModel!.gender),
+                        ),
                       ),
                     ),
                     const SliverToBoxAdapter(

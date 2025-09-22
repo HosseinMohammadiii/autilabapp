@@ -40,7 +40,7 @@ class CachednetworkimageWidget extends StatelessWidget {
                 errorListener: (value) {},
                 errorWidget: (context, url, error) => SizedBox(
                       child: Image.asset(
-                        'assets/images/avatar.png',
+                        'assets/images/not_available.jpg',
                         fit: BoxFit.cover,
                         width: isMobile ? 104 : 168,
                         height: isMobile ? 104 : 168,

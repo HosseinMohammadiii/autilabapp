@@ -48,7 +48,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
             child: CachednetworkimageWidget(
               width: widget.isMobile ? 320 : 722,
               height: widget.isMobile ? 213 : 315,
-              imgUrl: widget.center?.imageurl ?? '',
+              imgUrl: widget.center?.images[0].imageUrl ?? '',
               img: Image.asset(
                 'assets/images/autism_help_center.jpg',
                 fit: BoxFit.fill,
@@ -59,7 +59,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 cacheHeight:
                     cacheImageFunction(widget.isMobile ? 213 : 315, context),
               ),
-              isNetworkImage: widget.center?.imageurl == null ? false : true,
+              isNetworkImage: widget.center?.images == null ? false : true,
             ),
           ),
           const SizedBox(
@@ -83,7 +83,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                     context.pushNamed(
                       AutiLabRoutes.doctorMessageScreen,
                       extra: {
-                        'image': widget.center?.imageurl ??
+                        'image': widget.center?.images[0].imageUrl ??
                             'assets/images/autism_help_center.png',
                         'name': widget.center?.name ?? 'Autism Help Center',
                         'expertise': '',
