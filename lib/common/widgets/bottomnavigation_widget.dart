@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../core/network/locator.dart';
 import '../../features/data/auth/presentetion/bloc/auth_bloc.dart';
@@ -211,6 +212,24 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                 child: BlocBuilder<AuthenticationBloc,
                                     AuthenticationState>(
                                   builder: (context, state) {
+                                    if (state is AuthenticationLoading) {
+                                      return Center(
+                                        child: Shimmer.fromColors(
+                                          baseColor: const Color(0xffE1E1E1),
+                                          highlightColor:
+                                              const Color(0xffF3F3F2),
+                                          child: Container(
+                                            width: isMobile() ? 52 : 84,
+                                            height: isMobile() ? 52 : 84,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
                                     if (state is FetchUserDataResponse) {
                                       return state.response.fold(
                                         (exception) {
