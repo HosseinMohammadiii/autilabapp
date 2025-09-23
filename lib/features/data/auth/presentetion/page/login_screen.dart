@@ -181,6 +181,9 @@ class _LogInScreenState extends State<LogInScreen>
                                   await SharedPreferencesData.isFirstTimeLogIn(
                                       false);
 
+                                  BlocProvider.of<AuthenticationBloc>(context)
+                                      .add(DisplayInformationUser());
+
                                   context.goNamed(AutiLabRoutes.homeScreen);
                                 });
                               }

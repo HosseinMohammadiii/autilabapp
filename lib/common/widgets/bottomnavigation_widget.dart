@@ -205,67 +205,61 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                               onTap: () {
                                 context.goNamed(AutiLabRoutes.profileScreen);
                               },
-                              child: BlocProvider(
-                                create: (context) =>
-                                    AuthenticationBloc(locator.get())
-                                      ..add(DisplayInformationUser()),
-                                child: BlocBuilder<AuthenticationBloc,
-                                    AuthenticationState>(
-                                  builder: (context, state) {
-                                    if (state is AuthenticationLoading) {
-                                      return Center(
-                                        child: Shimmer.fromColors(
-                                          baseColor: const Color(0xffE1E1E1),
-                                          highlightColor:
-                                              const Color(0xffF3F3F2),
-                                          child: Container(
-                                            width: isMobile() ? 52 : 84,
-                                            height: isMobile() ? 52 : 84,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    if (state is FetchUserDataResponse) {
-                                      return state.response.fold(
-                                        (exception) {
-                                          return Center(
-                                            child: Text(exception),
-                                          );
-                                        },
-                                        (response) {
-                                          return ClipRRect(
+                              child: BlocBuilder<AuthenticationBloc,
+                                  AuthenticationState>(
+                                builder: (context, state) {
+                                  if (state is AuthenticationLoading) {
+                                    return Center(
+                                      child: Shimmer.fromColors(
+                                        baseColor: const Color(0xffE1E1E1),
+                                        highlightColor: const Color(0xffF3F3F2),
+                                        child: Container(
+                                          width: isMobile() ? 52 : 84,
+                                          height: isMobile() ? 52 : 84,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
                                             borderRadius:
                                                 BorderRadius.circular(100),
-                                            child: CachednetworkimageWidget(
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  if (state is FetchUserDataResponse) {
+                                    return state.response.fold(
+                                      (exception) {
+                                        return Center(
+                                          child: Text(exception),
+                                        );
+                                      },
+                                      (response) {
+                                        return ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: CachednetworkimageWidget(
+                                            width: isMobile() ? 52 : 84,
+                                            height: isMobile() ? 52 : 84,
+                                            imgUrl: response.photo,
+                                            img: Image.asset(
+                                              'assets/images/child2_image.jpg',
+                                              fit: BoxFit.cover,
                                               width: isMobile() ? 52 : 84,
                                               height: isMobile() ? 52 : 84,
-                                              imgUrl: response.photo,
-                                              img: Image.asset(
-                                                'assets/images/child2_image.jpg',
-                                                fit: BoxFit.cover,
-                                                width: isMobile() ? 52 : 84,
-                                                height: isMobile() ? 52 : 84,
-                                                cacheWidth: cacheImageFunction(
-                                                    isMobile() ? 100 : 100,
-                                                    context),
-                                                cacheHeight: cacheImageFunction(
-                                                    isMobile() ? 100 : 100,
-                                                    context),
-                                              ),
-                                              isNetworkImage: true,
+                                              cacheWidth: cacheImageFunction(
+                                                  isMobile() ? 100 : 100,
+                                                  context),
+                                              cacheHeight: cacheImageFunction(
+                                                  isMobile() ? 100 : 100,
+                                                  context),
                                             ),
-                                          );
-                                        },
-                                      );
-                                    }
-                                    return const SizedBox();
-                                  },
-                                ),
+                                            isNetworkImage: true,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                  return const SizedBox();
+                                },
                               ),
                             ),
                           ],
