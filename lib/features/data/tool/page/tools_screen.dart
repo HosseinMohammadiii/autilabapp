@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
+import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -100,7 +101,7 @@ class _ToolsScreenState extends State<ToolsScreen>
                           description: toolsItems[index].description,
                           titleButton: toolsItems[index].titleButton,
                           svg: toolsItems[index].svg,
-                          onTap: () {
+                          onTap: () async {
                             switch (index) {
                               case 0:
                                 context
@@ -110,6 +111,11 @@ class _ToolsScreenState extends State<ToolsScreen>
                               //   context.pushNamed(AutiLabRoutes.whiteBoardScreen);
                               //   break;
                               case 1:
+                                if (await SharedPreferencesData
+                                        .getQuestionId() ==
+                                    24) {
+                                  return;
+                                }
                                 context.pushNamed(
                                     AutiLabRoutes.aptitudeTestScreen,
                                     extra: {
@@ -123,6 +129,7 @@ class _ToolsScreenState extends State<ToolsScreen>
                                             .quizMultiSelectScreen);
                                       },
                                     });
+
                                 break;
                               case 2:
                                 context.pushNamed(

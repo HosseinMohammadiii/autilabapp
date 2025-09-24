@@ -11,7 +11,7 @@ abstract class TestRepository {
   Future<Either<ApiException, List<IntelligenceModel>>> fetchIntelligence(
       int id);
   Future<Either<ApiException, List<AutismTestModel>>> fetchAutismTest(int id);
-  Future<Either<ApiException, String>> sendAnswerIntelligence(
+  Future<Either<ApiException, int>> sendAnswerIntelligence(
       TestanswerParam testanswerParam);
 }
 
@@ -59,7 +59,7 @@ final class TestRepositoryRemoot implements TestRepository {
   }
 
   @override
-  Future<Either<ApiException, String>> sendAnswerIntelligence(
+  Future<Either<ApiException, int>> sendAnswerIntelligence(
       TestanswerParam testanswerParam) async {
     try {
       var response =

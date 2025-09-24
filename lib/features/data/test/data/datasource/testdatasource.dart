@@ -9,7 +9,7 @@ abstract class Testdatasource {
   Future<List<IntelligenceModel>> fetchAllIntelligence();
   Future<List<IntelligenceModel>> fetchIntelligence(int id);
   Future<List<AutismTestModel>> fetchAutismTest(int id);
-  Future<String> sendAnswerIntelligence(TestanswerParam testanswerParam);
+  Future<int> sendAnswerIntelligence(TestanswerParam testanswerParam);
   Future<String> sendAnswerAutismTest(TestanswerParam testanswerParam);
 }
 
@@ -71,13 +71,18 @@ final class TestdatasourceRemoot implements Testdatasource {
   }
 
   @override
-  Future<String> sendAnswerIntelligence(TestanswerParam testanswerParam) async {
+  Future<int> sendAnswerIntelligence(TestanswerParam testanswerParam) async {
     try {
+      int id = 0;
       var response = await dio.post(
         '/intelligence_response/',
         data: {
-          'question_id': testanswerParam.questionId,
-          'answer_id': testanswerParam.answerId,
+          "answers": [
+            {
+              'question_id': testanswerParam.questionId,
+              'answer_id': testanswerParam.answerId,
+            }
+          ]
         },
         options: Options(
           headers: {
@@ -87,8 +92,12 @@ final class TestdatasourceRemoot implements Testdatasource {
           },
         ),
       );
-      return response.data['message'];
+      var questionId = response.data['data']
+          .map((json) => id = json['question_id'])
+          .toList();
+      return questionId.last;
     } on DioException catch (e) {
+      print(e.response?.statusMessage);
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');

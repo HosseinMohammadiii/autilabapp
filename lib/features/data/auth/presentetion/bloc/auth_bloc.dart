@@ -61,6 +61,7 @@ final class AuthenticationBloc
 
         var uploadPhoto =
             await authenticationRepository.uploadPhotoUser(event.photo);
+
         uploadPhoto.fold(
           (e) {
             emit(AuthenticationError(e));

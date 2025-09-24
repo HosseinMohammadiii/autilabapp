@@ -103,6 +103,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     ).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
+    BlocProvider.of<AuthenticationBloc>(context).add(DisplayInformationUser());
   }
 
   @override

@@ -243,110 +243,167 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         return ResponsiveLayout(
           child: FadeTransition(
             opacity: animationHelper.fadeAnimation,
-            child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-              listener: (context, state) {
-                // When photo upload response is received
-                if (state is UploadPhotoResponse) {
-                  // Dispatch event to update user profile with new data
-                  BlocProvider.of<AuthenticationBloc>(context).add(
-                    UpdateUserProfile(
-                      userParam: UserParam(
-                        email: emailController.text,
-                        firstName: firstNameController.text,
-                        lastName: lasNameController.text,
-                        birthDate: DateFormat('yyyy-MM-dd')
-                            .format(tempSelectedDate ?? DateTime.now()),
-                        gender: selectedGender,
-                        address: addressController.text,
-                        description: descriptionController.text,
-                        photo: state.response,
+            child: BlocProvider(
+              create: (context) => AuthenticationBloc(locator.get())
+                ..add(DisplayInformationUser()),
+              child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                listener: (context, state) {
+                  // When photo upload response is received
+                  if (state is UploadPhotoResponse) {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(DisplayInformationUser());
+                    // Dispatch event to update user profile with new data
+                    context.read<AuthenticationBloc>().add(
+                          UpdateUserProfile(
+                            userParam: UserParam(
+                              email: emailController.text,
+                              firstName: firstNameController.text,
+                              lastName: lasNameController.text,
+                              birthDate: DateFormat('yyyy-MM-dd')
+                                  .format(tempSelectedDate ?? DateTime.now()),
+                              gender: selectedGender,
+                              address: addressController.text,
+                              description: descriptionController.text,
+                              photo: state.response,
+                            ),
+                          ),
+                        );
+                  }
+                  // When user data is successfully fetched
+                  if (state is FetchUserDataResponse) {
+                    return state.response.fold(
+                      (exception) {
+                        // Handle failure case if needed
+                        displaySnackBar(context, exception, AutilabColor.bb);
+                      },
+                      // Populate text controllers with fetched user data
+                      (response) {
+                        firstNameController.text = response.firstName;
+                        lasNameController.text = response.lastName;
+                        emailController.text = response.email;
+                        addressController.text = response.address;
+                        descriptionController.text = response.description;
+
+                        // Handle gender field (default if not provided)
+                        selectedGender = response.gender == "not_given"
+                            ? 'Select your gender'
+                            : response.gender;
+
+                        // Handle birthdate field (set default if empty)
+                        finalDate = response.birthdate.replaceAll('-', '/');
+                        finalDate = response.birthdate == ''
+                            ? 'What is your date of birth?'
+                            : finalDate;
+                      },
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AuthenticationLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: AutilabColor.bb,
                       ),
-                    ),
-                  );
-                  BlocProvider.of<AuthenticationBloc>(context)
-                      .add(DisplayInformationUser());
-                }
-                // When user data is successfully fetched
-                if (state is FetchUserDataResponse) {
-                  return state.response.fold(
-                    (exception) {
-                      // Handle failure case if needed
-                      displaySnackBar(context, exception, AutilabColor.bb);
-                    },
-                    // Populate text controllers with fetched user data
-                    (response) {
-                      firstNameController.text = response.firstName;
-                      lasNameController.text = response.lastName;
-                      emailController.text = response.email;
-                      addressController.text = response.address;
-                      descriptionController.text = response.description;
-
-                      // Handle gender field (default if not provided)
-                      selectedGender = response.gender == "not_given"
-                          ? 'Select your gender'
-                          : response.gender;
-
-                      // Handle birthdate field (set default if empty)
-                      finalDate = response.birthdate.replaceAll('-', '/');
-                      finalDate = response.birthdate == ''
-                          ? 'What is your date of birth?'
-                          : finalDate;
-                    },
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is AuthenticationLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: AutilabColor.bb,
-                    ),
-                  );
-                }
-                if (state is AuthenticationError) {
-                  return NotConnectionInternetScreen(
-                    onChange: () {
-                      BlocProvider.of<AuthenticationBloc>(context)
-                          .add(DisplayInformationUser());
-                    },
-                  );
-                }
-                if (state is FetchUserDataResponse) {
-                  return state.response.fold(
-                    (error) {
-                      return NotConnectionInternetScreen(
-                        onChange: () {
-                          BlocProvider.of<AuthenticationBloc>(context)
-                              .add(DisplayInformationUser());
-                        },
-                      );
-                    },
-                    (response) {
-                      return Scaffold(
-                        body: SafeArea(
-                          child: CustomScrollView(
-                            slivers: [
-                              SliverToBoxAdapter(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: isMobile() ? 104 : 168,
-                                      height: isMobile() ? 104 : 168,
-                                      margin: const EdgeInsets.only(bottom: 16),
-                                      child: Stack(
-                                        alignment: Alignment.bottomRight,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            child: Visibility(
-                                              visible: pickedFile?.path != null,
-                                              replacement:
-                                                  CachednetworkimageWidget(
-                                                imgUrl: response.photo,
-                                                width: isMobile() ? 104 : 168,
-                                                height: isMobile() ? 104 : 168,
-                                                img: pickedFile?.path != null
+                    );
+                  }
+                  if (state is AuthenticationError) {
+                    return NotConnectionInternetScreen(
+                      onChange: () {
+                        BlocProvider.of<AuthenticationBloc>(context)
+                            .add(DisplayInformationUser());
+                      },
+                    );
+                  }
+                  if (state is FetchUserDataResponse) {
+                    return state.response.fold(
+                      (error) {
+                        return NotConnectionInternetScreen(
+                          onChange: () {
+                            BlocProvider.of<AuthenticationBloc>(context)
+                                .add(DisplayInformationUser());
+                          },
+                        );
+                      },
+                      (response) {
+                        return Scaffold(
+                          body: SafeArea(
+                            child: CustomScrollView(
+                              slivers: [
+                                SliverToBoxAdapter(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        width: isMobile() ? 104 : 168,
+                                        height: isMobile() ? 104 : 168,
+                                        margin:
+                                            const EdgeInsets.only(bottom: 16),
+                                        child: Stack(
+                                          alignment: Alignment.bottomRight,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              child: Visibility(
+                                                visible:
+                                                    pickedFile?.path != null,
+                                                replacement:
+                                                    CachednetworkimageWidget(
+                                                  imgUrl: response.photo,
+                                                  width: isMobile() ? 104 : 168,
+                                                  height:
+                                                      isMobile() ? 104 : 168,
+                                                  img: pickedFile?.path != null
+                                                      ? Image.file(
+                                                          File(
+                                                              pickedFile!.path),
+                                                          fit: BoxFit.cover,
+                                                          width: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          height: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          cacheWidth:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                          cacheHeight:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                        )
+                                                      : Image.asset(
+                                                          'assets/images/avatar.png',
+                                                          fit: BoxFit.cover,
+                                                          width: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          height: isMobile()
+                                                              ? 104
+                                                              : 168,
+                                                          cacheWidth:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                          cacheHeight:
+                                                              cacheImageFunction(
+                                                                  isMobile()
+                                                                      ? 104
+                                                                      : 168,
+                                                                  context),
+                                                        ),
+                                                  isNetworkImage:
+                                                      pickedFile?.path == null
+                                                          ? true
+                                                          : false,
+                                                ),
+                                                child: pickedFile?.path != null
                                                     ? Image.file(
                                                         File(pickedFile!.path),
                                                         fit: BoxFit.cover,
@@ -356,18 +413,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                         height: isMobile()
                                                             ? 104
                                                             : 168,
-                                                        cacheWidth:
-                                                            cacheImageFunction(
-                                                                isMobile()
-                                                                    ? 104
-                                                                    : 168,
-                                                                context),
-                                                        cacheHeight:
-                                                            cacheImageFunction(
-                                                                isMobile()
-                                                                    ? 104
-                                                                    : 168,
-                                                                context),
                                                       )
                                                     : Image.asset(
                                                         'assets/images/avatar.png',
@@ -391,595 +436,570 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                                                     : 168,
                                                                 context),
                                                       ),
-                                                isNetworkImage:
-                                                    pickedFile?.path == null
-                                                        ? true
-                                                        : false,
-                                              ),
-                                              child: pickedFile?.path != null
-                                                  ? Image.file(
-                                                      File(pickedFile!.path),
-                                                      fit: BoxFit.cover,
-                                                      width: isMobile()
-                                                          ? 104
-                                                          : 168,
-                                                      height: isMobile()
-                                                          ? 104
-                                                          : 168,
-                                                    )
-                                                  : Image.asset(
-                                                      'assets/images/avatar.png',
-                                                      fit: BoxFit.cover,
-                                                      width: isMobile()
-                                                          ? 104
-                                                          : 168,
-                                                      height: isMobile()
-                                                          ? 104
-                                                          : 168,
-                                                      cacheWidth:
-                                                          cacheImageFunction(
-                                                              isMobile()
-                                                                  ? 104
-                                                                  : 168,
-                                                              context),
-                                                      cacheHeight:
-                                                          cacheImageFunction(
-                                                              isMobile()
-                                                                  ? 104
-                                                                  : 168,
-                                                              context),
-                                                    ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            bottom: isMobile() ? 8 : 16,
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                pickImage(
-                                                  isMobile(),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: isMobile() ? 30 : 36,
-                                                height: isMobile() ? 30 : 36,
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                decoration: const BoxDecoration(
-                                                  color: AutilabColor.bb,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/camera.svg',
-                                                  fit: BoxFit.contain,
-                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Text(
-                                      '${response.firstName} ${response.lastName}',
-                                      style: AutilabTextStyle.medium16_500
-                                          .copyWith(
-                                        fontSize: isMobile() ? 16 : 28,
-                                      ),
-                                    ),
-                                    Text(
-                                      response.email,
-                                      style:
-                                          AutilabTextStyle.small18_400.copyWith(
-                                        fontSize: isMobile() ? 18 : 20,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SliverToBoxAdapter(
-                                child: SizedBox(
-                                  height: 40,
-                                ),
-                              ),
-                              SliverToBoxAdapter(
-                                child: CustomTextfield(
-                                  isMobile: isMobile(),
-                                  textInputAction: TextInputAction.next,
-                                  borderColor: AutilabColor.bb,
-                                  textStyle:
-                                      AutilabTextStyle.small14_400.copyWith(
-                                    color: AutilabColor.black,
-                                    fontSize: isMobile() ? 14 : 20,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 20, horizontal: 15),
-                                  borderRaduis: isMobile() ? 16 : 24,
-                                  backgroundColor: const Color(0xffECF0FF),
-                                  lblColor: AutilabColor.gray,
-                                  label: 'What’s your first name?',
-                                  controller: firstNameController,
-                                  focusNode: firstNameFocusNode,
-                                ),
-                              ),
-                              SliverToBoxAdapter(
-                                child: CustomTextfield(
-                                  isMobile: isMobile(),
-                                  textInputAction: TextInputAction.next,
-                                  borderColor: AutilabColor.bb,
-                                  textStyle:
-                                      AutilabTextStyle.small14_400.copyWith(
-                                    color: AutilabColor.black,
-                                    fontSize: isMobile() ? 14 : 20,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 20, horizontal: 15),
-                                  borderRaduis: isMobile() ? 16 : 24,
-                                  backgroundColor: const Color(0xffECF0FF),
-                                  lblColor: AutilabColor.gray,
-                                  label: 'And your last name?',
-                                  controller: lasNameController,
-                                  focusNode: lasNameFocusNode,
-                                ),
-                              ),
-                              SliverToBoxAdapter(
-                                child: CustomTextfield(
-                                  isMobile: isMobile(),
-                                  textInputAction: TextInputAction.next,
-                                  textInputType: TextInputType.emailAddress,
-                                  borderColor: AutilabColor.bb,
-                                  textStyle:
-                                      AutilabTextStyle.small14_400.copyWith(
-                                    color: AutilabColor.black,
-                                    fontSize: isMobile() ? 14 : 20,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 20, horizontal: 15),
-                                  borderRaduis: isMobile() ? 16 : 24,
-                                  backgroundColor: const Color(0xffECF0FF),
-                                  lblColor: AutilabColor.gray,
-                                  label: 'Your Email',
-                                  controller: emailController,
-                                  focusNode: emailFocusNode,
-                                ),
-                              ),
-                              _boxSelectDateAndGender(
-                                isMobile: isMobile(),
-                                context: context,
-                                widget: ValueListenableBuilder<DateTime?>(
-                                  valueListenable: _selectedDate,
-                                  builder: (context, value, child) {
-                                    return Text(
-                                      isSelectedDate
-                                          ? DateFormat('yyyy/MM/dd')
-                                              .format(tempSelectedDate!)
-                                          : finalDate,
-                                      style:
-                                          AutilabTextStyle.small14_400.copyWith(
-                                        color: (_selectedDate.value != null &&
-                                                    isSelectedDate) ||
-                                                finalDate !=
-                                                    'What is your date of birth?'
-                                            ? AutilabColor.black
-                                            : AutilabColor.gray,
-                                        fontSize: isMobile() ? 14 : 20,
-                                      ),
-                                    );
-                                  },
-                                ),
-                                icon: 'assets/icons/calendar_tick_icon.svg',
-                                onTap: () async {
-                                  final selectedDate =
-                                      await showRoundedDatePicker(
-                                    context: Navigator.of(context,
-                                            rootNavigator: true)
-                                        .context,
-                                    initialDate: lastDatetime,
-                                    firstDate: firstDatetime,
-                                    lastDate: lastDatetime,
-                                    borderRadius: 16,
-                                    height: 350,
-                                    theme: ThemeData(
-                                      primaryColor: AutilabColor.bb,
-                                      textButtonTheme: TextButtonThemeData(
-                                        style: ButtonStyle(
-                                          textStyle: WidgetStatePropertyAll(
-                                            AutilabTextStyle.medium24_500
-                                                .copyWith(
-                                              fontSize: isMobile() ? 14 : 24,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      textTheme: TextTheme(
-                                        titleMedium: AutilabTextStyle
-                                            .small16_400
-                                            .copyWith(
-                                          fontSize: isMobile() ? 16 : 20,
-                                        ),
-                                        bodyLarge:
-                                            AutilabTextStyle.medium14_500,
-                                        bodyMedium: AutilabTextStyle
-                                            .medium24_500
-                                            .copyWith(
-                                          fontSize: isMobile() ? 14 : 20,
-                                        ),
-                                        bodySmall:
-                                            AutilabTextStyle.medium14_500,
-                                      ),
-                                      colorScheme: const ColorScheme.light(
-                                        primary: AutilabColor.bb,
-                                      ),
-                                    ),
-                                    onTapDay: (dateTime, available) {
-                                      tempSelectedDate = dateTime;
-                                      return true;
-                                    },
-                                    textDirection: ui.TextDirection.rtl,
-                                    textActionButton: "Submit",
-                                    onTapActionButton: () {
-                                      if (tempSelectedDate == null) {
-                                        context.pop();
-
-                                        return;
-                                      } else {
-                                        _selectedDate.value = tempSelectedDate;
-                                        setState(() {
-                                          isSelectedDate = true;
-                                        });
-                                      }
-
-                                      context.pop();
-                                    },
-                                    textPositiveButton: '',
-                                    textNegativeButton: '',
-                                  );
-
-                                  if (selectedDate != null) {
-                                    _selectedDate.value = selectedDate;
-                                  }
-                                },
-                              ),
-                              _boxSelectDateAndGender(
-                                isMobile: isMobile(),
-                                context: context,
-                                widget: Text(
-                                  selectedGender == 'male'
-                                      ? 'Male'
-                                      : selectedGender == 'female'
-                                          ? 'Female'
-                                          : 'Select your gender',
-                                  style: AutilabTextStyle.small14_400.copyWith(
-                                    color:
-                                        selectedGender == 'Select your gender'
-                                            ? AutilabColor.gray
-                                            : AutilabColor.black,
-                                    fontSize: isMobile() ? 14 : 20,
-                                  ),
-                                ),
-                                icon: null,
-                                onTap: () {
-                                  selectedGenderMaleNotifier.value =
-                                      selectedGender == 'male'
-                                          ? RadioCharacter.characterOne
-                                          : RadioCharacter.secondeCharacter;
-
-                                  showCustomDialog(
-                                    context,
-                                    ValueListenableBuilder(
-                                      valueListenable:
-                                          selectedGenderMaleNotifier,
-                                      builder: (context, value, child) {
-                                        return Container(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 528, maxHeight: 420),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16, vertical: 16),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                spacing: 4,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      if (context.canPop()) {
-                                                        context.pop();
-                                                      }
-                                                    },
-                                                    child: const Icon(
-                                                        Icons.close_rounded),
-                                                  ),
-                                                  Text(
-                                                    'Gender',
-                                                    style: AutilabTextStyle
-                                                        .medium18_500
-                                                        .copyWith(
-                                                      fontSize:
-                                                          isMobile() ? 18 : 20,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              const Divider(
-                                                thickness: 1,
-                                                color: AutilabColor.gray,
-                                              ),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              RadioButtonWidget(
-                                                isMobile: isMobile(),
-                                                textStyle: AutilabTextStyle
-                                                    .small14_400
-                                                    .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 14 : 18,
-                                                ),
-                                                radioCharacter:
-                                                    selectedGenderMaleNotifier
-                                                        .value,
-                                                value:
-                                                    RadioCharacter.characterOne,
-                                                onChanged: (value) {
-                                                  selectedGenderMaleNotifier
-                                                          .value =
-                                                      RadioCharacter
-                                                          .characterOne;
-                                                },
-                                                title: 'Male',
-                                              ),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              RadioButtonWidget(
-                                                isMobile: isMobile(),
-                                                radioCharacter:
-                                                    selectedGenderMaleNotifier
-                                                        .value,
-                                                value: RadioCharacter
-                                                    .secondeCharacter,
-                                                onChanged: (value) {
-                                                  selectedGenderMaleNotifier
-                                                          .value =
-                                                      RadioCharacter
-                                                          .secondeCharacter;
-                                                },
-                                                title: 'Female',
-                                                textStyle: AutilabTextStyle
-                                                    .small14_400
-                                                    .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 14 : 18,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              CustomButtonWidget(
-                                                isMobile: isMobile(),
+                                            Positioned(
+                                              bottom: isMobile() ? 8 : 16,
+                                              child: GestureDetector(
                                                 onTap: () {
-                                                  setState(() {
-                                                    if (selectedGenderMaleNotifier
-                                                            .value ==
-                                                        RadioCharacter
-                                                            .characterOne) {
-                                                      selectedGenderMaleNotifier
-                                                              .value ==
-                                                          RadioCharacter
-                                                              .characterOne;
-                                                      selectedGender = 'male';
-                                                    } else {
-                                                      selectedGender = 'female';
-                                                    }
-                                                  });
-                                                  context.pop();
+                                                  pickImage(
+                                                    isMobile(),
+                                                  );
                                                 },
-                                                height: 50,
-                                                margin: const EdgeInsets.only(
-                                                    top: 16),
-                                                color: AutilabColor.bb,
-                                                text: 'Submit',
-                                                textStyle: AutilabTextStyle
-                                                    .small18_400,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                              SliverToBoxAdapter(
-                                child: Visibility(
-                                  visible: isDropdownOpen,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: AutilabColor.bb),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: genderOptions.length,
-                                        itemBuilder: (context, index) {
-                                          return ListTile(
-                                            title: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  genderOptions[index],
-                                                  style: AutilabTextStyle
-                                                      .small14_400
-                                                      .copyWith(
-                                                    color: AutilabColor.gray,
+                                                child: Container(
+                                                  width: isMobile() ? 30 : 36,
+                                                  height: isMobile() ? 30 : 36,
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    color: AutilabColor.bb,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/camera.svg',
+                                                    fit: BoxFit.contain,
                                                   ),
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                            onTap: () {
-                                              setState(() {
-                                                selectedGender =
-                                                    genderOptions[index];
-                                                isDropdownOpen = false;
-                                              });
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SliverToBoxAdapter(
-                                child: SizedBox(
-                                  height: 48,
-                                ),
-                              ),
-                              SliverPadding(
-                                padding: AutilabMargin.marginFullScreen,
-                                sliver: SliverToBoxAdapter(
-                                  child: TitleAndIconWidget(
-                                    isMobile: isMobile(),
-                                    title: 'Address',
-                                    icon: 'assets/icons/location-tick.svg',
-                                  ),
-                                ),
-                              ),
-                              SliverPadding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, right: 20, bottom: 48, top: 24),
-                                sliver: SliverToBoxAdapter(
-                                  child: Stack(
-                                    children: [
-                                      TextFieldBoxEnterDescription(
-                                        textStyle: AutilabTextStyle.small14_400
-                                            .copyWith(
-                                          fontSize: isMobile() ? 14 : 24,
+                                          ],
                                         ),
-                                        hintText:
-                                            'open the map and set your current location',
-                                        bordeColor: AutilabColor.gray,
-                                        borderRadius: isMobile() ? 16 : 24,
-                                        maxLine: 4,
-                                        descriptionController:
-                                            addressController,
-                                        descriptionFocusNode: addressFocusNode,
                                       ),
-                                      Positioned(
-                                        right: 16,
-                                        bottom: 16,
-                                        child: CustomButtonWidget(
-                                          onTap: () async {
-                                            openMap(
-                                                context, 49.2331, -123.0992);
-                                          },
-                                          height: 31,
-                                          width: 116,
-                                          margin: EdgeInsets.zero,
-                                          borderRadius: 8,
-                                          color: AutilabColor.bb,
-                                          text: 'Open Map',
-                                          textStyle:
-                                              AutilabTextStyle.small12_400,
+                                      Text(
+                                        '${response.firstName} ${response.lastName}',
+                                        style: AutilabTextStyle.medium16_500
+                                            .copyWith(
+                                          fontSize: isMobile() ? 16 : 28,
+                                        ),
+                                      ),
+                                      Text(
+                                        response.email,
+                                        style: AutilabTextStyle.small18_400
+                                            .copyWith(
+                                          fontSize: isMobile() ? 18 : 20,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              SliverPadding(
-                                padding: AutilabMargin.marginFullScreen,
-                                sliver: SliverToBoxAdapter(
-                                  child: TitleAndIconWidget(
-                                    isMobile: isMobile(),
-                                    title: 'More Detail About You',
-                                    icon: 'assets/icons/info-circle.svg',
+                                const SliverToBoxAdapter(
+                                  child: SizedBox(
+                                    height: 40,
                                   ),
                                 ),
-                              ),
-                              SliverPadding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, right: 20, bottom: 48, top: 24),
-                                sliver: SliverToBoxAdapter(
-                                  child: TextFieldBoxEnterDescription(
+                                SliverToBoxAdapter(
+                                  child: CustomTextfield(
+                                    isMobile: isMobile(),
+                                    textInputAction: TextInputAction.next,
+                                    borderColor: AutilabColor.bb,
                                     textStyle:
                                         AutilabTextStyle.small14_400.copyWith(
-                                      fontSize: isMobile() ? 14 : 24,
+                                      color: AutilabColor.black,
+                                      fontSize: isMobile() ? 14 : 20,
                                     ),
-                                    hintText: 'Enter Your Info Here...',
-                                    bordeColor: AutilabColor.gray,
-                                    borderRadius: isMobile() ? 16 : 24,
-                                    maxLine: 4,
-                                    descriptionController:
-                                        descriptionController,
-                                    descriptionFocusNode: descriptionFocusNode,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 15),
+                                    borderRaduis: isMobile() ? 16 : 24,
+                                    backgroundColor: const Color(0xffECF0FF),
+                                    lblColor: AutilabColor.gray,
+                                    label: 'What’s your first name?',
+                                    controller: firstNameController,
+                                    focusNode: firstNameFocusNode,
                                   ),
                                 ),
-                              ),
-                              SliverToBoxAdapter(
-                                child: CustomButtonWidget(
+                                SliverToBoxAdapter(
+                                  child: CustomTextfield(
+                                    isMobile: isMobile(),
+                                    textInputAction: TextInputAction.next,
+                                    borderColor: AutilabColor.bb,
+                                    textStyle:
+                                        AutilabTextStyle.small14_400.copyWith(
+                                      color: AutilabColor.black,
+                                      fontSize: isMobile() ? 14 : 20,
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 15),
+                                    borderRaduis: isMobile() ? 16 : 24,
+                                    backgroundColor: const Color(0xffECF0FF),
+                                    lblColor: AutilabColor.gray,
+                                    label: 'And your last name?',
+                                    controller: lasNameController,
+                                    focusNode: lasNameFocusNode,
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                  child: CustomTextfield(
+                                    isMobile: isMobile(),
+                                    textInputAction: TextInputAction.next,
+                                    textInputType: TextInputType.emailAddress,
+                                    borderColor: AutilabColor.bb,
+                                    textStyle:
+                                        AutilabTextStyle.small14_400.copyWith(
+                                      color: AutilabColor.black,
+                                      fontSize: isMobile() ? 14 : 20,
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 15),
+                                    borderRaduis: isMobile() ? 16 : 24,
+                                    backgroundColor: const Color(0xffECF0FF),
+                                    lblColor: AutilabColor.gray,
+                                    label: 'Your Email',
+                                    controller: emailController,
+                                    focusNode: emailFocusNode,
+                                  ),
+                                ),
+                                _boxSelectDateAndGender(
                                   isMobile: isMobile(),
-                                  onTap: () {
-                                    //call UpdateUserProfile Event to edit profile user
-                                    if (pickedFile?.path != null) {
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(
-                                        UploadPhoto(
-                                          File(pickedFile!.path),
+                                  context: context,
+                                  widget: ValueListenableBuilder<DateTime?>(
+                                    valueListenable: _selectedDate,
+                                    builder: (context, value, child) {
+                                      return Text(
+                                        isSelectedDate
+                                            ? DateFormat('yyyy/MM/dd')
+                                                .format(tempSelectedDate!)
+                                            : finalDate,
+                                        style: AutilabTextStyle.small14_400
+                                            .copyWith(
+                                          color: (_selectedDate.value != null &&
+                                                      isSelectedDate) ||
+                                                  finalDate !=
+                                                      'What is your date of birth?'
+                                              ? AutilabColor.black
+                                              : AutilabColor.gray,
+                                          fontSize: isMobile() ? 14 : 20,
                                         ),
                                       );
-                                    } else {
-                                      // If no file picked → directly update user profile
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(
-                                        UpdateUserProfile(
-                                          userParam: UserParam(
-                                            email: emailController.text,
-                                            firstName: firstNameController.text,
-                                            lastName: lasNameController.text,
-                                            birthDate: DateFormat('yyyy-MM-dd')
-                                                .format(tempSelectedDate ??
-                                                    DateTime.now()),
-                                            gender: selectedGender,
-                                            address: addressController.text,
-                                            description:
-                                                descriptionController.text,
+                                    },
+                                  ),
+                                  icon: 'assets/icons/calendar_tick_icon.svg',
+                                  onTap: () async {
+                                    final selectedDate =
+                                        await showRoundedDatePicker(
+                                      context: Navigator.of(context,
+                                              rootNavigator: true)
+                                          .context,
+                                      initialDate: lastDatetime,
+                                      firstDate: firstDatetime,
+                                      lastDate: lastDatetime,
+                                      borderRadius: 16,
+                                      height: 350,
+                                      theme: ThemeData(
+                                        primaryColor: AutilabColor.bb,
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: ButtonStyle(
+                                            textStyle: WidgetStatePropertyAll(
+                                              AutilabTextStyle.medium24_500
+                                                  .copyWith(
+                                                fontSize: isMobile() ? 14 : 24,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      );
+                                        textTheme: TextTheme(
+                                          titleMedium: AutilabTextStyle
+                                              .small16_400
+                                              .copyWith(
+                                            fontSize: isMobile() ? 16 : 20,
+                                          ),
+                                          bodyLarge:
+                                              AutilabTextStyle.medium14_500,
+                                          bodyMedium: AutilabTextStyle
+                                              .medium24_500
+                                              .copyWith(
+                                            fontSize: isMobile() ? 14 : 20,
+                                          ),
+                                          bodySmall:
+                                              AutilabTextStyle.medium14_500,
+                                        ),
+                                        colorScheme: const ColorScheme.light(
+                                          primary: AutilabColor.bb,
+                                        ),
+                                      ),
+                                      onTapDay: (dateTime, available) {
+                                        tempSelectedDate = dateTime;
+                                        return true;
+                                      },
+                                      textDirection: ui.TextDirection.rtl,
+                                      textActionButton: "Submit",
+                                      onTapActionButton: () {
+                                        if (tempSelectedDate == null) {
+                                          context.pop();
+
+                                          return;
+                                        } else {
+                                          _selectedDate.value =
+                                              tempSelectedDate;
+                                          setState(() {
+                                            isSelectedDate = true;
+                                          });
+                                        }
+
+                                        context.pop();
+                                      },
+                                      textPositiveButton: '',
+                                      textNegativeButton: '',
+                                    );
+
+                                    if (selectedDate != null) {
+                                      _selectedDate.value = selectedDate;
                                     }
                                   },
-                                  height: 50,
-                                  width: double.infinity,
-                                  color: AutilabColor.bb,
-                                  margin: const EdgeInsets.only(
-                                      left: 16, right: 16, bottom: 40),
-                                  text: 'Save Change',
-                                  textStyle: AutilabTextStyle.small18_400,
                                 ),
-                              ),
-                            ],
+                                _boxSelectDateAndGender(
+                                  isMobile: isMobile(),
+                                  context: context,
+                                  widget: Text(
+                                    selectedGender == 'male'
+                                        ? 'Male'
+                                        : selectedGender == 'female'
+                                            ? 'Female'
+                                            : 'Select your gender',
+                                    style:
+                                        AutilabTextStyle.small14_400.copyWith(
+                                      color:
+                                          selectedGender == 'Select your gender'
+                                              ? AutilabColor.gray
+                                              : AutilabColor.black,
+                                      fontSize: isMobile() ? 14 : 20,
+                                    ),
+                                  ),
+                                  icon: null,
+                                  onTap: () {
+                                    selectedGenderMaleNotifier.value =
+                                        selectedGender == 'male'
+                                            ? RadioCharacter.characterOne
+                                            : RadioCharacter.secondeCharacter;
+
+                                    showCustomDialog(
+                                      context,
+                                      ValueListenableBuilder(
+                                        valueListenable:
+                                            selectedGenderMaleNotifier,
+                                        builder: (context, value, child) {
+                                          return Container(
+                                            constraints: const BoxConstraints(
+                                                maxWidth: 528, maxHeight: 420),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16, vertical: 16),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  spacing: 4,
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        if (context.canPop()) {
+                                                          context.pop();
+                                                        }
+                                                      },
+                                                      child: const Icon(
+                                                          Icons.close_rounded),
+                                                    ),
+                                                    Text(
+                                                      'Gender',
+                                                      style: AutilabTextStyle
+                                                          .medium18_500
+                                                          .copyWith(
+                                                        fontSize: isMobile()
+                                                            ? 18
+                                                            : 20,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                const Divider(
+                                                  thickness: 1,
+                                                  color: AutilabColor.gray,
+                                                ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                RadioButtonWidget(
+                                                  isMobile: isMobile(),
+                                                  textStyle: AutilabTextStyle
+                                                      .small14_400
+                                                      .copyWith(
+                                                    fontSize:
+                                                        isMobile() ? 14 : 18,
+                                                  ),
+                                                  radioCharacter:
+                                                      selectedGenderMaleNotifier
+                                                          .value,
+                                                  value: RadioCharacter
+                                                      .characterOne,
+                                                  onChanged: (value) {
+                                                    selectedGenderMaleNotifier
+                                                            .value =
+                                                        RadioCharacter
+                                                            .characterOne;
+                                                  },
+                                                  title: 'Male',
+                                                ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                RadioButtonWidget(
+                                                  isMobile: isMobile(),
+                                                  radioCharacter:
+                                                      selectedGenderMaleNotifier
+                                                          .value,
+                                                  value: RadioCharacter
+                                                      .secondeCharacter,
+                                                  onChanged: (value) {
+                                                    selectedGenderMaleNotifier
+                                                            .value =
+                                                        RadioCharacter
+                                                            .secondeCharacter;
+                                                  },
+                                                  title: 'Female',
+                                                  textStyle: AutilabTextStyle
+                                                      .small14_400
+                                                      .copyWith(
+                                                    fontSize:
+                                                        isMobile() ? 14 : 18,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                CustomButtonWidget(
+                                                  isMobile: isMobile(),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (selectedGenderMaleNotifier
+                                                              .value ==
+                                                          RadioCharacter
+                                                              .characterOne) {
+                                                        selectedGenderMaleNotifier
+                                                                .value ==
+                                                            RadioCharacter
+                                                                .characterOne;
+                                                        selectedGender = 'male';
+                                                      } else {
+                                                        selectedGender =
+                                                            'female';
+                                                      }
+                                                    });
+                                                    context.pop();
+                                                  },
+                                                  height: 50,
+                                                  margin: const EdgeInsets.only(
+                                                      top: 16),
+                                                  color: AutilabColor.bb,
+                                                  text: 'Submit',
+                                                  textStyle: AutilabTextStyle
+                                                      .small18_400,
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SliverToBoxAdapter(
+                                  child: Visibility(
+                                    visible: isDropdownOpen,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: AutilabColor.bb),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: genderOptions.length,
+                                          itemBuilder: (context, index) {
+                                            return ListTile(
+                                              title: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    genderOptions[index],
+                                                    style: AutilabTextStyle
+                                                        .small14_400
+                                                        .copyWith(
+                                                      color: AutilabColor.gray,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedGender =
+                                                      genderOptions[index];
+                                                  isDropdownOpen = false;
+                                                });
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SliverToBoxAdapter(
+                                  child: SizedBox(
+                                    height: 48,
+                                  ),
+                                ),
+                                SliverPadding(
+                                  padding: AutilabMargin.marginFullScreen,
+                                  sliver: SliverToBoxAdapter(
+                                    child: TitleAndIconWidget(
+                                      isMobile: isMobile(),
+                                      title: 'Address',
+                                      icon: 'assets/icons/location-tick.svg',
+                                    ),
+                                  ),
+                                ),
+                                SliverPadding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 48, top: 24),
+                                  sliver: SliverToBoxAdapter(
+                                    child: Stack(
+                                      children: [
+                                        TextFieldBoxEnterDescription(
+                                          textStyle: AutilabTextStyle
+                                              .small14_400
+                                              .copyWith(
+                                            fontSize: isMobile() ? 14 : 24,
+                                          ),
+                                          hintText:
+                                              'open the map and set your current location',
+                                          bordeColor: AutilabColor.gray,
+                                          borderRadius: isMobile() ? 16 : 24,
+                                          maxLine: 4,
+                                          descriptionController:
+                                              addressController,
+                                          descriptionFocusNode:
+                                              addressFocusNode,
+                                        ),
+                                        Positioned(
+                                          right: 16,
+                                          bottom: 16,
+                                          child: CustomButtonWidget(
+                                            onTap: () async {
+                                              openMap(
+                                                  context, 49.2331, -123.0992);
+                                            },
+                                            height: 31,
+                                            width: 116,
+                                            margin: EdgeInsets.zero,
+                                            borderRadius: 8,
+                                            color: AutilabColor.bb,
+                                            text: 'Open Map',
+                                            textStyle:
+                                                AutilabTextStyle.small12_400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SliverPadding(
+                                  padding: AutilabMargin.marginFullScreen,
+                                  sliver: SliverToBoxAdapter(
+                                    child: TitleAndIconWidget(
+                                      isMobile: isMobile(),
+                                      title: 'More Detail About You',
+                                      icon: 'assets/icons/info-circle.svg',
+                                    ),
+                                  ),
+                                ),
+                                SliverPadding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 48, top: 24),
+                                  sliver: SliverToBoxAdapter(
+                                    child: TextFieldBoxEnterDescription(
+                                      textStyle:
+                                          AutilabTextStyle.small14_400.copyWith(
+                                        fontSize: isMobile() ? 14 : 24,
+                                      ),
+                                      hintText: 'Enter Your Info Here...',
+                                      bordeColor: AutilabColor.gray,
+                                      borderRadius: isMobile() ? 16 : 24,
+                                      maxLine: 4,
+                                      descriptionController:
+                                          descriptionController,
+                                      descriptionFocusNode:
+                                          descriptionFocusNode,
+                                    ),
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                  child: CustomButtonWidget(
+                                    isMobile: isMobile(),
+                                    onTap: () {
+                                      //call UpdateUserProfile Event to edit profile user
+                                      if (pickedFile?.path != null) {
+                                        BlocProvider.of<AuthenticationBloc>(
+                                                context)
+                                            .add(
+                                          UploadPhoto(
+                                            File(pickedFile!.path),
+                                          ),
+                                        );
+                                      } else {
+                                        // If no file picked → directly update user profile
+                                        BlocProvider.of<AuthenticationBloc>(
+                                                context)
+                                            .add(
+                                          UpdateUserProfile(
+                                            userParam: UserParam(
+                                              email: emailController.text,
+                                              firstName:
+                                                  firstNameController.text,
+                                              lastName: lasNameController.text,
+                                              birthDate:
+                                                  DateFormat('yyyy-MM-dd')
+                                                      .format(
+                                                          tempSelectedDate ??
+                                                              DateTime.now()),
+                                              gender: selectedGender,
+                                              address: addressController.text,
+                                              description:
+                                                  descriptionController.text,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    height: 50,
+                                    width: double.infinity,
+                                    color: AutilabColor.bb,
+                                    margin: const EdgeInsets.only(
+                                        left: 16, right: 16, bottom: 40),
+                                    text: 'Save Change',
+                                    textStyle: AutilabTextStyle.small18_400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                }
-                return const SizedBox();
-              },
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
             ),
           ),
         );

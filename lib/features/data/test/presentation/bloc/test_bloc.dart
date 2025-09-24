@@ -53,6 +53,7 @@ final class TestBloc extends Bloc<TestEvent, TestState> {
             await testRepository.sendAnswerIntelligence(event.testanswerParam);
         response.fold(
           (error) {
+            print(error.message);
             emit(TestError(error));
           },
           (answer) {

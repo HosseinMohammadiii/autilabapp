@@ -47,7 +47,8 @@ class _AutismTestScreenState extends State<AutismTestScreen>
   bool isSelected = false;
 
   int currentPage = 0;
-  int awnserId = 0;
+  int answerId = 0;
+  int questionId = 0;
   int autismtestId = 1;
   String questionTitle = '';
   @override
@@ -118,7 +119,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
 
                       for (var element in state.displayAutismTest) {
                         questionTitle = element.question;
-                        awnserId = 0;
+                        answerId = 0;
                         quizList = [
                           TestClass(
                             element.answer![0].answerId,
@@ -228,6 +229,10 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                                   .contains(true)) {
                                                 isSelected = true;
                                               }
+                                              questionId =
+                                                  quizList[index].questionId;
+                                              answerId =
+                                                  quizList[index].awnserId;
                                             });
                                           },
                                           child: Container(

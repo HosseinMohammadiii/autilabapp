@@ -35,6 +35,6 @@ final class DisplayAutismTestState extends TestState {
 }
 
 final class IntelligenceAnswerState extends TestState {
-  final String message;
+  final int message;
   IntelligenceAnswerState(this.message);
 }

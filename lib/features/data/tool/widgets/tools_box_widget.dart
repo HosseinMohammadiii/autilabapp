@@ -14,6 +14,7 @@ class ToolsBoxWidget extends StatelessWidget {
     required this.titleButton,
     required this.svg,
     required this.onTap,
+    this.buttonColor,
   });
   final bool isMobile;
   final String title;
@@ -21,6 +22,7 @@ class ToolsBoxWidget extends StatelessWidget {
   final String titleButton;
   final String svg;
   final Function() onTap;
+  final Color? buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class ToolsBoxWidget extends StatelessWidget {
             onTap: () => onTap(),
             height: 50,
             margin: const EdgeInsets.all(0),
-            color: AutilabColor.bb,
+            color: buttonColor ?? AutilabColor.bb,
             text: titleButton,
             textStyle: AutilabTextStyle.small18_400,
           ),

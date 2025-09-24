@@ -316,51 +316,53 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                       height: 16,
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: Divider(
-                      thickness: 1,
-                      color: AutilabColor.gray,
-                      indent: 20,
-                      endIndent: 20,
-                    ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 32,
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: AutilabMargin.marginFullScreen,
-                    sliver: SliverToBoxAdapter(
-                      child: TitleAndIconWidget(
-                        isMobile: isMobile(),
-                        icon: 'assets/icons/profile_icon.svg',
-                        title: "Doctor's Specialty",
+                  if (widget.doctorSpecialities.name.isNotEmpty) ...[
+                    const SliverToBoxAdapter(
+                      child: Divider(
+                        thickness: 1,
+                        color: AutilabColor.gray,
+                        indent: 20,
+                        endIndent: 20,
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 24,
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 32,
+                      ),
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: SpecialtiesListWidget(
-                        specialtyModel: widget.doctorSpecialities,
-                        isMobile: isMobile(),
-                        height: isMobile() ? 80 : 174,
-                        width: isMobile() ? 80 : 174,
-                        heightImage: isMobile() ? 32 : 72,
-                        widthImage: isMobile() ? 32 : 72,
-                        radius: isMobile() ? 16 : 24,
-                        textStyle: AutilabTextStyle.small10_400.copyWith(
-                          fontSize: isMobile() ? 10 : 20,
+                    SliverPadding(
+                      padding: AutilabMargin.marginFullScreen,
+                      sliver: SliverToBoxAdapter(
+                        child: TitleAndIconWidget(
+                          isMobile: isMobile(),
+                          icon: 'assets/icons/profile_icon.svg',
+                          title: "Doctor's Specialty",
                         ),
                       ),
                     ),
-                  ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 24,
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: SpecialtiesListWidget(
+                          specialtyModel: widget.doctorSpecialities,
+                          isMobile: isMobile(),
+                          height: isMobile() ? 80 : 174,
+                          width: isMobile() ? 80 : 174,
+                          heightImage: isMobile() ? 32 : 72,
+                          widthImage: isMobile() ? 32 : 72,
+                          radius: isMobile() ? 16 : 24,
+                          textStyle: AutilabTextStyle.small10_400.copyWith(
+                            fontSize: isMobile() ? 10 : 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                   const SliverToBoxAdapter(
                     child: SizedBox(
                       height: 24,
