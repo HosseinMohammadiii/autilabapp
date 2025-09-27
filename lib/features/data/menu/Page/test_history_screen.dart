@@ -244,30 +244,20 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                     icon: 'assets/icons/info-circle.svg',
                                     title: 'Personality Test Report',
                                   ),
-                                  const SizedBox(
-                                    height: 24,
-                                  ),
-                                  Text(
-                                    'Based on the completed personality assessment, this child exhibits a well-defined set of  personality traits that influence their behaviorl',
-                                    style:
-                                        AutilabTextStyle.small16_400.copyWith(
-                                      fontSize: isMobile() ? 16 : 24,
-                                    ),
-                                    maxLines: 10,
-                                    textAlign: TextAlign.left,
-                                  ),
+
                                   // _readeMoreButtonWidget(context),
                                   const SizedBox(
-                                    height: 48,
-                                  ),
-                                  TitleAndIconWidget(
-                                    isMobile: isMobile(),
-                                    icon: 'assets/icons/note.svg',
-                                    title: 'Personality Test Chart',
-                                  ),
-                                  const SizedBox(
                                     height: 24,
                                   ),
+                                  autismTestDiscription(21, isMobile()),
+                                  // TitleAndIconWidget(
+                                  //   isMobile: isMobile(),
+                                  //   icon: 'assets/icons/note.svg',
+                                  //   title: 'Personality Test Chart',
+                                  // ),
+                                  // const SizedBox(
+                                  //   height: 24,
+                                  // ),
                                   // Container(
                                   //   padding: const EdgeInsets.all(16),
                                   //   decoration: BoxDecoration(
@@ -400,6 +390,92 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
           ),
         );
       },
+    );
+  }
+
+//Widget for dislay autism test description
+  Widget autismTestDiscription(int percentage, bool isMobile) {
+    String title = '';
+    String description = '';
+    Color color = AutilabColor.blue;
+
+    //Set the title based on the percentage range
+    switch (percentage) {
+      case >= 0 && <= 20:
+        title = '$percentage% Low Risk';
+        break;
+      case >= 21 && <= 50:
+        title = '$percentage% Medium Risk';
+        break;
+      case >= 51 && <= 100:
+        title = '$percentage% High Risk';
+        break;
+      default:
+        title = '$percentage% Low Risk';
+        break;
+    }
+
+    //Set the description text based on the percentage range
+    switch (percentage) {
+      case >= 0 && <= 20:
+        description =
+            'Based on your responses, the AI assessment indicates a low likelihood of autism, estimated at 0–20%. This suggests that your child is generally developing within typical ranges. It is recommended to monitor developmental milestones and consider a re-assessment in 6–12 months. Please note that this is an estimate, and a small margin of error exists.';
+        break;
+      case >= 21 && <= 50:
+        description =
+            'The AI assessment indicates a moderate likelihood of autism, estimated at 21–50%. This suggests some traits may require closer observation. We recommend scheduling an online consultation with a qualified child psychiatrist or pediatric specialist for further evaluation. Regular monitoring and targeted support strategies may be beneficial. This result is an estimate and carries a margin of error.';
+        break;
+      case >= 51 && <= 100:
+        description =
+            'The AI assessment indicates a high likelihood of autism, estimated at 51–100%. This suggests that your child may benefit from immediate professional evaluation and personalized intervention strategies. We recommend consulting with a specialist in person to develop a comprehensive care plan. Please remember that this is an estimate and not a definitive diagnosis; some level of error is possible.';
+        break;
+      default:
+        description =
+            'Based on your responses, the AI assessment indicates a low likelihood of autism, estimated at 0–20%. This suggests that your child is generally developing within typical ranges. It is recommended to monitor developmental milestones and consider a re-assessment in 6–12 months. Please note that this is an estimate, and a small margin of error exists.';
+        break;
+    }
+
+    //Set the color of the title container based on the percentage range
+    switch (percentage) {
+      case >= 0 && <= 20:
+        color = AutilabColor.bb;
+        break;
+      case >= 21 && <= 50:
+        color = AutilabColor.yellow2;
+        break;
+      case >= 51 && <= 100:
+        color = AutilabColor.red;
+        break;
+      default:
+        color = AutilabColor.blue;
+        break;
+    }
+
+    return Column(
+      spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsetsDirectional.all(8),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            title,
+            style: AutilabTextStyle.medium18_500.copyWith(
+              fontSize: isMobile ? 18 : 28,
+              color: AutilabColor.white,
+            ),
+          ),
+        ),
+        Text(
+          description,
+          style: AutilabTextStyle.small16_400.copyWith(
+            fontSize: isMobile ? 16 : 24,
+          ),
+        ),
+      ],
     );
   }
 

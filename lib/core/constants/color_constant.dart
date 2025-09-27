@@ -12,4 +12,5 @@ class AutilabColor {
   static const Color blue = Color(0xff5C81F5);
   static const Color gray = Color(0xff9C9595);
   static const Color lightGray = Color(0xffE7E6E3);
+  static const Color red = Color.fromARGB(255, 247, 89, 89);
 }
