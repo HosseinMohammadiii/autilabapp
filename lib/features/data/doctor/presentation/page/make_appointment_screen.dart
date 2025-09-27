@@ -3,6 +3,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/features/data/doctor/presentation/page/nearby_center_details_screen.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -463,6 +464,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           title: 'Age',
                           controller: ageController,
                           focusNode: ageFocusNode,
+                          textInputType: TextInputType.number,
                         ),
                       ),
                     ),
@@ -707,6 +709,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
     int? lineCount,
     Color? backgroundColor,
     String? hintText,
+    TextInputType? textInputType,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -719,6 +722,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
           ),
         ),
         TextField(
+          keyboardType: textInputType,
           controller: controller,
           focusNode: focusNode,
           cursorColor: Colors.black,
@@ -726,6 +730,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
           style: AutilabTextStyle.small14_400.copyWith(
             fontSize: isMobile ? 14 : 20,
           ),
+          inputFormatters: textInputType == TextInputType.number
+              ? [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))]
+              : [],
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: AutilabTextStyle.small10_400.copyWith(
