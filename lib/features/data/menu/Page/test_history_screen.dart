@@ -204,9 +204,9 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                   const SizedBox(
                                     height: 24,
                                   ),
-                                  const TestResultWidget(
-                                    isShowTitle: false,
-                                  ),
+                                  // const TestResultWidget(
+                                  //   isShowTitle: false,
+                                  // ),
                                   CustomButtonWidget(
                                     isMobile: isMobile(),
                                     onTap: () {
@@ -268,111 +268,111 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                   const SizedBox(
                                     height: 24,
                                   ),
-                                  Container(
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffECF0FF),
-                                      border:
-                                          Border.all(color: AutilabColor.bb),
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: talentTestItem.length,
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: isMobile() ? 8 : 16,
-                                              horizontal: isMobile() ? 8 : 16),
-                                          itemBuilder: (context, index) {
-                                            return Column(
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  spacing: 8,
-                                                  children: [
-                                                    Container(
-                                                      width:
-                                                          isMobile() ? 24 : 40,
-                                                      height:
-                                                          isMobile() ? 24 : 40,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: talentTestItem[
-                                                                index]
-                                                            .color,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      talentTestItem[index]
-                                                          .title,
-                                                      style: AutilabTextStyle
-                                                          .small16_400
-                                                          .copyWith(
-                                                        fontSize: isMobile()
-                                                            ? 16
-                                                            : 20,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.justify,
-                                                    ),
-                                                    const Spacer(),
-                                                    Container(
-                                                      height:
-                                                          isMobile() ? 24 : 40,
-                                                      width:
-                                                          isMobile() ? 60 : 120,
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                        color: AutilabColor.bb,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                      ),
-                                                      child: Text(
-                                                        talentTestItem[index]
-                                                            .percentage,
-                                                        style: AutilabTextStyle
-                                                            .small14_400
-                                                            .copyWith(
-                                                          fontSize: isMobile()
-                                                              ? 14
-                                                              : 20,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                if (index <
-                                                    talentTestItem.length - 1)
-                                                  Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                        vertical: index ==
-                                                                talentTestItem
-                                                                        .length -
-                                                                    1
-                                                            ? 0
-                                                            : 12),
-                                                    child: const Divider(
-                                                      thickness: 0.5,
-                                                      color: AutilabColor.bb,
-                                                    ),
-                                                  ),
-                                              ],
-                                            );
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   padding: const EdgeInsets.all(16),
+                                  //   decoration: BoxDecoration(
+                                  //     color: const Color(0xffECF0FF),
+                                  //     border:
+                                  //         Border.all(color: AutilabColor.bb),
+                                  //     borderRadius: BorderRadius.circular(24),
+                                  //   ),
+                                  //   child: Column(
+                                  //     crossAxisAlignment:
+                                  //         CrossAxisAlignment.start,
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.center,
+                                  //     children: [
+                                  //       ListView.builder(
+                                  //         shrinkWrap: true,
+                                  //         physics:
+                                  //             const NeverScrollableScrollPhysics(),
+                                  //         itemCount: talentTestItem.length,
+                                  //         padding: EdgeInsets.symmetric(
+                                  //             vertical: isMobile() ? 8 : 16,
+                                  //             horizontal: isMobile() ? 8 : 16),
+                                  //         itemBuilder: (context, index) {
+                                  //           return Column(
+                                  //             children: [
+                                  //               Row(
+                                  //                 crossAxisAlignment:
+                                  //                     CrossAxisAlignment.start,
+                                  //                 spacing: 8,
+                                  //                 children: [
+                                  //                   Container(
+                                  //                     width:
+                                  //                         isMobile() ? 24 : 40,
+                                  //                     height:
+                                  //                         isMobile() ? 24 : 40,
+                                  //                     decoration: BoxDecoration(
+                                  //                       shape: BoxShape.circle,
+                                  //                       color: talentTestItem[
+                                  //                               index]
+                                  //                           .color,
+                                  //                     ),
+                                  //                   ),
+                                  //                   Text(
+                                  //                     talentTestItem[index]
+                                  //                         .title,
+                                  //                     style: AutilabTextStyle
+                                  //                         .small16_400
+                                  //                         .copyWith(
+                                  //                       fontSize: isMobile()
+                                  //                           ? 16
+                                  //                           : 20,
+                                  //                     ),
+                                  //                     textAlign:
+                                  //                         TextAlign.justify,
+                                  //                   ),
+                                  //                   const Spacer(),
+                                  //                   Container(
+                                  //                     height:
+                                  //                         isMobile() ? 24 : 40,
+                                  //                     width:
+                                  //                         isMobile() ? 60 : 120,
+                                  //                     alignment:
+                                  //                         Alignment.center,
+                                  //                     decoration: BoxDecoration(
+                                  //                       color: AutilabColor.bb,
+                                  //                       borderRadius:
+                                  //                           BorderRadius
+                                  //                               .circular(8),
+                                  //                     ),
+                                  //                     child: Text(
+                                  //                       talentTestItem[index]
+                                  //                           .percentage,
+                                  //                       style: AutilabTextStyle
+                                  //                           .small14_400
+                                  //                           .copyWith(
+                                  //                         fontSize: isMobile()
+                                  //                             ? 14
+                                  //                             : 20,
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //               if (index <
+                                  //                   talentTestItem.length - 1)
+                                  //                 Padding(
+                                  //                   padding: EdgeInsets.symmetric(
+                                  //                       vertical: index ==
+                                  //                               talentTestItem
+                                  //                                       .length -
+                                  //                                   1
+                                  //                           ? 0
+                                  //                           : 12),
+                                  //                   child: const Divider(
+                                  //                     thickness: 0.5,
+                                  //                     color: AutilabColor.bb,
+                                  //                   ),
+                                  //                 ),
+                                  //             ],
+                                  //           );
+                                  //         },
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   CustomButtonWidget(
                                     isMobile: isMobile(),
                                     onTap: () {

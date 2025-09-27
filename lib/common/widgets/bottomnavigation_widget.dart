@@ -15,7 +15,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../core/network/locator.dart';
 import '../../features/data/auth/presentetion/bloc/auth_bloc.dart';
 import '../../features/data/auth/presentetion/bloc/auth_event.dart';
 import '../../features/data/doctor/widgets/drawer_box_widget.dart';
