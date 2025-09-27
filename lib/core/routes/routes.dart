@@ -63,50 +63,78 @@ class AutilabRouter {
         name: AutiLabRoutes.initialScreen,
         builder: (context, state) => const SplashScreen(),
       ),
-      StatefulShellRoute.indexedStack(
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/homeScreen',
-                name: AutiLabRoutes.homeScreen,
-                builder: (context, state) => const HomeScreen(),
-              ),
-            ],
+      // StatefulShellRoute.indexedStack(
+      //   branches: [
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: '/homeScreen',
+      //           name: AutiLabRoutes.homeScreen,
+      //           builder: (context, state) => const HomeScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: '/doctorScreen',
+      //           name: AutiLabRoutes.doctorScreen,
+      //           builder: (context, state) => const DoctorScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: '/toolsScreen',
+      //           name: AutiLabRoutes.toolsScreen,
+      //           builder: (context, state) => const ToolsScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //     StatefulShellBranch(
+      //       routes: [
+      //         GoRoute(
+      //           path: '/profileScreen',
+      //           name: AutiLabRoutes.profileScreen,
+      //           builder: (context, state) => const EditProfileScreen(),
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      //   builder: (BuildContext context, GoRouterState state,
+      //       StatefulNavigationShell navigationShell) {
+      //     return ButtomnavigationWidget(navigationShell: navigationShell);
+      //   },
+      // ),
+      GoRoute(
+        path: '/bottomNavigationScreen',
+        name: AutiLabRoutes.bottomNavigationScreen,
+        builder: (context, state) => const ButtomnavigationWidget(),
+        routes: [
+          GoRoute(
+            path: 'homeScreen',
+            name: AutiLabRoutes.homeScreen,
+            builder: (context, state) => const HomeScreen(),
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/doctorScreen',
-                name: AutiLabRoutes.doctorScreen,
-                builder: (context, state) => const DoctorScreen(),
-              ),
-            ],
+          GoRoute(
+            path: 'doctorScreen',
+            name: AutiLabRoutes.doctorScreen,
+            builder: (context, state) => const DoctorScreen(),
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/toolsScreen',
-                name: AutiLabRoutes.toolsScreen,
-                builder: (context, state) => const ToolsScreen(),
-              ),
-            ],
+          GoRoute(
+            path: 'toolsScreen',
+            name: AutiLabRoutes.toolsScreen,
+            builder: (context, state) => const ToolsScreen(),
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/profileScreen',
-                name: AutiLabRoutes.profileScreen,
-                builder: (context, state) => const EditProfileScreen(),
-              ),
-            ],
+          GoRoute(
+            path: 'profileScreen',
+            name: AutiLabRoutes.profileScreen,
+            builder: (context, state) => const EditProfileScreen(),
           ),
         ],
-        builder: (BuildContext context, GoRouterState state,
-            StatefulNavigationShell navigationShell) {
-          return ButtomnavigationWidget(navigationShell: navigationShell);
-        },
       ),
+
       GoRoute(
         path: '/doctorSpecialityScreen',
         name: AutiLabRoutes.doctorSpecialityScreen,

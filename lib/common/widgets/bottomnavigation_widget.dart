@@ -4,6 +4,10 @@ import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
+import 'package:autilab_project/features/data/auth/presentetion/page/edit_profile_screen.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/doctor_screen.dart';
+import 'package:autilab_project/features/data/home/presentation/page/home_screen.dart';
+import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,11 +27,11 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 class ButtomnavigationWidget extends StatefulWidget {
   const ButtomnavigationWidget({
     Key? key,
-    required this.navigationShell,
-  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNavBar'));
+    // required this.navigationShell,
+  }) : super(key: key);
 
   /// The navigation shell and container for the branch Navigators.
-  final StatefulNavigationShell navigationShell;
+  // final StatefulNavigationShell navigationShell;
   @override
   State<ButtomnavigationWidget> createState() => _ButtomnavigationWidgetState();
 }
@@ -89,6 +93,15 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
   ];
 
   bool isPlaying = false;
+  List<Widget> pageViewWidget = [
+    const HomeScreen(),
+    const DoctorScreen(),
+    const ToolsScreen(),
+    const EditProfileScreen(),
+  ];
+
+  int index = 0;
+  int selectIndex = 0;
 
   @override
   void initState() {
@@ -114,10 +127,10 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
 
   bool isMainScreen() {
     List<String> locationList = [
-      '/homeScreen',
-      '/doctorScreen',
-      '/toolsScreen',
-      '/profileScreen',
+      'homeScreen',
+      'doctorScreen',
+      'toolsScreen',
+      'profileScreen',
     ];
     if (locationList.contains(GoRouterState.of(context).uri.path)) {
       return true;
@@ -139,135 +152,129 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
         }
 
         return PopScope(
-          canPop: GoRouterState.of(context).uri.path != '/homeScreen'
-              ? false
-              : true,
+          canPop:
+              GoRouterState.of(context).uri.path != 'homeScreen' ? false : true,
           onPopInvokedWithResult: (didPop, result) {
-            if (GoRouterState.of(context).uri.path != '/homeScreen') {
-              context.go('/homeScreen');
+            if (GoRouterState.of(context).uri.path != 'homeScreen') {
+              context.go('homeScreen');
             }
           },
           child: ResponsiveLayout(
             child: Scaffold(
               key: scaffoldKey,
-              appBar: isMainScreen()
-                  ? AppBar(
-                      leadingWidth: double.infinity,
-                      toolbarHeight: 100,
-                      automaticallyImplyLeading: false,
-                      flexibleSpace: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 20,
+              appBar: AppBar(
+                leadingWidth: double.infinity,
+                toolbarHeight: 100,
+                automaticallyImplyLeading: false,
+                flexibleSpace: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Wrap(
+                    runAlignment: WrapAlignment.spaceBetween,
+                    alignment: WrapAlignment.center,
+                    direction: Axis.vertical,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          scaffoldKey.currentState?.openDrawer();
+                        },
+                        child: Icon(
+                          Icons.menu,
+                          size: isMobile() ? 24 : 40,
                         ),
-                        child: Wrap(
-                          runAlignment: WrapAlignment.spaceBetween,
-                          alignment: WrapAlignment.center,
-                          direction: Axis.vertical,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                scaffoldKey.currentState?.openDrawer();
-                              },
-                              child: Icon(
-                                Icons.menu,
-                                size: isMobile() ? 24 : 40,
-                              ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Your Location',
+                            style: AutilabTextStyle.small16_400.copyWith(
+                              color: AutilabColor.gray,
+                              fontSize: isMobile() ? 16 : 28,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Row(
+                              spacing: 2,
                               children: [
+                                SvgPicture.asset('assets/icons/gps.svg'),
                                 Text(
-                                  'Your Location',
-                                  style: AutilabTextStyle.small16_400.copyWith(
-                                    color: AutilabColor.gray,
-                                    fontSize: isMobile() ? 16 : 28,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Row(
-                                    spacing: 2,
-                                    children: [
-                                      SvgPicture.asset('assets/icons/gps.svg'),
-                                      Text(
-                                        'Toronto,Canada',
-                                        style: AutilabTextStyle.small18_400
-                                            .copyWith(
-                                          fontSize: isMobile() ? 18 : 20,
-                                        ),
-                                      ),
-                                    ],
+                                  'Toronto,Canada',
+                                  style: AutilabTextStyle.small18_400.copyWith(
+                                    fontSize: isMobile() ? 18 : 20,
                                   ),
                                 ),
                               ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                context.goNamed(AutiLabRoutes.profileScreen);
-                              },
-                              child: BlocBuilder<AuthenticationBloc,
-                                  AuthenticationState>(
-                                builder: (context, state) {
-                                  if (state is AuthenticationLoading) {
-                                    return Center(
-                                      child: Shimmer.fromColors(
-                                        baseColor: const Color(0xffE1E1E1),
-                                        highlightColor: const Color(0xffF3F3F2),
-                                        child: Container(
-                                          width: isMobile() ? 52 : 84,
-                                          height: isMobile() ? 52 : 84,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  if (state is FetchUserDataResponse) {
-                                    return state.response.fold(
-                                      (exception) {
-                                        return Center(
-                                          child: Text(exception),
-                                        );
-                                      },
-                                      (response) {
-                                        return ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          child: CachednetworkimageWidget(
-                                            width: isMobile() ? 52 : 84,
-                                            height: isMobile() ? 52 : 84,
-                                            imgUrl: response.photo,
-                                            img: Image.asset(
-                                              'assets/images/child2_image.jpg',
-                                              fit: BoxFit.cover,
-                                              width: isMobile() ? 52 : 84,
-                                              height: isMobile() ? 52 : 84,
-                                              cacheWidth: cacheImageFunction(
-                                                  isMobile() ? 100 : 100,
-                                                  context),
-                                              cacheHeight: cacheImageFunction(
-                                                  isMobile() ? 100 : 100,
-                                                  context),
-                                            ),
-                                            isNetworkImage: true,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }
-                                  return const SizedBox();
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectIndex = 3;
+                          });
+                        },
+                        child: BlocBuilder<AuthenticationBloc,
+                            AuthenticationState>(
+                          builder: (context, state) {
+                            if (state is AuthenticationLoading) {
+                              return Center(
+                                child: Shimmer.fromColors(
+                                  baseColor: const Color(0xffE1E1E1),
+                                  highlightColor: const Color(0xffF3F3F2),
+                                  child: Container(
+                                    width: isMobile() ? 52 : 84,
+                                    height: isMobile() ? 52 : 84,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            if (state is FetchUserDataResponse) {
+                              return state.response.fold(
+                                (exception) {
+                                  return Center(
+                                    child: Text(exception),
+                                  );
                                 },
-                              ),
-                            ),
-                          ],
+                                (response) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CachednetworkimageWidget(
+                                      width: isMobile() ? 52 : 84,
+                                      height: isMobile() ? 52 : 84,
+                                      imgUrl: response.photo,
+                                      img: Image.asset(
+                                        'assets/images/child2_image.jpg',
+                                        fit: BoxFit.cover,
+                                        width: isMobile() ? 52 : 84,
+                                        height: isMobile() ? 52 : 84,
+                                        cacheWidth: cacheImageFunction(
+                                            isMobile() ? 100 : 100, context),
+                                        cacheHeight: cacheImageFunction(
+                                            isMobile() ? 100 : 100, context),
+                                      ),
+                                      isNetworkImage: true,
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                            return const SizedBox();
+                          },
                         ),
                       ),
-                    )
-                  : null,
+                    ],
+                  ),
+                ),
+              ),
               bottomNavigationBar: SafeArea(
                 child: Container(
                   height: isMobile() ? 97 : 126,
@@ -290,7 +297,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       _bottomnavigationItem(
                         isMobile: isMobile(),
                         index: 0,
-                        selctItems: widget.navigationShell.currentIndex,
+                        selctItems: selectIndex,
                         lable: 'Home',
                         icon: 'assets/icons/home_buttomnavigation.svg',
                         context: context,
@@ -298,7 +305,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       _bottomnavigationItem(
                         isMobile: isMobile(),
                         index: 1,
-                        selctItems: widget.navigationShell.currentIndex,
+                        selctItems: selectIndex,
                         lable: 'Doctor',
                         icon: 'assets/icons/doctor_buttomnavigation.svg',
                         context: context,
@@ -306,7 +313,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       _bottomnavigationItem(
                         isMobile: isMobile(),
                         index: 2,
-                        selctItems: widget.navigationShell.currentIndex,
+                        selctItems: selectIndex,
                         lable: 'Tools',
                         icon: 'assets/icons/tools_buttomnavigation.svg',
                         context: context,
@@ -314,7 +321,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                       _bottomnavigationItem(
                         isMobile: isMobile(),
                         index: 3,
-                        selctItems: widget.navigationShell.currentIndex,
+                        selctItems: selectIndex,
                         lable: 'Profile',
                         icon: 'assets/icons/profile_buttomnavigation.svg',
                         context: context,
@@ -418,8 +425,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           isMobile: isMobile(),
                           drawerItem: firstDrawerItemList,
                           onTap: (index) {
-                            context.pop();
-
                             switch (index) {
                               case 0:
                                 context.pushNamed(AutiLabRoutes.myDoctorScreen);
@@ -446,8 +451,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           isMobile: isMobile(),
                           drawerItem: secondDrawerItemList,
                           onTap: (index) {
-                            context.pop();
-
                             switch (index) {
                               case 0:
                                 context.pushNamed(
@@ -470,8 +473,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                           isMobile: isMobile(),
                           drawerItem: thirdDrawerItemList,
                           onTap: (index) {
-                            context.pop();
-
                             switch (index) {
                               case 0:
                                 context.pushNamed(AutiLabRoutes.aboutScreen);
@@ -491,7 +492,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                   ),
                 ),
               ),
-              body: widget.navigationShell,
+              body: pageViewWidget[selectIndex],
             ),
           ),
         );
@@ -513,7 +514,12 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
     required bool isMobile,
   }) {
     return GestureDetector(
-      onTap: () => widget.navigationShell.goBranch(index),
+      // onTap: () => widget.navigationShell.goBranch(index),
+      onTap: () {
+        setState(() {
+          selectIndex = index;
+        });
+      },
       child: Container(
         width: isMobile ? 72 : 92,
         padding: const EdgeInsets.all(6),

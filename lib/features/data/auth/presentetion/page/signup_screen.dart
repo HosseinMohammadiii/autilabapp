@@ -231,7 +231,8 @@ class _SignupScreenState extends State<SignupScreen>
                                     await SharedPreferencesData
                                         .isFirstTimeLogIn(false);
 
-                                    context.goNamed(AutiLabRoutes.homeScreen);
+                                    context.goNamed(
+                                        AutiLabRoutes.bottomNavigationScreen);
                                   },
                                 );
                               }

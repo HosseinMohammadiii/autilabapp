@@ -184,7 +184,8 @@ class _LogInScreenState extends State<LogInScreen>
                                   BlocProvider.of<AuthenticationBloc>(context)
                                       .add(DisplayInformationUser());
 
-                                  context.goNamed(AutiLabRoutes.homeScreen);
+                                  context.goNamed(
+                                      AutiLabRoutes.bottomNavigationScreen);
                                 });
                               }
                             },

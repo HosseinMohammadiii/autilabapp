@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   displaySplashPage(BuildContext context) async {
     if (await SharedPreferencesData.isUserLogIn()) {
-      context.goNamed(AutiLabRoutes.homeScreen);
+      context.goNamed(AutiLabRoutes.bottomNavigationScreen);
     } else if (!await SharedPreferencesData.firstTimeLogIn()) {
       context.goNamed(AutiLabRoutes.welcomeScreen);
     } else {

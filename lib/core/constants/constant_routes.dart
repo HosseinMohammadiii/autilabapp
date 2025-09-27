@@ -2,6 +2,7 @@ class AutiLabRoutes {
   static const String initialScreen = '/';
   static const String programIntroductionScreen = '/Program_Introduction';
   static const String welcomeScreen = '/welcome';
+  static const String bottomNavigationScreen = '/bottomNavigationScreen';
   static const String choseRoleScreen = '/choseRoleScreen';
   static const String notConnectionScreen = '/notConnectionScreen';
   static const String itemNotFoundScreen = '/itemNotFoundScreen';
@@ -30,7 +31,7 @@ class AutiLabRoutes {
   static const String successfulSubmitRateScreen = 'successfulSubmitRateScreen';
   static const String articleItemScreen = '/articleItemScreen';
   static const String mainContentScreen = 'mainContentScreen';
-  static const String doctorScreen = '/doctorScreen';
+  static const String doctorScreen = 'doctorScreen';
   static const String doctorSpecialityScreen = '/doctorSpecialityScreen';
   static const String doctorInformationScreen = '/doctorInformationScreen';
   static const String nearbyCenterDetailScreen = '/nearbyCenterDetailScreen';
@@ -38,14 +39,14 @@ class AutiLabRoutes {
   static const String doctorMessageScreen = '/doctorMessageScreen';
   static const String doctorWorkscheduleScreen = '/doctorWorkscheduleScreen';
   static const String makeAppointmentScreen = '/makeAppointmentScreen';
-  static const String homeScreen = '/homeScreen';
+  static const String homeScreen = 'homeScreen';
   static const String allAppointmentScreen = '/allAppointmentScreen';
   static const String detailAppointmentScreen = '/detailAppointmentScreen';
-  static const String toolsScreen = '/toolsScreen';
+  static const String toolsScreen = 'toolsScreen';
   static const String typeTestsScreen = '/typeTestsScreen';
   static const String whiteBoardScreen = '/whiteBoardScreen';
   // static const String communityScreen = '/communityScreen';
-  static const String profileScreen = '/profileScreen';
+  static const String profileScreen = 'profileScreen';
   static const String aptitudeTestScreen = '/aptitudeTestScreen';
   static const String quizMultiSelectScreen = 'quizMultiSelectScreen';
   static const String aboutScreen = '/aboutScreen';

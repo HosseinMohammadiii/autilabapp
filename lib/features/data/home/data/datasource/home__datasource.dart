@@ -24,7 +24,7 @@ final class HomeDataSourceRemoot implements HomeDataSource {
           },
         ),
       );
-
+      print(response.data['data']);
       return response.data['data']
           .map<HomeModel>(
             (jsonObject) => HomeModel.fromJson(
@@ -33,6 +33,7 @@ final class HomeDataSourceRemoot implements HomeDataSource {
           )
           .toList();
     } on DioException catch (ex) {
+      print(ex.response?.statusMessage);
       throw ApiException(
         statusCode: ex.response?.statusCode ?? 0,
         message: ex.response?.statusMessage ?? 'Unknow message',
