@@ -22,6 +22,7 @@ import '../../../../../utils/Lists/package_info_list.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/appointment_check_status_function.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
+import '../../../doctor/data/model/all_doctor_model.dart';
 import '../../../doctor/presentation/page/nearby_center_details_screen.dart';
 import '../../data/model/intelligence_test_model.dart';
 import '../../data/model/newappointment_model.dart';
@@ -669,8 +670,11 @@ class SpecialtyListWidget extends StatelessWidget {
     super.key,
     required this.recentVisitedModel,
     required this.isMobile,
+    this.doctorsList,
   });
   final bool isMobile;
+
+  final List<AllDoctorModel>? doctorsList;
 
   final List<RecentVisitedModel> recentVisitedModel;
 
@@ -682,9 +686,21 @@ class SpecialtyListWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: recentVisitedModel.length,
         itemBuilder: (context, index) {
+          Iterable<AllDoctorModel>? doctorList = doctorsList?.where(
+            (element) {
+              if (element.specialities?.name ==
+                  recentVisitedModel[index].name) {
+                return true;
+              } else {
+                return false;
+              }
+            },
+          ).toList();
           return GestureDetector(
             onTap: () {
-              context.pushNamed(AutiLabRoutes.doctorSpecialityScreen);
+              context.pushNamed(AutiLabRoutes.doctorSpecialityScreen, extra: {
+                'doctorList': doctorList,
+              });
             },
             child: Container(
               height: isMobile ? 113 : 180,

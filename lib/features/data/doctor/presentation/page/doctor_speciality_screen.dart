@@ -1,4 +1,5 @@
 import 'package:autilab_project/core/constants/theme_constant.dart';
+import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
 import 'package:autilab_project/features/data/doctor/widgets/doctor_box_widget.dart';
 import 'package:autilab_project/features/data/doctor/widgets/search_textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,11 @@ import '../../../../../utils/functions/custom_dialog_function.dart';
 import '../../widgets/custom_checkbox_widget.dart';
 
 class DoctorSpecialityScreen extends StatefulWidget {
-  const DoctorSpecialityScreen({super.key});
+  const DoctorSpecialityScreen({
+    super.key,
+    this.doctorList,
+  });
+  final List<AllDoctorModel>? doctorList;
 
   @override
   State<DoctorSpecialityScreen> createState() => _DoctorSpecialityScreenState();
@@ -148,17 +153,22 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                           height: 16,
                         ),
                       ),
-                      // SliverList.builder(
-                      //   itemCount: 10,
-                      //   itemBuilder: (context, index) {
-                      //     return Padding(
-                      //       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      //       child: DoctorBoxWidget(
-                      //         isMobile: isMobile(),
-                      //       ),
-                      //     );
-                      //   },
-                      // )
+                      SliverList.builder(
+                        itemCount: widget.doctorList?.length == null
+                            ? 0
+                            : widget.doctorList!.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: DoctorBoxWidget(
+                              isMobile: isMobile(),
+                              doctorSpecialities:
+                                  widget.doctorList?[index].specialities,
+                              user: widget.doctorList?[index].user,
+                            ),
+                          );
+                        },
+                      )
                     ],
                   ),
                 ),

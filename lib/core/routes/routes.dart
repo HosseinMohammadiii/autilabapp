@@ -138,7 +138,13 @@ class AutilabRouter {
       GoRoute(
         path: '/doctorSpecialityScreen',
         name: AutiLabRoutes.doctorSpecialityScreen,
-        builder: (context, state) => const DoctorSpecialityScreen(),
+        builder: (context, state) {
+          final Map<String, dynamic> extraData =
+              state.extra as Map<String, dynamic>;
+          return DoctorSpecialityScreen(
+            doctorList: extraData['doctorList'],
+          );
+        },
       ),
       GoRoute(
         path: '/allAppointmentScreen',

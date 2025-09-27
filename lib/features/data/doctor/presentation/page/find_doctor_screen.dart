@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../common/widgets/custom_button_widget.dart';
 import '../../../../../common/widgets/loading_indicator_widget.dart';
 import '../../../../../core/constants/color_constant.dart';
+import '../../../../../core/constants/constant_routes.dart';
 import '../../../../../core/network/locator.dart';
 import '../../../../../utils/Lists/category_items.dart';
 import '../../../../../utils/functions/animation_control.dart';
@@ -185,7 +186,28 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                             context,
                                             _buildSpecialtiesDialog(
                                               context,
-                                              (index) {},
+                                              (index) {
+                                                Iterable<AllDoctorModel>?
+                                                    doctorList =
+                                                    doctorsList.where(
+                                                  (element) {
+                                                    if (element.specialities
+                                                            ?.name ==
+                                                        specialtyList[index]
+                                                            .name) {
+                                                      return true;
+                                                    } else {
+                                                      return false;
+                                                    }
+                                                  },
+                                                ).toList();
+                                                context.pushNamed(
+                                                    AutiLabRoutes
+                                                        .doctorSpecialityScreen,
+                                                    extra: {
+                                                      'doctorList': doctorList,
+                                                    });
+                                              },
                                               isMobile(),
                                             ),
                                           );
@@ -207,6 +229,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                 ),
                                 SpecialtyListWidget(
                                   isMobile: isMobile(),
+                                  doctorsList: doctorsList,
                                   recentVisitedModel: specialtyList,
                                 ),
                                 Padding(
