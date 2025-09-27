@@ -96,7 +96,8 @@ class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen>
                             CustomButtonWidget(
                               isMobile: isMobile(),
                               onTap: () {
-                                context.go(AutiLabRoutes.homeScreen);
+                                context.goNamed(
+                                    AutiLabRoutes.bottomNavigationScreen);
                               },
                               height: 50,
                               margin: const EdgeInsets.symmetric(vertical: 32),
