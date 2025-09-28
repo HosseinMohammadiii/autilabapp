@@ -37,6 +37,16 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
     with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
+  final ValueNotifier<bool?> selectedGenderMaleNotifier =
+      ValueNotifier<bool?>(true);
+  final ValueNotifier<bool?> selectedGenderFemaleNotifier =
+      ValueNotifier<bool?>(false);
+  final ValueNotifier<bool?> selectedIndexNotifier =
+      ValueNotifier<bool?>(false);
+  final ValueNotifier<int?> selectedIndexSpecialty = ValueNotifier<int?>(null);
+  final ValueNotifier<double?> selectedIndexrating =
+      ValueNotifier<double?>(null);
+
   late List<AllDoctorModel> doctorsList = [];
   List<RecentVisitedModel> specialtyList = [];
 
@@ -60,6 +70,11 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
   @override
   void dispose() {
     animationHelper.dispose();
+    selectedGenderMaleNotifier.dispose();
+    selectedGenderFemaleNotifier.dispose();
+    selectedIndexNotifier.dispose();
+    selectedIndexSpecialty.dispose();
+    selectedIndexrating.dispose();
     super.dispose();
   }
 
@@ -149,6 +164,110 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                               _buildDialogSortIcon(
                                                 context,
                                                 isMobile(),
+                                                () {
+                                                  String specialty = '';
+                                                  String gender = '';
+                                                  int rate = 0;
+
+                                                  switch (selectedIndexSpecialty
+                                                      .value) {
+                                                    case 0:
+                                                      specialty =
+                                                          categoryItemsList[0]
+                                                              .title;
+                                                      break;
+                                                    case 1:
+                                                      specialty =
+                                                          categoryItemsList[1]
+                                                              .title;
+                                                      break;
+                                                    case 2:
+                                                      specialty =
+                                                          categoryItemsList[2]
+                                                              .title;
+                                                      break;
+                                                    case 3:
+                                                      specialty =
+                                                          categoryItemsList[3]
+                                                              .title;
+                                                      break;
+                                                    case 4:
+                                                      specialty =
+                                                          categoryItemsList[4]
+                                                              .title;
+                                                      break;
+                                                    case 5:
+                                                      specialty =
+                                                          categoryItemsList[5]
+                                                              .title;
+                                                      break;
+                                                    default:
+                                                      gender = '';
+                                                      break;
+                                                  }
+                                                  switch (selectedIndexrating
+                                                      .value) {
+                                                    case 0:
+                                                      rate = 0;
+                                                      break;
+                                                    case 1:
+                                                      rate = 1;
+                                                      break;
+                                                    case 2:
+                                                      rate = 2;
+                                                      break;
+                                                    case 3:
+                                                      rate = 3;
+                                                      break;
+                                                    case 4:
+                                                      rate = 4;
+                                                      break;
+                                                    case 5:
+                                                      rate = 5;
+                                                      break;
+                                                    default:
+                                                      rate = 0;
+                                                      break;
+                                                  }
+                                                  if (selectedGenderMaleNotifier
+                                                      .value!) {
+                                                    gender = 'male';
+                                                  }
+                                                  if (selectedGenderFemaleNotifier
+                                                      .value!) {
+                                                    gender = 'female';
+                                                  }
+                                                  if (selectedGenderMaleNotifier
+                                                              .value! &&
+                                                          selectedGenderFemaleNotifier
+                                                              .value! ||
+                                                      !selectedGenderMaleNotifier
+                                                              .value! &&
+                                                          !selectedGenderFemaleNotifier
+                                                              .value!) {
+                                                    gender = '';
+                                                  }
+                                                  var list = doctorsList.where(
+                                                    (element) {
+                                                      if (element.specialities
+                                                              ?.name ==
+                                                          specialty) {
+                                                        return true;
+                                                      }
+                                                      if (element
+                                                              .user?.gender ==
+                                                          gender) {
+                                                        return true;
+                                                      } else {
+                                                        return false;
+                                                      }
+                                                    },
+                                                  ).toList();
+
+                                                  // print(
+                                                  //     "Specialty: $specialty ---- Gender: $gender ---- Rating: $rate List length:${list.length}");
+                                                  context.pop();
+                                                },
                                               ),
                                             );
                                           },
@@ -372,18 +491,8 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
   Widget _buildDialogSortIcon(
     BuildContext context,
     final bool isMobile,
+    Function() onTap,
   ) {
-    final ValueNotifier<bool?> selectedGenderMaleNotifier =
-        ValueNotifier<bool?>(true);
-    final ValueNotifier<bool?> selectedGenderFemaleNotifier =
-        ValueNotifier<bool?>(false);
-    final ValueNotifier<bool?> selectedIndexNotifier =
-        ValueNotifier<bool?>(false);
-    final ValueNotifier<int?> selectedIndexSpecialty =
-        ValueNotifier<int?>(null);
-    final ValueNotifier<double?> selectedIndexrating =
-        ValueNotifier<double?>(null);
-
     return FittedBox(
       child: Container(
         constraints: BoxConstraints(
@@ -583,12 +692,10 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                 },
               ),
             ),
-            Spacer(),
+            const Spacer(),
             CustomButtonWidget(
               isMobile: isMobile,
-              onTap: () {
-                context.pop();
-              },
+              onTap: onTap,
               height: 50,
               margin: const EdgeInsets.only(top: 24),
               color: AutilabColor.bb,
