@@ -49,8 +49,9 @@ PreferredSizeWidget appBarWidget({
                     if (isQuizScreen) {
                       final bool? shouldPop = await showDialog(
                         context: context,
-                        builder: (context) =>
-                            ExitPageDialogWidget(isMobile: isMobile),
+                        builder: (context) => ExitPageDialogWidget(
+                          isMobile: isMobile,
+                        ),
                       );
                       if (shouldPop ?? false) {
                         context.pop();

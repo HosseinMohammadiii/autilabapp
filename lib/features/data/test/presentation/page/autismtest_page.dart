@@ -4,7 +4,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 // import 'package:autilab_project/common/widgets/loading_indicator_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
-import 'package:autilab_project/features/data/test/data/model/testanswer_param.dart';
+// import 'package:autilab_project/features/data/test/data/model/testanswer_param.dart';
 import 'package:autilab_project/features/data/test/presentation/bloc/test_bloc.dart';
 import 'package:autilab_project/features/data/test/presentation/bloc/test_event.dart';
 import 'package:autilab_project/features/data/test/presentation/bloc/test_state.dart';
@@ -98,8 +98,10 @@ class _AutismTestScreenState extends State<AutismTestScreen>
 
                 final bool? shouldPop = await showDialog(
                   context: context,
-                  builder: (context) =>
-                      ExitPageDialogWidget(isMobile: isMobile()),
+                  builder: (context) => ExitPageDialogWidget(
+                    isMobile: isMobile(),
+                    onTap: () {},
+                  ),
                 );
                 if (shouldPop ?? false) {
                   context.pop();

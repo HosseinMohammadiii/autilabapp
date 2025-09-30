@@ -53,7 +53,6 @@ final class TestBloc extends Bloc<TestEvent, TestState> {
             await testRepository.sendAnswerIntelligence(event.testanswerParam);
         response.fold(
           (error) {
-            print(error.message);
             emit(TestError(error));
           },
           (answer) {
@@ -71,6 +70,21 @@ final class TestBloc extends Bloc<TestEvent, TestState> {
           },
           (autismTest) {
             emit(DisplayAutismTestState(autismTest));
+          },
+        );
+      },
+    );
+
+    on<DeleteIntelligenceAnswer>(
+      (event, emit) async {
+        var deleteIntelligence =
+            await testRepository.deleteAnswerAutismTest(event.responseId);
+        deleteIntelligence.fold(
+          (error) {
+            emit(TestError(error));
+          },
+          (delete) {
+            emit(DeleteIntelligenceAnswerState());
           },
         );
       },

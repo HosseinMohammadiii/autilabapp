@@ -1,4 +1,4 @@
-import 'package:autilab_project/features/data/test/data/model/intelligence_model.dart';
+// import 'package:autilab_project/features/data/test/data/model/intelligence_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/color_constant.dart';

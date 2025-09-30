@@ -111,11 +111,6 @@ class _ToolsScreenState extends State<ToolsScreen>
                               //   context.pushNamed(AutiLabRoutes.whiteBoardScreen);
                               //   break;
                               case 1:
-                                if (await SharedPreferencesData
-                                        .getQuestionId() ==
-                                    24) {
-                                  return;
-                                }
                                 context.pushNamed(
                                     AutiLabRoutes.aptitudeTestScreen,
                                     extra: {

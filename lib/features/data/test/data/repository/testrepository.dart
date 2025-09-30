@@ -13,6 +13,8 @@ abstract class TestRepository {
   Future<Either<ApiException, List<AutismTestModel>>> fetchAutismTest(int id);
   Future<Either<ApiException, int>> sendAnswerIntelligence(
       TestanswerParam testanswerParam);
+
+  Future<Either<ApiException, String>> deleteAnswerAutismTest(int id);
 }
 
 final class TestRepositoryRemoot implements TestRepository {
@@ -84,6 +86,25 @@ final class TestRepositoryRemoot implements TestRepository {
       int id) async {
     try {
       var response = await testdatasource.fetchAutismTest(id);
+      return right(response);
+    } on DioException catch (e) {
+      return left(ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown error',
+        type: e.type,
+      ));
+    } catch (e) {
+      return left(ApiException(
+        statusCode: 0,
+        message: 'Unknown error',
+      ));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, String>> deleteAnswerAutismTest(int id) async {
+    try {
+      var response = await testdatasource.deleteAnswerAutismTest(id);
       return right(response);
     } on DioException catch (e) {
       return left(ApiException(

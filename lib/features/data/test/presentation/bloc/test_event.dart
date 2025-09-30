@@ -19,3 +19,8 @@ final class SendIntelligenceAnswer extends TestEvent {
   TestanswerParam testanswerParam;
   SendIntelligenceAnswer({required this.testanswerParam});
 }
+
+final class DeleteIntelligenceAnswer extends TestEvent {
+  final int responseId;
+  DeleteIntelligenceAnswer({required this.responseId});
+}

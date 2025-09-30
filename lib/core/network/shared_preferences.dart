@@ -19,10 +19,6 @@ class SharedPreferencesData {
     return await _prefs!.setBool('firstTimeLogIn', isLogIn);
   }
 
-  static Future<bool> setQurstionId(int id) async {
-    return await _prefs!.setInt('questionId', id);
-  }
-
   static Future<String?> getUserToken() async {
     return _prefs?.getString('Authorization');
   }
@@ -33,9 +29,5 @@ class SharedPreferencesData {
 
   static Future<bool> firstTimeLogIn() async {
     return _prefs?.getBool('firstTimeLogIn') ?? true;
-  }
-
-  static Future<int> getQuestionId() async {
-    return _prefs?.getInt('questionId') ?? 1;
   }
 }

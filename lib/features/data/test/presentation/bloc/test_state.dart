@@ -35,6 +35,10 @@ final class DisplayAutismTestState extends TestState {
 }
 
 final class IntelligenceAnswerState extends TestState {
-  final int message;
-  IntelligenceAnswerState(this.message);
+  final int id;
+  IntelligenceAnswerState(this.id);
+}
+
+final class DeleteIntelligenceAnswerState extends TestState {
+  DeleteIntelligenceAnswerState();
 }

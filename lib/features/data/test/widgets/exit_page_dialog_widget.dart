@@ -9,9 +9,10 @@ class ExitPageDialogWidget extends StatelessWidget {
   const ExitPageDialogWidget({
     super.key,
     required this.isMobile,
+    this.onTap,
   });
   final bool isMobile;
-
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -61,9 +62,10 @@ class ExitPageDialogWidget extends StatelessWidget {
                 AutilabColor.bb,
                 AutilabColor.drawerWhite,
                 'Exit Anyway',
-                () {
-                  context.pop(true);
-                },
+                onTap ??
+                    () {
+                      context.pop(true);
+                    },
               ),
               dialogButtonWidget(
                 isMobile,

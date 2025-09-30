@@ -11,6 +11,7 @@ abstract class Testdatasource {
   Future<List<AutismTestModel>> fetchAutismTest(int id);
   Future<int> sendAnswerIntelligence(TestanswerParam testanswerParam);
   Future<String> sendAnswerAutismTest(TestanswerParam testanswerParam);
+  Future<String> deleteAnswerAutismTest(int id);
 }
 
 final class TestdatasourceRemoot implements Testdatasource {
@@ -62,6 +63,8 @@ final class TestdatasourceRemoot implements Testdatasource {
               (jsonObject) => IntelligenceModel.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
+      print(e.response?.statusMessage);
+
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
@@ -92,12 +95,10 @@ final class TestdatasourceRemoot implements Testdatasource {
           },
         ),
       );
-      var questionId = response.data['data']
-          .map((json) => id = json['question_id'])
-          .toList();
+      var questionId =
+          response.data['data'].map((json) => id = json['id']).toList();
       return questionId.last;
     } on DioException catch (e) {
-      print(e.response?.statusMessage);
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
@@ -137,5 +138,28 @@ final class TestdatasourceRemoot implements Testdatasource {
   Future<String> sendAnswerAutismTest(TestanswerParam testanswerParam) {
     // TODO: implement sendAnswerAutismTest
     throw UnimplementedError();
+  }
+
+  @override
+  Future<String> deleteAnswerAutismTest(int id) async {
+    try {
+      await dio.delete(
+        '/intelligence_response/response/$id',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+      return 'Delete Successfully';
+    } on DioException catch (e) {
+      throw ApiException(
+          statusCode: e.response?.statusCode ?? 0,
+          message: e.response?.statusMessage ?? 'Unknown API error');
+    } catch (e) {
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
   }
 }
