@@ -63,8 +63,6 @@ final class TestdatasourceRemoot implements Testdatasource {
               (jsonObject) => IntelligenceModel.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
-      print(e.response?.statusMessage);
-
       throw ApiException(
           statusCode: e.response?.statusCode ?? 0,
           message: e.response?.statusMessage ?? 'Unknown API error');
