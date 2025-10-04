@@ -1,5 +1,4 @@
 import 'package:autilab_project/core/constants/constant_routes.dart';
-import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -137,8 +136,8 @@ class _ToolsScreenState extends State<ToolsScreen>
                                       'description':
                                           "Discover your child's personality and help them find the right path in life.",
                                       'onTap': () {
-                                        context.pushNamed(AutiLabRoutes
-                                            .quizMultiSelectScreen);
+                                        context.pushNamed(
+                                            AutiLabRoutes.autismTestScreen);
                                       },
                                     });
                                 break;

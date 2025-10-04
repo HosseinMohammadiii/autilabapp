@@ -118,6 +118,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                   listener: (context, state) {
                     if (state is DisplayAutismTestState) {
                       autismTestQuizList = state.displayAutismTest;
+                      print(autismTestQuizList.length);
 
                       for (var element in state.displayAutismTest) {
                         questionTitle = element.question;
@@ -181,7 +182,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                   },
                                   physics: const NeverScrollableScrollPhysics(),
                                   controller: pageController,
-                                  itemCount: autismTestQuizList.length,
+                                  itemCount: 1,
                                   itemBuilder: (context, index) {
                                     // selectedItemsList = List.generate(
                                     //     quizList[index].title.length,
@@ -211,7 +212,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
 
                                     return ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: quizList.length,
+                                      // itemCount: quizList.length,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       padding: const EdgeInsets.symmetric(

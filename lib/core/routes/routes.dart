@@ -30,6 +30,7 @@ import 'package:autilab_project/features/data/payment/page/successful_payment_sc
 import 'package:autilab_project/features/data/menu/Page/my_subscribtion_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/test_history_screen.dart';
 import 'package:autilab_project/features/data/menu/Page/user_message_screen.dart';
+import 'package:autilab_project/features/data/test/presentation/page/autismtest_page.dart';
 import 'package:autilab_project/features/data/tool/page/article_item_screen.dart';
 import 'package:autilab_project/features/data/tool/page/main_content_screen.dart';
 import 'package:autilab_project/features/data/tool/page/tools_screen.dart';
@@ -445,6 +446,11 @@ class AutilabRouter {
             path: 'quizMultiSelectScreen',
             name: AutiLabRoutes.quizMultiSelectScreen,
             builder: (context, state) => const QuizAndSelectAnswerScreen(),
+          ),
+          GoRoute(
+            path: 'autismTestScreen',
+            name: AutiLabRoutes.autismTestScreen,
+            builder: (context, state) => const AutismTestScreen(),
           ),
         ],
       ),
