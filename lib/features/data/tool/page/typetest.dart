@@ -106,7 +106,7 @@ class _TypetestScreenState extends State<TypetestScreen>
                                     "Discover your child's personality and help them find the right path in life.",
                                 'onTap': () {
                                   context.pushNamed(
-                                      AutiLabRoutes.quizMultiSelectScreen);
+                                      AutiLabRoutes.autismTestScreen);
                                 },
                               });
                         },

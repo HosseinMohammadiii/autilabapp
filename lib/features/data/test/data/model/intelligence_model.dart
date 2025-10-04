@@ -38,9 +38,14 @@ class IntelligenceAnswer {
 }
 
 class AutismTestModel {
+  final int id;
   final String question;
   final List<AutismAnswer>? answer;
-  AutismTestModel({required this.question, required this.answer});
+  AutismTestModel({
+    required this.question,
+    required this.answer,
+    required this.id,
+  });
   factory AutismTestModel.fromJson(Map<String, dynamic> jsonObject) {
     var userAnswerList = (jsonObject['user_answers'] as List<dynamic>?)
             ?.map(
@@ -49,6 +54,7 @@ class AutismTestModel {
             .toList() ??
         [];
     return AutismTestModel(
+      id: jsonObject['id'],
       question: jsonObject['question'],
       answer: userAnswerList,
     );
@@ -72,6 +78,16 @@ class AutismAnswer {
       answerId: jsonObject['id'] ?? 0,
       question: jsonObject['question'] ?? '',
       answer: jsonObject['user_answer'],
+    );
+  }
+}
+
+class AutismTestResult {
+  final int totalscore;
+  AutismTestResult({required this.totalscore});
+  factory AutismTestResult.fromJson(Map<String, dynamic> jsonObject) {
+    return AutismTestResult(
+      totalscore: jsonObject['total_score'] ?? 0,
     );
   }
 }

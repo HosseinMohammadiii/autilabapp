@@ -61,8 +61,24 @@ final class TestBloc extends Bloc<TestEvent, TestState> {
         );
       },
     );
+    on<SendAutismTestAnswer>(
+      (event, emit) async {
+        var response =
+            await testRepository.sendAnswerAutismTest(event.testanswerParam);
+        response.fold(
+          (error) {
+            emit(TestError(error));
+          },
+          (answer) {
+            emit(AutismTestAnswerState(answer));
+          },
+        );
+      },
+    );
     on<DisplayAutismTest>(
       (event, emit) async {
+        emit(TestLoading());
+
         var response = await testRepository.fetchAutismTest(event.testId);
         response.fold(
           (error) {
@@ -78,13 +94,43 @@ final class TestBloc extends Bloc<TestEvent, TestState> {
     on<DeleteIntelligenceAnswer>(
       (event, emit) async {
         var deleteIntelligence =
-            await testRepository.deleteAnswerAutismTest(event.responseId);
+            await testRepository.deleteAnswerIntelligenceTest(event.responseId);
         deleteIntelligence.fold(
           (error) {
             emit(TestError(error));
           },
           (delete) {
             emit(DeleteIntelligenceAnswerState());
+          },
+        );
+      },
+    );
+    on<DeleteAutismAnswer>(
+      (event, emit) async {
+        var deleteAutismTest =
+            await testRepository.deleteAnswerAutismTest(event.responseId);
+        deleteAutismTest.fold(
+          (error) {
+            emit(TestError(error));
+          },
+          (delete) {
+            emit(DeleteAutismAnswerState());
+          },
+        );
+      },
+    );
+    on<DisplayAutismTestResult>(
+      (event, emit) async {
+        emit(TestLoading());
+        var autismTestResultResponse =
+            await testRepository.fetchAutismTestResult();
+
+        autismTestResultResponse.fold(
+          (error) {
+            emit(TestError(error));
+          },
+          (testResult) {
+            emit(DisplayAutismTestResultState(testResult));
           },
         );
       },

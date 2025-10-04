@@ -10,6 +10,7 @@ PreferredSizeWidget appBarWidget({
   required BuildContext context,
   required String title,
   Function()? onChanged,
+  Function()? onChanged2,
   bool? isIcon,
   bool isMobile = true,
   bool isQuizScreen = false,
@@ -47,10 +48,11 @@ PreferredSizeWidget appBarWidget({
                       onChanged();
                     }
                     if (isQuizScreen) {
-                      final bool? shouldPop = await showDialog(
+                      bool? shouldPop = await showDialog(
                         context: context,
                         builder: (context) => ExitPageDialogWidget(
                           isMobile: isMobile,
+                          onTap: onChanged2,
                         ),
                       );
                       if (shouldPop ?? false) {

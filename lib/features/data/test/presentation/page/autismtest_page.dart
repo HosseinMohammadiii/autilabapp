@@ -18,8 +18,8 @@ import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../core/network/locator.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../data/model/intelligence_model.dart';
+import '../../data/model/testanswer_param.dart';
 import '../../widgets/exit_page_dialog_widget.dart';
-import 'quiz_multiselect_screen.dart';
 
 class QuizClass {
   String title;
@@ -49,17 +49,16 @@ class _AutismTestScreenState extends State<AutismTestScreen>
   int currentPage = 0;
   int answerId = 0;
   int questionId = 0;
-  int autismtestId = 1;
+  int autismtestId = 2;
   String questionTitle = '';
   @override
   void initState() {
-    BlocProvider.of<TestBloc>(context).add(DisplayAllIntelligence());
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
-    selectedItemsList = List<bool>.generate(3, (_) => false);
+    selectedItemsList = List<bool>.generate(4, (_) => false);
   }
 
   @override
@@ -74,8 +73,14 @@ class _AutismTestScreenState extends State<AutismTestScreen>
     animationHelper.restartAnimation();
   }
 
-  List<TestClass> quizList = [];
+  List<int> responseIdList = [];
   List<AutismTestModel> autismTestQuizList = [];
+  List<String> autismTestAnswerList = [
+    'Always',
+    'Often',
+    'Sometimes',
+    'Never',
+  ];
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -100,49 +105,59 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                   context: context,
                   builder: (context) => ExitPageDialogWidget(
                     isMobile: isMobile(),
-                    onTap: () {},
+                    onTap: () {
+                      if (responseIdList.isEmpty) {
+                        context.pop(true);
+                      }
+
+                      for (var responseId in responseIdList) {
+                        context.read<TestBloc>().add(
+                              DeleteAutismAnswer(responseId: responseId),
+                            );
+                        if (responseId != responseIdList.last - 1)
+                          context.pop(true);
+                      }
+                    },
                   ),
                 );
                 if (shouldPop ?? false) {
                   context.pop();
                 }
               },
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => TestBloc(locator.get())
-                      ..add(DisplayAutismTest(testId: autismtestId)),
-                  ),
-                ],
+              child: BlocProvider(
+                create: (context) =>
+                    TestBloc(locator.get())..add(DisplayAutismTest(testId: 2)),
                 child: BlocConsumer<TestBloc, TestState>(
                   listener: (context, state) {
+                    if (state is AutismTestAnswerState) {
+                      responseIdList.add(state.id);
+
+                      setState(() {
+                        if (autismtestId != 30) {
+                          autismtestId += 1;
+                        }
+                        selectedItemsList.fillRange(
+                            0, selectedItemsList.length, false);
+                        isSelected = false;
+                      });
+
+                      //Next page
+                      pageController.animateToPage(
+                        pageController.page!.toInt() + 1,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+
+                      BlocProvider.of<TestBloc>(context)
+                          .add(DisplayAutismTest(testId: autismtestId));
+                    }
                     if (state is DisplayAutismTestState) {
                       autismTestQuizList = state.displayAutismTest;
-                      print(autismTestQuizList.length);
 
                       for (var element in state.displayAutismTest) {
                         questionTitle = element.question;
+                        questionId = element.id;
                         answerId = 0;
-                        quizList = [
-                          TestClass(
-                            element.answer![0].answerId,
-                            element.answer![0].questionId,
-                            element.answer![0].answer,
-                            false,
-                          ),
-                          TestClass(
-                            element.answer![1].answerId,
-                            element.answer![1].questionId,
-                            element.answer![1].answer,
-                            false,
-                          ),
-                          TestClass(
-                            element.answer![2].answerId,
-                            element.answer![2].questionId,
-                            element.answer![2].answer,
-                            false,
-                          ),
-                        ];
                       }
                     }
                   },
@@ -154,6 +169,22 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                         isIcon: true,
                         isQuizScreen: true,
                         isMobile: isMobile(),
+                        onChanged2: () async {
+                          if (responseIdList.isEmpty) {
+                            context.pop();
+                            context.pop();
+                            return;
+                          }
+
+                          for (var responseId in responseIdList) {
+                            context.read<TestBloc>().add(
+                                  DeleteAutismAnswer(responseId: responseId),
+                                );
+                          }
+
+                          context.pop();
+                          context.pop();
+                        },
                       ),
                       body: SafeArea(
                         child: Column(
@@ -212,7 +243,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
 
                                     return ListView.builder(
                                       shrinkWrap: true,
-                                      // itemCount: quizList.length,
+                                      itemCount: autismTestAnswerList.length,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       padding: const EdgeInsets.symmetric(
@@ -222,7 +253,9 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                           onTap: () {
                                             setState(() {
                                               for (int i = 0;
-                                                  i < quizList.length;
+                                                  i <
+                                                      autismTestAnswerList
+                                                          .length;
                                                   i++) {
                                                 selectedItemsList[i] =
                                                     i == index;
@@ -232,10 +265,8 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                                   .contains(true)) {
                                                 isSelected = true;
                                               }
-                                              questionId =
-                                                  quizList[index].questionId;
-                                              answerId =
-                                                  quizList[index].awnserId;
+
+                                              answerId = index;
                                             });
                                           },
                                           child: Container(
@@ -255,7 +286,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                                       isMobile() ? 16 : 24),
                                             ),
                                             child: Text(
-                                              quizList[index].title,
+                                              autismTestAnswerList[index],
                                               style: AutilabTextStyle
                                                   .small18_400
                                                   .copyWith(
@@ -307,33 +338,16 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                 if (!isSelected) {
                                   return;
                                 }
-                                setState(() {
-                                  if (autismtestId != 24) {
-                                    autismtestId += 1;
-                                  }
-                                  selectedItemsList.fillRange(
-                                      0, selectedItemsList.length, false);
-                                  isSelected = false;
-                                });
 
-                                //Next page
-                                pageController.animateToPage(
-                                  pageController.page!.toInt() + 1,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeInOut,
-                                );
                                 BlocProvider.of<TestBloc>(context).add(
-                                    DisplayIntelligence(
-                                        intelligenceId: autismtestId));
-                                // BlocProvider.of<TestBloc>(context).add(
-                                //   SendIntelligenceAnswer(
-                                //     testanswerParam: TestanswerParam(
-                                //       questionId: questionId,
-                                //       answerId: answerId,
-                                //     ),
-                                //   ),
-                                // );
-                                if (currentPage == 23) {
+                                  SendAutismTestAnswer(
+                                    testanswerParam: TestanswerParam(
+                                      questionId: questionId,
+                                      answerId: answerId + 1,
+                                    ),
+                                  ),
+                                );
+                                if (autismtestId == 30) {
                                   context.pop();
                                   context.pop();
                                 }
@@ -347,7 +361,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                               color: isSelected
                                   ? AutilabColor.bb
                                   : AutilabColor.bb.withValues(alpha: 0.4),
-                              text: currentPage != 23 ? 'Next' : 'Submit',
+                              text: autismtestId != 30 ? 'Next' : 'Submit',
                               textStyle: AutilabTextStyle.small18_400.copyWith(
                                 fontSize: isMobile() ? 18 : 24,
                               ),

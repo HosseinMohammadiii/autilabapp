@@ -29,6 +29,12 @@ final class DisplayIntelligenceState extends TestState {
       this.displayIntelligence, this.displayIntelligenceList);
 }
 
+final class DisplayAutismTestResultState extends TestState {
+  List<AutismTestResult> displayAutismTestResult;
+
+  DisplayAutismTestResultState(this.displayAutismTestResult);
+}
+
 final class DisplayAutismTestState extends TestState {
   List<AutismTestModel> displayAutismTest;
   DisplayAutismTestState(this.displayAutismTest);
@@ -39,6 +45,15 @@ final class IntelligenceAnswerState extends TestState {
   IntelligenceAnswerState(this.id);
 }
 
+final class AutismTestAnswerState extends TestState {
+  final int id;
+  AutismTestAnswerState(this.id);
+}
+
 final class DeleteIntelligenceAnswerState extends TestState {
   DeleteIntelligenceAnswerState();
+}
+
+final class DeleteAutismAnswerState extends TestState {
+  DeleteAutismAnswerState();
 }

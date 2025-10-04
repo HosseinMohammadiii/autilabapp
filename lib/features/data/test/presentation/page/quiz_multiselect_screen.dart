@@ -203,6 +203,23 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                               isIcon: true,
                               isQuizScreen: true,
                               isMobile: isMobile(),
+                              onChanged2: () async {
+                                if (responseIdList.isEmpty) {
+                                  context.pop();
+                                  context.pop();
+                                  return;
+                                }
+
+                                for (var responseId in responseIdList) {
+                                  context.read<TestBloc>().add(
+                                        DeleteIntelligenceAnswer(
+                                            responseId: responseId),
+                                      );
+                                }
+
+                                context.pop();
+                                context.pop();
+                              },
                             ),
                             body: SafeArea(
                               child: Column(

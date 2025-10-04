@@ -10,6 +10,8 @@ final class DisplayIntelligence extends TestEvent {
   DisplayIntelligence({required this.intelligenceId});
 }
 
+final class DisplayAutismTestResult extends TestEvent {}
+
 final class DisplayAutismTest extends TestEvent {
   final int testId;
   DisplayAutismTest({required this.testId});
@@ -20,7 +22,17 @@ final class SendIntelligenceAnswer extends TestEvent {
   SendIntelligenceAnswer({required this.testanswerParam});
 }
 
+final class SendAutismTestAnswer extends TestEvent {
+  TestanswerParam testanswerParam;
+  SendAutismTestAnswer({required this.testanswerParam});
+}
+
 final class DeleteIntelligenceAnswer extends TestEvent {
   final int responseId;
   DeleteIntelligenceAnswer({required this.responseId});
+}
+
+final class DeleteAutismAnswer extends TestEvent {
+  final int responseId;
+  DeleteAutismAnswer({required this.responseId});
 }
