@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   List<NewappointmentModel> newappointmentModel = [];
   List<RecentVisitedModel> recentVisitedModel = [];
-  List<IntelligenceTestModel> intelligenceTestModel = [];
+  List<IntelligenceTestModel> intelligenceTestList = [];
   List<PlanModel> planModel = [];
 
   List<String> scheduleDate = [];
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               for (var element in response) {
                 newappointmentModel = element.newappointmentModel;
                 recentVisitedModel = element.recentVisitedModel;
-                intelligenceTestModel = element.intelligenceTestModel;
+                intelligenceTestList = element.intelligenceTestModel;
                 planModel = element.planModel;
 
                 for (var element in element.newappointmentModel) {
@@ -541,7 +541,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: TestResultWidget(
                                 isShowTitle: false,
                                 isMobile: isMobile(),
-                                intelligenceData: intelligenceTestModel,
+                                intelligenceData: intelligenceTestList,
                               ),
                             ),
                           ),
