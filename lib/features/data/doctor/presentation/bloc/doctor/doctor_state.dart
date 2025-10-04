@@ -1,6 +1,7 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/doctor/data/model/workscheduel_doctor_model.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -36,4 +37,13 @@ final class AllDoctorResponseState extends DoctorState {
   List<AllDoctorModel> displayAllDoctor;
   List<RecentVisitedModel> displayAllSpecialty;
   AllDoctorResponseState(this.displayAllDoctor, this.displayAllSpecialty);
+}
+
+final class DoctorWorkScheduelResponseState extends DoctorState {
+  List<WorkscheduelDoctorModel> displayDoctorWorkScheduel;
+  DoctorWorkScheduelResponseState(this.displayDoctorWorkScheduel);
+}
+
+final class SetAppointmentResponseState extends DoctorState {
+  SetAppointmentResponseState();
 }

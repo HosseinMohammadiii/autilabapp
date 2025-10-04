@@ -46,7 +46,54 @@ final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         );
       },
     );
+    on<DisplayDoctorWorkScheduel>(
+      (event, emit) async {
+        var workScheduleResponse =
+            await doctorRepository.fetchDoctorWorkSchedule(event.doctorId);
+        workScheduleResponse.fold(
+          (exception) {
+            emit(
+              DoctorError(
+                ApiException(
+                  statusCode: exception.statusCode,
+                  message: exception.message,
+                  type: exception.type,
+                ),
+              ),
+            );
+          },
+          (response) {
+            emit(DoctorWorkScheduelResponseState(response));
+          },
+        );
+      },
+    );
 
+    on<SetAppointmentPatient>(
+      (event, emit) async {
+        var setAppointment = await doctorRepository.setAppointment(
+          event.doctorId,
+          event.scheduelId,
+          event.description,
+        );
+        setAppointment.fold(
+          (exception) {
+            emit(
+              DoctorError(
+                ApiException(
+                  statusCode: exception.statusCode,
+                  message: exception.message,
+                  type: exception.type,
+                ),
+              ),
+            );
+          },
+          (r) {
+            emit(SetAppointmentResponseState());
+          },
+        );
+      },
+    );
     // on<DisplayAllCenters>(
     //   (event, emit) async {
     //     emit(DoctorLoading());

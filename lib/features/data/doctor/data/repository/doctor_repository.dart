@@ -1,6 +1,7 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/doctor/data/datasource/doctor_datasource.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/doctor/data/model/workscheduel_doctor_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -11,6 +12,10 @@ abstract class DoctorRepository {
   Future<Either<ApiException, List<AllDoctorModel>>> fetchDoctorList();
   Future<Either<ApiException, List<RecentVisitedModel>>> fetchAllSpecialty();
   Future<Either<ApiException, List<CenterModel>>> fetchAllCenters();
+  Future<Either<ApiException, List<WorkscheduelDoctorModel>>>
+      fetchDoctorWorkSchedule(int doctorId);
+  Future<Either<ApiException, String>> setAppointment(
+      int doctorId, int scheduelId, String description);
 }
 
 final class DoctorRepositoryRemoot implements DoctorRepository {
@@ -60,6 +65,48 @@ final class DoctorRepositoryRemoot implements DoctorRepository {
     try {
       var center = await datasource.fetchAllCenters();
       return right(center);
+    } on DioException catch (e) {
+      return left(ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown error',
+        type: e.type,
+      ));
+    } catch (e) {
+      return left(ApiException(
+        statusCode: 0,
+        message: 'Unknown error',
+      ));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, List<WorkscheduelDoctorModel>>>
+      fetchDoctorWorkSchedule(int doctorId) async {
+    try {
+      var workScheduleResponse =
+          await datasource.fetchDoctorWorkSchedule(doctorId);
+      return right(workScheduleResponse);
+    } on DioException catch (e) {
+      return left(ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown error',
+        type: e.type,
+      ));
+    } catch (e) {
+      return left(ApiException(
+        statusCode: 0,
+        message: 'Unknown error',
+      ));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, String>> setAppointment(
+      int doctorId, int scheduelId, String description) async {
+    try {
+      var workScheduleResponse =
+          await datasource.setAppointment(doctorId, scheduelId, description);
+      return right(workScheduleResponse);
     } on DioException catch (e) {
       return left(ApiException(
         statusCode: e.response?.statusCode ?? 0,

@@ -59,7 +59,7 @@ class WorkSchedule {
   });
   factory WorkSchedule.fromJson(Map<String, dynamic> jsonObject) {
     return WorkSchedule(
-      id: jsonObject['id'],
+      id: jsonObject['id'] ?? 0,
       doctorid: jsonObject['doctor_id'],
       date: jsonObject['date'],
       starttime: jsonObject['start_time'],

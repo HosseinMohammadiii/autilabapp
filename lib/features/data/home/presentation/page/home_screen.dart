@@ -95,10 +95,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 recentVisitedModel = element.recentVisitedModel;
                 intelligenceTestModel = element.intelligenceTestModel;
                 planModel = element.planModel;
+
                 for (var element in element.newappointmentModel) {
                   DateTime date = DateTime.parse(element.workSchedule.date);
                   DateTime time = DateTime.parse(
                       "${element.workSchedule.date} ${element.workSchedule.starttime}");
+
                   var formatDate = DateFormat(
                     'EEE، d MMM',
                   ).format(date);
@@ -294,17 +296,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               'assets/images/doctor_image.jpg',
                                           doctorName:
                                               '${newappointmentModel[index].doctorModel.doctorUser.firstName} ${newappointmentModel[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty:
-                                              newappointmentModel[index]
-                                                      .doctorModel
-                                                      .doctorSpecialities[0]
-                                                      .name
-                                                      .isNotEmpty
-                                                  ? newappointmentModel[index]
-                                                      .doctorModel
-                                                      .doctorSpecialities[0]
-                                                      .name
-                                                  : '',
+                                          doctorSpecialty: '',
+                                          // newappointmentModel[index]
+                                          //         .doctorModel
+                                          //         .doctorSpecialities[0]
+                                          //         .name
+                                          //         .isNotEmpty
+                                          //     ? newappointmentModel[index]
+                                          //         .doctorModel
+                                          //         .doctorSpecialities[0]
+                                          //         .name
+                                          //     : '',
                                           margin: EdgeInsets.zero,
                                           raiteOnTap: () {},
                                           onTap: () {

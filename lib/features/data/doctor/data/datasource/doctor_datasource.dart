@@ -1,6 +1,7 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/features/data/doctor/data/model/all_doctor_model.dart';
+import 'package:autilab_project/features/data/doctor/data/model/workscheduel_doctor_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../home/data/model/recent_visited_model.dart';
@@ -10,6 +11,9 @@ abstract class DoctorDatasource {
   Future<List<AllDoctorModel>> fetchAllDoctor();
   Future<List<RecentVisitedModel>> fetchAllSpecialty();
   Future<List<CenterModel>> fetchAllCenters();
+  Future<List<WorkscheduelDoctorModel>> fetchDoctorWorkSchedule(int doctorId);
+  Future<String> setAppointment(
+      int doctorId, int scheduelId, String description);
 }
 
 final class DoctorDatasourceRemoot implements DoctorDatasource {
@@ -89,6 +93,69 @@ final class DoctorDatasourceRemoot implements DoctorDatasource {
       return centerList
           .map((jsonObject) => CenterModel.fromJson(jsonObject))
           .toList();
+    } on DioException catch (e) {
+      throw ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown API error',
+        type: e.type,
+      );
+    } catch (e) {
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
+  }
+
+  @override
+  Future<List<WorkscheduelDoctorModel>> fetchDoctorWorkSchedule(
+      int doctorId) async {
+    try {
+      var workScheduleResponse = await dio.get(
+        '/work_schedule/parent_id/$doctorId',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+      List<dynamic> workScheduleResponseList =
+          workScheduleResponse.data['data'];
+
+      return workScheduleResponseList
+          .map((jsonObject) => WorkscheduelDoctorModel.fromJson(jsonObject))
+          .toList();
+    } on DioException catch (e) {
+      throw ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown API error',
+        type: e.type,
+      );
+    } catch (e) {
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
+  }
+
+  @override
+  Future<String> setAppointment(
+      int doctorId, int scheduelId, String description) async {
+    try {
+      var appointmentResponse = await dio.post(
+        '/appointment/',
+        data: {
+          'doctor_id': doctorId,
+          'work_schedule_id': scheduelId,
+          'description': description
+        },
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+
+      return appointmentResponse.data['message'];
     } on DioException catch (e) {
       throw ApiException(
         statusCode: e.response?.statusCode ?? 0,

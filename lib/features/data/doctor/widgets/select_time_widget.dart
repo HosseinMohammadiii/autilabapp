@@ -27,13 +27,12 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
   @override
   Widget build(BuildContext context) {
     List<String> notAvailable = [
-      '10:00 AM',
-      '11:00 AM',
-      '13:00 PM',
-      '18:00 PM',
+      '14:00 PM',
+      '14:30 PM',
+      '15:00 PM',
     ];
     return SliverGrid.builder(
-      itemCount: 12,
+      itemCount: timeAvailable.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisExtent: 40,
