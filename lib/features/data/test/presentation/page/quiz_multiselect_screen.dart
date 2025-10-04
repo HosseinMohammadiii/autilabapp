@@ -145,6 +145,7 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                         listener: (context, state) {
                           if (state is IntelligenceAnswerState) {
                             responseIdList.add(state.id);
+
                             setState(() {
                               if (intelligenceId != 24) {
                                 intelligenceId += 1;
@@ -372,7 +373,7 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                           ),
                                         ),
                                       );
-                                      if (currentPage == 23) {
+                                      if (intelligenceId == 24) {
                                         context.pop();
                                         context.pop();
                                       }
@@ -387,7 +388,9 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                         ? AutilabColor.bb
                                         : AutilabColor.bb
                                             .withValues(alpha: 0.4),
-                                    text: currentPage != 23 ? 'Next' : 'Submit',
+                                    text: intelligenceId != 24
+                                        ? 'Next'
+                                        : 'Submit',
                                     textStyle:
                                         AutilabTextStyle.small18_400.copyWith(
                                       fontSize: isMobile() ? 18 : 24,
