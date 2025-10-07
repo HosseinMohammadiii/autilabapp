@@ -13,21 +13,22 @@ import 'button_card.dart';
 
 // ignore: must_be_immutable
 class DoctorBoxWidget extends StatefulWidget {
-  DoctorBoxWidget({
-    super.key,
-    this.isLike = false,
-    this.isMobile = true,
-    this.user,
-    this.doctorSpecialities,
-    this.doctorRate,
-    this.gender,
-  });
+  DoctorBoxWidget(
+      {super.key,
+      this.isLike = false,
+      this.isMobile = true,
+      this.user,
+      this.doctorSpecialities,
+      this.doctorRate,
+      this.gender,
+      this.id});
   bool isLike;
   final bool isMobile;
   final DoctorUser? user;
   final RecentVisitedModel? doctorSpecialities;
   final String? doctorRate;
   final String? gender;
+  final int? id;
 
   @override
   State<DoctorBoxWidget> createState() => _DoctorBoxWidgetState();
@@ -283,6 +284,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                   'isLike': widget.isLike,
                   'doctorUser': widget.user,
                   'specialty': widget.doctorSpecialities,
+                  'id': widget.id,
                 },
               );
             },

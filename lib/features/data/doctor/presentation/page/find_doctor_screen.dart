@@ -165,107 +165,107 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                                 context,
                                                 isMobile(),
                                                 () {
-                                                  String specialty = '';
-                                                  String gender = '';
-                                                  int rate = 0;
+                                                  // String specialty = '';
+                                                  // String gender = '';
+                                                  // int rate = 0;
 
-                                                  switch (selectedIndexSpecialty
-                                                      .value) {
-                                                    case 0:
-                                                      specialty =
-                                                          categoryItemsList[0]
-                                                              .title;
-                                                      break;
-                                                    case 1:
-                                                      specialty =
-                                                          categoryItemsList[1]
-                                                              .title;
-                                                      break;
-                                                    case 2:
-                                                      specialty =
-                                                          categoryItemsList[2]
-                                                              .title;
-                                                      break;
-                                                    case 3:
-                                                      specialty =
-                                                          categoryItemsList[3]
-                                                              .title;
-                                                      break;
-                                                    case 4:
-                                                      specialty =
-                                                          categoryItemsList[4]
-                                                              .title;
-                                                      break;
-                                                    case 5:
-                                                      specialty =
-                                                          categoryItemsList[5]
-                                                              .title;
-                                                      break;
-                                                    default:
-                                                      gender = '';
-                                                      break;
-                                                  }
-                                                  switch (selectedIndexrating
-                                                      .value) {
-                                                    case 0:
-                                                      rate = 0;
-                                                      break;
-                                                    case 1:
-                                                      rate = 1;
-                                                      break;
-                                                    case 2:
-                                                      rate = 2;
-                                                      break;
-                                                    case 3:
-                                                      rate = 3;
-                                                      break;
-                                                    case 4:
-                                                      rate = 4;
-                                                      break;
-                                                    case 5:
-                                                      rate = 5;
-                                                      break;
-                                                    default:
-                                                      rate = 0;
-                                                      break;
-                                                  }
-                                                  if (selectedGenderMaleNotifier
-                                                      .value!) {
-                                                    gender = 'male';
-                                                  }
-                                                  if (selectedGenderFemaleNotifier
-                                                      .value!) {
-                                                    gender = 'female';
-                                                  }
-                                                  if (selectedGenderMaleNotifier
-                                                              .value! &&
-                                                          selectedGenderFemaleNotifier
-                                                              .value! ||
-                                                      !selectedGenderMaleNotifier
-                                                              .value! &&
-                                                          !selectedGenderFemaleNotifier
-                                                              .value!) {
-                                                    gender = '';
-                                                  }
-                                                  var list = doctorsList.where(
-                                                    (element) {
-                                                      if (element.specialities
-                                                              ?.name ==
-                                                          specialty) {
-                                                        return true;
-                                                      }
-                                                      if (element
-                                                              .user?.gender ==
-                                                          gender) {
-                                                        return true;
-                                                      } else {
-                                                        return false;
-                                                      }
-                                                    },
-                                                  ).toList();
+                                                  // switch (selectedIndexSpecialty
+                                                  //     .value) {
+                                                  //   case 0:
+                                                  //     specialty =
+                                                  //         categoryItemsList[0]
+                                                  //             .title;
+                                                  //     break;
+                                                  //   case 1:
+                                                  //     specialty =
+                                                  //         categoryItemsList[1]
+                                                  //             .title;
+                                                  //     break;
+                                                  //   case 2:
+                                                  //     specialty =
+                                                  //         categoryItemsList[2]
+                                                  //             .title;
+                                                  //     break;
+                                                  //   case 3:
+                                                  //     specialty =
+                                                  //         categoryItemsList[3]
+                                                  //             .title;
+                                                  //     break;
+                                                  //   case 4:
+                                                  //     specialty =
+                                                  //         categoryItemsList[4]
+                                                  //             .title;
+                                                  //     break;
+                                                  //   case 5:
+                                                  //     specialty =
+                                                  //         categoryItemsList[5]
+                                                  //             .title;
+                                                  //     break;
+                                                  //   default:
+                                                  //     gender = '';
+                                                  //     break;
+                                                  // }
+                                                  // switch (selectedIndexrating
+                                                  //     .value) {
+                                                  //   case 0:
+                                                  //     rate = 0;
+                                                  //     break;
+                                                  //   case 1:
+                                                  //     rate = 1;
+                                                  //     break;
+                                                  //   case 2:
+                                                  //     rate = 2;
+                                                  //     break;
+                                                  //   case 3:
+                                                  //     rate = 3;
+                                                  //     break;
+                                                  //   case 4:
+                                                  //     rate = 4;
+                                                  //     break;
+                                                  //   case 5:
+                                                  //     rate = 5;
+                                                  //     break;
+                                                  //   default:
+                                                  //     rate = 0;
+                                                  //     break;
+                                                  // }
+                                                  // if (selectedGenderMaleNotifier
+                                                  //     .value!) {
+                                                  //   gender = 'male';
+                                                  // }
+                                                  // if (selectedGenderFemaleNotifier
+                                                  //     .value!) {
+                                                  //   gender = 'female';
+                                                  // }
+                                                  // if (selectedGenderMaleNotifier
+                                                  //             .value! &&
+                                                  //         selectedGenderFemaleNotifier
+                                                  //             .value! ||
+                                                  //     !selectedGenderMaleNotifier
+                                                  //             .value! &&
+                                                  //         !selectedGenderFemaleNotifier
+                                                  //             .value!) {
+                                                  //   gender = '';
+                                                  // }
+                                                  // var list = doctorsList.where(
+                                                  //   (element) {
+                                                  //     if (element.specialities
+                                                  //             ?.name ==
+                                                  //         specialty) {
+                                                  //       return true;
+                                                  //     }
+                                                  //     if (element
+                                                  //             .user?.gender ==
+                                                  //         gender) {
+                                                  //       return true;
+                                                  //     } else {
+                                                  //       return false;
+                                                  //     }
+                                                  //   },
+                                                  // ).toList();
 
-                                                  // print(
-                                                  //     "Specialty: $specialty ---- Gender: $gender ---- Rating: $rate List length:${list.length}");
+                                                  // // print(
+                                                  // //     "Specialty: $specialty ---- Gender: $gender ---- Rating: $rate List length:${list.length}");
                                                   context.pop();
                                                 },
                                               ),
@@ -372,6 +372,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                       return DoctorBoxWidget(
                                         isMobile: isMobile(),
                                         isLike: false,
+                                        id: doctorsList[index].id,
                                         gender:
                                             doctorsList[index].user?.gender ??
                                                 'male',

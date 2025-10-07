@@ -151,12 +151,14 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
         }
 
         return PopScope(
-          canPop:
-              GoRouterState.of(context).uri.path != 'homeScreen' ? false : true,
+          canPop: selectIndex != 0 ? false : true,
           onPopInvokedWithResult: (didPop, result) {
-            if (GoRouterState.of(context).uri.path != 'homeScreen') {
-              context.go('homeScreen');
-            }
+            // if (GoRouterState.of(context).uri.path != 'homeScreen') {
+            //   context.go('homeScreen');
+            // }
+            setState(() {
+              selectIndex = 0;
+            });
           },
           child: ResponsiveLayout(
             child: Scaffold(
@@ -457,8 +459,11 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                 break;
 
                               case 1:
-                                context
-                                    .pushNamed(AutiLabRoutes.testHistoryScreen);
+                                context.pushNamed(
+                                    AutiLabRoutes.testHistoryScreen,
+                                    pathParameters: {
+                                      'initialPage': '0',
+                                    });
                                 break;
 
                               case 2:

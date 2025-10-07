@@ -1,7 +1,7 @@
 //Method for calculating age by receiving the date of birth API
 int calculateAge(String dateFromApi) {
   // convert DateTime to String
-  DateTime birthDate = DateTime.parse(dateFromApi);
+  DateTime? birthDate = DateTime.tryParse(dateFromApi) ?? DateTime.now();
 
   // DateTime now
   DateTime now = DateTime.now();

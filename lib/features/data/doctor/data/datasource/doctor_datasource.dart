@@ -9,9 +9,11 @@ import '../model/center_model.dart';
 
 abstract class DoctorDatasource {
   Future<List<AllDoctorModel>> fetchAllDoctor();
+  Future<List<SpecialtyDoctor>> fetchSpecialtyDoctor(int doctorId);
   Future<List<RecentVisitedModel>> fetchAllSpecialty();
   Future<List<CenterModel>> fetchAllCenters();
   Future<List<WorkscheduelDoctorModel>> fetchDoctorWorkSchedule(int doctorId);
+  Future<List<Time>> fetchSpecialtyDoctorWorkSchedule(int workScheduleId);
   Future<String> setAppointment(
       int doctorId, int scheduelId, String description);
 }
@@ -156,6 +158,62 @@ final class DoctorDatasourceRemoot implements DoctorDatasource {
       );
 
       return appointmentResponse.data['message'];
+    } on DioException catch (e) {
+      rethrow;
+    } catch (e) {
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
+  }
+
+  @override
+  Future<List<Time>> fetchSpecialtyDoctorWorkSchedule(
+      int workScheduleId) async {
+    try {
+      var workScheduleResponse = await dio.get(
+        '/work_schedule/$workScheduleId',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+      List<dynamic> workScheduleResponseList =
+          workScheduleResponse.data['data'];
+
+      return workScheduleResponseList
+          .map((jsonObject) => Time.fromJson(jsonObject))
+          .toList();
+    } on DioException catch (e) {
+      throw ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown API error',
+        type: e.type,
+      );
+    } catch (e) {
+      throw ApiException(statusCode: 0, message: 'Unknown message');
+    }
+  }
+
+  @override
+  Future<List<SpecialtyDoctor>> fetchSpecialtyDoctor(int doctorId) async {
+    try {
+      var doctorResponse = await dio.get(
+        '/doctor_info/parent_id/$doctorId',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+      List<dynamic> doctorResponseResponseList = doctorResponse.data['data'];
+
+      return doctorResponseResponseList
+          .map((jsonObject) => SpecialtyDoctor.fromJson(jsonObject))
+          .toList();
     } on DioException catch (e) {
       throw ApiException(
         statusCode: e.response?.statusCode ?? 0,

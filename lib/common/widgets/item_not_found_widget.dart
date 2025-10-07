@@ -33,7 +33,7 @@ class ItemNotFoundWidget extends StatelessWidget {
         CustomButtonWidget(
           isMobile: isMobile,
           onTap: () {
-            context.goNamed(AutiLabRoutes.doctorScreen);
+            // context.goNamed(AutiLabRoutes.doctorScreen);
           },
           height: 50,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),

@@ -8,6 +8,7 @@ import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_state.dart';
+import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,7 @@ import '../../../../../common/widgets/responsive_widget.dart';
 import '../../../../../core/network/shared_preferences.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../common/widgets/appbar_back_screen.dart';
+import '../../../home/presentation/bloc/home_event.dart';
 
 // ignore: must_be_immutable
 class LogInScreen extends StatefulWidget {
@@ -174,7 +176,7 @@ class _LogInScreenState extends State<LogInScreen>
                                 state.response.fold(
                                     (error) => displaySnackBar(
                                           context,
-                                          error,
+                                          error.message,
                                           AutilabColor.bb,
                                         ), (respose) async {
                                   await SharedPreferencesData.userLogIn(true);
@@ -183,6 +185,8 @@ class _LogInScreenState extends State<LogInScreen>
 
                                   BlocProvider.of<AuthenticationBloc>(context)
                                       .add(DisplayInformationUser());
+                                  BlocProvider.of<HomeBloc>(context)
+                                      .add(DisplayHomeContent());
 
                                   context.goNamed(
                                       AutiLabRoutes.bottomNavigationScreen);

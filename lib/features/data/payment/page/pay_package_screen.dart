@@ -98,7 +98,7 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                       height: 40,
                     ),
                     SizedBox(
-                      height: 480,
+                      height: 510,
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.only(

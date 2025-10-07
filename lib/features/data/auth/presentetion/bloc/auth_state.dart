@@ -1,3 +1,4 @@
+import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -18,7 +19,7 @@ final class AuthenticationError extends AuthenticationState {
 
 /// State indicating successful receipt of authentication response
 final class AuthenticationResponse extends AuthenticationState {
-  Either<String, String> response;
+  Either<ApiException, String> response;
   AuthenticationResponse(this.response);
 }
 

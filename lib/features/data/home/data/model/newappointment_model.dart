@@ -69,3 +69,28 @@ class WorkSchedule {
     );
   }
 }
+
+class AppointmentClass {
+  final int id;
+  final int patientid;
+  final int doctorid;
+  final int workscheduleid;
+  final String status;
+  AppointmentClass({
+    required this.id,
+    required this.patientid,
+    required this.doctorid,
+    required this.workscheduleid,
+    required this.status,
+  });
+
+  factory AppointmentClass.fromJson(Map<String, dynamic> jsonObject) {
+    return AppointmentClass(
+      id: jsonObject['id'] ?? 0,
+      patientid: jsonObject['patient_id'] ?? 0,
+      doctorid: jsonObject['doctor_id'] ?? 0,
+      workscheduleid: jsonObject['work_schedule_id'] ?? 0,
+      status: jsonObject['status'] ?? 'PENDING',
+    );
+  }
+}

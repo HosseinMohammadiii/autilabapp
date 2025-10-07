@@ -106,7 +106,9 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                         doctorName:
                             '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}',
                         doctorSpecialtyl:
-                            widget.doctorModel?.doctorSpecialities[0].name,
+                            widget.doctorModel!.doctorSpecialities.isNotEmpty
+                                ? widget.doctorModel?.doctorSpecialities[0].name
+                                : '',
                         isMobile: isMobile(),
                         dateTimeSchedule: widget.dateTimeSchedule,
                       ),

@@ -55,7 +55,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
-    BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
+    BlocProvider.of<HomeBloc>(context).add(DisplayAppointmentList());
   }
 
   @override
@@ -74,41 +74,39 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state is HomeFetchData) {
-          state.homeResponse.fold(
+        if (state is AppointmentFetchData) {
+          state.appointmentResponse.fold(
             (l) {},
             (response) {
               //Control list values based on status newappointmentModel
               for (var element in response) {
-                for (var element2 in element.newappointmentModel) {
-                  // Parse the appointment date
-                  DateTime date = DateTime.parse(element2.workSchedule.date);
+                // Parse the appointment date
+                // DateTime date = DateTime.parse(element.workSchedule.date);
 
-                  // Format date as "Day, d Month"
-                  String formattedDate = DateFormat('EEE، d MMM').format(date);
+                // // Format date as "Day, d Month"
+                // String formattedDate = DateFormat('EEE، d MMM').format(date);
 
-                  // Parse and combine date with start time
-                  DateTime time = DateTime.parse(
-                      "${element2.workSchedule.date} ${element2.workSchedule.starttime}");
+                // // Parse and combine date with start time
+                // DateTime time = DateTime.parse(
+                //     "${element.workSchedule.date} ${element.workSchedule.starttime}");
 
-                  // Format time as "HH:mm"
-                  String formattedTime = DateFormat('HH:mm').format(time);
+                // // Format time as "HH:mm"
+                // String formattedTime = DateFormat('HH:mm').format(time);
 
-                  // Categorize appointments based on status
-                  if (element2.status == 'APPROVED') {
-                    approvedList.add(element2);
-                    dateTimeApprovedList.add(DateTimeSchedule(
-                        date: formattedDate, time: formattedTime));
-                  } else if (element2.status == 'CANCELLED') {
-                    cancelledList.add(element2);
-                    dateTimeCancelledList.add(DateTimeSchedule(
-                        date: formattedDate, time: formattedTime));
-                  } else {
-                    pendingList.add(element2);
-                    dateTimePendingList.add(DateTimeSchedule(
-                        date: formattedDate, time: formattedTime));
-                  }
-                }
+                // // Categorize appointments based on status
+                // if (element.status == 'APPROVED') {
+                //   approvedList.add(element);
+                //   dateTimeApprovedList.add(DateTimeSchedule(
+                //       date: formattedDate, time: formattedTime));
+                // } else if (element.status == 'CANCELLED') {
+                //   cancelledList.add(element);
+                //   dateTimeCancelledList.add(DateTimeSchedule(
+                //       date: formattedDate, time: formattedTime));
+                // } else {
+                //   pendingList.add(element);
+                //   dateTimePendingList.add(DateTimeSchedule(
+                //       date: formattedDate, time: formattedTime));
+                // }
               }
             },
           );
@@ -121,16 +119,16 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
         if (state is HomeErrorHandling) {
           return NotConnectionInternetScreen(
             onChange: () async {
-              context.read<HomeBloc>().add(DisplayHomeContent());
+              context.read<HomeBloc>().add(DisplayAppointmentList());
             },
           );
         }
-        if (state is HomeFetchData) {
-          return state.homeResponse.fold(
+        if (state is AppointmentFetchData) {
+          return state.appointmentResponse.fold(
             (l) {
               return NotConnectionInternetScreen(
                 onChange: () async {
-                  context.read<HomeBloc>().add(DisplayHomeContent());
+                  context.read<HomeBloc>().add(DisplayAppointmentList());
                 },
               );
             },

@@ -12,7 +12,7 @@ class RecentVisitedModel {
     return RecentVisitedModel(
       name: jsonObject['name'] ?? '',
       imagePath: jsonObject['image_path'] ?? '',
-      codeColor: jsonObject['code_color'] ?? '',
+      codeColor: jsonObject['code_color'] ?? '0xffC772FF',
     );
   }
 }

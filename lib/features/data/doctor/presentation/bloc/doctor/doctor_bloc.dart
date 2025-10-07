@@ -46,8 +46,32 @@ final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         );
       },
     );
+    on<DisplaySpecialtyDoctor>(
+      (event, emit) async {
+        emit(DoctorLoading());
+        var doctorResponse =
+            await doctorRepository.fetchSpecialtyDoctor(event.doctorId);
+        doctorResponse.fold(
+          (exception) {
+            emit(
+              DoctorError(
+                ApiException(
+                  statusCode: exception.statusCode,
+                  message: exception.message,
+                  type: exception.type,
+                ),
+              ),
+            );
+          },
+          (response) {
+            emit(SpecialtyDoctorResponse(response));
+          },
+        );
+      },
+    );
     on<DisplayDoctorWorkScheduel>(
       (event, emit) async {
+        emit(DoctorLoading());
         var workScheduleResponse =
             await doctorRepository.fetchDoctorWorkSchedule(event.doctorId);
         workScheduleResponse.fold(
@@ -68,9 +92,33 @@ final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         );
       },
     );
+    on<DisplaySpecialtyDoctorWorkScheduel>(
+      (event, emit) async {
+        emit(WorkScheduelDoctorLoading());
+        var specialtyWorkScheduleResponse = await doctorRepository
+            .fetchSpecialtyDoctorWorkSchedule(event.workScheduleId);
+        specialtyWorkScheduleResponse.fold(
+          (exception) {
+            emit(
+              DoctorError(
+                ApiException(
+                  statusCode: exception.statusCode,
+                  message: exception.message,
+                  type: exception.type,
+                ),
+              ),
+            );
+          },
+          (response) {
+            emit(SpecialtyDoctorWorkScheduelResponseState(response));
+          },
+        );
+      },
+    );
 
     on<SetAppointmentPatient>(
       (event, emit) async {
+        emit(SetAppointmentLoading());
         var setAppointment = await doctorRepository.setAppointment(
           event.doctorId,
           event.scheduelId,
@@ -79,7 +127,7 @@ final class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
         setAppointment.fold(
           (exception) {
             emit(
-              DoctorError(
+              SetAppointmentError(
                 ApiException(
                   statusCode: exception.statusCode,
                   message: exception.message,

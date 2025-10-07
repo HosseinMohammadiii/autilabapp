@@ -1,5 +1,5 @@
 class WorkscheduelDoctorModel {
-  final int id;
+  final String id;
   final int doctorId;
   final String date;
   final List<Time> times;
@@ -19,7 +19,7 @@ class WorkscheduelDoctorModel {
             .toList() ??
         [];
     return WorkscheduelDoctorModel(
-      id: json['id'] ?? 0,
+      id: json['merged work_schedules IDs'] ?? '0',
       doctorId: json['doctor_id'],
       date: json['date'],
       times: timesList,
@@ -28,12 +28,14 @@ class WorkscheduelDoctorModel {
 }
 
 class Time {
+  final String date;
   final String starttime;
   final String endtime;
   final bool isavailable;
   final int slotduration;
 
   Time({
+    required this.date,
     required this.starttime,
     required this.endtime,
     required this.isavailable,
@@ -42,10 +44,11 @@ class Time {
 
   factory Time.fromJson(Map<String, dynamic> json) {
     return Time(
-      starttime: json['start_time'],
-      endtime: json['end_time'],
-      isavailable: json['is_available'],
-      slotduration: json['slot_duration'],
+      date: json['date'] ?? '',
+      starttime: json['start_time'] ?? '',
+      endtime: json['end_time'] ?? '',
+      isavailable: json['is_available'] ?? true,
+      slotduration: json['slot_duration'] ?? 0,
     );
   }
 }

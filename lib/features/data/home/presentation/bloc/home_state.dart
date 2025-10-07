@@ -1,4 +1,5 @@
 import 'package:autilab_project/features/data/home/data/model/home_model.dart';
+import 'package:autilab_project/features/data/home/data/model/newappointment_model.dart';
 import 'package:dartz/dartz.dart';
 
 //َ/ HomeState abstract class
@@ -20,4 +21,9 @@ final class HomeErrorHandling extends HomeState {
 final class HomeFetchData extends HomeState {
   Either<String, List<HomeModel>> homeResponse;
   HomeFetchData(this.homeResponse);
+}
+
+final class AppointmentFetchData extends HomeState {
+  Either<String, List<AppointmentClass>> appointmentResponse;
+  AppointmentFetchData(this.appointmentResponse);
 }

@@ -13,6 +13,7 @@ import 'package:autilab_project/features/data/test/presentation/bloc/test_event.
 import 'package:autilab_project/features/data/test/presentation/bloc/test_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,7 +34,11 @@ class TalentTest {
 }
 
 class TestHistoryScreen extends StatefulWidget {
-  const TestHistoryScreen({super.key});
+  const TestHistoryScreen({
+    super.key,
+    required this.initialIndexPage,
+  });
+  final int initialIndexPage;
 
   @override
   State<TestHistoryScreen> createState() => _TestHistoryScreenState();
@@ -127,6 +132,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                     return DefaultTabController(
                       animationDuration: const Duration(seconds: 1),
                       length: 2,
+                      initialIndex: widget.initialIndexPage,
                       child: Scaffold(
                         appBar: AppBar(
                           leading: appBarWidget(
@@ -289,13 +295,53 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                                       return const LoadingProgressWidget();
                                     }
                                     if (state is TestError) {
-                                      return NotConnectionInternetScreen(
-                                        onChange: () async {
-                                          context
-                                              .read<TestBloc>()
-                                              .add(DisplayAutismTestResult());
-                                        },
-                                      );
+                                      if (state.errorMessage.statusCode ==
+                                          404) {
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/icons/item_notfound.svg',
+                                              width: isMobile() ? 160 : 240,
+                                              height: isMobile() ? 160 : 240,
+                                            ),
+                                            Text(
+                                              'Item Not Found',
+                                              style: AutilabTextStyle
+                                                  .medium20_500
+                                                  .copyWith(
+                                                fontSize: isMobile() ? 20 : 32,
+                                              ),
+                                            ),
+                                            CustomButtonWidget(
+                                              isMobile: isMobile(),
+                                              onTap: () {
+                                                context.pushNamed(AutiLabRoutes
+                                                    .typeTestsScreen);
+                                              },
+                                              height: 50,
+                                              margin: const EdgeInsets.only(
+                                                  bottom: 48,
+                                                  top: 48,
+                                                  right: 20,
+                                                  left: 20),
+                                              color: AutilabColor.bb,
+                                              text: 'Take Test',
+                                              textStyle:
+                                                  AutilabTextStyle.small18_400,
+                                            ),
+                                          ],
+                                        );
+                                      } else {
+                                        return NotConnectionInternetScreen(
+                                          onChange: () async {
+                                            context
+                                                .read<TestBloc>()
+                                                .add(DisplayAutismTestResult());
+                                          },
+                                        );
+                                      }
                                     }
                                     if (state is DisplayAutismTestResultState) {
                                       for (var element

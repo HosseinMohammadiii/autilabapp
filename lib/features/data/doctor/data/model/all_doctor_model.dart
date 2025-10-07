@@ -38,3 +38,37 @@ class AllDoctorModel {
     );
   }
 }
+
+class SpecialtyDoctor {
+  int? id;
+  int? userid;
+  String? degree;
+  String? description;
+  DoctorUser? user;
+  List<RecentVisitedModel>? specialities;
+  SpecialtyDoctor(
+    this.id,
+    this.userid,
+    this.degree,
+    this.description,
+    this.user,
+    this.specialities,
+  );
+
+  factory SpecialtyDoctor.fromJson(Map<String, dynamic> jsonObject) {
+    var doctorSpecialitiesList = (jsonObject['specialities'] as List<dynamic>?)
+            ?.map(
+              (item) => RecentVisitedModel.fromJson(item),
+            )
+            .toList() ??
+        [];
+    return SpecialtyDoctor(
+      jsonObject['id'],
+      jsonObject['user_id'],
+      jsonObject['degree'] ?? '',
+      jsonObject['description'] ?? '',
+      DoctorUser.fromJson(jsonObject['user']),
+      doctorSpecialitiesList,
+    );
+  }
+}

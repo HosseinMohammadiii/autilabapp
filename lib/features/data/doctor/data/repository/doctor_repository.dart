@@ -10,10 +10,14 @@ import '../model/center_model.dart';
 
 abstract class DoctorRepository {
   Future<Either<ApiException, List<AllDoctorModel>>> fetchDoctorList();
+  Future<Either<ApiException, List<SpecialtyDoctor>>> fetchSpecialtyDoctor(
+      int doctorId);
   Future<Either<ApiException, List<RecentVisitedModel>>> fetchAllSpecialty();
   Future<Either<ApiException, List<CenterModel>>> fetchAllCenters();
   Future<Either<ApiException, List<WorkscheduelDoctorModel>>>
       fetchDoctorWorkSchedule(int doctorId);
+  Future<Either<ApiException, List<Time>>> fetchSpecialtyDoctorWorkSchedule(
+      int workScheduleId);
   Future<Either<ApiException, String>> setAppointment(
       int doctorId, int scheduelId, String description);
 }
@@ -107,6 +111,47 @@ final class DoctorRepositoryRemoot implements DoctorRepository {
       var workScheduleResponse =
           await datasource.setAppointment(doctorId, scheduelId, description);
       return right(workScheduleResponse);
+    } on DioException catch (e) {
+      return left(ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown error',
+        type: e.type,
+      ));
+    } catch (e) {
+      return left(ApiException(
+        statusCode: 0,
+        message: 'Unknown error',
+      ));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, List<Time>>> fetchSpecialtyDoctorWorkSchedule(
+      int workScheduleId) async {
+    try {
+      var workScheduleResponse =
+          await datasource.fetchSpecialtyDoctorWorkSchedule(workScheduleId);
+      return right(workScheduleResponse);
+    } on DioException catch (e) {
+      return left(ApiException(
+        statusCode: e.response?.statusCode ?? 0,
+        message: e.response?.statusMessage ?? 'Unknown error',
+        type: e.type,
+      ));
+    } catch (e) {
+      return left(ApiException(
+        statusCode: 0,
+        message: 'Unknown error',
+      ));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, List<SpecialtyDoctor>>> fetchSpecialtyDoctor(
+      int doctorId) async {
+    try {
+      var doctorResponse = await datasource.fetchSpecialtyDoctor(doctorId);
+      return right(doctorResponse);
     } on DioException catch (e) {
       return left(ApiException(
         statusCode: e.response?.statusCode ?? 0,

@@ -42,11 +42,7 @@ final class AuthenticationUserDatasourceRemoot
         return '';
       }
     } on DioException catch (ex) {
-      throw ApiException(
-        statusCode:
-            ex.response?.statusCode != null ? ex.response!.statusCode! : 0,
-        message: ex.response?.data['message'],
-      );
+      rethrow;
     } catch (e) {
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }
@@ -69,10 +65,7 @@ final class AuthenticationUserDatasourceRemoot
         return '';
       }
     } on DioException catch (ex) {
-      throw ApiException(
-        statusCode: ex.response?.statusCode ?? 0,
-        message: ex.response?.data['message'] ?? 'Unknown message',
-      );
+      rethrow;
     } catch (e) {
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }

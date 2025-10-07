@@ -14,16 +14,30 @@ final class DoctorInitiateState extends DoctorState {}
 ///Loading state for fetch or send data
 final class DoctorLoading extends DoctorState {}
 
+final class WorkScheduelDoctorLoading extends DoctorState {}
+
+final class SetAppointmentLoading extends DoctorState {}
+
 ///Represents the state when an error occurs during the doctor process
 final class DoctorError extends DoctorState {
   ApiException errorMessage;
   DoctorError(this.errorMessage);
 }
 
+final class SetAppointmentError extends DoctorState {
+  ApiException errorMessage;
+  SetAppointmentError(this.errorMessage);
+}
+
 /// State indicating successful receipt of doctor response
 final class DoctorResponse extends DoctorState {
   Either<String, String> response;
   DoctorResponse(this.response);
+}
+
+final class SpecialtyDoctorResponse extends DoctorState {
+  List<SpecialtyDoctor> response;
+  SpecialtyDoctorResponse(this.response);
 }
 
 /// State indicating successful receipt of doctor response
@@ -42,6 +56,12 @@ final class AllDoctorResponseState extends DoctorState {
 final class DoctorWorkScheduelResponseState extends DoctorState {
   List<WorkscheduelDoctorModel> displayDoctorWorkScheduel;
   DoctorWorkScheduelResponseState(this.displayDoctorWorkScheduel);
+}
+
+final class SpecialtyDoctorWorkScheduelResponseState extends DoctorState {
+  List<Time> displaySpecialtyDoctorWorkScheduel;
+  SpecialtyDoctorWorkScheduelResponseState(
+      this.displaySpecialtyDoctorWorkScheduel);
 }
 
 final class SetAppointmentResponseState extends DoctorState {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/theme_constant.dart' show AutilabTextStyle;
-import '../../../../utils/Lists/time_date_list.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/make_appointment_screen.dart';
 
 class SelectTimeWidget extends StatefulWidget {
   const SelectTimeWidget({
@@ -11,11 +10,14 @@ class SelectTimeWidget extends StatefulWidget {
     this.isSelect = true,
     this.backgroundColor,
     this.isMobile = true,
+    this.timeWorkScheduel,
   });
+
   final bool isMobile;
   final Function(String? time) onTap;
   final bool? isSelect;
   final Color? backgroundColor;
+  final TimeWorkScheduel? timeWorkScheduel;
 
   @override
   State<SelectTimeWidget> createState() => _SelectTimeWidgetState();
@@ -23,16 +25,73 @@ class SelectTimeWidget extends StatefulWidget {
 
 class _SelectTimeWidgetState extends State<SelectTimeWidget> {
   String selectedTime = '';
+  List<String> slots = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _generateTimeSlotsOnce();
+  }
+
+  void _generateTimeSlotsOnce() {
+    if (widget.timeWorkScheduel == null) return;
+
+    final startTime = widget.timeWorkScheduel!.startTime;
+    final endTime = widget.timeWorkScheduel!.endTime;
+    final slotDuration = widget.timeWorkScheduel!.slotDuration;
+
+    if (startTime.isNotEmpty && endTime.isNotEmpty && slotDuration > 0) {
+      slots = generateTimeSlots(startTime, endTime, slotDuration);
+    }
+  }
+
+  List<String> generateTimeSlots(
+      String startTime, String endTime, int intervalMinutes) {
+    DateTime now = DateTime.now();
+
+    String fixTime(String t) {
+      if (t.contains("AM") || t.contains("PM")) {
+        final time = TimeOfDay.fromDateTime(
+            DateTime.parse("2020-01-01 ${t.replaceAll(" ", "")}"));
+        return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00";
+      }
+      return t.length == 5 ? "$t:00" : t;
+    }
+
+    final startStr = fixTime(startTime);
+    final endStr = fixTime(endTime);
+
+    DateTime start =
+        DateTime.parse("${now.toIso8601String().split('T').first} $startStr");
+    DateTime end =
+        DateTime.parse("${now.toIso8601String().split('T').first} $endStr");
+
+    if (end.isBefore(start)) {
+      end = end.add(const Duration(days: 1));
+    }
+
+    List<String> slots = [];
+    DateTime current = start;
+
+    while (current.isBefore(end)) {
+      slots.add(
+          "${current.hour.toString().padLeft(2, '0')}:${current.minute.toString().padLeft(2, '0')}");
+      current = current.add(Duration(minutes: intervalMinutes));
+    }
+
+    return slots;
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<String> notAvailable = [
-      '14:00 PM',
-      '14:30 PM',
-      '15:00 PM',
-    ];
+    if (slots.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: SizedBox(),
+      );
+    }
+
     return SliverGrid.builder(
-      itemCount: timeAvailable.length,
+      itemCount: slots.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisExtent: 40,
@@ -40,34 +99,31 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
         crossAxisSpacing: widget.isMobile ? 10 : 38,
       ),
       itemBuilder: (context, index) {
-        String time = timeAvailable[index];
-        bool isSelected = selectedTime == time;
+        final time = slots[index];
+        final isSelected = selectedTime == time;
 
         return GestureDetector(
           onTap: () {
-            if (time.isNotEmpty &&
-                widget.isSelect == true &&
-                notAvailable.contains(timeAvailable[index])) {
-              setState(() {
-                selectedTime = time;
-              });
-              widget.onTap(time);
-            }
+            setState(() {
+              selectedTime = time;
+            });
+            widget.onTap(time);
           },
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: isSelected
                   ? AutilabColor.blue
-                  : (notAvailable.contains(timeAvailable[index]))
-                      ? AutilabColor.bb
-                      : widget.backgroundColor ?? const Color(0xffFBE4E4),
+                  : widget.backgroundColor ?? AutilabColor.backgroundDrawer,
               borderRadius: BorderRadius.circular(widget.isMobile ? 8 : 24),
             ),
             child: Text(
-              timeAvailable[index],
+              time,
               style: AutilabTextStyle.small14_400.copyWith(
                 fontSize: widget.isMobile ? 14 : 18,
+                color: isSelected
+                    ? AutilabColor.backgroundDrawer
+                    : AutilabColor.black,
               ),
             ),
           ),

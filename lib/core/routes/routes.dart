@@ -283,6 +283,7 @@ class AutilabRouter {
               isLike: extraData['isLike'],
               user: extraData['doctorUser'],
               specialty: extraData['specialty'],
+              id: extraData['id'],
             );
           }),
       GoRoute(
@@ -348,9 +349,14 @@ class AutilabRouter {
         builder: (context, state) => const NotificationScreen(),
       ),
       GoRoute(
-        path: '/testHistoryScreen',
+        path: '/testHistoryScreen/:initialPage',
         name: AutiLabRoutes.testHistoryScreen,
-        builder: (context, state) => const TestHistoryScreen(),
+        builder: (context, state) {
+          return TestHistoryScreen(
+            initialIndexPage:
+                int.parse(state.pathParameters['initialPage'] ?? '1'),
+          );
+        },
         routes: [
           GoRoute(
             path: '/testDescriptionScreen',

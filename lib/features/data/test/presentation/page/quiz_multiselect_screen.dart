@@ -4,6 +4,7 @@ import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 // import 'package:autilab_project/common/widgets/custom_textfield.dart';
 // import 'package:autilab_project/common/widgets/loading_indicator_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
+import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/test/presentation/bloc/test_bloc.dart';
 import 'package:autilab_project/features/data/test/presentation/bloc/test_event.dart';
@@ -391,8 +392,12 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                         ),
                                       );
                                       if (intelligenceId == 24) {
-                                        context.pop();
-                                        context.pop();
+                                        context.pushNamed(
+                                          AutiLabRoutes.testHistoryScreen,
+                                          pathParameters: {
+                                            'initialPage': '0',
+                                          },
+                                        );
                                       }
                                     },
                                     width: isMobile() ? 166 : 350,

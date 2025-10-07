@@ -16,7 +16,7 @@ class CalendarGrid extends StatefulWidget {
   });
 
   final bool isMobile;
-  final Function(DateTime? day) onTap;
+  final Function(DateTime? day, int id) onTap;
   final bool isSelect;
   final int date;
   final List<DayCalss> availableDays;
@@ -139,7 +139,7 @@ class _CalendarGridState extends State<CalendarGrid> {
                         setState(() {
                           selectedDate = day;
                         });
-                        widget.onTap(day);
+                        widget.onTap(day, availableDay.id);
                       }
                     : null,
                 child: Container(

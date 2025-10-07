@@ -10,6 +10,10 @@ class ApiException {
         message = 'connectionError';
         type = DioExceptionType.connectionError;
         break;
+      case 404:
+        message = 'NOT FOUND';
+        type = DioExceptionType.badResponse;
+        break;
       default:
     }
   }

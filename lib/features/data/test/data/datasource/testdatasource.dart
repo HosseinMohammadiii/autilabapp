@@ -233,9 +233,11 @@ final class TestdatasourceRemoot implements Testdatasource {
               (jsonObject) => AutismTestResult.fromJson(jsonObject))
           .toList();
     } on DioException catch (e) {
-      throw ApiException(
-          statusCode: e.response?.statusCode ?? 0,
-          message: e.response?.statusMessage ?? 'Unknown API error');
+      // throw ApiException(
+      //     statusCode: e.response?.statusCode ?? 0,
+      //     message: e.response?.statusMessage ?? 'Unknown API error',
+      //     type: e.type);
+      rethrow;
     } catch (e) {
       throw ApiException(statusCode: 0, message: 'Unknown message');
     }

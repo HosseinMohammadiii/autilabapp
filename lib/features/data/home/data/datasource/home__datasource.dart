@@ -1,11 +1,13 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/home/data/model/home_model.dart';
+import 'package:autilab_project/features/data/home/data/model/newappointment_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../../core/network/shared_preferences.dart';
 
 abstract class HomeDataSource {
   Future<List<HomeModel>> getNewAppointmentList();
+  Future<List<AppointmentClass>> fetchAppointmentList();
 }
 
 final class HomeDataSourceRemoot implements HomeDataSource {
@@ -27,6 +29,39 @@ final class HomeDataSourceRemoot implements HomeDataSource {
       return response.data['data']
           .map<HomeModel>(
             (jsonObject) => HomeModel.fromJson(
+              jsonObject,
+            ),
+          )
+          .toList();
+    } on DioException catch (ex) {
+      throw ApiException(
+        statusCode: ex.response?.statusCode ?? 0,
+        message: ex.response?.statusMessage ?? 'Unknow message',
+      );
+    } catch (e) {
+      throw ApiException(
+        statusCode: 0,
+        message: 'Unknow message',
+      );
+    }
+  }
+
+  @override
+  Future<List<AppointmentClass>> fetchAppointmentList() async {
+    try {
+      var response = await dio.get(
+        '/appointment/',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization':
+                'Bearer ${await SharedPreferencesData.getUserToken()}',
+          },
+        ),
+      );
+      return response.data['data']
+          .map<AppointmentClass>(
+            (jsonObject) => AppointmentClass.fromJson(
               jsonObject,
             ),
           )

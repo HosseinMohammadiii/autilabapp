@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../common/widgets/responsive_widget.dart';
+import '../../../../../core/constants/constant_routes.dart';
 import '../../../../../core/network/locator.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../data/model/intelligence_model.dart';
@@ -348,8 +349,12 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                   ),
                                 );
                                 if (autismtestId == 30) {
-                                  context.pop();
-                                  context.pop();
+                                  context.pushNamed(
+                                    AutiLabRoutes.testHistoryScreen,
+                                    pathParameters: {
+                                      'initialPage': '1',
+                                    },
+                                  );
                                 }
                               },
                               width: isMobile() ? 166 : 350,

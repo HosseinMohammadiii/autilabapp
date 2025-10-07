@@ -17,6 +17,8 @@ import '../../../../../core/constants/constant_routes.dart';
 import '../../../../../core/network/shared_preferences.dart';
 import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../common/widgets/appbar_back_screen.dart';
+import '../../../home/presentation/bloc/home_bloc.dart';
+import '../../../home/presentation/bloc/home_event.dart';
 import '../../data/model/user_param.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -222,7 +224,7 @@ class _SignupScreenState extends State<SignupScreen>
                                   (error) {
                                     displaySnackBar(
                                       context,
-                                      error,
+                                      error.message,
                                       AutilabColor.bb,
                                     );
                                   },
@@ -230,6 +232,10 @@ class _SignupScreenState extends State<SignupScreen>
                                     await SharedPreferencesData.userLogIn(true);
                                     await SharedPreferencesData
                                         .isFirstTimeLogIn(false);
+                                    BlocProvider.of<AuthenticationBloc>(context)
+                                        .add(DisplayInformationUser());
+                                    BlocProvider.of<HomeBloc>(context)
+                                        .add(DisplayHomeContent());
 
                                     context.goNamed(
                                         AutiLabRoutes.bottomNavigationScreen);

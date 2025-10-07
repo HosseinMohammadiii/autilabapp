@@ -17,5 +17,16 @@ final class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
       },
     );
+    on<DisplayAppointmentList>(
+      (event, emit) async {
+        try {
+          emit(HomeLoading());
+          var response = await homeRepository.fetchAppointmentList();
+          emit(AppointmentFetchData(response));
+        } catch (e) {
+          emit(HomeErrorHandling(e.toString()));
+        }
+      },
+    );
   }
 }

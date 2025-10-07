@@ -1,8 +1,8 @@
 import 'package:autilab_project/common/widgets/cached_network_image_widget.dart';
-import 'package:autilab_project/core/constants/constant_routes.dart';
+// import 'package:autilab_project/core/constants/constant_routes.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:go_router/go_router.dart';
 
 class SpecialtiesListWidget extends StatelessWidget {
   const SpecialtiesListWidget({
@@ -28,9 +28,7 @@ class SpecialtiesListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.pushNamed(AutiLabRoutes.doctorSpecialityScreen);
-      },
+      onTap: () {},
       child: Container(
         height: height,
         width: width,
@@ -39,7 +37,7 @@ class SpecialtiesListWidget extends StatelessWidget {
         ),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Color(int.parse(specialtyModel!.codeColor)),
+          color: Color(int.parse(specialtyModel?.codeColor ?? '0xffFF7979')),
           borderRadius: BorderRadius.circular(radius ?? 24),
         ),
         child: Column(

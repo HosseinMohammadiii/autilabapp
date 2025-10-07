@@ -1,5 +1,6 @@
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
+import 'package:autilab_project/common/widgets/snackbar_widget.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_bloc.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_event.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_state.dart';
@@ -29,6 +30,17 @@ class DayCalss {
   DayCalss(this.day, this.id);
 }
 
+class TimeWorkScheduel {
+  final String startTime;
+  final String endTime;
+  final int slotDuration;
+  TimeWorkScheduel({
+    required this.startTime,
+    required this.endTime,
+    required this.slotDuration,
+  });
+}
+
 // ignore: must_be_immutable
 class MakeAppointmentScreen extends StatefulWidget {
   MakeAppointmentScreen({
@@ -36,10 +48,12 @@ class MakeAppointmentScreen extends StatefulWidget {
     this.isLike = false,
     this.user,
     this.specialty,
+    this.id,
   });
   bool? isLike;
   final DoctorUser? user;
   final RecentVisitedModel? specialty;
+  final int? id;
 
   @override
   State<MakeAppointmentScreen> createState() => _MakeAppointmentScreenState();
@@ -61,6 +75,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
   String selectTime = '';
   String genderType = 'Male';
 
+  int scheduelId = 0;
+
   bool isOpen = false;
 
   DateTime date = DateTime.now();
@@ -68,6 +84,9 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
   int montNumber = DateTime.now().month;
 
   List<DayCalss> daysList = [];
+  List<TimeWorkScheduel> timeWorkScheduelList = [];
+
+  TimeWorkScheduel? timeWorkScheduel;
 
   @override
   void initState() {
@@ -119,12 +138,40 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
             opacity: animationHelper.fadeAnimation,
             child: BlocConsumer<DoctorBloc, DoctorState>(
               listener: (context, state) {
+                if (state is SetAppointmentError) {
+                  displaySnackBar(
+                    context,
+                    state.errorMessage.message,
+                    AutilabColor.bb,
+                  );
+                }
+                if (state is SetAppointmentResponseState) {
+                  context.pop();
+                }
                 if (state is DoctorWorkScheduelResponseState) {
                   for (var element in state.displayDoctorWorkScheduel) {
                     DateTime date = DateTime.parse(element.date);
 
                     String day = DateFormat('d').format(date);
-                    daysList.add(DayCalss(int.parse(day), element.id));
+                    daysList
+                        .add(DayCalss(int.parse(day), int.parse(element.id)));
+                  }
+                }
+                if (state is SpecialtyDoctorWorkScheduelResponseState) {
+                  for (var element
+                      in state.displaySpecialtyDoctorWorkScheduel) {
+                    // timeWorkScheduelList.add(
+                    //   TimeWorkScheduel(
+                    //     startTime: element.starttime,
+                    //     endTime: element.endtime,
+                    //     slotDuration: element.slotduration,
+                    //   ),
+                    // );
+                    timeWorkScheduel = TimeWorkScheduel(
+                      startTime: element.starttime,
+                      endTime: element.endtime,
+                      slotDuration: element.slotduration,
+                    );
                   }
                 }
               },
@@ -172,119 +219,135 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             height: 24,
                           ),
                         ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: AutilabMargin.marginFullScreen,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isOpen = !isOpen;
-                                });
-                              },
-                              child: Row(
-                                spacing: 14,
-                                children: [
-                                  Text(
-                                    _monthName,
-                                    style:
-                                        AutilabTextStyle.small18_400.copyWith(
-                                      fontSize: isMobile() ? 18 : 24,
+                        if (state is! DoctorLoading) ...[
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: AutilabMargin.marginFullScreen,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isOpen = !isOpen;
+                                  });
+                                },
+                                child: Row(
+                                  spacing: 14,
+                                  children: [
+                                    Text(
+                                      _monthName,
+                                      style:
+                                          AutilabTextStyle.small18_400.copyWith(
+                                        fontSize: isMobile() ? 18 : 24,
+                                      ),
                                     ),
-                                  ),
-                                  isOpen
-                                      ? SvgPicture.asset(
-                                          'assets/icons/arrow_up.svg',
-                                          width: isMobile() ? 16 : 24,
-                                          height: isMobile() ? 16 : 24,
-                                        )
-                                      : SvgPicture.asset(
-                                          'assets/icons/arrow_down.svg',
-                                          width: isMobile() ? 16 : 24,
-                                          height: isMobile() ? 16 : 24,
-                                        ),
-                                ],
+                                    isOpen
+                                        ? SvgPicture.asset(
+                                            'assets/icons/arrow_up.svg',
+                                            width: isMobile() ? 16 : 24,
+                                            height: isMobile() ? 16 : 24,
+                                          )
+                                        : SvgPicture.asset(
+                                            'assets/icons/arrow_down.svg',
+                                            width: isMobile() ? 16 : 24,
+                                            height: isMobile() ? 16 : 24,
+                                          ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 24,
+                          const SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 24,
+                            ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Stack(
-                            children: [
-                              CalendarGrid(
-                                isMobile: isMobile(),
-                                date: montNumber,
-                                // availableDate: 2,
-                                availableDays: daysList,
-                                onTap: (day) {
-                                  setState(() {
-                                    selectDate = DateFormat('EEE d')
-                                        .format(day ?? DateTime.now());
+                          SliverToBoxAdapter(
+                            child: Stack(
+                              children: [
+                                CalendarGrid(
+                                  isMobile: isMobile(),
+                                  date: montNumber,
+                                  // availableDate: 2,
+                                  availableDays: daysList,
+                                  onTap: (day, id) {
+                                    setState(() {
+                                      selectDate = DateFormat('EEE d')
+                                          .format(day ?? DateTime.now());
 
-                                    date = day ?? DateTime.now();
-                                  });
-                                },
-                                isSelect: true,
-                              ),
-                              Visibility(
-                                visible: isOpen,
-                                child: Container(
-                                  width: isMobile() ? 130 : 167,
-                                  padding: const EdgeInsets.all(12),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xffF6F6F6),
-                                    border:
-                                        Border.all(color: AutilabColor.blue),
-                                    borderRadius: BorderRadius.circular(
-                                        isMobile() ? 16 : 24),
-                                  ),
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: montNameList.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                isOpen = false;
-                                                _monthName =
-                                                    montNameList[index];
-                                                montNumber = index;
-                                                selectDate = '';
-                                              });
-                                            },
-                                            child: Text(
-                                              montNameList[index],
-                                              style: AutilabTextStyle
-                                                  .small16_400
-                                                  .copyWith(
-                                                fontSize: isMobile() ? 16 : 24,
+                                      date = day ?? DateTime.now();
+                                      scheduelId = id;
+                                    });
+
+                                    context.read<DoctorBloc>().add(
+                                        DisplaySpecialtyDoctorWorkScheduel(
+                                            workScheduleId: id));
+                                  },
+                                  isSelect: true,
+                                ),
+                                Visibility(
+                                  visible: isOpen,
+                                  child: Container(
+                                    width: isMobile() ? 130 : 167,
+                                    padding: const EdgeInsets.all(12),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xffF6F6F6),
+                                      border:
+                                          Border.all(color: AutilabColor.blue),
+                                      borderRadius: BorderRadius.circular(
+                                          isMobile() ? 16 : 24),
+                                    ),
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: montNameList.length,
+                                      itemBuilder: (context, index) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  isOpen = false;
+                                                  _monthName =
+                                                      montNameList[index];
+                                                  montNumber = index;
+                                                  selectDate = '';
+                                                });
+                                              },
+                                              child: Text(
+                                                montNameList[index],
+                                                style: AutilabTextStyle
+                                                    .small16_400
+                                                    .copyWith(
+                                                  fontSize:
+                                                      isMobile() ? 16 : 24,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          if (index < montNameList.length - 1)
-                                            const Divider(
-                                              thickness: 1,
-                                              color: AutilabColor.gray,
-                                            ),
-                                        ],
-                                      );
-                                    },
+                                            if (index < montNameList.length - 1)
+                                              const Divider(
+                                                thickness: 1,
+                                                color: AutilabColor.gray,
+                                              ),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                        ] else ...[
+                          const SliverToBoxAdapter(
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: AutilabColor.bb,
+                              ),
+                            ),
+                          ),
+                        ],
                         const SliverToBoxAdapter(
                           child: SizedBox(
                             height: 24,
@@ -376,67 +439,102 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             height: 16,
                           ),
                         ),
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SelectTimeWidget(
-                            isMobile: isMobile(),
-                            onTap: (time) {
-                              setState(() {
-                                selectTime = time ?? '';
-                              });
-                            },
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 16,
-                          ),
-                        ),
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SliverToBoxAdapter(
-                            child: Column(
-                              spacing: 8,
-                              children: [
-                                _displayIsAvailableWidget(
-                                  context,
-                                  'Open For Booking',
-                                  AutilabColor.bb,
-                                  isMobile(),
+                        if (timeWorkScheduel?.startTime != null) ...[
+                          if (state is! WorkScheduelDoctorLoading) ...[
+                            SliverPadding(
+                              padding: AutilabMargin.marginFullScreen,
+                              sliver: SelectTimeWidget(
+                                isMobile: isMobile(),
+                                timeWorkScheduel: timeWorkScheduel,
+                                onTap: (time) {
+                                  setState(() {
+                                    selectTime = time ?? '';
+                                  });
+                                },
+                              ),
+                            ),
+                          ] else ...[
+                            const SliverToBoxAdapter(
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: AutilabColor.bb,
                                 ),
-                                _displayIsAvailableWidget(
-                                  context,
-                                  'Already Booked',
-                                  const Color(0xffFBE4E4),
-                                  isMobile(),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Visibility(
-                                  visible: selectTime.isNotEmpty,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'You selected , ',
-                                        style: AutilabTextStyle.small16_400
-                                            .copyWith(
-                                                fontSize: isMobile() ? 16 : 20),
-                                      ),
-                                      Text(
-                                        selectTime,
-                                        style: AutilabTextStyle.medium16_500
-                                            .copyWith(
-                                                color: AutilabColor.bb,
-                                                fontSize: isMobile() ? 16 : 20),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                              ),
+                            ),
+                          ],
+                          const SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: 16,
                             ),
                           ),
-                        ),
+                          SliverPadding(
+                            padding: AutilabMargin.marginFullScreen,
+                            sliver: SliverToBoxAdapter(
+                              child: Column(
+                                spacing: 8,
+                                children: [
+                                  _displayIsAvailableWidget(
+                                    context,
+                                    'Open For Booking',
+                                    AutilabColor.bb,
+                                    isMobile(),
+                                  ),
+                                  _displayIsAvailableWidget(
+                                    context,
+                                    'Already Booked',
+                                    const Color(0xffFBE4E4),
+                                    isMobile(),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Visibility(
+                                    visible: selectTime.isNotEmpty,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'You selected , ',
+                                          style: AutilabTextStyle.small16_400
+                                              .copyWith(
+                                                  fontSize:
+                                                      isMobile() ? 16 : 20),
+                                        ),
+                                        Text(
+                                          selectTime,
+                                          style: AutilabTextStyle.medium16_500
+                                              .copyWith(
+                                                  color: AutilabColor.bb,
+                                                  fontSize:
+                                                      isMobile() ? 16 : 20),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ] else if (state is! WorkScheduelDoctorLoading) ...[
+                          SliverToBoxAdapter(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              margin: AutilabMargin.marginFullScreen,
+                              decoration: BoxDecoration(
+                                color: AutilabColor.bb,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                'First, select the desired date.',
+                                textAlign: TextAlign.center,
+                                style: AutilabTextStyle.medium18_500.copyWith(
+                                  fontSize: isMobile() ? 18 : 22,
+                                  color: AutilabColor.backgroundDrawer,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                         const SliverToBoxAdapter(
                           child: SizedBox(
                             height: 48,
@@ -710,15 +808,24 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           child: CustomButtonWidget(
                             isMobile: isMobile(),
                             onTap: () {
-                              context
-                                  .read<DoctorBloc>()
-                                  .add(SetAppointmentPatient(
-                                    doctorId: widget.user!.id,
-                                    scheduelId: 1,
-                                    description: descriptionController.text,
-                                  ));
-                              context.pop();
+                              if (selectDate.isEmpty) {
+                                displaySnackBar(
+                                  context,
+                                  'Select the date and time',
+                                  AutilabColor.bb,
+                                );
+                                return;
+                              } else {
+                                context
+                                    .read<DoctorBloc>()
+                                    .add(SetAppointmentPatient(
+                                      doctorId: widget.id!,
+                                      scheduelId: scheduelId,
+                                      description: descriptionController.text,
+                                    ));
+                              }
                             },
+                            isLoading: state is SetAppointmentLoading,
                             height: 50,
                             width: double.infinity,
                             color: AutilabColor.bb,

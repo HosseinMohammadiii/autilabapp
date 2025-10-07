@@ -95,7 +95,7 @@ class PlanBoxWidget extends StatelessWidget {
                 .copyWith(fontSize: isMobile ? 16 : 20),
           ),
           const SizedBox(
-            height: 32,
+            height: 24,
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -103,7 +103,7 @@ class PlanBoxWidget extends StatelessWidget {
             itemCount: widget?.length ?? 0,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
+                padding: const EdgeInsets.symmetric(vertical: 3),
                 child: PalnItemWidget(
                   isMobile: isMobile,
                   title: widget?[index].description,
