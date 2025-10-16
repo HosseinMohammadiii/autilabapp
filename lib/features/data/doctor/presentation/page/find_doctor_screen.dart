@@ -379,6 +379,9 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                         user: doctorsList[index].user,
                                         doctorSpecialities:
                                             doctorsList[index].specialities,
+                                        doctorRate: doctorsList[index]
+                                            .ratingaverage
+                                            .toString(),
                                       );
                                     },
                                   ),

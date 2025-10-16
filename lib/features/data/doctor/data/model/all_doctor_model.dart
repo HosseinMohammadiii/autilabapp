@@ -8,7 +8,7 @@ class AllDoctorModel {
   String? description;
   DoctorUser? user;
   RecentVisitedModel? specialities;
-  String? ratingaverage;
+  double? ratingaverage;
 
   AllDoctorModel({
     this.id,
@@ -34,7 +34,7 @@ class AllDoctorModel {
       description: jsonObject['description'] ?? '',
       user: DoctorUser.fromJson(jsonObject['user']),
       specialities: RecentVisitedModel.fromJson(jsonObject['specialities']),
-      ratingaverage: jsonObject['rating_average'] ?? '',
+      ratingaverage: jsonObject['rating_average'] ?? 0.0,
     );
   }
 }
