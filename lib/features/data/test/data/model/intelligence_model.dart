@@ -77,7 +77,7 @@ class AutismAnswer {
       questionId: jsonObject['question_id'],
       answerId: jsonObject['id'] ?? 0,
       question: jsonObject['question'] ?? '',
-      answer: jsonObject['user_answer'],
+      answer: jsonObject['user_answer'] ?? '',
     );
   }
 }
