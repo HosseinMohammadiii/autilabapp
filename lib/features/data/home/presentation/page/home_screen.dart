@@ -419,120 +419,125 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 height: 48,
                               ),
                             ),
-                            SliverPadding(
-                              padding: AutilabMargin.marginFullScreen
-                                  .copyWith(left: 16),
-                              sliver: SliverToBoxAdapter(
-                                child: TitleAndIconWidget(
-                                  isShowIcon: false,
-                                  title: 'AutiLab Test',
-                                  textStyle: AutilabTextStyle.small20_400
-                                      .copyWith(fontSize: isMobile() ? 20 : 32),
+                            if (intelligenceTestList.isEmpty) ...[
+                              SliverPadding(
+                                padding: AutilabMargin.marginFullScreen
+                                    .copyWith(left: 16),
+                                sliver: SliverToBoxAdapter(
+                                  child: TitleAndIconWidget(
+                                    isShowIcon: false,
+                                    title: 'AutiLab Test',
+                                    textStyle: AutilabTextStyle.small20_400
+                                        .copyWith(
+                                            fontSize: isMobile() ? 20 : 32),
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SliverToBoxAdapter(
-                              child: SizedBox(
-                                height: 24,
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                              child: Container(
-                                margin: AutilabMargin.marginFullScreen,
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffECF0FF),
-                                  borderRadius: BorderRadius.circular(24),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AutilabColor.black
-                                          .withValues(alpha: 0.2),
-                                      blurRadius: 12,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
+                              const SliverToBoxAdapter(
+                                child: SizedBox(
+                                  height: 24,
                                 ),
-                                child: Column(
-                                  spacing: 26,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: isMobile() ? 140 : 250,
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 10,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                FittedBox(
-                                                  child: Text(
-                                                    'AutiLab Test',
-                                                    style: AutilabTextStyle
-                                                        .medium20_500
-                                                        .copyWith(
-                                                      color: AutilabColor.blue,
-                                                      fontSize:
-                                                          isMobile() ? 20 : 28,
+                              ),
+                              SliverToBoxAdapter(
+                                child: Container(
+                                  margin: AutilabMargin.marginFullScreen,
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffECF0FF),
+                                    borderRadius: BorderRadius.circular(24),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AutilabColor.black
+                                            .withValues(alpha: 0.2),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    spacing: 26,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: isMobile() ? 140 : 250,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 10,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  FittedBox(
+                                                    child: Text(
+                                                      'AutiLab Test',
+                                                      style: AutilabTextStyle
+                                                          .medium20_500
+                                                          .copyWith(
+                                                        color:
+                                                            AutilabColor.blue,
+                                                        fontSize: isMobile()
+                                                            ? 20
+                                                            : 28,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 12,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    isMobile()
-                                                        ? 'Discover deeper insights into your unique personality with our autism-focused assessment.'
-                                                        : 'Gain deeper insight into your unique personality traits with our autism-focused assessment.Designed with care, this tool helps you better understand your strengths, preferences, and how you relate to the world around you.',
-                                                    style: isMobile()
-                                                        ? AutilabTextStyle
-                                                            .small14_400
-                                                        : AutilabTextStyle
-                                                            .small20_400,
+                                                  const SizedBox(
+                                                    height: 12,
                                                   ),
-                                                ),
-                                              ],
+                                                  Expanded(
+                                                    child: Text(
+                                                      isMobile()
+                                                          ? 'Discover deeper insights into your unique personality with our autism-focused assessment.'
+                                                          : 'Gain deeper insight into your unique personality traits with our autism-focused assessment.Designed with care, this tool helps you better understand your strengths, preferences, and how you relate to the world around you.',
+                                                      style: isMobile()
+                                                          ? AutilabTextStyle
+                                                              .small14_400
+                                                          : AutilabTextStyle
+                                                              .small20_400,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Image.asset(
-                                            'assets/images/autilab_test_image.png',
-                                            width: isMobile() ? 143 : 372,
-                                            height: isMobile() ? 140 : 229,
-                                            cacheWidth: cacheImageFunction(
-                                                isMobile() ? 143 : 372,
-                                                context),
-                                            cacheHeight: cacheImageFunction(
-                                                isMobile() ? 140 : 229,
-                                                context),
-                                          ),
-                                        ],
+                                            Image.asset(
+                                              'assets/images/autilab_test_image.png',
+                                              width: isMobile() ? 143 : 372,
+                                              height: isMobile() ? 140 : 229,
+                                              cacheWidth: cacheImageFunction(
+                                                  isMobile() ? 143 : 372,
+                                                  context),
+                                              cacheHeight: cacheImageFunction(
+                                                  isMobile() ? 140 : 229,
+                                                  context),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    CustomButtonWidget(
-                                      isMobile: isMobile(),
-                                      onTap: () {
-                                        context.pushNamed(
-                                            AutiLabRoutes.typeTestsScreen);
-                                      },
-                                      height: 50,
-                                      margin: const EdgeInsets.all(0),
-                                      color: AutilabColor.bb,
-                                      text: 'Take A Test',
-                                      textStyle: AutilabTextStyle.small18_400
-                                          .copyWith(
-                                              fontSize: isMobile() ? 18 : 28),
-                                    ),
-                                  ],
+                                      CustomButtonWidget(
+                                        isMobile: isMobile(),
+                                        onTap: () {
+                                          context.pushNamed(
+                                              AutiLabRoutes.typeTestsScreen);
+                                        },
+                                        height: 50,
+                                        margin: const EdgeInsets.all(0),
+                                        color: AutilabColor.bb,
+                                        text: 'Take A Test',
+                                        textStyle: AutilabTextStyle.small18_400
+                                            .copyWith(
+                                                fontSize: isMobile() ? 18 : 28),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SliverToBoxAdapter(
-                              child: SizedBox(
-                                height: 48,
+                              const SliverToBoxAdapter(
+                                child: SizedBox(
+                                  height: 48,
+                                ),
                               ),
-                            ),
+                            ],
                             SliverPadding(
                               padding: AutilabMargin.marginFullScreen
                                   .copyWith(left: 16),
