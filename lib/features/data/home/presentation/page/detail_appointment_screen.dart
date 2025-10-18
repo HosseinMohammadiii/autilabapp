@@ -103,6 +103,8 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                     SliverToBoxAdapter(
                       child: DoctorBoxDetialAppointmentWidget(
                         image: widget.image,
+                        rate: widget.newappointmentModel?.ratingAverage
+                            .toString(),
                         doctorName:
                             '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}',
                         doctorSpecialtyl:

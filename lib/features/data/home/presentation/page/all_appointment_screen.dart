@@ -55,7 +55,8 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
-    BlocProvider.of<HomeBloc>(context).add(DisplayAppointmentList());
+    // BlocProvider.of<HomeBloc>(context).add(DisplayAppointmentList());
+    BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
   }
 
   @override
@@ -74,43 +75,98 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state is AppointmentFetchData) {
-          state.appointmentResponse.fold(
+        if (state is HomeFetchData) {
+          state.homeResponse.fold(
             (l) {},
             (response) {
-              //Control list values based on status newappointmentModel
               for (var element in response) {
-                // Parse the appointment date
-                // DateTime date = DateTime.parse(element.workSchedule.date);
+                // recentVisitedModel = element.recentVisitedModel;
+                // intelligenceTestList = element.intelligenceTestModel;
+                // planModel = element.planModel;
 
-                // // Format date as "Day, d Month"
-                // String formattedDate = DateFormat('EEE، d MMM').format(date);
+                for (var element in element.newappointmentModel) {
+                  // Parse the appointment date
+                  DateTime date = DateTime.parse(element.workSchedule.date);
 
-                // // Parse and combine date with start time
-                // DateTime time = DateTime.parse(
-                //     "${element.workSchedule.date} ${element.workSchedule.starttime}");
+                  // Format date as "Day, d Month"
+                  String formattedDate = DateFormat('EEE، d MMM').format(date);
 
-                // // Format time as "HH:mm"
-                // String formattedTime = DateFormat('HH:mm').format(time);
+                  // Parse and combine date with start time
+                  DateTime time = DateTime.parse(
+                      "${element.workSchedule.date} ${element.workSchedule.starttime}");
 
-                // // Categorize appointments based on status
-                // if (element.status == 'APPROVED') {
-                //   approvedList.add(element);
-                //   dateTimeApprovedList.add(DateTimeSchedule(
-                //       date: formattedDate, time: formattedTime));
-                // } else if (element.status == 'CANCELLED') {
-                //   cancelledList.add(element);
-                //   dateTimeCancelledList.add(DateTimeSchedule(
-                //       date: formattedDate, time: formattedTime));
-                // } else {
-                //   pendingList.add(element);
-                //   dateTimePendingList.add(DateTimeSchedule(
-                //       date: formattedDate, time: formattedTime));
-                // }
+                  // Format time as "HH:mm"
+                  String formattedTime = DateFormat('HH:mm').format(time);
+
+                  var formatDate = DateFormat(
+                    'EEE، d MMM',
+                  ).format(date);
+                  var formatTime = DateFormat(
+                    'hh:mm',
+                  ).format(time);
+                  scheduleDate.add(formatDate);
+                  scheduleTime.add(formatTime);
+                  // if (element.status == 'PENDING') {
+                  //   pendingList.add(element);
+                  //   dateTimePendingList.add(DateTimeSchedule(
+                  //       date: formattedDate, time: formattedTime));
+                  // }
+                  if (element.status == 'APPROVED') {
+                    approvedList.add(element);
+                    dateTimeApprovedList.add(DateTimeSchedule(
+                        date: formattedDate, time: formattedTime));
+                  } else if (element.status == 'CANCELLED') {
+                    cancelledList.add(element);
+                    dateTimeCancelledList.add(DateTimeSchedule(
+                        date: formattedDate, time: formattedTime));
+                  } else {
+                    pendingList.add(element);
+                    dateTimePendingList.add(DateTimeSchedule(
+                        date: formattedDate, time: formattedTime));
+                    print(pendingList.length);
+                  }
+                }
               }
             },
           );
         }
+        // if (state is AppointmentFetchData) {
+        //   state.appointmentResponse.fold(
+        //     (l) {},
+        //     (response) {
+        //       //Control list values based on status newappointmentModel
+        //       for (var element in response) {
+        //         // Parse the appointment date
+        //         // DateTime date = DateTime.parse(element.workSchedule.date);
+
+        //         // // Format date as "Day, d Month"
+        //         // String formattedDate = DateFormat('EEE، d MMM').format(date);
+
+        //         // // Parse and combine date with start time
+        //         // DateTime time = DateTime.parse(
+        //         //     "${element.workSchedule.date} ${element.workSchedule.starttime}");
+
+        //         // // Format time as "HH:mm"
+        //         // String formattedTime = DateFormat('HH:mm').format(time);
+
+        //         // // Categorize appointments based on status
+        //         // if (element.status == 'APPROVED') {
+        //         //   approvedList.add(element);
+        //         //   dateTimeApprovedList.add(DateTimeSchedule(
+        //         //       date: formattedDate, time: formattedTime));
+        //         // } else if (element.status == 'CANCELLED') {
+        //         //   cancelledList.add(element);
+        //         //   dateTimeCancelledList.add(DateTimeSchedule(
+        //         //       date: formattedDate, time: formattedTime));
+        //         // } else {
+        //         //   pendingList.add(element);
+        //         //   dateTimePendingList.add(DateTimeSchedule(
+        //         //       date: formattedDate, time: formattedTime));
+        //         // }
+        //       }
+        //     },
+        //   );
+        // }
       },
       builder: (context, state) {
         if (state is HomeLoading) {
@@ -119,16 +175,16 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
         if (state is HomeErrorHandling) {
           return NotConnectionInternetScreen(
             onChange: () async {
-              context.read<HomeBloc>().add(DisplayAppointmentList());
+              context.read<HomeBloc>().add(DisplayHomeContent());
             },
           );
         }
-        if (state is AppointmentFetchData) {
-          return state.appointmentResponse.fold(
+        if (state is HomeFetchData) {
+          return state.homeResponse.fold(
             (l) {
               return NotConnectionInternetScreen(
                 onChange: () async {
-                  context.read<HomeBloc>().add(DisplayAppointmentList());
+                  context.read<HomeBloc>().add(DisplayHomeContent());
                 },
               );
             },
@@ -233,6 +289,9 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                         height: isMobile() ? 256 : 388,
                                         child: NewAppointmentsCardWidget(
                                           color: const Color(0xff50DD81),
+                                          rate: approvedList[index]
+                                              .ratingAverage
+                                              .toString(),
                                           isMobile: isMobile(),
                                           doctorName:
                                               '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
@@ -266,7 +325,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                     approvedList[index]
                                                         .doctorModel,
                                                 'newappointmentModel':
-                                                    pendingList[index],
+                                                    approvedList[index],
                                                 'doctorName':
                                                     '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
                                                 'doctorSpecialty':
@@ -311,6 +370,9 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                         height: isMobile() ? 256 : 388,
                                         child: NewAppointmentsCardWidget(
                                           isMobile: isMobile(),
+                                          rate: cancelledList[index]
+                                              .ratingAverage
+                                              .toString(),
                                           color: const Color(0xffFF6363),
                                           title: 'Cancelled',
                                           image:
@@ -325,13 +387,13 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                           time:
                                               dateTimeCancelledList[index].time,
                                           doctorName:
-                                              '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty: approvedList[index]
+                                              '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
+                                          doctorSpecialty: cancelledList[index]
                                                   .doctorModel
                                                   .doctorSpecialities[0]
                                                   .name
                                                   .isNotEmpty
-                                              ? approvedList[index]
+                                              ? cancelledList[index]
                                                   .doctorModel
                                                   .doctorSpecialities[0]
                                                   .name
@@ -345,7 +407,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                                     cancelledList[index]
                                                         .doctorModel,
                                                 'newappointmentModel':
-                                                    pendingList[index],
+                                                    cancelledList[index],
                                                 'doctorName':
                                                     '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
                                                 'doctorSpecialty':
@@ -390,6 +452,9 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                         height: isMobile() ? 256 : 388,
                                         child: NewAppointmentsCardWidget(
                                           isMobile: isMobile(),
+                                          rate: pendingList[index]
+                                              .ratingAverage
+                                              .toString(),
                                           color: AutilabColor.gray,
                                           title: 'Pending',
                                           image: 'assets/images/doctor3.png',
@@ -398,13 +463,13 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 8),
                                           doctorName:
-                                              '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty: approvedList[index]
+                                              '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
+                                          doctorSpecialty: pendingList[index]
                                                   .doctorModel
                                                   .doctorSpecialities[0]
                                                   .name
                                                   .isNotEmpty
-                                              ? approvedList[index]
+                                              ? pendingList[index]
                                                   .doctorModel
                                                   .doctorSpecialities[0]
                                                   .name

@@ -7,6 +7,7 @@ class NewappointmentModel {
   final String status;
   final String description;
   final List<RateModel> rateModel;
+  final double ratingAverage;
   final DoctorModel doctorModel;
   WorkSchedule workSchedule;
 
@@ -15,6 +16,7 @@ class NewappointmentModel {
     required this.status,
     required this.description,
     required this.rateModel,
+    required this.ratingAverage,
     required this.doctorModel,
     required this.workSchedule,
   });
@@ -31,6 +33,7 @@ class NewappointmentModel {
       status: jsonObject['status'] ?? '',
       description: jsonObject['description'] ?? '',
       rateModel: planFeaturesList,
+      ratingAverage: jsonObject['rating_average'] ?? 0.0,
       doctorModel: DoctorModel.fomJson(jsonObject['doctor']),
       workSchedule: WorkSchedule.fromJson(
         jsonObject['work_schedule'],

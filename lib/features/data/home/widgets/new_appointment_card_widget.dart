@@ -26,6 +26,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
     this.doctorSpecialty,
     this.date,
     this.time,
+    this.rate,
   });
   final Function() onTap;
   final Function() raiteOnTap;
@@ -41,6 +42,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
   final String? doctorSpecialty;
   final String? date;
   final String? time;
+  final String? rate;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +178,7 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                               color: Color(0xffEDC757),
                             ),
                             Text(
-                              '5.0',
+                              rate ?? '0.0',
                               style: AutilabTextStyle.small14_400.copyWith(
                                 fontSize: isMobile ? 14 : 20,
                               ),

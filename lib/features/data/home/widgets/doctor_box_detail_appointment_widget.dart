@@ -14,11 +14,13 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
     this.doctorSpecialtyl,
     this.isMobile = true,
     this.dateTimeSchedule,
+    this.rate,
   });
   final String? doctorName;
   final String? doctorSpecialtyl;
   final String image;
   final bool isMobile;
+  final String? rate;
   final DateTimeSchedule? dateTimeSchedule;
 
   @override
@@ -85,7 +87,7 @@ class DoctorBoxDetialAppointmentWidget extends StatelessWidget {
                           color: Color(0xffEDC757),
                         ),
                         Text(
-                          '5.0',
+                          rate ?? '0.0',
                           style: AutilabTextStyle.small14_400.copyWith(
                             fontSize: isMobile ? 14 : 20,
                           ),
