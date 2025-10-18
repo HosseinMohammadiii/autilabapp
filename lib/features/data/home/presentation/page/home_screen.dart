@@ -271,6 +271,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     itemCount: newappointmentModel.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
+                                      double itemWidthMobile =
+                                          newappointmentModel.length <= 1
+                                              ? 370
+                                              : 325;
+                                      double itemWidthTablet =
+                                          newappointmentModel.length <= 1
+                                              ? 695
+                                              : 648;
                                       return Padding(
                                         padding: EdgeInsets.only(
                                           left: index == 0 ? 20 : 12,
@@ -280,7 +288,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                               : 0,
                                         ),
                                         child: SizedBox(
-                                          width: isMobile() ? 320 : 643,
+                                          width: isMobile()
+                                              ? itemWidthMobile
+                                              : itemWidthTablet,
                                           child: NewAppointmentsCardWidget(
                                             date: scheduleDate[index],
                                             time: scheduleTime[index],

@@ -185,14 +185,10 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: TimeBoxDoctorCard(
-                            isMobile: isMobile,
-                            date: date,
-                            time: time,
-                          ),
+                        TimeBoxDoctorCard(
+                          isMobile: isMobile,
+                          date: date,
+                          time: time,
                         ),
                       ],
                     ),
