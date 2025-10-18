@@ -303,51 +303,108 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                         height: 16,
                       ),
                     ),
-                    const SliverPadding(
-                      padding: AutilabMargin.marginFullScreen,
-                      sliver: SliverToBoxAdapter(
-                        child: Divider(
-                          thickness: 1,
+                    if (widget.centerModel!.specialty.isNotEmpty) ...[
+                      const SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: Divider(
+                            thickness: 1,
+                          ),
                         ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 32,
-                      ),
-                    ),
-                    SliverPadding(
-                      padding: AutilabMargin.marginFullScreen,
-                      sliver: SliverToBoxAdapter(
-                        child: TitleAndIconWidget(
-                          isMobile: isMobile(),
-                          icon: 'assets/icons/people.svg',
-                          title: 'Specialists',
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 32,
                         ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 24,
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/people.svg',
+                            title: 'Specialists',
+                          ),
+                        ),
                       ),
-                    ),
-                    // SliverToBoxAdapter(
-                    //   child: SizedBox(
-                    //     height: isMobile() ? 80 : 174,
-                    //     child: SpecialtiesListWidget(
-                    //       specialtyModel: widget.centerModel?.specialty,
-                    //       isMobile: isMobile(),
-                    //       height: isMobile() ? 80 : 174,
-                    //       width: isMobile() ? 80 : 174,
-                    //       heightImage: isMobile() ? 32 : 72,
-                    //       widthImage: isMobile() ? 32 : 72,
-                    //       radius: isMobile() ? 16 : 24,
-                    //       textStyle: AutilabTextStyle.small10_400.copyWith(
-                    //         fontSize: isMobile() ? 10 : 20,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: isMobile() ? 80 : 174,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.centerModel!.specialty.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                height: isMobile() ? 80 : 174,
+                                width: isMobile() ? 80 : 174,
+                                margin: const EdgeInsets.only(
+                                  left: 20,
+                                ),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color(int.parse(widget.centerModel!
+                                      .specialty[index].codeColor)),
+                                  borderRadius: BorderRadius.circular(
+                                    isMobile() ? 16 : 24,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    SizedBox(
+                                      width: isMobile() ? 32 : 72,
+                                      height: isMobile() ? 32 : 72,
+                                      child: CachednetworkimageWidget(
+                                        imgUrl: widget.centerModel!
+                                            .specialty[index].imagePath,
+                                        width: isMobile() ? 32 : 72,
+                                        height: isMobile() ? 32 : 72,
+                                        boxFit: BoxFit.scaleDown,
+                                        isShowShimmer: false,
+                                        borderRadius: 8,
+                                        img: const Text(''),
+                                        isNetworkImage: widget
+                                                .centerModel!
+                                                .specialty[index]
+                                                .imagePath
+                                                .isNotEmpty
+                                            ? true
+                                            : false,
+                                      ),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Text(
+                                          widget.centerModel!.specialty[index]
+                                              .name
+                                              .replaceAll(' ', '\n'),
+                                          textAlign: TextAlign.center,
+                                          style: AutilabTextStyle.small10_400
+                                              .copyWith(
+                                            fontSize: isMobile() ? 10 : 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                     const SliverToBoxAdapter(
                       child: SizedBox(
                         height: 32,
