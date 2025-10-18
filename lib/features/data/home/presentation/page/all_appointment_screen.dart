@@ -123,7 +123,6 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
                     pendingList.add(element);
                     dateTimePendingList.add(DateTimeSchedule(
                         date: formattedDate, time: formattedTime));
-                    print(pendingList.length);
                   }
                 }
               }
