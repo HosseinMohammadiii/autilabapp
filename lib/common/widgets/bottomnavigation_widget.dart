@@ -55,11 +55,11 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
       'assets/icons/messages.svg',
       const Color(0xff7EECC5),
     ),
-    DrawerItemClass(
-      'My Subscribtion',
-      'assets/icons/crown.svg',
-      const Color(0xffE4D080),
-    ),
+    // DrawerItemClass(
+    //   'My Subscribtion',
+    //   'assets/icons/crown.svg',
+    //   const Color(0xffE4D080),
+    // ),
   ];
   List<DrawerItemClass> secondDrawerItemList = [
     DrawerItemClass(
@@ -441,10 +441,10 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                     AutiLabRoutes.messageProfileScreen);
                                 break;
 
-                              case 3:
-                                context.pushNamed(
-                                    AutiLabRoutes.subscribtionScreen);
-                                break;
+                              // case 3:
+                              //   context.pushNamed(
+                              //       AutiLabRoutes.subscribtionScreen);
+                              //   break;
                             }
                           },
                         ),
