@@ -116,7 +116,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                               DeleteAutismAnswer(responseId: responseId),
                             );
                         if (responseId != responseIdList.last - 1)
-                          context.pop(true);
+                          context.pop();
                       }
                     },
                   ),
