@@ -14,7 +14,7 @@ import 'package:autilab_project/features/data/menu/Page/rating_screen.dart';
 import 'package:autilab_project/presentation/screens/not_connection_screen.dart';
 import 'package:autilab_project/utils/functions/custom_dialog_function.dart';
 import 'package:autilab_project/utils/functions/permissioncotrol.dart';
-import 'package:autilab_project/utils/functions/specifygender_function.dart';
+// import 'package:autilab_project/utils/functions/specifygender_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
@@ -891,24 +891,24 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                                           descriptionFocusNode:
                                               addressFocusNode,
                                         ),
-                                        Positioned(
-                                          right: 16,
-                                          bottom: 16,
-                                          child: CustomButtonWidget(
-                                            onTap: () async {
-                                              openMap(
-                                                  context, 49.2331, -123.0992);
-                                            },
-                                            height: 31,
-                                            width: 116,
-                                            margin: EdgeInsets.zero,
-                                            borderRadius: 8,
-                                            color: AutilabColor.bb,
-                                            text: 'Open Map',
-                                            textStyle:
-                                                AutilabTextStyle.small12_400,
-                                          ),
-                                        ),
+                                        // Positioned(
+                                        //   right: 16,
+                                        //   bottom: 16,
+                                        //   child: CustomButtonWidget(
+                                        //     onTap: () async {
+                                        //       openMap(
+                                        //           context, 49.2331, -123.0992);
+                                        //     },
+                                        //     height: 31,
+                                        //     width: 116,
+                                        //     margin: EdgeInsets.zero,
+                                        //     borderRadius: 8,
+                                        //     color: AutilabColor.bb,
+                                        //     text: 'Open Map',
+                                        //     textStyle:
+                                        //         AutilabTextStyle.small12_400,
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
