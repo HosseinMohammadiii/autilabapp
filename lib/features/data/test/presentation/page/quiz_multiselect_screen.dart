@@ -113,7 +113,8 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                           isMobile: isMobile(),
                           onTap: () {
                             if (responseIdList.isEmpty) {
-                              context.pop(true);
+                              context.pop();
+                              context.pop();
                             }
 
                             for (var responseId in responseIdList) {
@@ -122,7 +123,8 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                                         responseId: responseId),
                                   );
                               if (responseId != responseIdList.last - 1)
-                                context.pop(true);
+                                context.pop();
+                              context.pop();
                             }
                           },
                         ),

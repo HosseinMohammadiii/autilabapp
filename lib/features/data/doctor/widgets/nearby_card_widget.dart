@@ -48,7 +48,9 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
             child: CachednetworkimageWidget(
               width: widget.isMobile ? 320 : 722,
               height: widget.isMobile ? 213 : 315,
-              imgUrl: widget.center?.images[0].imageUrl ?? '',
+              imgUrl: widget.center!.images.isNotEmpty
+                  ? widget.center!.images[0].imageUrl
+                  : '',
               img: Image.asset(
                 'assets/images/autism_help_center.jpg',
                 fit: BoxFit.fill,
