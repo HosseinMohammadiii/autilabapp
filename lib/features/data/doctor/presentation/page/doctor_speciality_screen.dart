@@ -165,6 +165,7 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                               doctorSpecialities:
                                   widget.doctorList?[index].specialities,
                               user: widget.doctorList?[index].user,
+                              id: widget.doctorList?[index].user?.id,
                             ),
                           );
                         },

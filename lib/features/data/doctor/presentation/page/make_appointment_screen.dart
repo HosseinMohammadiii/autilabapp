@@ -136,55 +136,55 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
         return ResponsiveLayout(
           child: FadeTransition(
             opacity: animationHelper.fadeAnimation,
-            child: BlocConsumer<DoctorBloc, DoctorState>(
-              listener: (context, state) {
-                if (state is SetAppointmentError) {
-                  displaySnackBar(
-                    context,
-                    state.errorMessage.message,
-                    AutilabColor.bb,
-                  );
-                }
-                if (state is SetAppointmentResponseState) {
-                  context.pop();
-                }
-                if (state is DoctorWorkScheduelResponseState) {
-                  for (var element in state.displayDoctorWorkScheduel) {
-                    DateTime date = DateTime.parse(element.date);
+            child: Scaffold(
+              appBar: appBarWidget(
+                context: context,
+                isIcon: true,
+                title: 'Make Appointment',
+                isMobile: isMobile(),
+              ),
+              body: SafeArea(
+                child: BlocConsumer<DoctorBloc, DoctorState>(
+                  listener: (context, state) {
+                    if (state is SetAppointmentError) {
+                      displaySnackBar(
+                        context,
+                        state.errorMessage.message,
+                        AutilabColor.bb,
+                      );
+                    }
+                    if (state is SetAppointmentResponseState) {
+                      context.pop();
+                    }
+                    if (state is DoctorWorkScheduelResponseState) {
+                      for (var element in state.displayDoctorWorkScheduel) {
+                        DateTime date = DateTime.parse(element.date);
 
-                    String day = DateFormat('d').format(date);
-                    daysList
-                        .add(DayCalss(int.parse(day), int.parse(element.id)));
-                  }
-                }
-                if (state is SpecialtyDoctorWorkScheduelResponseState) {
-                  for (var element
-                      in state.displaySpecialtyDoctorWorkScheduel) {
-                    // timeWorkScheduelList.add(
-                    //   TimeWorkScheduel(
-                    //     startTime: element.starttime,
-                    //     endTime: element.endtime,
-                    //     slotDuration: element.slotduration,
-                    //   ),
-                    // );
-                    timeWorkScheduel = TimeWorkScheduel(
-                      startTime: element.starttime,
-                      endTime: element.endtime,
-                      slotDuration: element.slotduration,
-                    );
-                  }
-                }
-              },
-              builder: (context, state) {
-                return Scaffold(
-                  appBar: appBarWidget(
-                    context: context,
-                    isIcon: true,
-                    title: 'Make Appointment',
-                    isMobile: isMobile(),
-                  ),
-                  body: SafeArea(
-                    child: CustomScrollView(
+                        String day = DateFormat('d').format(date);
+                        daysList.add(
+                            DayCalss(int.parse(day), int.parse(element.id)));
+                      }
+                    }
+                    if (state is SpecialtyDoctorWorkScheduelResponseState) {
+                      for (var element
+                          in state.displaySpecialtyDoctorWorkScheduel) {
+                        // timeWorkScheduelList.add(
+                        //   TimeWorkScheduel(
+                        //     startTime: element.starttime,
+                        //     endTime: element.endtime,
+                        //     slotDuration: element.slotduration,
+                        //   ),
+                        // );
+                        timeWorkScheduel = TimeWorkScheduel(
+                          startTime: element.starttime,
+                          endTime: element.endtime,
+                          slotDuration: element.slotduration,
+                        );
+                      }
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomScrollView(
                       slivers: [
                         const SliverToBoxAdapter(
                           child: SizedBox(
@@ -840,10 +840,10 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             ),
           ),
         );

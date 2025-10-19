@@ -2,7 +2,9 @@
     <application
         android:label="Autilab"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_autilab">
+        android:icon="@mipmap/ic_autilab"
+        android:allowBackup="false"
+        android:fullBackupContent="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"
