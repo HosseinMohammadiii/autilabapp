@@ -420,6 +420,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 visible: recentVisitedModel.isNotEmpty,
                                 child: SpecialtyListWidget(
                                   isMobile: isMobile(),
+                                  isOnTap: false,
                                   recentVisitedModel: recentVisitedModel,
                                 ),
                               ),
@@ -707,8 +708,10 @@ class SpecialtyListWidget extends StatelessWidget {
     required this.recentVisitedModel,
     required this.isMobile,
     this.doctorsList,
+    this.isOnTap = true,
   });
   final bool isMobile;
+  final bool isOnTap;
 
   final List<AllDoctorModel>? doctorsList;
 
@@ -734,9 +737,11 @@ class SpecialtyListWidget extends StatelessWidget {
           ).toList();
           return GestureDetector(
             onTap: () {
-              context.pushNamed(AutiLabRoutes.doctorSpecialityScreen, extra: {
-                'doctorList': doctorList,
-              });
+              if (isOnTap) {
+                context.pushNamed(AutiLabRoutes.doctorSpecialityScreen, extra: {
+                  'doctorList': doctorList,
+                });
+              }
             },
             child: Container(
               height: isMobile ? 113 : 180,

@@ -22,6 +22,7 @@ class TalentResultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     int filledFlex = ((score / 100) * 15).round().clamp(0, 15);
     int emptyFlex = (15 - filledFlex).clamp(0, 15);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Stack(
@@ -44,7 +45,7 @@ class TalentResultWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: filledFlex,
+                      flex: filledFlex == 0 ? 1 : filledFlex,
                       child: Stack(
                         children: [
                           Container(
