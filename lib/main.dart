@@ -3,6 +3,7 @@ import 'package:autilab_project/core/network/locator.dart';
 import 'package:autilab_project/core/network/shared_preferences.dart';
 import 'package:autilab_project/core/routes/routes.dart';
 import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_bloc.dart';
+import 'package:autilab_project/features/data/auth/presentetion/bloc/auth_event.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/center/center_bloc.dart';
 import 'package:autilab_project/features/data/doctor/presentation/bloc/doctor/doctor_bloc.dart';
 import 'package:autilab_project/features/data/home/presentation/bloc/home_bloc.dart';
@@ -24,10 +25,14 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        // BlocProvider(
+        //   create: (context) => AuthenticationBloc(
+        //     locator.get(),
+        //   ),
+        // ),
         BlocProvider(
-          create: (context) => AuthenticationBloc(
-            locator.get(),
-          ),
+          create: (_) =>
+              AuthenticationBloc(locator.get())..add(DisplayInformationUser()),
         ),
         BlocProvider(
           create: (context) => HomeBloc(

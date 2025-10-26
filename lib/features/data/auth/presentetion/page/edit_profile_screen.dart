@@ -72,17 +72,17 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final List<String> genderOptions = ['Male', 'Female'];
   String selectedGender = 'male';
   bool isDropdownOpen = false;
+
   DateTime firstDatetime = DateTime(
-    DateTime.now().year - 22,
+    DateTime.now().year - 17,
     DateTime.now().month,
     DateTime.now().day,
   );
   DateTime lastDatetime = DateTime(
-    DateTime.now().year - 3,
-    DateTime.now().month,
+    DateTime.now().year,
+    DateTime.now().month - 9,
     DateTime.now().day,
   );
-
   @override
   void initState() {
     super.initState();
@@ -250,8 +250,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 listener: (context, state) {
                   // When photo upload response is received
                   if (state is UploadPhotoResponse) {
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(DisplayInformationUser());
                     // Dispatch event to update user profile with new data
                     context.read<AuthenticationBloc>().add(
                           UpdateUserProfile(
