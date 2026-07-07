@@ -117,7 +117,7 @@ class _TestResultWidgetState extends State<TestResultWidget> {
                   final data = entry.value;
                   return TalentResultWidget(
                     title: data.type.replaceAll('_', '-'),
-                    score: data.percentage.toDouble(),
+                    score: data.percentage,
                     gradient1: intelligenceList[index].gradient1,
                     gradient2: intelligenceList[index].gradient2,
                     textStyle: widget.isMobile

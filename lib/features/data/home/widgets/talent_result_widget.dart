@@ -37,7 +37,6 @@ class TalentResultWidget extends StatelessWidget {
               const SizedBox(height: 12),
               Container(
                 height: 20,
-                width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color(0xffc0bdaa),
                   borderRadius: BorderRadius.circular(30),
@@ -78,19 +77,16 @@ class TalentResultWidget extends StatelessWidget {
                     ),
                     Expanded(
                       flex: emptyFlex,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 6.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: List.generate(
-                            emptyFlex,
-                            (index) => Container(
-                              height: 4,
-                              width: 4,
-                              decoration: const BoxDecoration(
-                                color: Color(0xff454459),
-                                shape: BoxShape.circle,
-                              ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: List.generate(
+                          emptyFlex,
+                          (index) => Container(
+                            height: 4,
+                            width: 4,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff454459),
+                              shape: BoxShape.circle,
                             ),
                           ),
                         ),
