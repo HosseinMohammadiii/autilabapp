@@ -71,7 +71,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     IntelligenceTestModel.fromLocal(IntelligenceType.realistic),
     IntelligenceTestModel.fromLocal(IntelligenceType.conventional),
   ];
-  List<PlanModel> planModel = [];
+  List<PlanModel> planModel = [
+    PlanModel.fromLocal(PlanType.free),
+    PlanModel.fromLocal(PlanType.monthly),
+    PlanModel.fromLocal(PlanType.yearly),
+  ];
 
   List<String> scheduleDate = [];
   List<String> scheduleTime = [];
