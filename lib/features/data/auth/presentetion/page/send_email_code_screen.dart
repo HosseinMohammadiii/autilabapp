@@ -125,8 +125,7 @@ class _SendEmailCodeScreenState extends State<SendEmailCodeScreen>
                           CustomButtonWidget(
                             isMobile: isMobile(),
                             onTap: () {
-                              context.pushReplacementNamed(
-                                  AutiLabRoutes.loginScreen);
+                              context.goNamed(AutiLabRoutes.loginScreen);
                             },
                             height: 50,
                             margin: AutilabMargin.marginFullScreen,

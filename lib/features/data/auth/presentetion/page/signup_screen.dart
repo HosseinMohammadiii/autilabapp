@@ -212,57 +212,60 @@ class _SignupScreenState extends State<SignupScreen>
                           ),
                           BlocConsumer<AuthenticationBloc, AuthenticationState>(
                             listener: (context, state) {
-                              if (state is AuthenticationError) {
-                                displaySnackBar(
-                                  context,
-                                  state.errorMessage.toString(),
-                                  AutilabColor.bb,
-                                );
-                              }
-                              if (state is AuthenticationResponse) {
-                                state.response.fold(
-                                  (error) {
-                                    displaySnackBar(
-                                      context,
-                                      error.message,
-                                      AutilabColor.bb,
-                                    );
-                                  },
-                                  (response) async {
-                                    await SharedPreferencesData.userLogIn(true);
-                                    await SharedPreferencesData
-                                        .isFirstTimeLogIn(false);
-                                    BlocProvider.of<AuthenticationBloc>(context)
-                                        .add(DisplayInformationUser());
-                                    BlocProvider.of<HomeBloc>(context)
-                                        .add(DisplayHomeContent());
+                              // if (state is AuthenticationError) {
+                              //   displaySnackBar(
+                              //     context,
+                              //     state.errorMessage.toString(),
+                              //     AutilabColor.bb,
+                              //   );
+                              // }
+                              // if (state is AuthenticationResponse) {
+                              //   state.response.fold(
+                              //     (error) {
+                              //       displaySnackBar(
+                              //         context,
+                              //         error.message,
+                              //         AutilabColor.bb,
+                              //       );
+                              //     },
+                              //     (response) async {
+                              //       await SharedPreferencesData.userLogIn(true);
+                              //       await SharedPreferencesData
+                              //           .isFirstTimeLogIn(false);
+                              //       BlocProvider.of<AuthenticationBloc>(context)
+                              //           .add(DisplayInformationUser());
+                              //       BlocProvider.of<HomeBloc>(context)
+                              //           .add(DisplayHomeContent());
 
-                                    context.goNamed(
-                                        AutiLabRoutes.bottomNavigationScreen);
-                                  },
-                                );
-                              }
+                              //       context.goNamed(
+                              //           AutiLabRoutes.bottomNavigationScreen);
+                              //     },
+                              //   );
+                              // }
                             },
                             builder: (context, state) {
                               return CustomButtonWidget(
                                 isMobile: isMobile(),
-                                isLoading: state is AuthenticationLoading,
+                                isLoading: false,
                                 onTap: () {
                                   if (firstNameController.text.isNotEmpty &&
                                       emailController.text.isNotEmpty &&
                                       passwordController.text.isNotEmpty) {
                                     //Call SignUpRequest Event
-                                    BlocProvider.of<AuthenticationBloc>(context)
-                                        .add(
-                                      SignUpRequest(
-                                        userParam: UserParam(
-                                          firstName: firstNameController.text,
-                                          lastName: lastNameController.text,
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                        ),
-                                      ),
-                                    );
+                                    // BlocProvider.of<AuthenticationBloc>(context)
+                                    //     .add(
+                                    //   SignUpRequest(
+                                    //     userParam: UserParam(
+                                    //       firstName: firstNameController.text,
+                                    //       lastName: lastNameController.text,
+                                    //       email: emailController.text,
+                                    //       password: passwordController.text,
+                                    //     ),
+                                    //   ),
+                                    // );
+
+                                    context.goNamed(
+                                        AutiLabRoutes.bottomNavigationScreen);
                                   } else {
                                     displaySnackBar(
                                       context,

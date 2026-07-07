@@ -165,55 +165,57 @@ class _LogInScreenState extends State<LogInScreen>
                           ),
                           BlocConsumer<AuthenticationBloc, AuthenticationState>(
                             listener: (context, state) async {
-                              if (state is AuthenticationError) {
-                                displaySnackBar(
-                                  context,
-                                  state.errorMessage.toString(),
-                                  AutilabColor.bb,
-                                );
-                              }
-                              if (state is AuthenticationResponse) {
-                                state.response.fold(
-                                    (error) => displaySnackBar(
-                                          context,
-                                          error.message,
-                                          AutilabColor.bb,
-                                        ), (respose) async {
-                                  await SharedPreferencesData.userLogIn(true);
-                                  await SharedPreferencesData.isFirstTimeLogIn(
-                                      false);
+                              // if (state is AuthenticationError) {
+                              //   displaySnackBar(
+                              //     context,
+                              //     state.errorMessage.toString(),
+                              //     AutilabColor.bb,
+                              //   );
+                              // }
+                              // if (state is AuthenticationResponse) {
+                              //   state.response.fold(
+                              //       (error) => displaySnackBar(
+                              //             context,
+                              //             error.message,
+                              //             AutilabColor.bb,
+                              //           ), (respose) async {
+                              //     await SharedPreferencesData.userLogIn(true);
+                              //     await SharedPreferencesData.isFirstTimeLogIn(
+                              //         false);
 
-                                  BlocProvider.of<AuthenticationBloc>(context)
-                                      .add(DisplayInformationUser());
-                                  BlocProvider.of<HomeBloc>(context)
-                                      .add(DisplayHomeContent());
+                              //     BlocProvider.of<AuthenticationBloc>(context)
+                              //         .add(DisplayInformationUser());
+                              //     BlocProvider.of<HomeBloc>(context)
+                              //         .add(DisplayHomeContent());
 
-                                  context.goNamed(
-                                      AutiLabRoutes.bottomNavigationScreen);
-                                });
-                              }
+                              //     context.goNamed(
+                              //         AutiLabRoutes.bottomNavigationScreen);
+                              //   });
+                              // }
                             },
                             builder: (context, state) {
                               return CustomButtonWidget(
                                 isMobile: isMobile(),
-                                isLoading: state is AuthenticationLoading,
+                                isLoading: false,
                                 margin: AutilabMargin.marginFullScreen
                                     .copyWith(top: 32, bottom: 48),
                                 onTap: () {
                                   if (userNameController.text.isNotEmpty &&
                                       passwordController.text.isNotEmpty) {
                                     //Call SignUpRequest Event
-                                    BlocProvider.of<AuthenticationBloc>(context)
-                                        .add(
-                                      LogInRequest(
-                                        userParam: UserParam(
-                                          email: userNameController.text,
-                                          password: passwordController.text,
-                                          firstName: 'ss',
-                                          lastName: 'ss',
-                                        ),
-                                      ),
-                                    );
+                                    // BlocProvider.of<AuthenticationBloc>(context)
+                                    //     .add(
+                                    //   LogInRequest(
+                                    //     userParam: UserParam(
+                                    //       email: userNameController.text,
+                                    //       password: passwordController.text,
+                                    //       firstName: 'ss',
+                                    //       lastName: 'ss',
+                                    //     ),
+                                    //   ),
+                                    // );
+                                    context.goNamed(
+                                        AutiLabRoutes.bottomNavigationScreen);
                                   } else {
                                     displaySnackBar(
                                       context,
