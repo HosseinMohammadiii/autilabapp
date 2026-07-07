@@ -55,7 +55,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
   // List<NewappointmentModel> newappointmentModel = [];
-  List<RecentVisitedModel> recentVisitedModel = [];
+  List<RecentVisitedModel> recentVisitedModel = [
+    RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+    RecentVisitedModel.fromLocal(RecentType.developmentalPediatricians),
+    RecentVisitedModel.fromLocal(RecentType.pediatricNutrition),
+    RecentVisitedModel.fromLocal(RecentType.generalPractice),
+    RecentVisitedModel.fromLocal(RecentType.pediatricNeurologists),
+    RecentVisitedModel.fromLocal(RecentType.speechtherapy),
+  ];
   List<IntelligenceTestModel> intelligenceTestList = [];
   List<PlanModel> planModel = [];
 
@@ -390,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 .copyWith(left: 16),
                             sliver: SliverToBoxAdapter(
                               child: Visibility(
-                                visible: recentVisitedModel.isNotEmpty,
+                                // visible: recentVisitedModel.isNotEmpty,
                                 child: TitleAndIconWidget(
                                   isShowIcon: false,
                                   title: 'Recent Visited',
@@ -407,7 +414,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                           SliverToBoxAdapter(
                             child: Visibility(
-                              visible: recentVisitedModel.isNotEmpty,
+                              // visible: recentVisitedModel.isNotEmpty,
                               child: SpecialtyListWidget(
                                 isMobile: isMobile(),
                                 isOnTap: false,
@@ -769,8 +776,9 @@ class SpecialtyListWidget extends StatelessWidget {
                       //               56,
                       //           context),
                       // ),
-                      img: const Text(''),
-                      isNetworkImage: true,
+                      img: Image.asset(recentVisitedModel[index].imagePath),
+
+                      isNetworkImage: false,
                     ),
                   ),
                   FittedBox(
