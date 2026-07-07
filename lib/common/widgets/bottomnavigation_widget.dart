@@ -25,9 +25,9 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class ButtomnavigationWidget extends StatefulWidget {
   const ButtomnavigationWidget({
-    Key? key,
+    super.key,
     // required this.navigationShell,
-  }) : super(key: key);
+  });
 
   /// The navigation shell and container for the branch Navigators.
   // final StatefulNavigationShell navigationShell;
