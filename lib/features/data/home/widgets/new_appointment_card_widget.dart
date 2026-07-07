@@ -178,17 +178,20 @@ class NewAppointmentsCardWidget extends StatelessWidget {
                               color: Color(0xffEDC757),
                             ),
                             Text(
-                              rate ?? '0.0',
+                              rate ?? '3.5',
                               style: AutilabTextStyle.small14_400.copyWith(
                                 fontSize: isMobile ? 14 : 20,
                               ),
                             ),
                           ],
                         ),
-                        TimeBoxDoctorCard(
-                          isMobile: isMobile,
-                          date: date,
-                          time: time,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: TimeBoxDoctorCard(
+                            isMobile: isMobile,
+                            date: date,
+                            time: time,
+                          ),
                         ),
                       ],
                     ),

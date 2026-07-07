@@ -30,29 +30,26 @@ class TimeBoxDoctorCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Row(
-              spacing: 2,
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/calendar.svg',
-                  width: isMobile ? 16 : 40,
-                  height: isMobile ? 16 : 40,
-                  colorFilter: const ColorFilter.mode(
-                    AutilabColor.blue,
-                    BlendMode.srcIn,
-                  ),
+          Row(
+            spacing: 2,
+            children: [
+              SvgPicture.asset(
+                'assets/icons/calendar.svg',
+                width: isMobile ? 16 : 40,
+                height: isMobile ? 16 : 40,
+                colorFilter: const ColorFilter.mode(
+                  AutilabColor.blue,
+                  BlendMode.srcIn,
                 ),
-                Text(
-                  date ?? ' Tues 03 March ',
-                  style: isMobile
-                      ? AutilabTextStyle.small14_400
-                      : AutilabTextStyle.small24_400,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
+              ),
+              Text(
+                date ?? 'Tues 03 March',
+                style: isMobile
+                    ? AutilabTextStyle.small14_400
+                    : AutilabTextStyle.small24_400,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
           Container(
             height: isMobile ? 16 : 32,
@@ -62,29 +59,26 @@ class TimeBoxDoctorCard extends StatelessWidget {
               color: AutilabColor.bb,
             ),
           ),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Row(
-              spacing: 2,
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/clock_icon.svg',
-                  width: isMobile ? 16 : 40,
-                  height: isMobile ? 16 : 40,
-                  colorFilter: const ColorFilter.mode(
-                    AutilabColor.blue,
-                    BlendMode.srcIn,
-                  ),
+          Row(
+            spacing: 2,
+            children: [
+              SvgPicture.asset(
+                'assets/icons/clock_icon.svg',
+                width: isMobile ? 16 : 40,
+                height: isMobile ? 16 : 40,
+                colorFilter: const ColorFilter.mode(
+                  AutilabColor.blue,
+                  BlendMode.srcIn,
                 ),
-                Text(
-                  time ?? '13:30',
-                  style: isMobile
-                      ? AutilabTextStyle.small14_400
-                      : AutilabTextStyle.small24_400,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
+              ),
+              Text(
+                time ?? '13:30',
+                style: isMobile
+                    ? AutilabTextStyle.small14_400
+                    : AutilabTextStyle.small24_400,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ],
       ),
