@@ -153,10 +153,21 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                           height: 16,
                         ),
                       ),
+                      if (widget.doctorList!.isEmpty) ...{
+                        SliverFillRemaining(
+                          child: Center(
+                            child: Text(
+                              'There is no doctorate with this specialization.',
+                              textAlign: TextAlign.center,
+                              style: AutilabTextStyle.small14_500.copyWith(
+                                fontSize: isMobile() ? 20 : 28,
+                              ),
+                            ),
+                          ),
+                        ),
+                      },
                       SliverList.builder(
-                        itemCount: widget.doctorList?.length == null
-                            ? 0
-                            : widget.doctorList!.length,
+                        itemCount: widget.doctorList!.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -166,10 +177,13 @@ class _DoctorSpecialityScreenState extends State<DoctorSpecialityScreen>
                                   widget.doctorList?[index].specialities,
                               user: widget.doctorList?[index].user,
                               id: widget.doctorList?[index].user?.id,
+                              doctorRate: widget
+                                  .doctorList?[index].ratingaverage
+                                  .toString(),
                             ),
                           );
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),

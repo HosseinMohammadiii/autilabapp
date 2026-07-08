@@ -64,6 +64,21 @@ class DoctorUser {
       address: jsonObject['address'] ?? '',
     );
   }
+  factory DoctorUser.fromLocal(
+      String name, String lastName, String photo, String gender) {
+    return DoctorUser(
+      id: 0,
+      firstName: name,
+      lastName: lastName,
+      gender: gender,
+      birthDate: '1996/01/01',
+      photo: photo,
+      description:
+          'Hi, I’m Dr. Sophia Martinez – a speech therapist with over 8 years of experience helping children with autism, speech delays, and communication challenges.My goal is to support every child in finding their unique voice — with patience, care, and family collaboration.You can easily book a session or consultation through this app. I’d be honored to support your child’s journey.',
+      address:
+          '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
+    );
+  }
 }
 
 class DoctorSpecialities {

@@ -22,6 +22,7 @@ import '../../../../../utils/functions/animation_control.dart';
 import '../../../../../utils/functions/cacheimahe_function.dart';
 import '../../../../../utils/functions/custom_dialog_function.dart';
 import '../../../home/presentation/page/home_screen.dart';
+import '../../data/model/doctor_model.dart';
 import '../../widgets/custom_checkbox_widget.dart';
 import '../../widgets/doctor_box_widget.dart';
 import '../../widgets/search_textfield_widget.dart';
@@ -48,7 +49,72 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
       ValueNotifier<double?>(null);
 
   late List<AllDoctorModel> doctorsList = [];
-  List<RecentVisitedModel> specialtyList = [];
+  final List<AllDoctorModel> localDoctors = [
+    AllDoctorModel(
+      id: 1,
+      userid: 101,
+      degree: 'phd',
+      description: 'Description',
+      user: DoctorUser.fromLocal(
+        'Dr.Sam',
+        'Diego',
+        'assets/images/doctor3.png',
+        'male',
+      ),
+      specialities: RecentVisitedModel.fromLocal(RecentType.pediatricNutrition),
+      ratingaverage: 4.5,
+    ),
+    AllDoctorModel(
+      id: 2,
+      userid: 102,
+      degree: 'phd',
+      description: 'Description',
+      user: DoctorUser.fromLocal(
+        'Dr.Sophia',
+        'Matinez',
+        'assets/images/doctor_image.jpg',
+        'female',
+      ),
+      specialities: RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+      ratingaverage: 4.8,
+    ),
+    AllDoctorModel(
+      id: 3,
+      userid: 103,
+      degree: 'phd',
+      description: 'Description',
+      user: DoctorUser.fromLocal(
+        'Dr.Sam',
+        'Diego',
+        'assets/images/doctor3.png',
+        'male',
+      ),
+      specialities: RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+      ratingaverage: 1.5,
+    ),
+    AllDoctorModel(
+      id: 4,
+      userid: 104,
+      degree: 'phd',
+      description: 'Description',
+      user: DoctorUser.fromLocal(
+        'Dr.Sam',
+        'Diego',
+        'assets/images/doctor3.png',
+        'male',
+      ),
+      specialities: RecentVisitedModel.fromLocal(RecentType.speechtherapy),
+      ratingaverage: 4.2,
+    ),
+  ];
+  List<RecentVisitedModel> specialtyList = [
+    RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+    RecentVisitedModel.fromLocal(RecentType.developmentalPediatricians),
+    RecentVisitedModel.fromLocal(RecentType.pediatricNutrition),
+    RecentVisitedModel.fromLocal(RecentType.generalPractice),
+    RecentVisitedModel.fromLocal(RecentType.pediatricNeurologists),
+    RecentVisitedModel.fromLocal(RecentType.speechtherapy),
+  ];
 
   final searchController = TextEditingController();
 
@@ -98,308 +164,315 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
 
         return FadeTransition(
           opacity: animationHelper.fadeAnimation,
-          child: BlocProvider(
-            create: (context) =>
-                DoctorBloc(locator.get())..add(DisplayDoctors()),
-            child: BlocConsumer<DoctorBloc, DoctorState>(
-              listener: (context, state) {
-                if (state is AllDoctorResponseState) {
-                  doctorsList = state.displayAllDoctor;
-                  specialtyList = state.displayAllSpecialty;
-                }
-              },
-              builder: (context, state) {
-                if (state is DoctorError) {
-                  if (state.errorMessage.type ==
-                      DioExceptionType.connectionError) {
-                    return NotConnectionInternetScreen(
-                      onChange: () async {
-                        context.read<DoctorBloc>().add(DisplayDoctors());
-                      },
-                    );
-                  }
-                }
-                if (state is DoctorLoading) {
-                  return const LoadingProgressWidget();
-                }
+          child:
+              // BlocProvider(
+              // create: (context) =>
+              //     DoctorBloc(locator.get())..add(DisplayDoctors()),
+              BlocConsumer<DoctorBloc, DoctorState>(
+            listener: (context, state) {
+              // if (state is AllDoctorResponseState) {
+              //   doctorsList = state.displayAllDoctor;
+              //   specialtyList = state.displayAllSpecialty;
+              // }
+            },
+            builder: (context, state) {
+              // if (state is DoctorError) {
+              //   if (state.errorMessage.type ==
+              //       DioExceptionType.connectionError) {
+              //     return NotConnectionInternetScreen(
+              //       onChange: () async {
+              //         context.read<DoctorBloc>().add(DisplayDoctors());
+              //       },
+              //     );
+              //   }
+              // }
+              // if (state is DoctorLoading) {
+              //   return const LoadingProgressWidget();
+              // }
 
-                return RefreshIndicator(
-                  color: AutilabColor.bb,
-                  onRefresh: () async {
-                    context.read<DoctorBloc>().add(DisplayDoctors());
-                  },
-                  child: Scaffold(
-                    body: SafeArea(
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          return SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 24,
-                                ),
-                                Padding(
-                                  padding: AutilabMargin.marginFullScreen,
-                                  child: Row(
-                                    spacing: 8,
-                                    children: [
-                                      Expanded(
-                                        child: SearchTextFieldWidget(
-                                          isMobile: isMobile(),
-                                          searchFocusNode: searchFocusNode,
-                                          searchController: searchController,
-                                        ),
+              return RefreshIndicator(
+                color: AutilabColor.bb,
+                onRefresh: () async {
+                  // context.read<DoctorBloc>().add(DisplayDoctors());
+                },
+                child: Scaffold(
+                  body: SafeArea(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: Row(
+                                  spacing: 8,
+                                  children: [
+                                    Expanded(
+                                      child: SearchTextFieldWidget(
+                                        isMobile: isMobile(),
+                                        searchFocusNode: searchFocusNode,
+                                        searchController: searchController,
                                       ),
-                                      Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: const BoxDecoration(
-                                          color: AutilabColor.bb,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            showCustomDialog(
-                                              context,
-                                              _buildDialogSortIcon(
-                                                context,
-                                                isMobile(),
-                                                () {
-                                                  // String specialty = '';
-                                                  // String gender = '';
-                                                  // int rate = 0;
-
-                                                  // switch (selectedIndexSpecialty
-                                                  //     .value) {
-                                                  //   case 0:
-                                                  //     specialty =
-                                                  //         categoryItemsList[0]
-                                                  //             .title;
-                                                  //     break;
-                                                  //   case 1:
-                                                  //     specialty =
-                                                  //         categoryItemsList[1]
-                                                  //             .title;
-                                                  //     break;
-                                                  //   case 2:
-                                                  //     specialty =
-                                                  //         categoryItemsList[2]
-                                                  //             .title;
-                                                  //     break;
-                                                  //   case 3:
-                                                  //     specialty =
-                                                  //         categoryItemsList[3]
-                                                  //             .title;
-                                                  //     break;
-                                                  //   case 4:
-                                                  //     specialty =
-                                                  //         categoryItemsList[4]
-                                                  //             .title;
-                                                  //     break;
-                                                  //   case 5:
-                                                  //     specialty =
-                                                  //         categoryItemsList[5]
-                                                  //             .title;
-                                                  //     break;
-                                                  //   default:
-                                                  //     gender = '';
-                                                  //     break;
-                                                  // }
-                                                  // switch (selectedIndexrating
-                                                  //     .value) {
-                                                  //   case 0:
-                                                  //     rate = 0;
-                                                  //     break;
-                                                  //   case 1:
-                                                  //     rate = 1;
-                                                  //     break;
-                                                  //   case 2:
-                                                  //     rate = 2;
-                                                  //     break;
-                                                  //   case 3:
-                                                  //     rate = 3;
-                                                  //     break;
-                                                  //   case 4:
-                                                  //     rate = 4;
-                                                  //     break;
-                                                  //   case 5:
-                                                  //     rate = 5;
-                                                  //     break;
-                                                  //   default:
-                                                  //     rate = 0;
-                                                  //     break;
-                                                  // }
-                                                  // if (selectedGenderMaleNotifier
-                                                  //     .value!) {
-                                                  //   gender = 'male';
-                                                  // }
-                                                  // if (selectedGenderFemaleNotifier
-                                                  //     .value!) {
-                                                  //   gender = 'female';
-                                                  // }
-                                                  // if (selectedGenderMaleNotifier
-                                                  //             .value! &&
-                                                  //         selectedGenderFemaleNotifier
-                                                  //             .value! ||
-                                                  //     !selectedGenderMaleNotifier
-                                                  //             .value! &&
-                                                  //         !selectedGenderFemaleNotifier
-                                                  //             .value!) {
-                                                  //   gender = '';
-                                                  // }
-                                                  // var list = doctorsList.where(
-                                                  //   (element) {
-                                                  //     if (element.specialities
-                                                  //             ?.name ==
-                                                  //         specialty) {
-                                                  //       return true;
-                                                  //     }
-                                                  //     if (element
-                                                  //             .user?.gender ==
-                                                  //         gender) {
-                                                  //       return true;
-                                                  //     } else {
-                                                  //       return false;
-                                                  //     }
-                                                  //   },
-                                                  // ).toList();
-
-                                                  // // print(
-                                                  // //     "Specialty: $specialty ---- Gender: $gender ---- Rating: $rate List length:${list.length}");
-                                                  context.pop();
-                                                },
-                                              ),
-                                            );
-                                          },
-                                          child: SizedBox(
-                                            height: isMobile() ? 25 : 88,
-                                            child: SvgPicture.asset(
-                                              'assets/icons/sort_icon.svg',
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: const BoxDecoration(
+                                        color: AutilabColor.bb,
+                                        shape: BoxShape.circle,
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 32,
-                                ),
-                                Padding(
-                                  padding: AutilabMargin.marginFullScreen,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Specialties',
-                                          style: AutilabTextStyle.small20_400
-                                              .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 20 : 32),
-                                        ),
-                                      ),
-                                      GestureDetector(
+                                      child: GestureDetector(
                                         onTap: () {
                                           showCustomDialog(
                                             context,
-                                            _buildSpecialtiesDialog(
+                                            _buildDialogSortIcon(
                                               context,
-                                              (index) {
-                                                Iterable<AllDoctorModel>?
-                                                    doctorList =
-                                                    doctorsList.where(
-                                                  (element) {
-                                                    if (element.specialities
-                                                            ?.name ==
-                                                        specialtyList[index]
-                                                            .name) {
-                                                      return true;
-                                                    } else {
-                                                      return false;
-                                                    }
-                                                  },
-                                                ).toList();
-                                                context.pushNamed(
-                                                    AutiLabRoutes
-                                                        .doctorSpecialityScreen,
-                                                    extra: {
-                                                      'doctorList': doctorList,
-                                                    });
-                                              },
                                               isMobile(),
+                                              () {
+                                                // String specialty = '';
+                                                // String gender = '';
+                                                // int rate = 0;
+
+                                                // switch (selectedIndexSpecialty
+                                                //     .value) {
+                                                //   case 0:
+                                                //     specialty =
+                                                //         categoryItemsList[0]
+                                                //             .title;
+                                                //     break;
+                                                //   case 1:
+                                                //     specialty =
+                                                //         categoryItemsList[1]
+                                                //             .title;
+                                                //     break;
+                                                //   case 2:
+                                                //     specialty =
+                                                //         categoryItemsList[2]
+                                                //             .title;
+                                                //     break;
+                                                //   case 3:
+                                                //     specialty =
+                                                //         categoryItemsList[3]
+                                                //             .title;
+                                                //     break;
+                                                //   case 4:
+                                                //     specialty =
+                                                //         categoryItemsList[4]
+                                                //             .title;
+                                                //     break;
+                                                //   case 5:
+                                                //     specialty =
+                                                //         categoryItemsList[5]
+                                                //             .title;
+                                                //     break;
+                                                //   default:
+                                                //     gender = '';
+                                                //     break;
+                                                // }
+                                                // switch (selectedIndexrating
+                                                //     .value) {
+                                                //   case 0:
+                                                //     rate = 0;
+                                                //     break;
+                                                //   case 1:
+                                                //     rate = 1;
+                                                //     break;
+                                                //   case 2:
+                                                //     rate = 2;
+                                                //     break;
+                                                //   case 3:
+                                                //     rate = 3;
+                                                //     break;
+                                                //   case 4:
+                                                //     rate = 4;
+                                                //     break;
+                                                //   case 5:
+                                                //     rate = 5;
+                                                //     break;
+                                                //   default:
+                                                //     rate = 0;
+                                                //     break;
+                                                // }
+                                                // if (selectedGenderMaleNotifier
+                                                //     .value!) {
+                                                //   gender = 'male';
+                                                // }
+                                                // if (selectedGenderFemaleNotifier
+                                                //     .value!) {
+                                                //   gender = 'female';
+                                                // }
+                                                // if (selectedGenderMaleNotifier
+                                                //             .value! &&
+                                                //         selectedGenderFemaleNotifier
+                                                //             .value! ||
+                                                //     !selectedGenderMaleNotifier
+                                                //             .value! &&
+                                                //         !selectedGenderFemaleNotifier
+                                                //             .value!) {
+                                                //   gender = '';
+                                                // }
+                                                // var list = doctorsList.where(
+                                                //   (element) {
+                                                //     if (element.specialities
+                                                //             ?.name ==
+                                                //         specialty) {
+                                                //       return true;
+                                                //     }
+                                                //     if (element
+                                                //             .user?.gender ==
+                                                //         gender) {
+                                                //       return true;
+                                                //     } else {
+                                                //       return false;
+                                                //     }
+                                                //   },
+                                                // ).toList();
+
+                                                // // print(
+                                                // //     "Specialty: $specialty ---- Gender: $gender ---- Rating: $rate List length:${list.length}");
+
+                                                context.pop();
+                                              },
                                             ),
                                           );
                                         },
-                                        child: Text(
-                                          'See All',
-                                          style: AutilabTextStyle.medium14_500
-                                              .copyWith(
-                                            color: AutilabColor.blue,
-                                            fontSize: isMobile() ? 14 : 20,
+                                        child: SizedBox(
+                                          height: isMobile() ? 25 : 88,
+                                          child: SvgPicture.asset(
+                                            'assets/icons/sort_icon.svg',
+                                            fit: BoxFit.contain,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: 24,
+                              ),
+                              const SizedBox(
+                                height: 32,
+                              ),
+                              Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Specialties',
+                                        style: AutilabTextStyle.small20_400
+                                            .copyWith(
+                                                fontSize: isMobile() ? 20 : 32),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showCustomDialog(
+                                          context,
+                                          _buildSpecialtiesDialog(
+                                            context,
+                                            (index) {
+                                              Iterable<AllDoctorModel>?
+                                                  doctorList =
+                                                  localDoctors.where(
+                                                (element) {
+                                                  if (element
+                                                          .specialities?.name ==
+                                                      specialtyList[index]
+                                                          .name) {
+                                                    return true;
+                                                  } else {
+                                                    return false;
+                                                  }
+                                                },
+                                              ).toList();
+
+                                              context.pushNamed(
+                                                  AutiLabRoutes
+                                                      .doctorSpecialityScreen,
+                                                  extra: {
+                                                    'doctorList': doctorList,
+                                                  });
+                                            },
+                                            isMobile(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'See All',
+                                        style: AutilabTextStyle.medium14_500
+                                            .copyWith(
+                                          color: AutilabColor.blue,
+                                          fontSize: isMobile() ? 14 : 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SpecialtyListWidget(
-                                  isMobile: isMobile(),
-                                  doctorsList: doctorsList,
-                                  recentVisitedModel: specialtyList,
+                              ),
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              SpecialtyListWidget(
+                                isMobile: isMobile(),
+                                doctorsList: localDoctors,
+                                recentVisitedModel: specialtyList,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 48, bottom: 16, right: 20, left: 20),
+                                child: Text(
+                                  'Specialist',
+                                  style: AutilabTextStyle.small20_400
+                                      .copyWith(fontSize: isMobile() ? 20 : 32),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 48, bottom: 16, right: 20, left: 20),
-                                  child: Text(
-                                    'Specialist',
-                                    style: AutilabTextStyle.small20_400
-                                        .copyWith(
-                                            fontSize: isMobile() ? 20 : 32),
-                                  ),
+                              ),
+                              Padding(
+                                padding: AutilabMargin.marginFullScreen,
+                                child: ListView.builder(
+                                  // itemCount: doctorsList.length,
+                                  itemCount: localDoctors.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return DoctorBoxWidget(
+                                      isMobile: isMobile(),
+                                      isLike: false,
+                                      // id: doctorsList[index].id,
+                                      id: localDoctors[index].id,
+                                      // gender:
+                                      //     doctorsList[index].user?.gender ??
+                                      //         'male',
+                                      // gender:
+                                      //     localDoctors[index].user?.gender ??
+                                      //         'male',
+                                      // user: doctorsList[index].user,
+                                      user: localDoctors[index].user,
+                                      doctorSpecialities:
+                                          localDoctors[index].specialities,
+                                      doctorRate: localDoctors[index]
+                                          .ratingaverage
+                                          .toString(),
+                                    );
+                                  },
                                 ),
-                                Padding(
-                                  padding: AutilabMargin.marginFullScreen,
-                                  child: ListView.builder(
-                                    itemCount: doctorsList.length,
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return DoctorBoxWidget(
-                                        isMobile: isMobile(),
-                                        isLike: false,
-                                        id: doctorsList[index].id,
-                                        gender:
-                                            doctorsList[index].user?.gender ??
-                                                'male',
-                                        user: doctorsList[index].user,
-                                        doctorSpecialities:
-                                            doctorsList[index].specialities,
-                                        doctorRate: doctorsList[index]
-                                            .ratingaverage
-                                            .toString(),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         );
       },
     );
+    // },
+    // );
   }
 
 // //Widget for display Specialties category dialog

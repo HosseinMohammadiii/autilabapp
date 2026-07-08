@@ -20,14 +20,14 @@ class DoctorBoxWidget extends StatefulWidget {
       this.user,
       this.doctorSpecialities,
       this.doctorRate,
-      this.gender,
+      // this.gender,
       this.id});
   bool isLike;
   final bool isMobile;
   final DoctorUser? user;
   final RecentVisitedModel? doctorSpecialities;
   final String? doctorRate;
-  final String? gender;
+  // final String? gender;
   final int? id;
 
   @override
@@ -49,17 +49,6 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
     super.initState();
   }
 
-//Control doctor gender
-  Color controlDoctorGender(String gender) {
-    if (gender == 'female') {
-      return AutilabColor.bb;
-    } else if (gender == 'male') {
-      return AutilabColor.bb;
-    } else {
-      return AutilabColor.gray;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,10 +66,9 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               Text(
                 'Male',
                 style: AutilabTextStyle.medium14_500.copyWith(
-                  color: widget.gender == 'male'
+                  color: widget.user?.gender == 'male'
                       ? AutilabColor.bb
                       : AutilabColor.gray,
-                  // controlDoctorGender(widget.gender ?? 'male'),
                   fontSize: widget.isMobile ? 14 : 20,
                 ),
               ),
@@ -88,7 +76,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
               Text(
                 'Female',
                 style: AutilabTextStyle.medium14_500.copyWith(
-                  color: widget.gender == 'female'
+                  color: widget.user?.gender == 'female'
                       ? AutilabColor.bb
                       : AutilabColor.gray,
                   fontSize: widget.isMobile ? 14 : 20,
@@ -149,13 +137,13 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
+                        widget.user?.photo ?? 'assets/images/doctor_image.jpg',
                         width: widget.isMobile ? 116 : 200,
                         height: widget.isMobile ? 116 : 200,
                         cacheWidth: cacheImageFunction(
                             widget.isMobile ? 116 : 200, context),
                         cacheHeight: cacheImageFunction(
                             widget.isMobile ? 116 : 200, context),
-                        'assets/images/doctor_image.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -169,6 +157,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                         children: [
                           Text(
                             doctorFullName,
+                            // 'Dr. Sophia Martinez',
                             overflow: TextOverflow.ellipsis,
                             style: widget.isMobile
                                 ? AutilabTextStyle.medium18_500
@@ -179,7 +168,8 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  widget.doctorSpecialities?.name ?? '',
+                                  widget.doctorSpecialities?.name ??
+                                      'Speech Therapy',
                                   style: AutilabTextStyle.small14_400.copyWith(
                                     fontSize: widget.isMobile ? 14 : 24,
                                   ),
@@ -203,6 +193,7 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                             ],
                           ),
                           FittedBox(
+                            fit: BoxFit.scaleDown,
                             child: Row(
                               children: [
                                 SizedBox(
@@ -214,39 +205,44 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      return ButtonCard(
-                                        isMobile: widget.isMobile,
-                                        onTap: () {
-                                          switch (index) {
-                                            // case 0:
-                                            //   context.pushNamed(AutiLabRoutes
-                                            //       .doctorSocialMediaScreen);
-                                            case 0:
-                                              context.pushNamed(
-                                                AutiLabRoutes
-                                                    .doctorMessageScreen,
-                                                extra: {
-                                                  'image':
-                                                      'assets/images/doctor_image.jpg',
-                                                  'name': doctorFullName,
-                                                  'expertise': widget
-                                                      .doctorSpecialities?.name,
-                                                },
-                                              );
-                                            case 1:
-                                              context.pushNamed(
-                                                AutiLabRoutes
-                                                    .doctorWorkscheduleScreen,
-                                                extra: {
-                                                  'isLike': widget.isLike,
-                                                  'doctorUser': widget.user,
-                                                  'specialty':
-                                                      widget.doctorSpecialities,
-                                                },
-                                              );
-                                          }
-                                        },
-                                        icon: icon[index],
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 24),
+                                        child: ButtonCard(
+                                          isMobile: widget.isMobile,
+                                          onTap: () {
+                                            switch (index) {
+                                              // case 0:
+                                              //   context.pushNamed(AutiLabRoutes
+                                              //       .doctorSocialMediaScreen);
+                                              case 0:
+                                                context.pushNamed(
+                                                  AutiLabRoutes
+                                                      .doctorMessageScreen,
+                                                  extra: {
+                                                    'image':
+                                                        'assets/images/doctor_image.jpg',
+                                                    'name': doctorFullName,
+                                                    'expertise': widget
+                                                        .doctorSpecialities
+                                                        ?.name,
+                                                  },
+                                                );
+                                              case 1:
+                                                context.pushNamed(
+                                                  AutiLabRoutes
+                                                      .doctorWorkscheduleScreen,
+                                                  extra: {
+                                                    'isLike': widget.isLike,
+                                                    'doctorUser': widget.user,
+                                                    'specialty': widget
+                                                        .doctorSpecialities,
+                                                  },
+                                                );
+                                            }
+                                          },
+                                          icon: icon[index],
+                                        ),
                                       );
                                     },
                                   ),
