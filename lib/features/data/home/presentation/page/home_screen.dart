@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<String> scheduleTime = [];
   @override
   void initState() {
-    BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
+    // BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
 
     super.initState();
     animationHelper = AnimationHelper(
@@ -146,13 +146,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           // if (state is HomeLoading) {
           //   return const LoadingProgressWidget();
           // }
-          if (state is HomeErrorHandling) {
-            return NotConnectionInternetScreen(
-              onChange: () async {
-                context.read<HomeBloc>().add(DisplayHomeContent());
-              },
-            );
-          }
+          // if (state is HomeErrorHandling) {
+          //   return NotConnectionInternetScreen(
+          //     onChange: () async {
+          //       context.read<HomeBloc>().add(DisplayHomeContent());
+          //     },
+          //   );
+          // }
           // if (state is HomeFetchData) {
           return FadeTransition(
             opacity: animationHelper.fadeAnimation,
