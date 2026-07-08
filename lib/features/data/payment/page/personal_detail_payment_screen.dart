@@ -177,67 +177,69 @@ class _PersonalDetailPaymentScreenState
                         child: BlocBuilder<AuthenticationBloc,
                             AuthenticationState>(
                           builder: (context, state) {
-                            if (state is AuthenticationLoading) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: AutilabColor.bb,
-                                ),
-                              );
-                            }
-                            if (state is FetchUserDataResponse) {
-                              return state.response.fold(
-                                (l) {
-                                  return Center(
-                                    child: Text(l),
-                                  );
-                                },
-                                (userDetail) {
-                                  return Container(
-                                    padding: const EdgeInsets.all(16),
-                                    margin: AutilabMargin.marginFullScreen,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffECF0FF),
-                                      border:
-                                          Border.all(color: AutilabColor.bb),
-                                      borderRadius: BorderRadius.circular(
-                                          isMobile() ? 16 : 24),
-                                    ),
-                                    child: Column(
-                                      spacing: 16,
-                                      children: [
-                                        CartItemWidget(
-                                          isMobile: isMobile(),
-                                          title: 'Name',
-                                          subTitle: userDetail.firstName,
-                                        ),
-                                        CartItemWidget(
-                                          isMobile: isMobile(),
-                                          title: 'Last Name',
-                                          subTitle: userDetail.lastName,
-                                        ),
-                                        // CartItemWidget(
-                                        //   isMobile: isMobile(),
-                                        //   title: 'Phone Namber',
-                                        //   subTitle: '(+1) 289 2658558',
-                                        // ),
-                                        CartItemWidget(
-                                          isMobile: isMobile(),
-                                          title: 'Email',
-                                          subTitle: userDetail.email,
-                                        ),
-                                        CartItemWidget(
-                                          isMobile: isMobile(),
-                                          title: 'Invoice Number',
-                                          subTitle: '1020',
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                            return const SizedBox();
+                            // if (state is AuthenticationLoading) {
+                            //   return const Center(
+                            //     child: CircularProgressIndicator(
+                            //       color: AutilabColor.bb,
+                            //     ),
+                            //   );
+                            // }
+                            // if (state is FetchUserDataResponse) {
+                            // return state.response.fold(
+                            //   (l) {
+                            //     return Center(
+                            //       child: Text(l),
+                            //     );
+                            //   },
+                            // (userDetail) {
+                            return Container(
+                              padding: const EdgeInsets.all(16),
+                              margin: AutilabMargin.marginFullScreen,
+                              decoration: BoxDecoration(
+                                color: const Color(0xffECF0FF),
+                                border: Border.all(color: AutilabColor.bb),
+                                borderRadius:
+                                    BorderRadius.circular(isMobile() ? 16 : 24),
+                              ),
+                              child: Column(
+                                spacing: 16,
+                                children: [
+                                  CartItemWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Name',
+                                    // subTitle: userDetail.firstName,
+                                    subTitle: 'Lila',
+                                  ),
+                                  CartItemWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Last Name',
+                                    // subTitle: userDetail.lastName,
+                                    subTitle: 'Rose',
+                                  ),
+                                  // CartItemWidget(
+                                  //   isMobile: isMobile(),
+                                  //   title: 'Phone Namber',
+                                  //   subTitle: '(+1) 289 2658558',
+                                  // ),
+                                  CartItemWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Email',
+                                    // subTitle: userDetail.email,
+                                    subTitle: 'lilarose@email.com',
+                                  ),
+                                  CartItemWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Invoice Number',
+                                    subTitle: '1020',
+                                  ),
+                                ],
+                              ),
+                            );
                           },
+                          // );
+                          // }
+                          // return const SizedBox();
+                          // },
                         ),
                       ),
                       const SizedBox(

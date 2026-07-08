@@ -21,8 +21,6 @@ import '../../features/data/doctor/widgets/drawer_box_widget.dart';
 import '../../utils/functions/cacheimahe_function.dart';
 import 'cached_network_image_widget.dart';
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
 class ButtomnavigationWidget extends StatefulWidget {
   const ButtomnavigationWidget({
     super.key,
@@ -101,6 +99,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
 
   int index = 0;
   int selectIndex = 0;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {

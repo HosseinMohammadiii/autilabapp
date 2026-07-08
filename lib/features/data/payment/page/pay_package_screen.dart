@@ -122,7 +122,8 @@ class _PayPackageScreenState extends State<PayPackageScreen>
                             margin: 0,
                             onTap: () {
                               if (widget.title == 'Free Plan') {
-                                context.goNamed(AutiLabRoutes.homeScreen);
+                                context.goNamed(
+                                    AutiLabRoutes.bottomNavigationScreen);
                               } else {
                                 context.pushNamed(
                                   AutiLabRoutes.personalDetailPaymentScreen,
