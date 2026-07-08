@@ -38,9 +38,9 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
     with SingleTickerProviderStateMixin {
   late AnimationHelper animationHelper;
 
-  List<NewappointmentModel> approvedList = [];
-  List<NewappointmentModel> cancelledList = [];
-  List<NewappointmentModel> pendingList = [];
+  // List<NewappointmentModel> approvedList = [];
+  // List<NewappointmentModel> cancelledList = [];
+  // List<NewappointmentModel> pendingList = [];
 
   List<DateTimeSchedule> dateTimeApprovedList = [];
   List<DateTimeSchedule> dateTimeCancelledList = [];
@@ -48,6 +48,12 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
 
   List<String> scheduleDate = [];
   List<String> scheduleTime = [];
+
+  List<String> statusList = [
+    'PENDING',
+    'APPROVED',
+    'CANCELLED',
+  ];
   @override
   void initState() {
     super.initState();
@@ -56,7 +62,7 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
 
     animationHelper.animationController.forward();
     // BlocProvider.of<HomeBloc>(context).add(DisplayAppointmentList());
-    BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
+    // BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
   }
 
   @override
@@ -75,60 +81,60 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state is HomeFetchData) {
-          state.homeResponse.fold(
-            (l) {},
-            (response) {
-              for (var element in response) {
-                // recentVisitedModel = element.recentVisitedModel;
-                // intelligenceTestList = element.intelligenceTestModel;
-                // planModel = element.planModel;
+        // if (state is HomeFetchData) {
+        //   state.homeResponse.fold(
+        //     (l) {},
+        //     (response) {
+        //       for (var element in response) {
+        //         // recentVisitedModel = element.recentVisitedModel;
+        //         // intelligenceTestList = element.intelligenceTestModel;
+        //         // planModel = element.planModel;
 
-                for (var element in element.newappointmentModel) {
-                  // Parse the appointment date
-                  DateTime date = DateTime.parse(element.workSchedule.date);
+        //         for (var element in element.newappointmentModel) {
+        //           // Parse the appointment date
+        //           DateTime date = DateTime.parse(element.workSchedule.date);
 
-                  // Format date as "Day, d Month"
-                  String formattedDate = DateFormat('EEE، d MMM').format(date);
+        //           // Format date as "Day, d Month"
+        //           String formattedDate = DateFormat('EEE، d MMM').format(date);
 
-                  // Parse and combine date with start time
-                  DateTime time = DateTime.parse(
-                      "${element.workSchedule.date} ${element.workSchedule.starttime}");
+        //           // Parse and combine date with start time
+        //           DateTime time = DateTime.parse(
+        //               "${element.workSchedule.date} ${element.workSchedule.starttime}");
 
-                  // Format time as "HH:mm"
-                  String formattedTime = DateFormat('HH:mm').format(time);
+        //           // Format time as "HH:mm"
+        //           String formattedTime = DateFormat('HH:mm').format(time);
 
-                  var formatDate = DateFormat(
-                    'EEE، d MMM',
-                  ).format(date);
-                  var formatTime = DateFormat(
-                    'hh:mm',
-                  ).format(time);
-                  scheduleDate.add(formatDate);
-                  scheduleTime.add(formatTime);
-                  // if (element.status == 'PENDING') {
-                  //   pendingList.add(element);
-                  //   dateTimePendingList.add(DateTimeSchedule(
-                  //       date: formattedDate, time: formattedTime));
-                  // }
-                  if (element.status == 'APPROVED') {
-                    approvedList.add(element);
-                    dateTimeApprovedList.add(DateTimeSchedule(
-                        date: formattedDate, time: formattedTime));
-                  } else if (element.status == 'CANCELLED') {
-                    cancelledList.add(element);
-                    dateTimeCancelledList.add(DateTimeSchedule(
-                        date: formattedDate, time: formattedTime));
-                  } else {
-                    pendingList.add(element);
-                    dateTimePendingList.add(DateTimeSchedule(
-                        date: formattedDate, time: formattedTime));
-                  }
-                }
-              }
-            },
-          );
-        }
+        //           var formatDate = DateFormat(
+        //             'EEE، d MMM',
+        //           ).format(date);
+        //           var formatTime = DateFormat(
+        //             'hh:mm',
+        //           ).format(time);
+        //           scheduleDate.add(formatDate);
+        //           scheduleTime.add(formatTime);
+        //           // if (element.status == 'PENDING') {
+        //           //   pendingList.add(element);
+        //           //   dateTimePendingList.add(DateTimeSchedule(
+        //           //       date: formattedDate, time: formattedTime));
+        //           // }
+        //           if (element.status == 'APPROVED') {
+        //             approvedList.add(element);
+        //             dateTimeApprovedList.add(DateTimeSchedule(
+        //                 date: formattedDate, time: formattedTime));
+        //           } else if (element.status == 'CANCELLED') {
+        //             cancelledList.add(element);
+        //             dateTimeCancelledList.add(DateTimeSchedule(
+        //                 date: formattedDate, time: formattedTime));
+        //           } else {
+        //             pendingList.add(element);
+        //             dateTimePendingList.add(DateTimeSchedule(
+        //                 date: formattedDate, time: formattedTime));
+        //           }
+        //         }
+        //       }
+        //     },
+        //   );
+        // }
         // if (state is AppointmentFetchData) {
         //   state.appointmentResponse.fold(
         //     (l) {},
@@ -168,373 +174,344 @@ class _AllAppointmentScreenState extends State<AllAppointmentScreen>
         // }
       },
       builder: (context, state) {
-        if (state is HomeLoading) {
-          return const LoadingProgressWidget();
-        }
-        if (state is HomeErrorHandling) {
-          return NotConnectionInternetScreen(
-            onChange: () async {
-              context.read<HomeBloc>().add(DisplayHomeContent());
-            },
-          );
-        }
-        if (state is HomeFetchData) {
-          return state.homeResponse.fold(
-            (l) {
-              return NotConnectionInternetScreen(
-                onChange: () async {
-                  context.read<HomeBloc>().add(DisplayHomeContent());
-                },
-              );
-            },
-            (response) {
-              return ResponsiveLayout(
-                child: FadeTransition(
-                  opacity: animationHelper.fadeAnimation,
-                  child: DefaultTabController(
-                    animationDuration: const Duration(seconds: 1),
-                    length: 3,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        bool isMobile() {
-                          if (constraints.maxWidth < 600) {
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        }
+        // if (state is HomeLoading) {
+        //   return const LoadingProgressWidget();
+        // }
+        // if (state is HomeErrorHandling) {
+        //   return NotConnectionInternetScreen(
+        //     onChange: () async {
+        //       context.read<HomeBloc>().add(DisplayHomeContent());
+        //     },
+        //   );
+        // }
+        // if (state is HomeFetchData) {
+        // return state.homeResponse.fold(
+        //   (l) {
+        //     return NotConnectionInternetScreen(
+        //       onChange: () async {
+        //         context.read<HomeBloc>().add(DisplayHomeContent());
+        //       },
+        //     );
+        //   },
+        //   (response) {
+        return ResponsiveLayout(
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: DefaultTabController(
+              animationDuration: const Duration(seconds: 1),
+              length: 3,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  bool isMobile() {
+                    if (constraints.maxWidth < 600) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  }
 
-                        return Scaffold(
-                          appBar: AppBar(
-                            leadingWidth: double.infinity,
-                            leading: appBarWidget(
-                              context: context,
-                              title: 'All Appointment',
-                              isIcon: true,
-                              isMobile: isMobile(),
+                  return Scaffold(
+                    appBar: AppBar(
+                      leadingWidth: double.infinity,
+                      leading: appBarWidget(
+                        context: context,
+                        title: 'All Appointment',
+                        isIcon: true,
+                        isMobile: isMobile(),
+                      ),
+                      bottom: PreferredSize(
+                        preferredSize: Size.fromHeight(isMobile() ? 70 : 120),
+                        child: Container(
+                          width: double.infinity,
+                          color: AutilabColor.white,
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Container(
+                            height: isMobile() ? 50 : 72,
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
+                            decoration: BoxDecoration(
+                              color: AutilabColor.lightGray,
+                              borderRadius:
+                                  BorderRadius.circular(isMobile() ? 16 : 24),
                             ),
-                            bottom: PreferredSize(
-                              preferredSize:
-                                  Size.fromHeight(isMobile() ? 70 : 120),
-                              child: Container(
-                                width: double.infinity,
-                                color: AutilabColor.white,
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: Container(
-                                  height: isMobile() ? 50 : 72,
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  decoration: BoxDecoration(
-                                    color: AutilabColor.lightGray,
-                                    borderRadius: BorderRadius.circular(
-                                        isMobile() ? 16 : 24),
-                                  ),
-                                  child: TabBar(
-                                    labelStyle:
-                                        AutilabTextStyle.small18_400.copyWith(
-                                      color: Colors.black,
-                                    ),
-                                    dividerColor: Colors.transparent,
-                                    indicator: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          isMobile() ? 16 : 24),
-                                      color: AutilabColor.bb,
-                                    ),
-                                    indicatorSize: TabBarIndicatorSize.tab,
-                                    tabs: [
-                                      FittedBox(
-                                        child: Text(
-                                          'Approved',
-                                          style: AutilabTextStyle.small16_400
-                                              .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 16 : 24),
-                                        ),
-                                      ),
-                                      FittedBox(
-                                        child: Text(
-                                          'Cancelled',
-                                          style: AutilabTextStyle.small16_400
-                                              .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 16 : 24),
-                                        ),
-                                      ),
-                                      FittedBox(
-                                        child: Text(
-                                          'Pending',
-                                          style: AutilabTextStyle.small16_400
-                                              .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 16 : 24),
-                                        ),
-                                      ),
-                                    ],
+                            child: TabBar(
+                              labelStyle: AutilabTextStyle.small18_400.copyWith(
+                                color: Colors.black,
+                              ),
+                              dividerColor: Colors.transparent,
+                              indicator: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(isMobile() ? 16 : 24),
+                                color: AutilabColor.bb,
+                              ),
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              tabs: [
+                                FittedBox(
+                                  child: Text(
+                                    'Approved',
+                                    style: AutilabTextStyle.small16_400
+                                        .copyWith(
+                                            fontSize: isMobile() ? 16 : 24),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          body: SafeArea(
-                            child: TabBarView(
-                              children: [
-                                if (approvedList.isNotEmpty) ...{
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: approvedList.length,
-                                    padding: AutilabMargin.marginFullScreen,
-                                    itemBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: isMobile() ? 256 : 388,
-                                        child: NewAppointmentsCardWidget(
-                                          color: const Color(0xff50DD81),
-                                          rate: approvedList[index]
-                                              .ratingAverage
-                                              .toString(),
-                                          isMobile: isMobile(),
-                                          doctorName:
-                                              '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty: approvedList[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[0]
-                                                  .name
-                                                  .isNotEmpty
-                                              ? approvedList[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[0]
-                                                  .name
-                                              : '',
-                                          title: 'Approved',
-                                          image: 'assets/images/doctor2.jpg',
-                                          statusIcon:
-                                              'assets/icons/done_icon.svg',
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 8),
-                                          raiteOnTap: () {},
-                                          date:
-                                              dateTimeApprovedList[index].date,
-                                          time:
-                                              dateTimeApprovedList[index].time,
-                                          onTap: () {
-                                            context.pushNamed(
-                                              AutiLabRoutes
-                                                  .detailAppointmentScreen,
-                                              extra: {
-                                                'doctorModel':
-                                                    approvedList[index]
-                                                        .doctorModel,
-                                                'newappointmentModel':
-                                                    approvedList[index],
-                                                'doctorName':
-                                                    '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
-                                                'doctorSpecialty':
-                                                    approvedList[index]
-                                                        .doctorModel
-                                                        .doctorSpecialities[0]
-                                                        .name,
-                                                'statusColor':
-                                                    const Color(0xff50DD81),
-                                                'statusIcon':
-                                                    'assets/icons/done_icon.svg',
-                                                'image':
-                                                    'assets/images/doctor2.jpg',
-                                                'title': 'Approved',
-                                                'descriptionStatus':
-                                                    'Your Appointment Has Been Approved',
-                                                'dateTimeSchedule':
-                                                    DateTimeSchedule(
-                                                  date: dateTimeApprovedList[
-                                                          index]
-                                                      .date,
-                                                  time: dateTimeApprovedList[
-                                                          index]
-                                                      .time,
-                                                ),
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
+                                FittedBox(
+                                  child: Text(
+                                    'Cancelled',
+                                    style: AutilabTextStyle.small16_400
+                                        .copyWith(
+                                            fontSize: isMobile() ? 16 : 24),
                                   ),
-                                } else ...{
-                                  ItemNotFoundWidget(isMobile: isMobile()),
-                                },
-                                if (cancelledList.isNotEmpty) ...{
-                                  ListView.builder(
-                                    itemCount: cancelledList.length,
-                                    padding: AutilabMargin.marginFullScreen,
-                                    itemBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: isMobile() ? 256 : 388,
-                                        child: NewAppointmentsCardWidget(
-                                          isMobile: isMobile(),
-                                          rate: cancelledList[index]
-                                              .ratingAverage
-                                              .toString(),
-                                          color: const Color(0xffFF6363),
-                                          title: 'Cancelled',
-                                          image:
-                                              'assets/images/doctor_image.jpg',
-                                          statusIcon:
-                                              'assets/icons/close_icon.svg',
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 8),
-                                          raiteOnTap: () {},
-                                          date:
-                                              dateTimeCancelledList[index].date,
-                                          time:
-                                              dateTimeCancelledList[index].time,
-                                          doctorName:
-                                              '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty: cancelledList[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[0]
-                                                  .name
-                                                  .isNotEmpty
-                                              ? cancelledList[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[0]
-                                                  .name
-                                              : '',
-                                          onTap: () {
-                                            context.pushNamed(
-                                              AutiLabRoutes
-                                                  .detailAppointmentScreen,
-                                              extra: {
-                                                'doctorModel':
-                                                    cancelledList[index]
-                                                        .doctorModel,
-                                                'newappointmentModel':
-                                                    cancelledList[index],
-                                                'doctorName':
-                                                    '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
-                                                'doctorSpecialty':
-                                                    cancelledList[index]
-                                                        .doctorModel
-                                                        .doctorSpecialities[0]
-                                                        .name,
-                                                'statusColor':
-                                                    const Color(0xffFF6363),
-                                                'statusIcon':
-                                                    'assets/icons/close_icon.svg',
-                                                'image':
-                                                    'assets/images/doctor_image.jpg',
-                                                'title': 'Cancelled',
-                                                'descriptionStatus':
-                                                    'Your Appointment Has Been Canceled',
-                                                'dateTimeSchedule':
-                                                    DateTimeSchedule(
-                                                  date: dateTimeCancelledList[
-                                                          index]
-                                                      .date,
-                                                  time: dateTimeCancelledList[
-                                                          index]
-                                                      .time,
-                                                ),
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
+                                ),
+                                FittedBox(
+                                  child: Text(
+                                    'Pending',
+                                    style: AutilabTextStyle.small16_400
+                                        .copyWith(
+                                            fontSize: isMobile() ? 16 : 24),
                                   ),
-                                } else ...{
-                                  ItemNotFoundWidget(isMobile: isMobile()),
-                                },
-                                if (pendingList.isNotEmpty) ...{
-                                  ListView.builder(
-                                    itemCount: pendingList.length,
-                                    padding: AutilabMargin.marginFullScreen,
-                                    itemBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: isMobile() ? 256 : 388,
-                                        child: NewAppointmentsCardWidget(
-                                          isMobile: isMobile(),
-                                          rate: pendingList[index]
-                                              .ratingAverage
-                                              .toString(),
-                                          color: AutilabColor.gray,
-                                          title: 'Pending',
-                                          image: 'assets/images/doctor3.png',
-                                          statusIcon:
-                                              'assets/icons/minimize_icon.svg',
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 8),
-                                          doctorName:
-                                              '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
-                                          doctorSpecialty: pendingList[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[0]
-                                                  .name
-                                                  .isNotEmpty
-                                              ? pendingList[index]
-                                                  .doctorModel
-                                                  .doctorSpecialities[0]
-                                                  .name
-                                              : '',
-                                          raiteOnTap: () {},
-                                          date: dateTimePendingList[index].date,
-                                          time: dateTimePendingList[index].time,
-                                          onTap: () {
-                                            context.pushNamed(
-                                              AutiLabRoutes
-                                                  .detailAppointmentScreen,
-                                              extra: {
-                                                'doctorModel':
-                                                    pendingList[index]
-                                                        .doctorModel,
-                                                'newappointmentModel':
-                                                    pendingList[index],
-                                                'doctorName':
-                                                    '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
-                                                'doctorSpecialty':
-                                                    pendingList[index]
-                                                        .doctorModel
-                                                        .doctorSpecialities[0]
-                                                        .name,
-                                                'statusColor':
-                                                    AutilabColor.gray,
-                                                'statusIcon':
-                                                    'assets/icons/minimize_icon.svg',
-                                                'image':
-                                                    'assets/images/doctor3.png',
-                                                'title': 'Pending',
-                                                'descriptionStatus':
-                                                    'Your Appointment Is Being Reviewed',
-                                                'dateTimeSchedule':
-                                                    DateTimeSchedule(
-                                                  date:
-                                                      dateTimePendingList[index]
-                                                          .date,
-                                                  time:
-                                                      dateTimePendingList[index]
-                                                          .time,
-                                                ),
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                } else ...{
-                                  ItemNotFoundWidget(isMobile: isMobile()),
-                                }
+                                ),
                               ],
                             ),
                           ),
-                        );
-                      },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            },
-          );
-        }
-        return const SizedBox();
+                    body: SafeArea(
+                      child: TabBarView(
+                        children: [
+                          if (statusList.isNotEmpty) ...{
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: statusList.length,
+                              padding: AutilabMargin.marginFullScreen,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  height: isMobile() ? 256 : 388,
+                                  child: NewAppointmentsCardWidget(
+                                    color: const Color(0xff50DD81),
+                                    // rate: approvedList[index]
+                                    //     .ratingAverage
+                                    //     .toString(),
+                                    rate: '2',
+                                    isMobile: isMobile(),
+                                    // doctorName:
+                                    //     '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
+                                    // doctorSpecialty: approvedList[index]
+                                    //         .doctorModel
+                                    //         .doctorSpecialities[0]
+                                    //         .name
+                                    //         .isNotEmpty
+                                    //     ? approvedList[index]
+                                    //         .doctorModel
+                                    //         .doctorSpecialities[0]
+                                    //         .name
+                                    //     : '',
+                                    title: 'Approved',
+                                    image: 'assets/images/doctor2.jpg',
+                                    statusIcon: 'assets/icons/done_icon.svg',
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    raiteOnTap: () {},
+                                    // date: dateTimeApprovedList[index].date,
+                                    // time: dateTimeApprovedList[index].time,
+                                    onTap: () {
+                                      context.pushNamed(
+                                        AutiLabRoutes.detailAppointmentScreen,
+                                        extra: {
+                                          // 'doctorModel':
+                                          //     approvedList[index].doctorModel,
+                                          // 'newappointmentModel':
+                                          //     approvedList[index],
+                                          // 'doctorName':
+                                          //     '${approvedList[index].doctorModel.doctorUser.firstName} ${approvedList[index].doctorModel.doctorUser.lastName}',
+                                          // 'doctorSpecialty': approvedList[index]
+                                          //     .doctorModel
+                                          //     .doctorSpecialities[0]
+                                          //     .name,
+                                          'statusColor':
+                                              const Color(0xff50DD81),
+                                          'statusIcon':
+                                              'assets/icons/done_icon.svg',
+                                          'image': 'assets/images/doctor2.jpg',
+                                          'title': 'Approved',
+                                          'rate': '2',
+                                          'descriptionStatus':
+                                              'Your Appointment Has Been Approved',
+                                          // 'dateTimeSchedule': DateTimeSchedule(
+                                          //   date: dateTimeApprovedList[index]
+                                          //       .date,
+                                          //   time: dateTimeApprovedList[index]
+                                          //       .time,
+                                          // ),
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          } else ...{
+                            ItemNotFoundWidget(isMobile: isMobile()),
+                          },
+                          if (statusList.isNotEmpty) ...{
+                            ListView.builder(
+                              itemCount: statusList.length,
+                              padding: AutilabMargin.marginFullScreen,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  height: isMobile() ? 256 : 388,
+                                  child: NewAppointmentsCardWidget(
+                                    isMobile: isMobile(),
+                                    // rate: cancelledList[index]
+                                    //     .ratingAverage
+                                    //     .toString(),
+                                    rate: '1',
+                                    color: const Color(0xffFF6363),
+                                    title: 'Cancelled',
+                                    image: 'assets/images/doctor_image.jpg',
+                                    statusIcon: 'assets/icons/close_icon.svg',
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    raiteOnTap: () {},
+                                    // date: dateTimeCancelledList[index].date,
+                                    // time: dateTimeCancelledList[index].time,
+                                    // doctorName:
+                                    //     '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
+                                    // doctorSpecialty: cancelledList[index]
+                                    //         .doctorModel
+                                    //         .doctorSpecialities[0]
+                                    //         .name
+                                    //         .isNotEmpty
+                                    //     ? cancelledList[index]
+                                    //         .doctorModel
+                                    //         .doctorSpecialities[0]
+                                    //         .name
+                                    //     : '',
+                                    onTap: () {
+                                      context.pushNamed(
+                                        AutiLabRoutes.detailAppointmentScreen,
+                                        extra: {
+                                          // 'doctorModel':
+                                          //     cancelledList[index].doctorModel,
+                                          // 'newappointmentModel':
+                                          //     cancelledList[index],
+                                          // 'doctorName':
+                                          //     '${cancelledList[index].doctorModel.doctorUser.firstName} ${cancelledList[index].doctorModel.doctorUser.lastName}',
+                                          // 'doctorSpecialty':
+                                          //     cancelledList[index]
+                                          //         .doctorModel
+                                          //         .doctorSpecialities[0]
+                                          //         .name,
+                                          'statusColor':
+                                              const Color(0xffFF6363),
+                                          'statusIcon':
+                                              'assets/icons/close_icon.svg',
+                                          'image':
+                                              'assets/images/doctor_image.jpg',
+                                          'title': 'Cancelled',
+                                          'rate': '1',
+                                          'descriptionStatus':
+                                              'Your Appointment Has Been Canceled',
+                                          // 'dateTimeSchedule': DateTimeSchedule(
+                                          //   date: dateTimeCancelledList[index]
+                                          //       .date,
+                                          //   time: dateTimeCancelledList[index]
+                                          //       .time,
+                                          // ),
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          } else ...{
+                            ItemNotFoundWidget(isMobile: isMobile()),
+                          },
+                          if (statusList.isNotEmpty) ...{
+                            ListView.builder(
+                              itemCount: statusList.length,
+                              padding: AutilabMargin.marginFullScreen,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  height: isMobile() ? 256 : 388,
+                                  child: NewAppointmentsCardWidget(
+                                    isMobile: isMobile(),
+                                    // rate: 'pendingList[index]
+                                    //     .ratingAverage
+                                    //     .toString()',
+                                    rate: '5',
+                                    color: AutilabColor.gray,
+                                    title: 'Pending',
+                                    image: 'assets/images/doctor3.png',
+                                    statusIcon:
+                                        'assets/icons/minimize_icon.svg',
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    // doctorName:
+                                    //     '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
+                                    // doctorSpecialty: pendingList[index]
+                                    //         .doctorModel
+                                    //         .doctorSpecialities[0]
+                                    //         .name
+                                    //         .isNotEmpty
+                                    //     ? pendingList[index]
+                                    //         .doctorModel
+                                    //         .doctorSpecialities[0]
+                                    //         .name
+                                    //     : '',
+                                    raiteOnTap: () {},
+                                    // date: dateTimePendingList[index].date,
+                                    // time: dateTimePendingList[index].time,
+                                    onTap: () {
+                                      context.pushNamed(
+                                        AutiLabRoutes.detailAppointmentScreen,
+                                        extra: {
+                                          // 'doctorModel':
+                                          //     pendingList[index].doctorModel,
+                                          // 'newappointmentModel':
+                                          //     pendingList[index],
+                                          // 'doctorName':
+                                          //     '${pendingList[index].doctorModel.doctorUser.firstName} ${pendingList[index].doctorModel.doctorUser.lastName}',
+                                          // 'doctorSpecialty': pendingList[index]
+                                          //     .doctorModel
+                                          //     .doctorSpecialities[0]
+                                          //     .name,
+                                          'statusColor': AutilabColor.gray,
+                                          'statusIcon':
+                                              'assets/icons/minimize_icon.svg',
+                                          'image': 'assets/images/doctor3.png',
+                                          'title': 'Pending',
+                                          'rate': '5',
+                                          'descriptionStatus':
+                                              'Your Appointment Is Being Reviewed',
+                                          // 'dateTimeSchedule': DateTimeSchedule(
+                                          //   date:
+                                          //       dateTimePendingList[index].date,
+                                          //   time:
+                                          //       dateTimePendingList[index].time,
+                                          // ),
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          } else ...{
+                            ItemNotFoundWidget(isMobile: isMobile()),
+                          }
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
       },
     );
+    // }
+    // return const SizedBox();
   }
 }

@@ -62,7 +62,7 @@ class AutilabRouter {
       GoRoute(
         path: '/',
         name: AutiLabRoutes.initialScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ButtomnavigationWidget(),
       ),
       // StatefulShellRoute.indexedStack(
       //   branches: [
@@ -213,6 +213,7 @@ class AutilabRouter {
               statusIcon: extraData['statusIcon'],
               image: extraData['image'],
               title: extraData['title'],
+              rate: extraData['rate'],
               descriptionStatus: extraData['descriptionStatus'],
               dateTimeSchedule: extraData['dateTimeSchedule'],
             );

@@ -376,15 +376,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                 'title': statusCheckColor(
                                                         statusList[index])
                                                     .$2,
+                                                'rate': '3',
                                                 'descriptionStatus':
                                                     statusCheckColor(
                                                             statusList[index])
                                                         .$4,
-                                                'dateTimeSchedule':
-                                                    DateTimeSchedule(
-                                                  date: scheduleDate[index],
-                                                  time: scheduleTime[index],
-                                                ),
+                                                // 'dateTimeSchedule':
+                                                //     DateTimeSchedule(
+                                                //   date: scheduleDate[index],
+                                                //   time: scheduleTime[index],
+                                                // ),
                                               },
                                             );
                                           },

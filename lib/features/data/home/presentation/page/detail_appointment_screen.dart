@@ -29,6 +29,7 @@ class DetailAppointmentScreen extends StatefulWidget {
     required this.statusIcon,
     required this.image,
     required this.title,
+    this.rate,
     required this.descriptionStatus,
     this.dateTimeSchedule,
   });
@@ -39,6 +40,7 @@ class DetailAppointmentScreen extends StatefulWidget {
   final String statusIcon;
   final String image;
   final String title;
+  final String? rate;
   final String descriptionStatus;
   final DateTimeSchedule? dateTimeSchedule;
   @override
@@ -103,16 +105,17 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                     SliverToBoxAdapter(
                       child: DoctorBoxDetialAppointmentWidget(
                         image: widget.image,
-                        rate: widget.newappointmentModel?.ratingAverage
-                            .toString(),
-                        doctorName:
-                            '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}',
-                        doctorSpecialtyl:
-                            widget.doctorModel!.doctorSpecialities.isNotEmpty
-                                ? widget.doctorModel?.doctorSpecialities[0].name
-                                : '',
+                        // rate: widget.newappointmentModel?.ratingAverage
+                        //     .toString(),
+                        rate: widget.rate,
+                        // doctorName:
+                        //     '${widget.doctorModel?.doctorUser.firstName} ${widget.doctorModel?.doctorUser.lastName}',
+                        // doctorSpecialtyl:
+                        //     widget.doctorModel!.doctorSpecialities.isNotEmpty
+                        //         ? widget.doctorModel?.doctorSpecialities[0].name
+                        //         : '',
                         isMobile: isMobile(),
-                        dateTimeSchedule: widget.dateTimeSchedule,
+                        // dateTimeSchedule: widget.dateTimeSchedule,
                       ),
                     ),
                     const SliverToBoxAdapter(
@@ -215,46 +218,50 @@ class _DetailAppointmentScreenState extends State<DetailAppointmentScreen>
                           child: BlocBuilder<AuthenticationBloc,
                               AuthenticationState>(
                             builder: (context, state) {
-                              if (state is AuthenticationLoading) {
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AutilabColor.bb,
+                              // if (state is AuthenticationLoading) {
+                              //   return const Center(
+                              //     child: CircularProgressIndicator(
+                              //       color: AutilabColor.bb,
+                              //     ),
+                              //   );
+                              // }
+                              // if (state is FetchUserDataResponse) {
+                              // return state.response.fold(
+                              //   (error) {
+                              //     return Text(error);
+                              //   },
+                              //   (userData) {
+                              return Column(
+                                spacing: 12,
+                                children: [
+                                  BoxDetailWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Full Name',
+                                    // subtitle:
+                                    //     '${userData.firstName} ${userData.lastName}'),
+                                    subtitle: 'Lila Rose',
                                   ),
-                                );
-                              }
-                              if (state is FetchUserDataResponse) {
-                                return state.response.fold(
-                                  (error) {
-                                    return Text(error);
-                                  },
-                                  (userData) {
-                                    return Column(
-                                      spacing: 12,
-                                      children: [
-                                        BoxDetailWidget(
-                                            isMobile: isMobile(),
-                                            title: 'Full Name',
-                                            subtitle:
-                                                '${userData.firstName} ${userData.lastName}'),
-                                        BoxDetailWidget(
-                                          isMobile: isMobile(),
-                                          title: 'Age',
-                                          subtitle:
-                                              calculateAge(userData.birthdate)
-                                                  .toString(),
-                                        ),
-                                        BoxDetailWidget(
-                                          isMobile: isMobile(),
-                                          title: 'Gender',
-                                          subtitle: userData.gender,
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                              return const SizedBox();
+                                  BoxDetailWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Age',
+                                    // subtitle:
+                                    //     calculateAge(userData.birthdate)
+                                    //         .toString(),
+                                    subtitle: '6',
+                                  ),
+                                  BoxDetailWidget(
+                                    isMobile: isMobile(),
+                                    title: 'Gender',
+                                    // subtitle: userData.gender,
+                                    subtitle: 'Female',
+                                  ),
+                                ],
+                              );
                             },
+                            // );
+                            // }
+                            // return const SizedBox();
+                            // },
                           ),
                         ),
                       ),
