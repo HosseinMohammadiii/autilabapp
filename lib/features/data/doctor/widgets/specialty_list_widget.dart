@@ -54,9 +54,11 @@ class SpecialtiesListWidget extends StatelessWidget {
                 boxFit: BoxFit.scaleDown,
                 isShowShimmer: false,
                 borderRadius: 8,
-                img: const Text(''),
-                isNetworkImage:
-                    specialtyModel?.imagePath != null ? true : false,
+                img: Image.asset(specialtyModel?.imagePath ??
+                    'assets/images/behaviorism_image.png'),
+                // isNetworkImage:
+                //     specialtyModel?.imagePath != null ? true : false,
+                isNetworkImage: false,
               ),
             ),
             FittedBox(

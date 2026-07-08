@@ -240,7 +240,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                                 //     .value) {
                                                 //   case 0:
                                                 //     specialty =
-                                                //         categoryItemsList[0]
+                                                // categoryItemsList[0]
                                                 //             .title;
                                                 //     break;
                                                 //   case 1:

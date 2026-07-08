@@ -53,15 +53,15 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
 
   @override
   void initState() {
-    BlocProvider.of<DoctorBloc>(context)
-        .add(DisplaySpecialtyDoctor(doctorId: widget.user?.id ?? 8));
+    // BlocProvider.of<DoctorBloc>(context)
+    //     .add(DisplaySpecialtyDoctor(doctorId: widget.user?.id ?? 8));
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
-    // doctorFullName = '${widget.user?.firstName} ${widget.user?.lastName}';
-    // doctorSpecialty = widget.doctorSpecialities.name;
+    doctorFullName = '${widget.user?.firstName} ${widget.user?.lastName}';
+    doctorSpecialty = widget.doctorSpecialities.name;
   }
 
   @override
@@ -92,214 +92,275 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
           opacity: animationHelper.fadeAnimation,
           child: BlocBuilder<DoctorBloc, DoctorState>(
             builder: (context, state) {
-              if (state is DoctorLoading) {
-                return const LoadingProgressWidget();
-              }
-              if (state is DoctorError) {
-                return NotConnectionInternetScreen(
-                  onChange: () async {
-                    context.read<DoctorBloc>().add(
-                        DisplaySpecialtyDoctor(doctorId: widget.user?.id ?? 8));
-                  },
-                );
-              }
-              if (state is SpecialtyDoctorResponse) {
-                for (var element in state.response) {
-                  doctorFullName =
-                      '${element.user?.firstName} ${element.user?.lastName}';
-                  for (var element2 in element.specialities!) {
-                    doctorSpecialty = element2.name;
-                    recentVisitedModel = element2;
-                  }
-                }
-                return Scaffold(
-                  appBar: appBarWidget(
-                    context: context,
-                    title: "The Specialists' Info",
-                    isIcon: true,
-                    isMobile: isMobile(),
-                  ),
-                  body: SafeArea(
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SliverToBoxAdapter(
-                            child: Container(
-                              width: double.infinity,
-                              height: isMobile() ? 136 : 248,
-                              padding: const EdgeInsets.all(16),
-                              margin: const EdgeInsets.only(top: 22),
-                              decoration: BoxDecoration(
-                                color: AutilabColor.primary,
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: SizedBox(
-                                height: isMobile() ? 116 : 200,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  spacing: 24,
-                                  children: [
-                                    FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      alignment: Alignment.centerLeft,
-                                      child: SizedBox(
-                                        height: isMobile() ? 116 : 200,
-                                        width: isMobile() ? 116 : 200,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: Image.asset(
-                                            'assets/images/doctor_image.jpg',
-                                            fit: BoxFit.cover,
-                                            cacheWidth: cacheImageFunction(
-                                                isMobile() ? 116 : 200,
-                                                context),
-                                            cacheHeight: cacheImageFunction(
-                                                isMobile() ? 116 : 200,
-                                                context),
-                                          ),
+              // if (state is DoctorLoading) {
+              //   return const LoadingProgressWidget();
+              // }
+              // if (state is DoctorError) {
+              //   return NotConnectionInternetScreen(
+              //     onChange: () async {
+              //       context.read<DoctorBloc>().add(
+              //           DisplaySpecialtyDoctor(doctorId: widget.user?.id ?? 8));
+              //     },
+              //   );
+              // }
+              // if (state is SpecialtyDoctorResponse) {
+              //   for (var element in state.response) {
+              //     doctorFullName =
+              //         '${element.user?.firstName} ${element.user?.lastName}';
+              //     for (var element2 in element.specialities!) {
+              //       doctorSpecialty = element2.name;
+              //       recentVisitedModel = element2;
+              //     }
+              //   }
+              return Scaffold(
+                appBar: appBarWidget(
+                  context: context,
+                  title: "The Specialists' Info",
+                  isIcon: true,
+                  isMobile: isMobile(),
+                ),
+                body: SafeArea(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: Container(
+                            width: double.infinity,
+                            height: isMobile() ? 136 : 248,
+                            padding: const EdgeInsets.all(16),
+                            margin: const EdgeInsets.only(top: 22),
+                            decoration: BoxDecoration(
+                              color: AutilabColor.primary,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: SizedBox(
+                              height: isMobile() ? 116 : 200,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                spacing: 24,
+                                children: [
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.centerLeft,
+                                    child: SizedBox(
+                                      height: isMobile() ? 116 : 200,
+                                      width: isMobile() ? 116 : 200,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: Image.asset(
+                                          widget.user?.photo ??
+                                              'assets/images/doctor_image.jpg',
+                                          fit: BoxFit.cover,
+                                          cacheWidth: cacheImageFunction(
+                                              isMobile() ? 116 : 200, context),
+                                          cacheHeight: cacheImageFunction(
+                                              isMobile() ? 116 : 200, context),
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        spacing: 24,
-                                        children: [
-                                          FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              doctorFullName,
-                                              style: isMobile()
-                                                  ? AutilabTextStyle
-                                                      .medium18_500
-                                                  : AutilabTextStyle
-                                                      .medium18_500
-                                                      .copyWith(fontSize: 32),
-                                            ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      spacing: 24,
+                                      children: [
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            doctorFullName,
+                                            style: isMobile()
+                                                ? AutilabTextStyle.medium18_500
+                                                : AutilabTextStyle.medium18_500
+                                                    .copyWith(fontSize: 32),
                                           ),
-                                          FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            alignment: Alignment.centerLeft,
-                                            child: Row(
-                                              spacing: 22,
-                                              children: [
-                                                // FittedBox(
-                                                //   fit: BoxFit.scaleDown,
-                                                //   alignment: Alignment.centerLeft,
-                                                //   child: ButtonCard(
-                                                //     margin: EdgeInsets.zero,
-                                                //     icon:
-                                                //         'assets/icons/global_buttomnavigation.svg',
-                                                //     onTap: () {
-                                                //       context.pushNamed(AutiLabRoutes
-                                                //           .doctorSocialMediaScreen);
-                                                //     },
-                                                //   ),
-                                                // ),
-                                                FittedBox(
-                                                  fit: BoxFit.scaleDown,
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: ButtonCard(
-                                                    isMobile: isMobile(),
-                                                    margin: EdgeInsets.zero,
-                                                    icon:
-                                                        'assets/icons/messages.svg',
-                                                    onTap: () {
-                                                      context.pushNamed(
-                                                        AutiLabRoutes
-                                                            .doctorMessageScreen,
-                                                        extra: {
-                                                          'image':
-                                                              'assets/images/doctor_image.jpg',
-                                                          'name':
-                                                              doctorFullName,
-                                                          'expertise':
-                                                              doctorSpecialty,
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                                FittedBox(
-                                                  fit: BoxFit.scaleDown,
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: ButtonCard(
-                                                    isMobile: isMobile(),
-                                                    margin: EdgeInsets.zero,
-                                                    icon:
-                                                        'assets/icons/calendar.svg',
-                                                    onTap: () {
-                                                      context
-                                                          .pushReplacementNamed(
-                                                        AutiLabRoutes
-                                                            .doctorWorkscheduleScreen,
-                                                        extra: {
-                                                          'isLike':
-                                                              widget.isLike,
-                                                          'doctorUser':
-                                                              widget.user,
-                                                          'specialty': widget
-                                                              .doctorSpecialities,
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                                FittedBox(
-                                                  fit: BoxFit.scaleDown,
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Container(
-                                                    width: isMobile() ? 32 : 68,
-                                                    height:
-                                                        isMobile() ? 32 : 68,
-                                                    decoration: BoxDecoration(
-                                                      color: AutilabColor.bb,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              isMobile()
-                                                                  ? 12
-                                                                  : 24),
-                                                    ),
-                                                    child: LikeWidget(
-                                                      isMobile: isMobile(),
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      isLike: widget.isLike,
-                                                      onTap: () {
-                                                        setState(() {
-                                                          widget.isLike =
-                                                              !widget.isLike;
-                                                        });
+                                        ),
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            spacing: 22,
+                                            children: [
+                                              // FittedBox(
+                                              //   fit: BoxFit.scaleDown,
+                                              //   alignment: Alignment.centerLeft,
+                                              //   child: ButtonCard(
+                                              //     margin: EdgeInsets.zero,
+                                              //     icon:
+                                              //         'assets/icons/global_buttomnavigation.svg',
+                                              //     onTap: () {
+                                              //       context.pushNamed(AutiLabRoutes
+                                              //           .doctorSocialMediaScreen);
+                                              //     },
+                                              //   ),
+                                              // ),
+                                              FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                alignment: Alignment.centerLeft,
+                                                child: ButtonCard(
+                                                  isMobile: isMobile(),
+                                                  margin: EdgeInsets.zero,
+                                                  icon:
+                                                      'assets/icons/messages.svg',
+                                                  onTap: () {
+                                                    context.pushNamed(
+                                                      AutiLabRoutes
+                                                          .doctorMessageScreen,
+                                                      extra: {
+                                                        'image':
+                                                            'assets/images/doctor_image.jpg',
+                                                        'name': doctorFullName,
+                                                        'expertise':
+                                                            doctorSpecialty,
                                                       },
-                                                    ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                alignment: Alignment.centerLeft,
+                                                child: ButtonCard(
+                                                  isMobile: isMobile(),
+                                                  margin: EdgeInsets.zero,
+                                                  icon:
+                                                      'assets/icons/calendar.svg',
+                                                  onTap: () {
+                                                    context
+                                                        .pushReplacementNamed(
+                                                      AutiLabRoutes
+                                                          .doctorWorkscheduleScreen,
+                                                      extra: {
+                                                        'isLike': widget.isLike,
+                                                        'doctorUser':
+                                                            widget.user,
+                                                        'specialty': widget
+                                                            .doctorSpecialities,
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              FittedBox(
+                                                fit: BoxFit.scaleDown,
+                                                alignment: Alignment.centerLeft,
+                                                child: Container(
+                                                  width: isMobile() ? 32 : 68,
+                                                  height: isMobile() ? 32 : 68,
+                                                  decoration: BoxDecoration(
+                                                    color: AutilabColor.bb,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            isMobile()
+                                                                ? 12
+                                                                : 24),
+                                                  ),
+                                                  child: LikeWidget(
+                                                    isMobile: isMobile(),
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    isLike: widget.isLike,
+                                                    onTap: () {
+                                                      setState(() {
+                                                        widget.isLike =
+                                                            !widget.isLike;
+                                                      });
+                                                    },
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 32,
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 32,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Divider(
+                          thickness: 1,
+                          color: AutilabColor.gray,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 16,
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/profile_icon.svg',
+                            title: 'Personal Details',
                           ),
                         ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: Column(
+                            spacing: 12,
+                            children: [
+                              BoxDetailWidget(
+                                isMobile: isMobile(),
+                                title: 'Full Name',
+                                subtitle: doctorFullName,
+                              ),
+                              BoxDetailWidget(
+                                isMobile: isMobile(),
+                                title: "Doctor's Degree",
+                                subtitle: 'Phd',
+                              ),
+                              BoxDetailWidget(
+                                isMobile: isMobile(),
+                                title: 'Age',
+                                // subtitle: calculateAge(
+                                //         widget.user?.birthDate == ''
+                                //             ? DateFormat('yyyy-MM-dd')
+                                //                 .format(DateTime.now())
+                                //             : widget.user!.birthDate)
+                                //     .toString(),
+                                subtitle: '34',
+                              ),
+                              BoxDetailWidget(
+                                isMobile: isMobile(),
+                                title: 'Gender',
+                                subtitle: displayGender(
+                                    widget.user?.gender ?? 'female'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 16,
+                        ),
+                      ),
+                      if (widget.doctorSpecialities.name.isNotEmpty) ...[
                         const SliverToBoxAdapter(
                           child: Divider(
                             thickness: 1,
@@ -310,7 +371,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                         ),
                         const SliverToBoxAdapter(
                           child: SizedBox(
-                            height: 16,
+                            height: 32,
                           ),
                         ),
                         SliverPadding(
@@ -319,7 +380,7 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                             child: TitleAndIconWidget(
                               isMobile: isMobile(),
                               icon: 'assets/icons/profile_icon.svg',
-                              title: 'Personal Details',
+                              title: "Doctor's Specialty",
                             ),
                           ),
                         ),
@@ -328,230 +389,160 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                             height: 24,
                           ),
                         ),
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SliverToBoxAdapter(
-                            child: Column(
-                              spacing: 12,
-                              children: [
-                                BoxDetailWidget(
-                                  isMobile: isMobile(),
-                                  title: 'Full Name',
-                                  subtitle: doctorFullName,
-                                ),
-                                BoxDetailWidget(
-                                  isMobile: isMobile(),
-                                  title: "Doctor's Degree",
-                                  subtitle: 'Phd',
-                                ),
-                                BoxDetailWidget(
-                                  isMobile: isMobile(),
-                                  title: 'Age',
-                                  subtitle: calculateAge(
-                                          widget.user?.birthDate == ''
-                                              ? DateFormat('yyyy-MM-dd')
-                                                  .format(DateTime.now())
-                                              : widget.user!.birthDate)
-                                      .toString(),
-                                ),
-                                BoxDetailWidget(
-                                  isMobile: isMobile(),
-                                  title: 'Gender',
-                                  subtitle: displayGender(
-                                      widget.user?.gender ?? 'female'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 16,
-                          ),
-                        ),
-                        if (widget.doctorSpecialities.name.isNotEmpty) ...[
-                          const SliverToBoxAdapter(
-                            child: Divider(
-                              thickness: 1,
-                              color: AutilabColor.gray,
-                              indent: 20,
-                              endIndent: 20,
-                            ),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 32,
-                            ),
-                          ),
-                          SliverPadding(
-                            padding: AutilabMargin.marginFullScreen,
-                            sliver: SliverToBoxAdapter(
-                              child: TitleAndIconWidget(
-                                isMobile: isMobile(),
-                                icon: 'assets/icons/profile_icon.svg',
-                                title: "Doctor's Specialty",
+                        SliverToBoxAdapter(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: SpecialtiesListWidget(
+                              // specialtyModel: recentVisitedModel,
+                              specialtyModel: widget.doctorSpecialities,
+                              isMobile: isMobile(),
+                              height: isMobile() ? 80 : 174,
+                              width: isMobile() ? 80 : 174,
+                              heightImage: isMobile() ? 32 : 72,
+                              widthImage: isMobile() ? 32 : 72,
+                              radius: isMobile() ? 16 : 24,
+                              textStyle: AutilabTextStyle.small10_400.copyWith(
+                                fontSize: isMobile() ? 10 : 20,
                               ),
                             ),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 24,
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: SpecialtiesListWidget(
-                                specialtyModel: recentVisitedModel,
-                                isMobile: isMobile(),
-                                height: isMobile() ? 80 : 174,
-                                width: isMobile() ? 80 : 174,
-                                heightImage: isMobile() ? 32 : 72,
-                                widthImage: isMobile() ? 32 : 72,
-                                radius: isMobile() ? 16 : 24,
-                                textStyle:
-                                    AutilabTextStyle.small10_400.copyWith(
-                                  fontSize: isMobile() ? 10 : 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 24,
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: Divider(
-                            thickness: 1,
-                            color: AutilabColor.gray,
-                            indent: 20,
-                            endIndent: 20,
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 32,
-                          ),
-                        ),
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SliverToBoxAdapter(
-                            child: TitleAndIconWidget(
-                              isMobile: isMobile(),
-                              icon: 'assets/icons/location-tick.svg',
-                              title: 'Clinic Address',
-                            ),
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 24,
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: CustomTextfield(
-                            isMobile: isMobile(),
-                            label: '',
-                            isEnable: false,
-                            borderRaduis: isMobile() ? 16 : 24,
-                            textfieldPadding: AutilabMargin.marginFullScreen,
-                            padding: EdgeInsets.all(isMobile() ? 16 : 24),
-                            controller: TextEditingController(
-                              text: widget.user?.address ??
-                                  '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
-                            ),
-                            backgroundColor: AutilabColor.primary,
-                            borderColor: AutilabColor.gray,
-                            textStyle: AutilabTextStyle.small14_400.copyWith(
-                              color: AutilabColor.black,
-                              fontSize: isMobile() ? 14 : 20,
-                            ),
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 32,
-                          ),
-                        ),
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SliverToBoxAdapter(
-                            child: TitleAndIconWidget(
-                              isMobile: isMobile(),
-                              icon: 'assets/icons/call-calling.svg',
-                              title: 'Clinic Phone',
-                            ),
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: CustomTextfield(
-                            isMobile: isMobile(),
-                            label: '',
-                            isEnable: false,
-                            borderRaduis: isMobile() ? 16 : 24,
-                            padding: EdgeInsets.all(isMobile() ? 16 : 24),
-                            textfieldPadding: AutilabMargin.marginFullScreen
-                                .copyWith(top: 24),
-                            controller: TextEditingController(
-                              text: '+1 123456789',
-                            ),
-                            backgroundColor: AutilabColor.primary,
-                            borderColor: AutilabColor.gray,
-                            textStyle: AutilabTextStyle.small14_400.copyWith(
-                              color: AutilabColor.black,
-                              fontSize: isMobile() ? 14 : 20,
-                            ),
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 32,
-                          ),
-                        ),
-                        SliverPadding(
-                          padding: AutilabMargin.marginFullScreen,
-                          sliver: SliverToBoxAdapter(
-                            child: TitleAndIconWidget(
-                              isMobile: isMobile(),
-                              icon: 'assets/icons/info-circle.svg',
-                              title: 'More Details',
-                            ),
-                          ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: CustomTextfield(
-                            isMobile: isMobile(),
-                            label: '',
-                            isEnable: false,
-                            borderRaduis: isMobile() ? 16 : 24,
-                            padding: EdgeInsets.all(isMobile() ? 16 : 24),
-                            textfieldPadding: AutilabMargin.marginFullScreen
-                                .copyWith(top: 24),
-                            controller: TextEditingController(
-                                text: widget.user!.description
-                                // "Hi, I’m Dr. Sophia Martinez – a speech therapist with over 8 years of experience helping children with autism, speech delays, and communication challenges.My goal is to support every child in finding their unique voice — with patience, care, and family collaboration.You can easily book a session or consultation through this app. I’d be honored to support your child’s journey.",
-                                ),
-                            backgroundColor: AutilabColor.primary,
-                            borderColor: AutilabColor.gray,
-                            textStyle: AutilabTextStyle.small14_400.copyWith(
-                              color: AutilabColor.black,
-                              fontSize: isMobile() ? 14 : 20,
-                            ),
-                          ),
-                        ),
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 48,
                           ),
                         ),
                       ],
-                    ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Divider(
+                          thickness: 1,
+                          color: AutilabColor.gray,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 32,
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/location-tick.svg',
+                            title: 'Clinic Address',
+                          ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 24,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: CustomTextfield(
+                          isMobile: isMobile(),
+                          label: '',
+                          isEnable: false,
+                          borderRaduis: isMobile() ? 16 : 24,
+                          textfieldPadding: AutilabMargin.marginFullScreen,
+                          padding: EdgeInsets.all(isMobile() ? 16 : 24),
+                          controller: TextEditingController(
+                            text: widget.user?.address ??
+                                '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
+                          ),
+                          backgroundColor: AutilabColor.primary,
+                          borderColor: AutilabColor.gray,
+                          textStyle: AutilabTextStyle.small14_400.copyWith(
+                            color: AutilabColor.black,
+                            fontSize: isMobile() ? 14 : 20,
+                          ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 32,
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/call-calling.svg',
+                            title: 'Clinic Phone',
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: CustomTextfield(
+                          isMobile: isMobile(),
+                          label: '',
+                          isEnable: false,
+                          borderRaduis: isMobile() ? 16 : 24,
+                          padding: EdgeInsets.all(isMobile() ? 16 : 24),
+                          textfieldPadding:
+                              AutilabMargin.marginFullScreen.copyWith(top: 24),
+                          controller: TextEditingController(
+                            text: '+1 123456789',
+                          ),
+                          backgroundColor: AutilabColor.primary,
+                          borderColor: AutilabColor.gray,
+                          textStyle: AutilabTextStyle.small14_400.copyWith(
+                            color: AutilabColor.black,
+                            fontSize: isMobile() ? 14 : 20,
+                          ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 32,
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: AutilabMargin.marginFullScreen,
+                        sliver: SliverToBoxAdapter(
+                          child: TitleAndIconWidget(
+                            isMobile: isMobile(),
+                            icon: 'assets/icons/info-circle.svg',
+                            title: 'More Details',
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: CustomTextfield(
+                          isMobile: isMobile(),
+                          label: '',
+                          isEnable: false,
+                          borderRaduis: isMobile() ? 16 : 24,
+                          padding: EdgeInsets.all(isMobile() ? 16 : 24),
+                          textfieldPadding:
+                              AutilabMargin.marginFullScreen.copyWith(top: 24),
+                          controller: TextEditingController(
+                              text: widget.user!.description
+                              // "Hi, I’m Dr. Sophia Martinez – a speech therapist with over 8 years of experience helping children with autism, speech delays, and communication challenges.My goal is to support every child in finding their unique voice — with patience, care, and family collaboration.You can easily book a session or consultation through this app. I’d be honored to support your child’s journey.",
+                              ),
+                          backgroundColor: AutilabColor.primary,
+                          borderColor: AutilabColor.gray,
+                          textStyle: AutilabTextStyle.small14_400.copyWith(
+                            color: AutilabColor.black,
+                            fontSize: isMobile() ? 14 : 20,
+                          ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 48,
+                        ),
+                      ),
+                    ],
                   ),
-                );
-              }
-              return const SizedBox();
+                ),
+              );
+              // }
+              // return const SizedBox();
             },
           ),
         ),
