@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/common/widgets/custom_button_widget.dart';
 import 'package:autilab_project/common/widgets/snackbar_widget.dart';
@@ -78,6 +80,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
   int scheduelId = 0;
 
   bool isOpen = false;
+  bool isSelectDay = false;
+  bool isLoading = false;
 
   DateTime date = DateTime.now();
 
@@ -90,8 +94,8 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
 
   @override
   void initState() {
-    BlocProvider.of<DoctorBloc>(context)
-        .add(DisplayDoctorWorkScheduel(doctorId: widget.user?.id ?? 0));
+    // BlocProvider.of<DoctorBloc>(context)
+    //     .add(DisplayDoctorWorkScheduel(doctorId: widget.user?.id ?? 0));
     super.initState();
 
     animationHelper = AnimationHelper(
@@ -146,42 +150,42 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
               body: SafeArea(
                 child: BlocConsumer<DoctorBloc, DoctorState>(
                   listener: (context, state) {
-                    if (state is SetAppointmentError) {
-                      displaySnackBar(
-                        context,
-                        state.errorMessage.message,
-                        AutilabColor.bb,
-                      );
-                    }
-                    if (state is SetAppointmentResponseState) {
-                      context.pop();
-                    }
-                    if (state is DoctorWorkScheduelResponseState) {
-                      for (var element in state.displayDoctorWorkScheduel) {
-                        DateTime date = DateTime.parse(element.date);
+                    // if (state is SetAppointmentError) {
+                    //   displaySnackBar(
+                    //     context,
+                    //     state.errorMessage.message,
+                    //     AutilabColor.bb,
+                    //   );
+                    // }
+                    // if (state is SetAppointmentResponseState) {
+                    //   context.pop();
+                    // }
+                    // if (state is DoctorWorkScheduelResponseState) {
+                    //   for (var element in state.displayDoctorWorkScheduel) {
+                    //     DateTime date = DateTime.parse(element.date);
 
-                        String day = DateFormat('d').format(date);
-                        daysList.add(
-                            DayCalss(int.parse(day), int.parse(element.id)));
-                      }
-                    }
-                    if (state is SpecialtyDoctorWorkScheduelResponseState) {
-                      for (var element
-                          in state.displaySpecialtyDoctorWorkScheduel) {
-                        // timeWorkScheduelList.add(
-                        //   TimeWorkScheduel(
-                        //     startTime: element.starttime,
-                        //     endTime: element.endtime,
-                        //     slotDuration: element.slotduration,
-                        //   ),
-                        // );
-                        timeWorkScheduel = TimeWorkScheduel(
-                          startTime: element.starttime,
-                          endTime: element.endtime,
-                          slotDuration: element.slotduration,
-                        );
-                      }
-                    }
+                    //     String day = DateFormat('d').format(date);
+                    //     daysList.add(
+                    //         DayCalss(int.parse(day), int.parse(element.id)));
+                    //   }
+                    // }
+                    // if (state is SpecialtyDoctorWorkScheduelResponseState) {
+                    //   for (var element
+                    //       in state.displaySpecialtyDoctorWorkScheduel) {
+                    //     // timeWorkScheduelList.add(
+                    //     //   TimeWorkScheduel(
+                    //     //     startTime: element.starttime,
+                    //     //     endTime: element.endtime,
+                    //     //     slotDuration: element.slotduration,
+                    //     //   ),
+                    //     // );
+                    //     timeWorkScheduel = TimeWorkScheduel(
+                    //       startTime: element.starttime,
+                    //       endTime: element.endtime,
+                    //       slotDuration: element.slotduration,
+                    //     );
+                    //   }
+                    // }
                   },
                   builder: (context, state) {
                     return CustomScrollView(
@@ -219,135 +223,134 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             height: 24,
                           ),
                         ),
-                        if (state is! DoctorLoading) ...[
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding: AutilabMargin.marginFullScreen,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isOpen = !isOpen;
-                                  });
-                                },
-                                child: Row(
-                                  spacing: 14,
-                                  children: [
-                                    Text(
-                                      _monthName,
-                                      style:
-                                          AutilabTextStyle.small18_400.copyWith(
-                                        fontSize: isMobile() ? 18 : 24,
-                                      ),
-                                    ),
-                                    isOpen
-                                        ? SvgPicture.asset(
-                                            'assets/icons/arrow_up.svg',
-                                            width: isMobile() ? 16 : 24,
-                                            height: isMobile() ? 16 : 24,
-                                          )
-                                        : SvgPicture.asset(
-                                            'assets/icons/arrow_down.svg',
-                                            width: isMobile() ? 16 : 24,
-                                            height: isMobile() ? 16 : 24,
-                                          ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SliverToBoxAdapter(
-                            child: SizedBox(
-                              height: 24,
-                            ),
-                          ),
-                          SliverToBoxAdapter(
-                            child: Stack(
-                              children: [
-                                CalendarGrid(
-                                  isMobile: isMobile(),
-                                  date: montNumber,
-                                  // availableDate: 2,
-                                  availableDays: daysList,
-                                  onTap: (day, id) {
-                                    setState(() {
-                                      selectDate = DateFormat('EEE d')
-                                          .format(day ?? DateTime.now());
-
-                                      date = day ?? DateTime.now();
-                                      scheduelId = id;
-                                    });
-
-                                    context.read<DoctorBloc>().add(
-                                        DisplaySpecialtyDoctorWorkScheduel(
-                                            workScheduleId: id));
-                                  },
-                                  isSelect: true,
-                                ),
-                                Visibility(
-                                  visible: isOpen,
-                                  child: Container(
-                                    width: isMobile() ? 130 : 167,
-                                    padding: const EdgeInsets.all(12),
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xffF6F6F6),
-                                      border:
-                                          Border.all(color: AutilabColor.blue),
-                                      borderRadius: BorderRadius.circular(
-                                          isMobile() ? 16 : 24),
-                                    ),
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: montNameList.length,
-                                      itemBuilder: (context, index) {
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  isOpen = false;
-                                                  _monthName =
-                                                      montNameList[index];
-                                                  montNumber = index;
-                                                  selectDate = '';
-                                                });
-                                              },
-                                              child: Text(
-                                                montNameList[index],
-                                                style: AutilabTextStyle
-                                                    .small16_400
-                                                    .copyWith(
-                                                  fontSize:
-                                                      isMobile() ? 16 : 24,
-                                                ),
-                                              ),
-                                            ),
-                                            if (index < montNameList.length - 1)
-                                              const Divider(
-                                                thickness: 1,
-                                                color: AutilabColor.gray,
-                                              ),
-                                          ],
-                                        );
-                                      },
+                        // if (state is! DoctorLoading) ...[
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: AutilabMargin.marginFullScreen,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isOpen = !isOpen;
+                                });
+                              },
+                              child: Row(
+                                spacing: 14,
+                                children: [
+                                  Text(
+                                    _monthName,
+                                    style:
+                                        AutilabTextStyle.small18_400.copyWith(
+                                      fontSize: isMobile() ? 18 : 24,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ] else ...[
-                          const SliverToBoxAdapter(
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: AutilabColor.bb,
+                                  isOpen
+                                      ? SvgPicture.asset(
+                                          'assets/icons/arrow_up.svg',
+                                          width: isMobile() ? 16 : 24,
+                                          height: isMobile() ? 16 : 24,
+                                        )
+                                      : SvgPicture.asset(
+                                          'assets/icons/arrow_down.svg',
+                                          width: isMobile() ? 16 : 24,
+                                          height: isMobile() ? 16 : 24,
+                                        ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
+                        ),
+                        const SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 24,
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Stack(
+                            children: [
+                              CalendarGrid(
+                                isMobile: isMobile(),
+                                date: montNumber,
+                                availableDays: daysList,
+                                onTap: (day, id) {
+                                  setState(() {
+                                    isSelectDay = true;
+                                    selectDate = DateFormat('EEE d')
+                                        .format(day ?? DateTime.now());
+
+                                    date = day ?? DateTime.now();
+                                    scheduelId = id;
+                                  });
+
+                                  context.read<DoctorBloc>().add(
+                                      DisplaySpecialtyDoctorWorkScheduel(
+                                          workScheduleId: id));
+                                },
+                                isSelect: true,
+                              ),
+                              Visibility(
+                                visible: isOpen,
+                                child: Container(
+                                  width: isMobile() ? 130 : 167,
+                                  padding: const EdgeInsets.all(12),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffF6F6F6),
+                                    border:
+                                        Border.all(color: AutilabColor.blue),
+                                    borderRadius: BorderRadius.circular(
+                                        isMobile() ? 16 : 24),
+                                  ),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: montNameList.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                isOpen = false;
+                                                _monthName =
+                                                    montNameList[index];
+                                                montNumber = index;
+                                                selectDate = '';
+                                              });
+                                            },
+                                            child: Text(
+                                              montNameList[index],
+                                              style: AutilabTextStyle
+                                                  .small16_400
+                                                  .copyWith(
+                                                fontSize: isMobile() ? 16 : 24,
+                                              ),
+                                            ),
+                                          ),
+                                          if (index < montNameList.length - 1)
+                                            const Divider(
+                                              thickness: 1,
+                                              color: AutilabColor.gray,
+                                            ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // ] else ...[
+                        // const SliverToBoxAdapter(
+                        //   child: Center(
+                        //     child: CircularProgressIndicator(
+                        //       color: AutilabColor.bb,
+                        //     ),
+                        //   ),
+                        // ),
+                        // ],
                         const SliverToBoxAdapter(
                           child: SizedBox(
                             height: 24,
@@ -439,29 +442,36 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                             height: 16,
                           ),
                         ),
-                        if (timeWorkScheduel?.startTime != null) ...[
-                          if (state is! WorkScheduelDoctorLoading) ...[
-                            SliverPadding(
-                              padding: AutilabMargin.marginFullScreen,
-                              sliver: SelectTimeWidget(
-                                isMobile: isMobile(),
-                                timeWorkScheduel: timeWorkScheduel,
-                                onTap: (time) {
-                                  setState(() {
-                                    selectTime = time ?? '';
-                                  });
-                                },
+                        // if (timeWorkScheduel?.startTime != null) ...[
+                        if (isSelectDay) ...[
+                          // if (state is! WorkScheduelDoctorLoading) ...[
+                          SliverPadding(
+                            padding: AutilabMargin.marginFullScreen,
+                            sliver: SelectTimeWidget(
+                              isMobile: isMobile(),
+                              // timeWorkScheduel: timeWorkScheduel,
+                              timeWorkScheduel: TimeWorkScheduel(
+                                startTime: '08:00',
+                                endTime: '14:30',
+                                slotDuration: 30,
                               ),
+                              onTap: (time) {
+                                setState(() {
+                                  selectTime = time ?? '';
+                                });
+                              },
                             ),
-                          ] else ...[
-                            const SliverToBoxAdapter(
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
+
+                          // ] else ...[
+                          //   const SliverToBoxAdapter(
+                          //     child: Center(
+                          //       child: CircularProgressIndicator(
+                          //         color: AutilabColor.bb,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ],
                           const SliverToBoxAdapter(
                             child: SizedBox(
                               height: 16,
@@ -514,12 +524,15 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                               ),
                             ),
                           ),
-                        ] else if (state is! WorkScheduelDoctorLoading) ...[
+                        ],
+                        // ] else if (state is! WorkScheduelDoctorLoading) ...[
+                        if (!isSelectDay) ...[
                           SliverToBoxAdapter(
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
-                              margin: AutilabMargin.marginFullScreen,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 18),
                               decoration: BoxDecoration(
                                 color: AutilabColor.bb,
                                 borderRadius: BorderRadius.circular(16),
@@ -534,12 +547,13 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                               ),
                             ),
                           ),
-                        ],
-                        const SliverToBoxAdapter(
-                          child: SizedBox(
-                            height: 48,
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              height:
+                                  timeWorkScheduel?.startTime != null ? 48 : 0,
+                            ),
                           ),
-                        ),
+                        ],
                         const SliverToBoxAdapter(
                           child: Padding(
                             padding: AutilabMargin.marginFullScreen,
@@ -808,7 +822,7 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                           child: CustomButtonWidget(
                             isMobile: isMobile(),
                             onTap: () {
-                              if (selectDate.isEmpty) {
+                              if (selectDate.isEmpty || selectTime.isEmpty) {
                                 displaySnackBar(
                                   context,
                                   'Select the date and time',
@@ -816,16 +830,26 @@ class _MakeAppointmentScreenState extends State<MakeAppointmentScreen>
                                 );
                                 return;
                               } else {
-                                context
-                                    .read<DoctorBloc>()
-                                    .add(SetAppointmentPatient(
-                                      doctorId: widget.id!,
-                                      scheduelId: scheduelId,
-                                      description: descriptionController.text,
-                                    ));
+                                // context
+                                //     .read<DoctorBloc>()
+                                //     .add(SetAppointmentPatient(
+                                //       doctorId: widget.id!,
+                                //       scheduelId: scheduelId,
+                                //       description: descriptionController.text,
+                                //     ));
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                Timer(
+                                  const Duration(seconds: 2),
+                                  () {
+                                    context.pop();
+                                  },
+                                );
                               }
                             },
-                            isLoading: state is SetAppointmentLoading,
+                            // isLoading: state is SetAppointmentLoading,
+                            isLoading: isLoading,
                             height: 50,
                             width: double.infinity,
                             color: AutilabColor.bb,

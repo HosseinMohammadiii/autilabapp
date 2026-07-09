@@ -110,7 +110,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
         final isSelected = selectedTime == time;
 
         return GestureDetector(
-          onTap: widget.isSelect!
+          onTap: widget.isSelect! && localTime.contains(slots[index])
               ? () {
                   setState(() {
                     selectedTime = time;
@@ -122,10 +122,10 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: localTime.contains(slots[index])
-                  ? AutilabColor.bb
-                  : isSelected
+                  ? isSelected
                       ? AutilabColor.blue
-                      : widget.backgroundColor ?? AutilabColor.backgroundDrawer,
+                      : AutilabColor.bb
+                  : const Color(0xffFBE4E4),
               borderRadius: BorderRadius.circular(widget.isMobile ? 8 : 24),
             ),
             child: Text(

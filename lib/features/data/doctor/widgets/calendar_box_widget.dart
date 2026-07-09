@@ -28,6 +28,25 @@ class CalendarGrid extends StatefulWidget {
 class _CalendarGridState extends State<CalendarGrid> {
   DateTime? selectedDate;
 
+  List<DayCalss> availableDaysList = [
+    DayCalss(
+      6,
+      0,
+    ),
+    DayCalss(
+      22,
+      1,
+    ),
+    DayCalss(
+      3,
+      2,
+    ),
+    DayCalss(
+      15,
+      3,
+    ),
+  ];
+
   List<DateTime?> generateMonthDays(int year, int month) {
     List<DateTime?> days = [];
 
@@ -102,7 +121,11 @@ class _CalendarGridState extends State<CalendarGrid> {
                   day.weekday == DateTime.sunday; // 7 یا DateTime.sunday
 
               // پیدا کردن روز در availableDays
-              DayCalss? availableDay = widget.availableDays.firstWhere(
+              // DayCalss? availableDay = widget.availableDays.firstWhere(
+              //   (d) => d.day == day.day,
+              //   orElse: () => DayCalss(-1, -1),
+              // );
+              DayCalss? availableDay = availableDaysList.firstWhere(
                 (d) => d.day == day.day,
                 orElse: () => DayCalss(-1, -1),
               );
@@ -130,7 +153,11 @@ class _CalendarGridState extends State<CalendarGrid> {
               if (isSunday) {
                 textColor = Colors.red;
               } else {
-                textColor = isAvailable ? AutilabColor.black : Colors.grey;
+                textColor = isAvailable
+                    ? isSelected
+                        ? AutilabColor.white
+                        : AutilabColor.black
+                    : Colors.grey;
               }
 
               return GestureDetector(

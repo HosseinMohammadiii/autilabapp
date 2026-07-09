@@ -173,24 +173,6 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                             CalendarGrid(
                               isMobile: isMobile(),
                               date: montNumber,
-                              availableDays: [
-                                DayCalss(
-                                  6,
-                                  0,
-                                ),
-                                DayCalss(
-                                  22,
-                                  1,
-                                ),
-                                DayCalss(
-                                  3,
-                                  2,
-                                ),
-                                DayCalss(
-                                  15,
-                                  3,
-                                ),
-                              ],
                               onTap: (day, id) {
                                 setState(() {
                                   selectDate = DateFormat('EEE d')
