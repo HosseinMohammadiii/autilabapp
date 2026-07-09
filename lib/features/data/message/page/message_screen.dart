@@ -103,17 +103,17 @@ class _MessageScreenState extends State<MessageScreen>
             child: Scaffold(
               resizeToAvoidBottomInset: true,
               appBar: PreferredSize(
-                preferredSize: Size(double.infinity, isMobile() ? 118 : 134),
+                preferredSize: Size(double.infinity, isMobile() ? 96 : 112),
                 child: AppBar(
                   backgroundColor: AutilabColor.primary,
                   automaticallyImplyLeading: false,
                   elevation: 0,
                   scrolledUnderElevation: 0,
-                  toolbarHeight: 160,
                   flexibleSpace: Padding(
                     padding:
                         const EdgeInsets.only(left: 20, right: 20, top: 40),
                     child: Row(
+                      spacing: 12,
                       children: [
                         GestureDetector(
                           onTap: () {
@@ -126,21 +126,8 @@ class _MessageScreenState extends State<MessageScreen>
                             alignment: AlignmentDirectional.centerStart,
                           ),
                         ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        // ClipRRect(
-                        //   borderRadius: BorderRadius.circular(100),
-                        //   child: Image.asset(
-                        //     widget.image,
-                        //     height: isMobile() ? 46 : 76,
-                        //     width: isMobile() ? 46 : 76,
-                        //     cacheWidth: cacheImageFunction(
-                        //         isMobile() ? 46 : 76, context),
-                        //     cacheHeight: cacheImageFunction(
-                        //         isMobile() ? 46 : 76, context),
-                        //     fit: BoxFit.cover,
-                        //   ),
+                        // const SizedBox(
+                        //   width: 16,
                         // ),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
@@ -149,7 +136,7 @@ class _MessageScreenState extends State<MessageScreen>
                             width: isMobile() ? 46 : 76,
                             imgUrl: widget.image,
                             img: Image.asset(
-                              'assets/images/autism_help_center.jpg',
+                              widget.image,
                               fit: BoxFit.fill,
                               height: isMobile() ? 46 : 76,
                               width: isMobile() ? 46 : 76,
@@ -158,12 +145,10 @@ class _MessageScreenState extends State<MessageScreen>
                               cacheHeight: cacheImageFunction(
                                   isMobile() ? 213 : 315, context),
                             ),
-                            isNetworkImage: true,
+                            isNetworkImage: false,
                           ),
                         ),
-                        const SizedBox(
-                          width: 16,
-                        ),
+
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -193,6 +178,16 @@ class _MessageScreenState extends State<MessageScreen>
                               ],
                             ],
                           ),
+                        ),
+                        displayIconButton(
+                          AutilabIcon.videoCall,
+                          () {},
+                          isMobile(),
+                        ),
+                        displayIconButton(
+                          AutilabIcon.voiceCall,
+                          () {},
+                          isMobile(),
                         ),
                       ],
                     ),

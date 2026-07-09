@@ -220,7 +220,8 @@ class _DoctorBoxWidgetState extends State<DoctorBoxWidget> {
                                                   AutiLabRoutes
                                                       .doctorMessageScreen,
                                                   extra: {
-                                                    'image':
+                                                    'image': widget
+                                                            .user?.photo ??
                                                         'assets/images/doctor_image.jpg',
                                                     'name': doctorFullName,
                                                     'expertise': widget
