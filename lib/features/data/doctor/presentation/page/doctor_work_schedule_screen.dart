@@ -2,6 +2,7 @@ import 'package:autilab_project/common/widgets/appbar_back_screen.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/theme_constant.dart';
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
+import 'package:autilab_project/features/data/doctor/presentation/page/make_appointment_screen.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 import 'package:autilab_project/utils/Lists/time_date_list.dart';
 import 'package:flutter/material.dart';
@@ -172,6 +173,24 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                             CalendarGrid(
                               isMobile: isMobile(),
                               date: montNumber,
+                              availableDays: [
+                                DayCalss(
+                                  6,
+                                  0,
+                                ),
+                                DayCalss(
+                                  22,
+                                  1,
+                                ),
+                                DayCalss(
+                                  3,
+                                  2,
+                                ),
+                                DayCalss(
+                                  15,
+                                  3,
+                                ),
+                              ],
                               onTap: (day, id) {
                                 setState(() {
                                   selectDate = DateFormat('EEE d')
@@ -296,6 +315,11 @@ class _DoctorWorkScheduleScreenState extends State<DoctorWorkScheduleScreen>
                           isMobile: isMobile(),
                           backgroundColor: AutilabColor.lightGray,
                           onTap: (time) {},
+                          timeWorkScheduel: TimeWorkScheduel(
+                            startTime: '08:00',
+                            endTime: '14:30',
+                            slotDuration: 30,
+                          ),
                           isSelect: false,
                         ),
                       ),

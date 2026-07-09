@@ -58,7 +58,7 @@ class _DoctorBoxState extends State<DoctorBox> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  'assets/images/doctor_image.jpg',
+                  widget.user?.photo ?? 'assets/images/doctor_image.jpg',
                   width: widget.isMobile ? 116 : 248,
                   height: widget.isMobile ? 116 : 248,
                   cacheWidth:
@@ -141,7 +141,8 @@ class _DoctorBoxState extends State<DoctorBox> {
                           context.pushNamed(
                             AutiLabRoutes.doctorMessageScreen,
                             extra: {
-                              'image': 'assets/images/doctor_image.jpg',
+                              'image': widget.user?.photo ??
+                                  'assets/images/doctor_image.jpg',
                               'name': fullName,
                               'expertise': widget.specialty?.name,
                             },

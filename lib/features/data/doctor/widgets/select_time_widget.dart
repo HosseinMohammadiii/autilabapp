@@ -99,22 +99,33 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
         crossAxisSpacing: widget.isMobile ? 10 : 38,
       ),
       itemBuilder: (context, index) {
+        List localTime = [
+          slots[1],
+          slots[3],
+          slots[4],
+          slots[9],
+          slots[11],
+        ];
         final time = slots[index];
         final isSelected = selectedTime == time;
 
         return GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedTime = time;
-            });
-            widget.onTap(time);
-          },
+          onTap: widget.isSelect!
+              ? () {
+                  setState(() {
+                    selectedTime = time;
+                  });
+                  widget.onTap(time);
+                }
+              : null,
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected
-                  ? AutilabColor.blue
-                  : widget.backgroundColor ?? AutilabColor.backgroundDrawer,
+              color: localTime.contains(slots[index])
+                  ? AutilabColor.bb
+                  : isSelected
+                      ? AutilabColor.blue
+                      : widget.backgroundColor ?? AutilabColor.backgroundDrawer,
               borderRadius: BorderRadius.circular(widget.isMobile ? 8 : 24),
             ),
             child: Text(

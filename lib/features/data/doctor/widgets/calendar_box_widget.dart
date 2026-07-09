@@ -12,7 +12,7 @@ class CalendarGrid extends StatefulWidget {
     this.isSelect = true,
     required this.date,
     this.isMobile = true,
-    this.availableDays = const [], // فقط این روزها قابل انتخاب هستن
+    this.availableDays = const [],
   });
 
   final bool isMobile;
@@ -134,14 +134,16 @@ class _CalendarGridState extends State<CalendarGrid> {
               }
 
               return GestureDetector(
-                onTap: isAvailable && !isSunday
-                    ? () {
-                        setState(() {
-                          selectedDate = day;
-                        });
-                        widget.onTap(day, availableDay.id);
-                      }
-                    : null,
+                onTap: !widget.isSelect
+                    ? null
+                    : isAvailable && !isSunday
+                        ? () {
+                            setState(() {
+                              selectedDate = day;
+                            });
+                            widget.onTap(day, availableDay.id);
+                          }
+                        : null,
                 child: Container(
                   decoration: BoxDecoration(
                     color: bgColor,

@@ -211,7 +211,8 @@ class _DoctorInfoScreenState extends State<DoctorInfoScreen>
                                                       AutiLabRoutes
                                                           .doctorMessageScreen,
                                                       extra: {
-                                                        'image':
+                                                        'image': widget
+                                                                .user?.photo ??
                                                             'assets/images/doctor_image.jpg',
                                                         'name': doctorFullName,
                                                         'expertise':
