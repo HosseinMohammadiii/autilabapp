@@ -1,3 +1,4 @@
+//Local List
 List<PlanFeatures> planFeaturesList = [
   PlanFeatures(
     planId: 0,
@@ -23,6 +24,12 @@ List<PlanFeatures> planFeaturesList = [
     planId: 0,
     description: 'Doctor appointment booking discount',
   ),
+];
+//Local List
+List<PlanModel> planModel = [
+  PlanModel.fromLocal(PlanType.free),
+  PlanModel.fromLocal(PlanType.monthly),
+  PlanModel.fromLocal(PlanType.yearly),
 ];
 
 class PlanModel {

@@ -52,7 +52,7 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
 
   int totalScore = 0;
 
-  List<IntelligenceTestModel> intelligenceTestList = [];
+  // List<IntelligenceTestModel> intelligenceTestList = [];
 
   @override
   void initState() {
@@ -276,229 +276,231 @@ class _TestHistoryScreenState extends State<TestHistoryScreen>
                             ),
                           ],
                         ),
-                        BlocProvider(
-                          create: (context) => TestBloc(locator.get())
-                            ..add(DisplayAutismTestResult()),
-                          child: BlocBuilder<TestBloc, TestState>(
-                            builder: (context, state) {
-                              if (state is TestLoading) {
-                                return const LoadingProgressWidget();
-                              }
-                              if (state is TestError) {
-                                if (state.errorMessage.statusCode == 404) {
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/icons/item_notfound.svg',
-                                        width: isMobile() ? 160 : 240,
-                                        height: isMobile() ? 160 : 240,
-                                      ),
-                                      Text(
-                                        'Item Not Found',
-                                        style: AutilabTextStyle.medium20_500
-                                            .copyWith(
-                                          fontSize: isMobile() ? 20 : 32,
-                                        ),
-                                      ),
-                                      CustomButtonWidget(
-                                        isMobile: isMobile(),
-                                        onTap: () {
-                                          context.pushNamed(
-                                              AutiLabRoutes.typeTestsScreen);
-                                        },
-                                        height: 50,
-                                        margin: const EdgeInsets.only(
-                                            bottom: 48,
-                                            top: 48,
-                                            right: 20,
-                                            left: 20),
-                                        color: AutilabColor.bb,
-                                        text: 'Take Test',
-                                        textStyle: AutilabTextStyle.small18_400,
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return NotConnectionInternetScreen(
-                                    onChange: () async {
-                                      context
-                                          .read<TestBloc>()
-                                          .add(DisplayAutismTestResult());
-                                    },
-                                  );
-                                }
-                              }
-                              if (state is DisplayAutismTestResultState) {
-                                for (var element
-                                    in state.displayAutismTestResult) {
-                                  totalScore = element.totalscore;
-                                }
-                                return CustomScrollView(
-                                  slivers: [
-                                    SliverToBoxAdapter(
-                                      child: Padding(
-                                        padding: AutilabMargin.marginFullScreen,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            const SizedBox(
-                                              height: 48,
-                                            ),
-                                            TitleAndIconWidget(
-                                              isMobile: isMobile(),
-                                              icon:
-                                                  'assets/icons/info-circle.svg',
-                                              title: 'Personality Test Report',
-                                            ),
+                        // BlocProvider(
+                        //   create: (context) => TestBloc(locator.get())
+                        //     ..add(DisplayAutismTestResult()),
+                        //   child:
 
-                                            // _readeMoreButtonWidget(context),
-                                            const SizedBox(
-                                              height: 24,
-                                            ),
-                                            autismTestDiscription(
-                                                totalScore, isMobile()),
-                                            // TitleAndIconWidget(
-                                            //   isMobile: isMobile(),
-                                            //   icon: 'assets/icons/note.svg',
-                                            //   title: 'Personality Test Chart',
-                                            // ),
-                                            // const SizedBox(
-                                            //   height: 24,
-                                            // ),
-                                            // Container(
-                                            //   padding: const EdgeInsets.all(16),
-                                            //   decoration: BoxDecoration(
-                                            //     color: const Color(0xffECF0FF),
-                                            //     border:
-                                            //         Border.all(color: AutilabColor.bb),
-                                            //     borderRadius: BorderRadius.circular(24),
-                                            //   ),
-                                            //   child: Column(
-                                            //     crossAxisAlignment:
-                                            //         CrossAxisAlignment.start,
-                                            //     mainAxisAlignment:
-                                            //         MainAxisAlignment.center,
-                                            //     children: [
-                                            //       ListView.builder(
-                                            //         shrinkWrap: true,
-                                            //         physics:
-                                            //             const NeverScrollableScrollPhysics(),
-                                            //         itemCount: talentTestItem.length,
-                                            //         padding: EdgeInsets.symmetric(
-                                            //             vertical: isMobile() ? 8 : 16,
-                                            //             horizontal: isMobile() ? 8 : 16),
-                                            //         itemBuilder: (context, index) {
-                                            //           return Column(
-                                            //             children: [
-                                            //               Row(
-                                            //                 crossAxisAlignment:
-                                            //                     CrossAxisAlignment.start,
-                                            //                 spacing: 8,
-                                            //                 children: [
-                                            //                   Container(
-                                            //                     width:
-                                            //                         isMobile() ? 24 : 40,
-                                            //                     height:
-                                            //                         isMobile() ? 24 : 40,
-                                            //                     decoration: BoxDecoration(
-                                            //                       shape: BoxShape.circle,
-                                            //                       color: talentTestItem[
-                                            //                               index]
-                                            //                           .color,
-                                            //                     ),
-                                            //                   ),
-                                            //                   Text(
-                                            //                     talentTestItem[index]
-                                            //                         .title,
-                                            //                     style: AutilabTextStyle
-                                            //                         .small16_400
-                                            //                         .copyWith(
-                                            //                       fontSize: isMobile()
-                                            //                           ? 16
-                                            //                           : 20,
-                                            //                     ),
-                                            //                     textAlign:
-                                            //                         TextAlign.justify,
-                                            //                   ),
-                                            //                   const Spacer(),
-                                            //                   Container(
-                                            //                     height:
-                                            //                         isMobile() ? 24 : 40,
-                                            //                     width:
-                                            //                         isMobile() ? 60 : 120,
-                                            //                     alignment:
-                                            //                         Alignment.center,
-                                            //                     decoration: BoxDecoration(
-                                            //                       color: AutilabColor.bb,
-                                            //                       borderRadius:
-                                            //                           BorderRadius
-                                            //                               .circular(8),
-                                            //                     ),
-                                            //                     child: Text(
-                                            //                       talentTestItem[index]
-                                            //                           .percentage,
-                                            //                       style: AutilabTextStyle
-                                            //                           .small14_400
-                                            //                           .copyWith(
-                                            //                         fontSize: isMobile()
-                                            //                             ? 14
-                                            //                             : 20,
-                                            //                       ),
-                                            //                     ),
-                                            //                   ),
-                                            //                 ],
-                                            //               ),
-                                            //               if (index <
-                                            //                   talentTestItem.length - 1)
-                                            //                 Padding(
-                                            //                   padding: EdgeInsets.symmetric(
-                                            //                       vertical: index ==
-                                            //                               talentTestItem
-                                            //                                       .length -
-                                            //                                   1
-                                            //                           ? 0
-                                            //                           : 12),
-                                            //                   child: const Divider(
-                                            //                     thickness: 0.5,
-                                            //                     color: AutilabColor.bb,
-                                            //                   ),
-                                            //                 ),
-                                            //             ],
-                                            //           );
-                                            //         },
-                                            //       )
-                                            //     ],
-                                            //   ),
-                                            // ),
-                                            CustomButtonWidget(
-                                              isMobile: isMobile(),
-                                              onTap: () {
-                                                context.pushNamed(AutiLabRoutes
-                                                    .typeTestsScreen);
-                                              },
-                                              height: 50,
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 48, top: 48),
-                                              color: AutilabColor.bb,
-                                              text: 'Take Test Again',
-                                              textStyle:
-                                                  AutilabTextStyle.small18_400,
-                                            ),
-                                          ],
+                        BlocBuilder<TestBloc, TestState>(
+                            builder: (context, state) {
+                          // if (state is TestLoading) {
+                          //   return const LoadingProgressWidget();
+                          // }
+                          // if (state is TestError) {
+                          //   if (state.errorMessage.statusCode == 404) {
+                          //     return Column(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         SvgPicture.asset(
+                          //           'assets/icons/item_notfound.svg',
+                          //           width: isMobile() ? 160 : 240,
+                          //           height: isMobile() ? 160 : 240,
+                          //         ),
+                          //         Text(
+                          //           'Item Not Found',
+                          //           style: AutilabTextStyle.medium20_500
+                          //               .copyWith(
+                          //             fontSize: isMobile() ? 20 : 32,
+                          //           ),
+                          //         ),
+                          //         CustomButtonWidget(
+                          //           isMobile: isMobile(),
+                          //           onTap: () {
+                          //             context.pushNamed(
+                          //                 AutiLabRoutes.typeTestsScreen);
+                          //           },
+                          //           height: 50,
+                          //           margin: const EdgeInsets.only(
+                          //               bottom: 48,
+                          //               top: 48,
+                          //               right: 20,
+                          //               left: 20),
+                          //           color: AutilabColor.bb,
+                          //           text: 'Take Test',
+                          //           textStyle: AutilabTextStyle.small18_400,
+                          //         ),
+                          //       ],
+                          //     );
+                          //   } else {
+                          //     return NotConnectionInternetScreen(
+                          //       onChange: () async {
+                          //         context
+                          //             .read<TestBloc>()
+                          //             .add(DisplayAutismTestResult());
+                          //       },
+                          //     );
+                          //   }
+                          // }
+                          // if (state is DisplayAutismTestResultState) {
+                          //   for (var element
+                          //       in state.displayAutismTestResult) {
+                          //     totalScore = element.totalscore;
+                          //   }
+                          return Scaffold(
+                            bottomNavigationBar: CustomButtonWidget(
+                              isMobile: isMobile(),
+                              onTap: () {
+                                context
+                                    .pushNamed(AutiLabRoutes.typeTestsScreen);
+                              },
+                              height: 50,
+                              // margin:
+                              //     const EdgeInsets.only(bottom: 48, top: 48),
+                              color: AutilabColor.bb,
+                              text: 'Take Test Again',
+                              textStyle: AutilabTextStyle.small18_400,
+                            ),
+                            body: CustomScrollView(
+                              slivers: [
+                                SliverToBoxAdapter(
+                                  child: Padding(
+                                    padding: AutilabMargin.marginFullScreen,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        const SizedBox(
+                                          height: 48,
                                         ),
-                                      ),
+                                        TitleAndIconWidget(
+                                          isMobile: isMobile(),
+                                          icon: 'assets/icons/info-circle.svg',
+                                          title: 'Personality Test Report',
+                                        ),
+
+                                        // _readeMoreButtonWidget(context),
+                                        const SizedBox(
+                                          height: 24,
+                                        ),
+                                        autismTestDiscription(15, isMobile()),
+                                        // TitleAndIconWidget(
+                                        //   isMobile: isMobile(),
+                                        //   icon: 'assets/icons/note.svg',
+                                        //   title: 'Personality Test Chart',
+                                        // ),
+                                        // const SizedBox(
+                                        //   height: 24,
+                                        // ),
+                                        // Container(
+                                        //   padding: const EdgeInsets.all(16),
+                                        //   decoration: BoxDecoration(
+                                        //     color: const Color(0xffECF0FF),
+                                        //     border:
+                                        //         Border.all(color: AutilabColor.bb),
+                                        //     borderRadius: BorderRadius.circular(24),
+                                        //   ),
+                                        //   child: Column(
+                                        //     crossAxisAlignment:
+                                        //         CrossAxisAlignment.start,
+                                        //     mainAxisAlignment:
+                                        //         MainAxisAlignment.center,
+                                        //     children: [
+                                        //       ListView.builder(
+                                        //         shrinkWrap: true,
+                                        //         physics:
+                                        //             const NeverScrollableScrollPhysics(),
+                                        //         itemCount: talentTestItem.length,
+                                        //         padding: EdgeInsets.symmetric(
+                                        //             vertical: isMobile() ? 8 : 16,
+                                        //             horizontal: isMobile() ? 8 : 16),
+                                        //         itemBuilder: (context, index) {
+                                        //           return Column(
+                                        //             children: [
+                                        //               Row(
+                                        //                 crossAxisAlignment:
+                                        //                     CrossAxisAlignment.start,
+                                        //                 spacing: 8,
+                                        //                 children: [
+                                        //                   Container(
+                                        //                     width:
+                                        //                         isMobile() ? 24 : 40,
+                                        //                     height:
+                                        //                         isMobile() ? 24 : 40,
+                                        //                     decoration: BoxDecoration(
+                                        //                       shape: BoxShape.circle,
+                                        //                       color: talentTestItem[
+                                        //                               index]
+                                        //                           .color,
+                                        //                     ),
+                                        //                   ),
+                                        //                   Text(
+                                        //                     talentTestItem[index]
+                                        //                         .title,
+                                        //                     style: AutilabTextStyle
+                                        //                         .small16_400
+                                        //                         .copyWith(
+                                        //                       fontSize: isMobile()
+                                        //                           ? 16
+                                        //                           : 20,
+                                        //                     ),
+                                        //                     textAlign:
+                                        //                         TextAlign.justify,
+                                        //                   ),
+                                        //                   const Spacer(),
+                                        //                   Container(
+                                        //                     height:
+                                        //                         isMobile() ? 24 : 40,
+                                        //                     width:
+                                        //                         isMobile() ? 60 : 120,
+                                        //                     alignment:
+                                        //                         Alignment.center,
+                                        //                     decoration: BoxDecoration(
+                                        //                       color: AutilabColor.bb,
+                                        //                       borderRadius:
+                                        //                           BorderRadius
+                                        //                               .circular(8),
+                                        //                     ),
+                                        //                     child: Text(
+                                        //                       talentTestItem[index]
+                                        //                           .percentage,
+                                        //                       style: AutilabTextStyle
+                                        //                           .small14_400
+                                        //                           .copyWith(
+                                        //                         fontSize: isMobile()
+                                        //                             ? 14
+                                        //                             : 20,
+                                        //                       ),
+                                        //                     ),
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //               if (index <
+                                        //                   talentTestItem.length - 1)
+                                        //                 Padding(
+                                        //                   padding: EdgeInsets.symmetric(
+                                        //                       vertical: index ==
+                                        //                               talentTestItem
+                                        //                                       .length -
+                                        //                                   1
+                                        //                           ? 0
+                                        //                           : 12),
+                                        //                   child: const Divider(
+                                        //                     thickness: 0.5,
+                                        //                     color: AutilabColor.bb,
+                                        //                   ),
+                                        //                 ),
+                                        //             ],
+                                        //           );
+                                        //         },
+                                        //       )
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                      ],
                                     ),
-                                  ],
-                                );
-                              }
-                              return const SizedBox();
-                            },
-                          ),
-                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                            // return const SizedBox();
+                            // },
+                            ),
+                        // ),
+                        // ],
                       ],
                     ),
                   ),

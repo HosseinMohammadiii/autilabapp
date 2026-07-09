@@ -1,3 +1,13 @@
+//Local List
+List<IntelligenceTestModel> intelligenceTestList = [
+  IntelligenceTestModel.fromLocal(IntelligenceType.artistic),
+  IntelligenceTestModel.fromLocal(IntelligenceType.enterprising),
+  IntelligenceTestModel.fromLocal(IntelligenceType.investigator),
+  IntelligenceTestModel.fromLocal(IntelligenceType.social),
+  IntelligenceTestModel.fromLocal(IntelligenceType.realistic),
+  IntelligenceTestModel.fromLocal(IntelligenceType.conventional),
+];
+
 class IntelligenceTestModel {
   final String type;
   final double percentage;
