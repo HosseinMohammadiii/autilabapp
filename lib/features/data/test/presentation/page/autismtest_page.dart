@@ -361,7 +361,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                 // );
 
                                 if (currentPage == 2) {
-                                  context.pushNamed(
+                                  context.pushReplacementNamed(
                                     AutiLabRoutes.testHistoryScreen,
                                     pathParameters: {
                                       'initialPage': '1',

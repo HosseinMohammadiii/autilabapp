@@ -439,7 +439,7 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
                               //   );
                               // }
                               if (currentPage == 2) {
-                                context.pushNamed(
+                                context.pushReplacementNamed(
                                   AutiLabRoutes.testHistoryScreen,
                                   pathParameters: {
                                     'initialPage': '0',
