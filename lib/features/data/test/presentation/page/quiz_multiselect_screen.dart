@@ -67,7 +67,6 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
     super.initState();
     animationHelper = AnimationHelper(
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
-
     animationHelper.animationController.forward();
     selectedItemsList = List<bool>.generate(3, (_) => false);
   }
@@ -86,7 +85,57 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
 
   List<TestClass> quizList = [];
   List<int> responseIdList = [];
-  List<IntelligenceModel> intelligenceQuizList = [];
+  List<IntelligenceModel> intelligenceQuizList = [
+    IntelligenceModel.fromLocal(),
+    IntelligenceModel.fromLocal(),
+    IntelligenceModel.fromLocal(),
+  ];
+
+  String displayQuestionTitle() {
+    switch (currentPage) {
+      case 0:
+        return 'How does your child behave when they meet a new friend?';
+      case 1:
+        return 'How does your child feel when they have to share their toys with others?';
+      case 2:
+        return 'How does your child usually react when they are scared of the dark at night?';
+
+      default:
+        return 'How does your child behave when they meet a new friend?';
+    }
+  }
+
+  List<TestClass> awnsersQuiz() {
+    switch (currentPage) {
+      case 0:
+        return [
+          TestClass(
+              1, 101, "They approach enthusiastically and connect", false),
+          TestClass(2, 102, "They are a bit shy but gradually warm up", false),
+          TestClass(3, 103, "They completely withdraw and don't play", false),
+        ];
+      case 1:
+        return [
+          TestClass(1, 101, "They feel happy", false),
+          TestClass(2, 102, "They feel sad and upset", false),
+          TestClass(3, 103, "They get angry and resist", false),
+        ];
+      case 2:
+        return [
+          TestClass(1, 101, "They sleep calmly and are not afraid", false),
+          TestClass(2, 102, "They call their parents or go to them", false),
+          TestClass(3, 103, "They cry and cannot be soothed", false),
+        ];
+      default:
+        return [
+          TestClass(
+              1, 101, "They approach enthusiastically and connect", false),
+          TestClass(2, 102, "They are a bit shy but gradually warm up", false),
+          TestClass(3, 103, "They completely withdraw and don't play", false),
+        ];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -99,423 +148,433 @@ class _QuizAndSelectAnswerScreenState extends State<QuizAndSelectAnswerScreen>
           }
         }
 
+        quizList = awnsersQuiz();
+
         return ResponsiveLayout(
-            child: FadeTransition(
-                opacity: animationHelper.fadeAnimation,
-                child: PopScope(
-                    canPop: false,
-                    onPopInvokedWithResult: (didPop, result) async {
-                      if (didPop) return;
+          child: FadeTransition(
+            opacity: animationHelper.fadeAnimation,
+            child: PopScope(
+              canPop: false,
+              onPopInvokedWithResult: (didPop, result) async {
+                if (didPop) return;
 
-                      final bool? shouldPop = await showDialog(
-                        context: context,
-                        builder: (context) => ExitPageDialogWidget(
-                          isMobile: isMobile(),
-                          onTap: () {
-                            if (responseIdList.isEmpty) {
-                              context.pop();
-                              context.pop();
-                            }
+                final bool? shouldPop = await showDialog(
+                  context: context,
+                  builder: (context) => ExitPageDialogWidget(
+                    isMobile: isMobile(),
+                    onTap: () {
+                      // if (responseIdList.isEmpty) {
+                      //   context.pop();
+                      //   context.pop();
+                      // }
 
-                            for (var responseId in responseIdList) {
-                              context.read<TestBloc>().add(
-                                    DeleteIntelligenceAnswer(
-                                        responseId: responseId),
-                                  );
-                              if (responseId != responseIdList.last - 1)
-                                context.pop();
-                              context.pop();
-                            }
-                          },
-                        ),
-                      );
-                      if (shouldPop ?? false) {
-                        context.pop();
-                      }
+                      // for (var responseId in responseIdList) {
+                      //   context.read<TestBloc>().add(
+                      //         DeleteIntelligenceAnswer(responseId: responseId),
+                      //       );
+                      //   if (responseId != responseIdList.last - 1)
+                      //     context.pop();
+                      //   context.pop();
+                      // }
+                      context.pop();
+                      context.pop();
                     },
-                    child: MultiBlocProvider(
-                      providers: [
-                        BlocProvider(
-                          create: (context) => TestBloc(locator.get())
-                            ..add(DisplayAllIntelligence()),
-                        ),
-                        BlocProvider(
-                          create: (context) => TestBloc(locator.get())
-                            ..add(DisplayIntelligence(intelligenceId: 1)),
-                        ),
-                      ],
-                      child: BlocConsumer<TestBloc, TestState>(
-                        listener: (context, state) {
-                          if (state is IntelligenceAnswerState) {
-                            responseIdList.add(state.id);
+                  ),
+                );
+                if (shouldPop ?? false) {
+                  context.pop();
+                }
+              },
+              // child: MultiBlocProvider(
+              //   providers: [
+              //     // BlocProvider(
+              //     //   create: (context) => TestBloc(locator.get())
+              //     //     ..add(DisplayAllIntelligence()),
+              //     // ),
+              //     // BlocProvider(
+              //     //   create: (context) => TestBloc(locator.get())
+              //     //     ..add(DisplayIntelligence(intelligenceId: 1)),
+              //     // ),
+              //   ],
+              child: BlocConsumer<TestBloc, TestState>(
+                listener: (context, state) {
+                  // if (state is IntelligenceAnswerState) {
+                  //   responseIdList.add(state.id);
 
-                            setState(() {
-                              if (intelligenceId != 24) {
-                                intelligenceId += 1;
-                              }
-                              selectedItemsList.fillRange(
-                                  0, selectedItemsList.length, false);
-                              isSelected = false;
-                            });
+                  //   setState(() {
+                  //     if (intelligenceId != 24) {
+                  //       intelligenceId += 1;
+                  //     }
+                  //     selectedItemsList.fillRange(
+                  //         0, selectedItemsList.length, false);
+                  //     isSelected = false;
+                  //   });
 
-                            //Next page
-                            pageController.animateToPage(
-                              pageController.page!.toInt() + 1,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
+                  //   //Next page
+                  //   pageController.animateToPage(
+                  //     pageController.page!.toInt() + 1,
+                  //     duration: const Duration(milliseconds: 300),
+                  //     curve: Curves.easeInOut,
+                  //   );
 
-                            BlocProvider.of<TestBloc>(context).add(
-                                DisplayIntelligence(
-                                    intelligenceId: intelligenceId));
-                          }
-                          if (state is DisplayIntelligenceState) {
-                            intelligenceQuizList =
-                                state.displayIntelligenceList;
+                  //   BlocProvider.of<TestBloc>(context).add(
+                  //       DisplayIntelligence(
+                  //           intelligenceId: intelligenceId));
+                  // }
+                  // if (state is DisplayIntelligenceState) {
+                  //   intelligenceQuizList =
+                  //       state.displayIntelligenceList;
 
-                            for (var element in state.displayIntelligence) {
-                              questionTitle = element.question;
-                              quizList = [
-                                TestClass(
-                                  element.answer![0].answerId,
-                                  element.answer![0].questionId,
-                                  element.answer![0].answer,
-                                  false,
-                                ),
-                                TestClass(
-                                  element.answer![1].answerId,
-                                  element.answer![1].questionId,
-                                  element.answer![1].answer,
-                                  false,
-                                ),
-                                TestClass(
-                                  element.answer![2].answerId,
-                                  element.answer![2].questionId,
-                                  element.answer![2].answer,
-                                  false,
-                                ),
-                              ];
-                            }
-                          }
-                        },
-                        builder: (context, state) {
-                          return Scaffold(
-                            appBar: appBarWidget(
-                              context: context,
-                              title: 'Quiz',
-                              isIcon: true,
-                              isQuizScreen: true,
-                              isMobile: isMobile(),
-                              onChanged2: () async {
-                                if (responseIdList.isEmpty) {
-                                  context.pop();
-                                  context.pop();
-                                  return;
-                                }
+                  //   for (var element in state.displayIntelligence) {
+                  //     questionTitle = element.question;
+                  //     quizList = [
+                  //       TestClass(
+                  //         element.answer![0].answerId,
+                  //         element.answer![0].questionId,
+                  //         element.answer![0].answer,
+                  //         false,
+                  //       ),
+                  //       TestClass(
+                  //         element.answer![1].answerId,
+                  //         element.answer![1].questionId,
+                  //         element.answer![1].answer,
+                  //         false,
+                  //       ),
+                  //       TestClass(
+                  //         element.answer![2].answerId,
+                  //         element.answer![2].questionId,
+                  //         element.answer![2].answer,
+                  //         false,
+                  //       ),
+                  //     ];
+                  //   }
+                  // }
+                },
+                builder: (context, state) {
+                  return Scaffold(
+                    appBar: appBarWidget(
+                      context: context,
+                      title: 'Quiz',
+                      isIcon: true,
+                      isQuizScreen: true,
+                      isMobile: isMobile(),
+                      onChanged2: () async {
+                        // if (responseIdList.isEmpty) {
+                        //   context.pop();
+                        //   context.pop();
+                        //   return;
+                        // }
 
-                                for (var responseId in responseIdList) {
-                                  context.read<TestBloc>().add(
-                                        DeleteIntelligenceAnswer(
-                                            responseId: responseId),
-                                      );
-                                }
+                        // for (var responseId in responseIdList) {
+                        //   context.read<TestBloc>().add(
+                        //         DeleteIntelligenceAnswer(
+                        //             responseId: responseId),
+                        //       );
+                        // }
 
-                                context.pop();
-                                context.pop();
-                              },
-                            ),
-                            body: SafeArea(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  if (state is! TestLoading) ...[
-                                    Padding(
-                                      padding: AutilabMargin.marginFullScreen,
-                                      child: Text(
-                                        questionTitle,
-                                        textAlign: TextAlign.center,
-                                        style: AutilabTextStyle.small14_400
-                                            .copyWith(
-                                          fontSize: isMobile() ? 18 : 24,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 400,
-                                      child: PageView.builder(
-                                        onPageChanged: (value) {
-                                          setState(() {
-                                            currentPage = value;
-                                          });
-                                        },
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        controller: pageController,
-                                        itemCount: intelligenceQuizList.length,
-                                        itemBuilder: (context, index) {
-                                          // selectedItemsList = List.generate(
-                                          //     quizList[index].title.length,
-                                          //     (_) => false);
-
-                                          // if (index == 0) {
-                                          //   return MultiSelectAnswerWidget(
-                                          //     isMobile: isMobile(),
-                                          //     quizList: quizList,
-                                          //   );
-                                          // } else if (index == 1) {
-                                          // return SingleSelctedAnswerWidget(
-                                          //   isMobile: isMobile(),
-                                          //   quizList: quizList,
-                                          //   selectedItems: selectedItems,
-                                          //   onTap: (questionId, awnserId) {
-                                          //     // if (selectedItems.contains(true)) {
-                                          //     //   setState(() {
-                                          //     //     isSelected = true;
-                                          //     //   });
-                                          //     // }
-
-                                          //   },
-                                          // );
-
-                                          return ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: quizList.length,
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 16),
-                                            itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    for (int i = 0;
-                                                        i < quizList.length;
-                                                        i++) {
-                                                      selectedItemsList[i] =
-                                                          i == index;
-                                                    }
-
-                                                    if (selectedItemsList
-                                                        .contains(true)) {
-                                                      isSelected = true;
-                                                    }
-                                                  });
-                                                  answerId =
-                                                      quizList[index].awnserId;
-                                                  questionId = quizList[index]
-                                                      .questionId;
-                                                },
-                                                child: Container(
-                                                  height: isMobile() ? 50 : 72,
-                                                  margin: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  padding:
-                                                      const EdgeInsets.all(12),
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        selectedItemsList[index]
-                                                            ? AutilabColor.bb
-                                                            : const Color(
-                                                                0xffECF0FF),
-                                                    border: Border.all(
-                                                        color: AutilabColor.bb,
-                                                        width: isMobile()
-                                                            ? 0.5
-                                                            : 2),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            isMobile()
-                                                                ? 16
-                                                                : 24),
-                                                  ),
-                                                  child: Text(
-                                                    quizList[index].title,
-                                                    style: AutilabTextStyle
-                                                        .small18_400
-                                                        .copyWith(
-                                                      fontSize:
-                                                          isMobile() ? 18 : 24,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          );
-                                          // } else {
-                                          //   return Padding(
-                                          //     padding: const EdgeInsets.only(top: 15),
-                                          //     child: CustomTextfield(
-                                          //       isMobile: isMobile(),
-                                          //       label: 'Type Here',
-                                          //       controller: textEditingController,
-                                          //       focusNode: textFocusNode,
-                                          //       maxLines: 12,
-                                          //       borderWidth: isMobile() ? 0.5 : 2,
-                                          //       borderRaduis: isMobile() ? 16 : 24,
-                                          //       textStyle: AutilabTextStyle.small18_400
-                                          //           .copyWith(
-                                          //         fontSize: isMobile() ? 18 : 24,
-                                          //       ),
-                                          //       lblColor: AutilabColor.gray,
-                                          //       backgroundColor:
-                                          //           const Color(0xffECF0FF),
-                                          //       borderColor: AutilabColor.bb,
-                                          //       textInputAction: TextInputAction.done,
-                                          //       textInputType: TextInputType.text,
-                                          //     ),
-                                          //   );
-                                          // }
-                                        },
-                                      ),
-                                    ),
-                                  ] else ...[
-                                    const Spacer(),
-                                    const Center(
-                                      child: CircularProgressIndicator(
-                                        color: AutilabColor.bb,
-                                      ),
-                                    ),
-                                  ],
-                                  const Spacer(),
-                                  CustomButtonWidget(
-                                    onTap: () async {
-                                      if (!isSelected) {
-                                        return;
-                                      }
-
-                                      BlocProvider.of<TestBloc>(context).add(
-                                        SendIntelligenceAnswer(
-                                          testanswerParam: TestanswerParam(
-                                            questionId: questionId,
-                                            answerId: answerId,
-                                          ),
-                                        ),
-                                      );
-                                      if (intelligenceId == 24) {
-                                        context.pushNamed(
-                                          AutiLabRoutes.testHistoryScreen,
-                                          pathParameters: {
-                                            'initialPage': '0',
-                                          },
-                                        );
-                                      }
-                                    },
-                                    width: isMobile() ? 166 : 350,
-                                    height: 50,
-                                    isLoading: state is TestLoading,
-                                    isMobile: isMobile(),
-                                    margin: const EdgeInsets.only(
-                                        bottom: 40, right: 20, left: 20),
-                                    color: isSelected
-                                        ? AutilabColor.bb
-                                        : AutilabColor.bb
-                                            .withValues(alpha: 0.4),
-                                    text: intelligenceId != 24
-                                        ? 'Next'
-                                        : 'Submit',
-                                    textStyle:
-                                        AutilabTextStyle.small18_400.copyWith(
-                                      fontSize: isMobile() ? 18 : 24,
-                                    ),
-                                  ),
-                                  // Padding(
-                                  //   padding: AutilabMargin.marginFullScreen,
-                                  //   child: Row(
-                                  //     spacing: 18,
-                                  //     mainAxisAlignment:
-                                  //         MainAxisAlignment.spaceBetween,
-                                  //     crossAxisAlignment: CrossAxisAlignment.end,
-                                  //     children: [
-                                  //       Visibility(
-                                  //         visible: intelligenceId != 1,
-                                  //         child: CustomButtonWidget(
-                                  //           onTap: () {
-                                  //             setState(() {
-                                  //               if (intelligenceId != 1) {
-                                  //                 intelligenceId -= 1;
-                                  //               }
-                                  //             });
-                                  //             //Previous page
-                                  //             pageController.animateToPage(
-                                  //               pageController.page!.toInt() - 1,
-                                  //               duration:
-                                  //                   const Duration(milliseconds: 300),
-                                  //               curve: Curves.easeInOut,
-                                  //             );
-                                  //             BlocProvider.of<TestBloc>(context).add(
-                                  //                 DisplayIntelligence(
-                                  //                     intelligenceId:
-                                  //                         intelligenceId));
-                                  //           },
-                                  //           width: isMobile() ? 166 : 350,
-                                  //           height: 50,
-                                  //           isMobile: isMobile(),
-                                  //           bordeColor: AutilabColor.bb,
-                                  //           margin: const EdgeInsets.only(bottom: 40),
-                                  //           color: const Color(0xffECF0FF),
-                                  //           text: 'Back',
-                                  //           textStyle:
-                                  //               AutilabTextStyle.small18_400.copyWith(
-                                  //             fontSize: isMobile() ? 18 : 24,
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //       CustomButtonWidget(
-                                  //         onTap: () {
-                                  //           if (!isSelected) {
-                                  //             return;
-                                  //           }
-                                  //           setState(() {
-                                  //             if (intelligenceId != 24) {
-                                  //               intelligenceId += 1;
-                                  //             }
-                                  //             selectedItemsList.fillRange(
-                                  //                 0, selectedItemsList.length, false);
-                                  //             isSelected = false;
-                                  //           });
-
-                                  //           //Next page
-                                  //           pageController.animateToPage(
-                                  //             pageController.page!.toInt() + 1,
-                                  //             duration:
-                                  //                 const Duration(milliseconds: 300),
-                                  //             curve: Curves.easeInOut,
-                                  //           );
-                                  //           BlocProvider.of<TestBloc>(context).add(
-                                  //               DisplayIntelligence(
-                                  //                   intelligenceId: intelligenceId));
-                                  //           if (currentPage == 23) {
-                                  //             context.pop();
-                                  //             context.pop();
-                                  //           }
-                                  //         },
-                                  //         width: isMobile() ? 166 : 350,
-                                  //         height: 50,
-                                  //         isLoading: state is TestLoading,
-                                  //         isMobile: isMobile(),
-                                  //         margin: const EdgeInsets.only(bottom: 40),
-                                  //         color: isSelected
-                                  //             ? AutilabColor.bb
-                                  //             : AutilabColor.bb
-                                  //                 .withValues(alpha: 0.4),
-                                  //         text: currentPage != 23 ? 'Next' : 'Submit',
-                                  //         textStyle:
-                                  //             AutilabTextStyle.small18_400.copyWith(
-                                  //           fontSize: isMobile() ? 18 : 24,
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                ],
+                        context.pop();
+                        context.pop();
+                      },
+                    ),
+                    body: SafeArea(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // if (state is! TestLoading) ...[
+                          Padding(
+                            padding: AutilabMargin.marginFullScreen,
+                            child: Text(
+                              // 'questionTitle',
+                              displayQuestionTitle(),
+                              textAlign: TextAlign.center,
+                              style: AutilabTextStyle.small14_400.copyWith(
+                                fontSize: isMobile() ? 18 : 24,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          );
-                        },
+                          ),
+                          SizedBox(
+                            height: 400,
+                            child: PageView.builder(
+                              onPageChanged: (value) {
+                                setState(() {
+                                  currentPage = value;
+                                });
+                              },
+                              physics: const NeverScrollableScrollPhysics(),
+                              controller: pageController,
+                              itemCount: 3,
+                              itemBuilder: (context, index) {
+                                // selectedItemsList = List.generate(
+                                //     quizList[index].title.length,
+                                //     (_) => false);
+
+                                // if (index == 0) {
+                                //   return MultiSelectAnswerWidget(
+                                //     isMobile: isMobile(),
+                                //     quizList: quizList,
+                                //   );
+                                // } else if (index == 1) {
+                                // return SingleSelctedAnswerWidget(
+                                //   isMobile: isMobile(),
+                                //   quizList: quizList,
+                                //   selectedItems: selectedItems,
+                                //   onTap: (questionId, awnserId) {
+                                //     // if (selectedItems.contains(true)) {
+                                //     //   setState(() {
+                                //     //     isSelected = true;
+                                //     //   });
+                                //     // }
+
+                                //   },
+                                // );
+
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: quizList.length,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 16),
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          for (int i = 0;
+                                              i < quizList.length;
+                                              i++) {
+                                            selectedItemsList[i] = i == index;
+                                          }
+
+                                          if (selectedItemsList
+                                              .contains(true)) {
+                                            isSelected = true;
+                                          }
+                                        });
+                                        answerId = quizList[index].awnserId;
+                                        questionId = quizList[index].questionId;
+                                      },
+                                      child: Container(
+                                        height: isMobile() ? 50 : 72,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 8),
+                                        padding: const EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                          color: selectedItemsList[index]
+                                              ? AutilabColor.bb
+                                              : const Color(0xffECF0FF),
+                                          border: Border.all(
+                                              color: AutilabColor.bb,
+                                              width: isMobile() ? 0.5 : 2),
+                                          borderRadius: BorderRadius.circular(
+                                              isMobile() ? 16 : 24),
+                                        ),
+                                        child: Text(
+                                          quizList[index].title,
+                                          style: AutilabTextStyle.small18_400
+                                              .copyWith(
+                                            fontSize: isMobile() ? 16 : 22,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                                // } else {
+                                //   return Padding(
+                                //     padding: const EdgeInsets.only(top: 15),
+                                //     child: CustomTextfield(
+                                //       isMobile: isMobile(),
+                                //       label: 'Type Here',
+                                //       controller: textEditingController,
+                                //       focusNode: textFocusNode,
+                                //       maxLines: 12,
+                                //       borderWidth: isMobile() ? 0.5 : 2,
+                                //       borderRaduis: isMobile() ? 16 : 24,
+                                //       textStyle: AutilabTextStyle.small18_400
+                                //           .copyWith(
+                                //         fontSize: isMobile() ? 18 : 24,
+                                //       ),
+                                //       lblColor: AutilabColor.gray,
+                                //       backgroundColor:
+                                //           const Color(0xffECF0FF),
+                                //       borderColor: AutilabColor.bb,
+                                //       textInputAction: TextInputAction.done,
+                                //       textInputType: TextInputType.text,
+                                //     ),
+                                //   );
+                                // }
+                              },
+                            ),
+                          ),
+                          // ] else ...[
+                          //   const Spacer(),
+                          //   const Center(
+                          //     child: CircularProgressIndicator(
+                          //       color: AutilabColor.bb,
+                          //     ),
+                          //   ),
+                          // ],
+                          const Spacer(),
+                          CustomButtonWidget(
+                            onTap: () async {
+                              if (!isSelected) {
+                                return;
+                              }
+
+                              // BlocProvider.of<TestBloc>(context).add(
+                              //   SendIntelligenceAnswer(
+                              //     testanswerParam: TestanswerParam(
+                              //       questionId: questionId,
+                              //       answerId: answerId,
+                              //     ),
+                              //   ),
+                              // );
+                              // if (intelligenceId == 24) {
+                              //   context.pushNamed(
+                              //     AutiLabRoutes.testHistoryScreen,
+                              //     pathParameters: {
+                              //       'initialPage': '0',
+                              //     },
+                              //   );
+                              // }
+                              if (currentPage == 2) {
+                                context.pushNamed(
+                                  AutiLabRoutes.testHistoryScreen,
+                                  pathParameters: {
+                                    'initialPage': '0',
+                                  },
+                                );
+                              }
+
+                              //Next page
+                              pageController.animateToPage(
+                                pageController.page!.toInt() + 1,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                              selectedItemsList =
+                                  List<bool>.generate(3, (_) => false);
+                              setState(() {
+                                isSelected = false;
+                              });
+                            },
+                            width: isMobile() ? 166 : 350,
+                            height: 50,
+                            // isLoading: state is TestLoading,
+                            isMobile: isMobile(),
+                            margin: const EdgeInsets.only(
+                                bottom: 40, right: 20, left: 20),
+                            color: isSelected
+                                ? AutilabColor.bb
+                                : AutilabColor.bb.withValues(alpha: 0.4),
+                            // text: intelligenceId != 24 ? 'Next' : 'Submit',
+                            text: currentPage != 2 ? 'Next' : 'Submit',
+
+                            textStyle: AutilabTextStyle.small18_400.copyWith(
+                              fontSize: isMobile() ? 18 : 24,
+                            ),
+                          ),
+                          // Padding(
+                          //   padding: AutilabMargin.marginFullScreen,
+                          //   child: Row(
+                          //     spacing: 18,
+                          //     mainAxisAlignment:
+                          //         MainAxisAlignment.spaceBetween,
+                          //     crossAxisAlignment: CrossAxisAlignment.end,
+                          //     children: [
+                          //       Visibility(
+                          //         visible: intelligenceId != 1,
+                          //         child: CustomButtonWidget(
+                          //           onTap: () {
+                          //             setState(() {
+                          //               if (intelligenceId != 1) {
+                          //                 intelligenceId -= 1;
+                          //               }
+                          //             });
+                          //             //Previous page
+                          //             pageController.animateToPage(
+                          //               pageController.page!.toInt() - 1,
+                          //               duration:
+                          //                   const Duration(milliseconds: 300),
+                          //               curve: Curves.easeInOut,
+                          //             );
+                          //             BlocProvider.of<TestBloc>(context).add(
+                          //                 DisplayIntelligence(
+                          //                     intelligenceId:
+                          //                         intelligenceId));
+                          //           },
+                          //           width: isMobile() ? 166 : 350,
+                          //           height: 50,
+                          //           isMobile: isMobile(),
+                          //           bordeColor: AutilabColor.bb,
+                          //           margin: const EdgeInsets.only(bottom: 40),
+                          //           color: const Color(0xffECF0FF),
+                          //           text: 'Back',
+                          //           textStyle:
+                          //               AutilabTextStyle.small18_400.copyWith(
+                          //             fontSize: isMobile() ? 18 : 24,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       CustomButtonWidget(
+                          //         onTap: () {
+                          //           if (!isSelected) {
+                          //             return;
+                          //           }
+                          //           setState(() {
+                          //             if (intelligenceId != 24) {
+                          //               intelligenceId += 1;
+                          //             }
+                          //             selectedItemsList.fillRange(
+                          //                 0, selectedItemsList.length, false);
+                          //             isSelected = false;
+                          //           });
+
+                          //           //Next page
+                          //           pageController.animateToPage(
+                          //             pageController.page!.toInt() + 1,
+                          //             duration:
+                          //                 const Duration(milliseconds: 300),
+                          //             curve: Curves.easeInOut,
+                          //           );
+                          //           BlocProvider.of<TestBloc>(context).add(
+                          //               DisplayIntelligence(
+                          //                   intelligenceId: intelligenceId));
+                          //           if (currentPage == 23) {
+                          //             context.pop();
+                          //             context.pop();
+                          //           }
+                          //         },
+                          //         width: isMobile() ? 166 : 350,
+                          //         height: 50,
+                          //         isLoading: state is TestLoading,
+                          //         isMobile: isMobile(),
+                          //         margin: const EdgeInsets.only(bottom: 40),
+                          //         color: isSelected
+                          //             ? AutilabColor.bb
+                          //             : AutilabColor.bb
+                          //                 .withValues(alpha: 0.4),
+                          //         text: currentPage != 23 ? 'Next' : 'Submit',
+                          //         textStyle:
+                          //             AutilabTextStyle.small18_400.copyWith(
+                          //           fontSize: isMobile() ? 18 : 24,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                        ],
                       ),
-                    ))));
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+
+        // );
       },
     );
   }

@@ -2,6 +2,7 @@ class IntelligenceModel {
   final String question;
   final List<IntelligenceAnswer>? answer;
   IntelligenceModel({required this.question, required this.answer});
+
   factory IntelligenceModel.fromJson(Map<String, dynamic> jsonObject) {
     var answerList = (jsonObject['answers'] as List<dynamic>?)
             ?.map(
@@ -12,6 +13,16 @@ class IntelligenceModel {
     return IntelligenceModel(
       question: jsonObject['question'],
       answer: answerList,
+    );
+  }
+
+  factory IntelligenceModel.fromLocal() {
+    return IntelligenceModel(
+      question: 'dd',
+      answer: [
+        IntelligenceAnswer(
+            questionId: 0, answerId: 0, question: 'jj', answer: 'answer'),
+      ],
     );
   }
 }

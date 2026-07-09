@@ -130,37 +130,37 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                     TestBloc(locator.get())..add(DisplayAutismTest(testId: 2)),
                 child: BlocConsumer<TestBloc, TestState>(
                   listener: (context, state) {
-                    if (state is AutismTestAnswerState) {
-                      responseIdList.add(state.id);
+                    // if (state is AutismTestAnswerState) {
+                    //   responseIdList.add(state.id);
 
-                      setState(() {
-                        if (autismtestId != 30) {
-                          autismtestId += 1;
-                        }
-                        selectedItemsList.fillRange(
-                            0, selectedItemsList.length, false);
-                        isSelected = false;
-                      });
+                    //   setState(() {
+                    //     if (autismtestId != 30) {
+                    //       autismtestId += 1;
+                    //     }
+                    //     selectedItemsList.fillRange(
+                    //         0, selectedItemsList.length, false);
+                    //     isSelected = false;
+                    //   });
 
-                      //Next page
-                      pageController.animateToPage(
-                        pageController.page!.toInt() + 1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
+                    //   //Next page
+                    //   pageController.animateToPage(
+                    //     pageController.page!.toInt() + 1,
+                    //     duration: const Duration(milliseconds: 300),
+                    //     curve: Curves.easeInOut,
+                    //   );
 
-                      BlocProvider.of<TestBloc>(context)
-                          .add(DisplayAutismTest(testId: autismtestId));
-                    }
-                    if (state is DisplayAutismTestState) {
-                      autismTestQuizList = state.displayAutismTest;
+                    //   BlocProvider.of<TestBloc>(context)
+                    //       .add(DisplayAutismTest(testId: autismtestId));
+                    // }
+                    // if (state is DisplayAutismTestState) {
+                    //   autismTestQuizList = state.displayAutismTest;
 
-                      for (var element in state.displayAutismTest) {
-                        questionTitle = element.question;
-                        questionId = element.id;
-                        answerId = 0;
-                      }
-                    }
+                    //   for (var element in state.displayAutismTest) {
+                    //     questionTitle = element.question;
+                    //     questionId = element.id;
+                    //     answerId = 0;
+                    //   }
+                    // }
                   },
                   builder: (context, state) {
                     return Scaffold(
@@ -192,147 +192,142 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            if (state is! TestLoading) ...[
-                              Padding(
-                                padding: AutilabMargin.marginFullScreen,
-                                child: Text(
-                                  questionTitle,
-                                  textAlign: TextAlign.center,
-                                  style: AutilabTextStyle.small14_400.copyWith(
-                                    fontSize: isMobile() ? 18 : 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            // if (state is! TestLoading) ...[
+                            Padding(
+                              padding: AutilabMargin.marginFullScreen,
+                              child: Text(
+                                'questionTitle',
+                                textAlign: TextAlign.center,
+                                style: AutilabTextStyle.small14_400.copyWith(
+                                  fontSize: isMobile() ? 18 : 24,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(
-                                height: 400,
-                                child: PageView.builder(
-                                  onPageChanged: (value) {
-                                    setState(() {
-                                      currentPage = value;
-                                    });
-                                  },
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  controller: pageController,
-                                  itemCount: 1,
-                                  itemBuilder: (context, index) {
-                                    // selectedItemsList = List.generate(
-                                    //     quizList[index].title.length,
-                                    //     (_) => false);
+                            ),
+                            SizedBox(
+                              height: 400,
+                              child: PageView.builder(
+                                onPageChanged: (value) {
+                                  setState(() {
+                                    currentPage = value;
+                                  });
+                                },
+                                physics: const NeverScrollableScrollPhysics(),
+                                controller: pageController,
+                                itemCount: 1,
+                                itemBuilder: (context, index) {
+                                  // selectedItemsList = List.generate(
+                                  //     quizList[index].title.length,
+                                  //     (_) => false);
 
-                                    // if (index == 0) {
-                                    //   return MultiSelectAnswerWidget(
-                                    //     isMobile: isMobile(),
-                                    //     quizList: quizList,
-                                    //   );
-                                    // } else if (index == 1) {
-                                    // return SingleSelctedAnswerWidget(
-                                    //   isMobile: isMobile(),
-                                    //   quizList: quizList,
-                                    //   selectedItems: selectedItems,
-                                    //   onTap: (questionId, awnserId) {
-                                    //     // if (selectedItems.contains(true)) {
-                                    //     //   setState(() {
-                                    //     //     isSelected = true;
-                                    //     //   });
-                                    //     // }
+                                  // if (index == 0) {
+                                  //   return MultiSelectAnswerWidget(
+                                  //     isMobile: isMobile(),
+                                  //     quizList: quizList,
+                                  //   );
+                                  // } else if (index == 1) {
+                                  // return SingleSelctedAnswerWidget(
+                                  //   isMobile: isMobile(),
+                                  //   quizList: quizList,
+                                  //   selectedItems: selectedItems,
+                                  //   onTap: (questionId, awnserId) {
+                                  //     // if (selectedItems.contains(true)) {
+                                  //     //   setState(() {
+                                  //     //     isSelected = true;
+                                  //     //   });
+                                  //     // }
 
-                                    //     print(
-                                    //         " Qestion ID: $questionId -- Awnser Id:$awnserId");
-                                    //   },
-                                    // );
+                                  //     print(
+                                  //         " Qestion ID: $questionId -- Awnser Id:$awnserId");
+                                  //   },
+                                  // );
 
-                                    return ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: autismTestAnswerList.length,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 16),
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              for (int i = 0;
-                                                  i <
-                                                      autismTestAnswerList
-                                                          .length;
-                                                  i++) {
-                                                selectedItemsList[i] =
-                                                    i == index;
-                                              }
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: autismTestAnswerList.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 16),
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            for (int i = 0;
+                                                i < autismTestAnswerList.length;
+                                                i++) {
+                                              selectedItemsList[i] = i == index;
+                                            }
 
-                                              if (selectedItemsList
-                                                  .contains(true)) {
-                                                isSelected = true;
-                                              }
+                                            if (selectedItemsList
+                                                .contains(true)) {
+                                              isSelected = true;
+                                            }
 
-                                              answerId = index;
-                                            });
-                                          },
-                                          child: Container(
-                                            height: isMobile() ? 50 : 72,
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 8),
-                                            padding: const EdgeInsets.all(12),
-                                            decoration: BoxDecoration(
-                                              color: selectedItemsList[index]
-                                                  ? AutilabColor.bb
-                                                  : const Color(0xffECF0FF),
-                                              border: Border.all(
-                                                  color: AutilabColor.bb,
-                                                  width: isMobile() ? 0.5 : 2),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      isMobile() ? 16 : 24),
-                                            ),
-                                            child: Text(
-                                              autismTestAnswerList[index],
-                                              style: AutilabTextStyle
-                                                  .small18_400
-                                                  .copyWith(
-                                                fontSize: isMobile() ? 18 : 24,
-                                              ),
+                                            answerId = index;
+                                          });
+                                        },
+                                        child: Container(
+                                          height: isMobile() ? 50 : 72,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 8),
+                                          padding: const EdgeInsets.all(12),
+                                          decoration: BoxDecoration(
+                                            color: selectedItemsList[index]
+                                                ? AutilabColor.bb
+                                                : const Color(0xffECF0FF),
+                                            border: Border.all(
+                                                color: AutilabColor.bb,
+                                                width: isMobile() ? 0.5 : 2),
+                                            borderRadius: BorderRadius.circular(
+                                                isMobile() ? 16 : 24),
+                                          ),
+                                          child: Text(
+                                            autismTestAnswerList[index],
+                                            style: AutilabTextStyle.small18_400
+                                                .copyWith(
+                                              fontSize: isMobile() ? 18 : 24,
                                             ),
                                           ),
-                                        );
-                                      },
-                                    );
-                                    // } else {
-                                    //   return Padding(
-                                    //     padding: const EdgeInsets.only(top: 15),
-                                    //     child: CustomTextfield(
-                                    //       isMobile: isMobile(),
-                                    //       label: 'Type Here',
-                                    //       controller: textEditingController,
-                                    //       focusNode: textFocusNode,
-                                    //       maxLines: 12,
-                                    //       borderWidth: isMobile() ? 0.5 : 2,
-                                    //       borderRaduis: isMobile() ? 16 : 24,
-                                    //       textStyle: AutilabTextStyle.small18_400
-                                    //           .copyWith(
-                                    //         fontSize: isMobile() ? 18 : 24,
-                                    //       ),
-                                    //       lblColor: AutilabColor.gray,
-                                    //       backgroundColor:
-                                    //           const Color(0xffECF0FF),
-                                    //       borderColor: AutilabColor.bb,
-                                    //       textInputAction: TextInputAction.done,
-                                    //       textInputType: TextInputType.text,
-                                    //     ),
-                                    //   );
-                                    // }
-                                  },
-                                ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                  // } else {
+                                  //   return Padding(
+                                  //     padding: const EdgeInsets.only(top: 15),
+                                  //     child: CustomTextfield(
+                                  //       isMobile: isMobile(),
+                                  //       label: 'Type Here',
+                                  //       controller: textEditingController,
+                                  //       focusNode: textFocusNode,
+                                  //       maxLines: 12,
+                                  //       borderWidth: isMobile() ? 0.5 : 2,
+                                  //       borderRaduis: isMobile() ? 16 : 24,
+                                  //       textStyle: AutilabTextStyle.small18_400
+                                  //           .copyWith(
+                                  //         fontSize: isMobile() ? 18 : 24,
+                                  //       ),
+                                  //       lblColor: AutilabColor.gray,
+                                  //       backgroundColor:
+                                  //           const Color(0xffECF0FF),
+                                  //       borderColor: AutilabColor.bb,
+                                  //       textInputAction: TextInputAction.done,
+                                  //       textInputType: TextInputType.text,
+                                  //     ),
+                                  //   );
+                                  // }
+                                },
                               ),
-                            ] else ...[
-                              const Spacer(),
-                              const Center(
-                                child: CircularProgressIndicator(
-                                  color: AutilabColor.bb,
-                                ),
-                              ),
-                            ],
+                            ),
+                            // ] else ...[
+                            //   const Spacer(),
+                            //   const Center(
+                            //     child: CircularProgressIndicator(
+                            //       color: AutilabColor.bb,
+                            //     ),
+                            //   ),
+                            // ],
                             const Spacer(),
                             CustomButtonWidget(
                               onTap: () {
