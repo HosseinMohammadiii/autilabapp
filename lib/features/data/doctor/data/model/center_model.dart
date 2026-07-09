@@ -70,6 +70,41 @@ class CenterModel {
       specialty: specialtyList,
     );
   }
+
+  factory CenterModel.fromLocal(
+    String name,
+    int minAge,
+    int maxAge,
+    String gender,
+  ) {
+    return CenterModel(
+      name: name,
+      agemin: minAge,
+      agemax: maxAge,
+      address:
+          '1234 Maple Street - Suite 567, Downtown Building -Toronto, ON M5A 1A1 - Canada',
+      gender: gender,
+      phonenumber: '+1 123456789',
+      centerinformation:
+          'At our autism services center, we empower individuals to embrace their unique strengths and unlock their full potential through personalized support.',
+      images: [
+        CenterImageModel(imageUrl: 'assets/images/autism_help_center.jpg'),
+      ],
+      latitude: 10.2225,
+      longitude: 20.3664,
+      doctorinfocount: 2,
+      doctorinfo: [
+        DoctorUser.fromLocal('Dr.Sophia', 'Martinez',
+            'assets/images/doctor_image.jpg', 'female'),
+      ],
+      specialitycount: 2,
+      specialty: [
+        RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+        RecentVisitedModel.fromLocal(RecentType.generalPractice),
+        RecentVisitedModel.fromLocal(RecentType.developmentalPediatricians),
+      ],
+    );
+  }
 }
 
 class CenterImageModel {

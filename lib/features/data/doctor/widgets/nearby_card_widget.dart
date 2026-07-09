@@ -31,6 +31,7 @@ class NearbyCardWidget extends StatefulWidget {
 
 class _NearbyCardWidgetState extends State<NearbyCardWidget> {
   bool isLike = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +62,8 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
                 cacheHeight:
                     cacheImageFunction(widget.isMobile ? 213 : 315, context),
               ),
-              isNetworkImage: widget.center?.images == null ? false : true,
+              // isNetworkImage: widget.center?.images == null ? false : true,
+              isNetworkImage: false,
             ),
           ),
           const SizedBox(

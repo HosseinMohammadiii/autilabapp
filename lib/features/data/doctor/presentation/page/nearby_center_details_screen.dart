@@ -103,7 +103,7 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                           itemCount: widget.centerModel?.images.length ?? 3,
                           padEnds: false,
                           pageSnapping: false,
-                          controller: PageController(viewportFraction: 0.9),
+                          // controller: PageController(viewportFraction: 0.9),
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.only(
@@ -117,21 +117,24 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                                 borderRadius:
                                     BorderRadius.circular(isMobile() ? 16 : 24),
                                 child: CachednetworkimageWidget(
-                                    width: isMobile() ? 280 : 566,
-                                    height: isMobile() ? 150 : 309,
-                                    boxFit: BoxFit.cover,
-                                    imgUrl: widget.centerModel?.images[index]
+                                  width: isMobile() ? 280 : 566,
+                                  height: isMobile() ? 150 : 309,
+                                  boxFit: BoxFit.cover,
+                                  imgUrl: widget.centerModel?.images[index]
+                                          .imageUrl ??
+                                      '',
+                                  img: Image.asset(
+                                    widget.centerModel?.images[index]
                                             .imageUrl ??
-                                        '',
-                                    img: Image.asset(
-                                      'assets/images/centerImage.jpg',
-                                      fit: BoxFit.cover,
-                                      cacheWidth: cacheImageFunction(
-                                          isMobile() ? 150 : 309, context),
-                                      cacheHeight: cacheImageFunction(
-                                          isMobile() ? 150 : 309, context),
-                                    ),
-                                    isNetworkImage: true),
+                                        'assets/images/centerImage.jpg',
+                                    fit: BoxFit.cover,
+                                    cacheWidth: cacheImageFunction(
+                                        isMobile() ? 150 : 309, context),
+                                    cacheHeight: cacheImageFunction(
+                                        isMobile() ? 150 : 309, context),
+                                  ),
+                                  isNetworkImage: false,
+                                ),
                               ),
                             );
                           },
@@ -370,14 +373,19 @@ class _NearbyCenterDetailsScreenState extends State<NearbyCenterDetailsScreen>
                                         boxFit: BoxFit.scaleDown,
                                         isShowShimmer: false,
                                         borderRadius: 8,
-                                        img: const Text(''),
-                                        isNetworkImage: widget
-                                                .centerModel!
-                                                .specialty[index]
-                                                .imagePath
-                                                .isNotEmpty
-                                            ? true
-                                            : false,
+                                        img: Image.asset(
+                                          widget.centerModel!.specialty[index]
+                                              .imagePath,
+                                          fit: BoxFit.contain,
+                                        ),
+                                        // isNetworkImage: widget
+                                        //         .centerModel!
+                                        //         .specialty[index]
+                                        //         .imagePath
+                                        //         .isNotEmpty
+                                        //     ? true
+                                        //     : false,
+                                        isNetworkImage: false,
                                       ),
                                     ),
                                     FittedBox(
