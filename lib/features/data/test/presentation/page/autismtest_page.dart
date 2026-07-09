@@ -82,6 +82,21 @@ class _AutismTestScreenState extends State<AutismTestScreen>
     'Sometimes',
     'Never',
   ];
+
+  String displayQuestionTitle() {
+    switch (currentPage) {
+      case 0:
+        return 'How often does your child prefer to play alone rather than with other children?';
+      case 1:
+        return 'How often does your child follow rules and instructions at home or school?';
+      case 2:
+        return 'How often does your child get frustrated when facing a new or difficult challenge?';
+
+      default:
+        return 'How often does your child prefer to play alone rather than with other children?';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -196,7 +211,8 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                             Padding(
                               padding: AutilabMargin.marginFullScreen,
                               child: Text(
-                                'questionTitle',
+                                // questionTitle,
+                                displayQuestionTitle(),
                                 textAlign: TextAlign.center,
                                 style: AutilabTextStyle.small14_400.copyWith(
                                   fontSize: isMobile() ? 18 : 24,
@@ -214,7 +230,7 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                 },
                                 physics: const NeverScrollableScrollPhysics(),
                                 controller: pageController,
-                                itemCount: 1,
+                                itemCount: 3,
                                 itemBuilder: (context, index) {
                                   // selectedItemsList = List.generate(
                                   //     quizList[index].title.length,
@@ -335,15 +351,16 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                   return;
                                 }
 
-                                BlocProvider.of<TestBloc>(context).add(
-                                  SendAutismTestAnswer(
-                                    testanswerParam: TestanswerParam(
-                                      questionId: questionId,
-                                      answerId: answerId + 1,
-                                    ),
-                                  ),
-                                );
-                                if (autismtestId == 30) {
+                                // BlocProvider.of<TestBloc>(context).add(
+                                //   SendAutismTestAnswer(
+                                //     testanswerParam: TestanswerParam(
+                                //       questionId: questionId,
+                                //       answerId: answerId + 1,
+                                //     ),
+                                //   ),
+                                // );
+
+                                if (currentPage == 2) {
                                   context.pushNamed(
                                     AutiLabRoutes.testHistoryScreen,
                                     pathParameters: {
@@ -351,17 +368,29 @@ class _AutismTestScreenState extends State<AutismTestScreen>
                                     },
                                   );
                                 }
+                                //Next page
+                                pageController.animateToPage(
+                                  pageController.page!.toInt() + 1,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                );
+                                selectedItemsList =
+                                    List<bool>.generate(4, (_) => false);
+                                setState(() {
+                                  isSelected = false;
+                                });
                               },
                               width: isMobile() ? 166 : 350,
                               height: 50,
-                              isLoading: state is TestLoading,
+                              // isLoading: state is TestLoading,
                               isMobile: isMobile(),
                               margin: const EdgeInsets.only(
                                   bottom: 40, right: 20, left: 20),
                               color: isSelected
                                   ? AutilabColor.bb
                                   : AutilabColor.bb.withValues(alpha: 0.4),
-                              text: autismtestId != 30 ? 'Next' : 'Submit',
+                              // text: autismtestId != 30 ? 'Next' : 'Submit',
+                              text: currentPage != 2 ? 'Next' : 'Submit',
                               textStyle: AutilabTextStyle.small18_400.copyWith(
                                 fontSize: isMobile() ? 18 : 24,
                               ),
