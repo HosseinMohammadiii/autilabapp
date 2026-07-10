@@ -52,12 +52,12 @@ class _ToolsScreenState extends State<ToolsScreen>
       'Reading Articles',
       'assets/images/article_image.svg',
     ),
-    // ToolsClass(
-    //   'Communication Environment',
-    //   'The environment for holding educational and therapeutic sessions for children',
-    //   'Use Of The Environment',
-    //   'assets/images/communication_image.svg',
-    // ),
+    ToolsClass(
+      'Communication Environment',
+      'The environment for holding educational and therapeutic sessions for children',
+      'Use Of The Environment',
+      'assets/images/communication_image.svg',
+    ),
     ToolsClass(
       'Talent Identification Test',
       "Aptitude test to identify children's talents and improve their future",
@@ -106,10 +106,11 @@ class _ToolsScreenState extends State<ToolsScreen>
                                 context
                                     .pushNamed(AutiLabRoutes.articleItemScreen);
                                 break;
-                              // case 1:
-                              //   context.pushNamed(AutiLabRoutes.whiteBoardScreen);
-                              //   break;
                               case 1:
+                                context
+                                    .pushNamed(AutiLabRoutes.whiteBoardScreen);
+                                break;
+                              case 2:
                                 context.pushNamed(
                                     AutiLabRoutes.aptitudeTestScreen,
                                     extra: {
@@ -125,7 +126,7 @@ class _ToolsScreenState extends State<ToolsScreen>
                                     });
 
                                 break;
-                              case 2:
+                              case 3:
                                 context.pushNamed(
                                     AutiLabRoutes.aptitudeTestScreen,
                                     extra: {
