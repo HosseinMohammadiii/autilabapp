@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return ResponsiveLayout(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: PreferredSize(preferredSize: const Size(0, 0), child: AppBar()),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
