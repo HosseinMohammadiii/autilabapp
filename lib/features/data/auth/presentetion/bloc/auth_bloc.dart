@@ -111,7 +111,7 @@ final class ProfileBlocLocal
         try {
           emit(AuthenticationLoading());
           var updateProfile = event.userParam;
-          emit(UpdateLocalUserDataState(updateProfile));
+          emit(UpdateLocalUserData(updateProfile));
         } catch (e) {
           emit(AuthenticationError(e));
         }

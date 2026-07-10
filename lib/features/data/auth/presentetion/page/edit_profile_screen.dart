@@ -298,7 +298,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 //   );
                 // }
 
-                if (state is UpdateLocalUserDataState) {
+                if (state is UpdateLocalUserData) {
                   userParam = UserParam(
                     email: state.response.email,
                     firstName: state.response.firstName,
@@ -307,11 +307,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 }
               },
               builder: (context, state) {
-                if (userParam?.email == null) {
-                  print('Null');
-                } else {
-                  print(userParam?.email);
-                }
                 // if (state is AuthenticationLoading) {
                 //   return const Center(
                 //     child: CircularProgressIndicator(
@@ -924,8 +919,21 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
                               if (pickedFile?.path != null) {
                                 BlocProvider.of<ProfileBlocLocal>(context).add(
-                                  UploadPhotoLocal(
-                                    File(pickedFile!.path).path,
+                                  UpdateUserProfile(
+                                    userParam: UserParam(
+                                      photo: File(pickedFile!.path).path,
+                                      email: emailController.text.isNotEmpty
+                                          ? emailController.text
+                                          : null,
+                                      firstName:
+                                          firstNameController.text.isNotEmpty
+                                              ? firstNameController.text
+                                              : null,
+                                      lastName:
+                                          lasNameController.text.isNotEmpty
+                                              ? lasNameController.text
+                                              : null,
+                                    ),
                                   ),
                                 );
                               } else {

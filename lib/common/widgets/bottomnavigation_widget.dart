@@ -278,7 +278,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                   height: isMobile() ? 52 : 84,
                                   imgUrl: '',
                                   img: Image.file(
-                                    File(state.response),
+                                    File(state.response.photo!),
                                     fit: BoxFit.cover,
                                     width: isMobile() ? 52 : 84,
                                     height: isMobile() ? 52 : 84,

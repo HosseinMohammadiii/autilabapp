@@ -32,7 +32,7 @@ final class UploadPhoto extends AuthenticationEvent {
 
 /// Event to initiate a photo profile request with photo file.
 final class UploadPhotoLocal extends AuthenticationEvent {
-  String photo;
+  UserParam photo;
   UploadPhotoLocal(this.photo);
 }
 

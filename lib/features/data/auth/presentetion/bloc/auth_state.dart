@@ -36,7 +36,7 @@ final class UpdateLocalUserDataState extends AuthenticationState {
 }
 
 final class UpdateLocalUserData extends AuthenticationState {
-  String response;
+  UserParam response;
   UpdateLocalUserData(this.response);
 }
 
