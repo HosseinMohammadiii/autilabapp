@@ -88,3 +88,34 @@ final class AuthenticationBloc
     );
   }
 }
+
+final class ProfileBlocLocal
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
+  ProfileBlocLocal() : super(AuthInitiateState()) {
+    /// Handles updateUserProfile event by calling the local and emitting the result.
+    on<UploadPhotoLocal>(
+      (event, emit) async {
+        try {
+          emit(AuthenticationLoading());
+          var updateProfile = event.photo;
+          emit(UpdateLocalUserData(updateProfile));
+        } catch (e) {
+          emit(AuthenticationError(e));
+        }
+      },
+    );
+
+    /// Handles updateUserProfile event by calling the local and emitting the result.
+    on<UpdateUserProfile>(
+      (event, emit) async {
+        try {
+          emit(AuthenticationLoading());
+          var updateProfile = event.userParam;
+          emit(UpdateLocalUserDataState(updateProfile));
+        } catch (e) {
+          emit(AuthenticationError(e));
+        }
+      },
+    );
+  }
+}

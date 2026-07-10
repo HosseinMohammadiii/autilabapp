@@ -30,6 +30,12 @@ final class UploadPhoto extends AuthenticationEvent {
   UploadPhoto(this.photo);
 }
 
+/// Event to initiate a photo profile request with photo file.
+final class UploadPhotoLocal extends AuthenticationEvent {
+  String photo;
+  UploadPhotoLocal(this.photo);
+}
+
 /// Event to initiate a update profile request with user parameter.
 final class UpdateUserProfile extends AuthenticationEvent {
   final UserParam userParam;

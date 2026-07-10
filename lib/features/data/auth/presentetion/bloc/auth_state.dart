@@ -1,5 +1,6 @@
 import 'package:autilab_project/core/network/api_exception.dart';
 import 'package:autilab_project/features/data/auth/data/model/user_model.dart';
+import 'package:autilab_project/features/data/auth/data/model/user_param.dart';
 import 'package:dartz/dartz.dart';
 
 //َ/ AuthenticationState abstract class
@@ -27,6 +28,16 @@ final class AuthenticationResponse extends AuthenticationState {
 final class FetchUserDataResponse extends AuthenticationState {
   Either<String, UserModel> response;
   FetchUserDataResponse(this.response);
+}
+
+final class UpdateLocalUserDataState extends AuthenticationState {
+  UserParam response;
+  UpdateLocalUserDataState(this.response);
+}
+
+final class UpdateLocalUserData extends AuthenticationState {
+  String response;
+  UpdateLocalUserData(this.response);
 }
 
 ///Represents the response state after the user profile photo process

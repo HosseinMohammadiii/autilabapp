@@ -1,7 +1,7 @@
 class UserParam {
-  String email;
-  String firstName;
-  String lastName;
+  String? email;
+  String? firstName;
+  String? lastName;
   String? password;
   String? birthDate;
   String? gender;

@@ -30,9 +30,12 @@ void main() async {
         //     locator.get(),
         //   ),
         // ),
+        // BlocProvider(
+        //   create: (_) =>
+        //       AuthenticationBloc(locator.get())..add(DisplayInformationUser()),
+        // ),
         BlocProvider(
-          create: (_) =>
-              AuthenticationBloc(locator.get())..add(DisplayInformationUser()),
+          create: (_) => ProfileBlocLocal(),
         ),
         BlocProvider(
           create: (context) => HomeBloc(

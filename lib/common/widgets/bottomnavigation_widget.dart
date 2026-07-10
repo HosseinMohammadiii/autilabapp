@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:autilab_project/common/widgets/responsive_widget.dart';
 import 'package:autilab_project/core/constants/color_constant.dart';
 import 'package:autilab_project/core/constants/constant_routes.dart';
@@ -218,8 +220,8 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                             selectIndex = 3;
                           });
                         },
-                        child: BlocBuilder<AuthenticationBloc,
-                            AuthenticationState>(
+                        child:
+                            BlocBuilder<ProfileBlocLocal, AuthenticationState>(
                           builder: (context, state) {
                             // if (state is AuthenticationLoading) {
                             //   return Center(
@@ -267,6 +269,29 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                             //     },
                             //   );
                             // }
+
+                            if (state is UpdateLocalUserData) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CachednetworkimageWidget(
+                                  width: isMobile() ? 52 : 84,
+                                  height: isMobile() ? 52 : 84,
+                                  imgUrl: '',
+                                  img: Image.file(
+                                    File(state.response),
+                                    fit: BoxFit.cover,
+                                    width: isMobile() ? 52 : 84,
+                                    height: isMobile() ? 52 : 84,
+                                    cacheWidth: cacheImageFunction(
+                                        isMobile() ? 100 : 100, context),
+                                    cacheHeight: cacheImageFunction(
+                                        isMobile() ? 100 : 100, context),
+                                  ),
+                                  isNetworkImage: false,
+                                ),
+                              );
+                            }
+
                             return ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: CachednetworkimageWidget(
@@ -286,7 +311,6 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                 isNetworkImage: false,
                               ),
                             );
-                            // return const SizedBox();
                           },
                         ),
                       ),
