@@ -9,6 +9,8 @@ import '../../../../common/widgets/responsive_widget.dart';
 import '../../../../core/constants/color_constant.dart';
 import '../../../../core/constants/constant_routes.dart';
 import '../../../../utils/functions/animation_control.dart';
+import '../../doctor/data/model/all_doctor_model.dart';
+import '../../doctor/data/model/center_model.dart';
 import '../../doctor/widgets/nearby_card_widget.dart';
 import '../../tool/page/article_item_screen.dart';
 
@@ -129,6 +131,8 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                               BorderRadius.circular(isMobile() ? 16 : 24),
                         ),
                         child: TabBar(
+                          overlayColor:
+                              const WidgetStatePropertyAll(Colors.transparent),
                           labelStyle: AutilabTextStyle.small18_400.copyWith(
                             color: Colors.black,
                           ),
@@ -225,23 +229,29 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen>
                         ),
                       ),
                       ListView.builder(
-                        itemCount: 6,
+                        itemCount: localDoctorsList.length,
                         padding:
                             AutilabMargin.marginFullScreen.copyWith(top: 24),
                         itemBuilder: (context, index) {
                           return DoctorBoxWidget(
                             isMobile: isMobile(),
                             isLike: true,
+                            id: localDoctorsList[index].id,
+                            user: localDoctorsList[index].user,
+                            doctorRate: '5',
+                            doctorSpecialities:
+                                localDoctorsList[index].specialities,
                           );
                         },
                       ),
                       ListView.builder(
-                        itemCount: 6,
+                        itemCount: localCenterModelList.length,
                         padding: const EdgeInsets.only(top: 32),
                         itemBuilder: (context, index) {
                           return NearbyCardWidget(
                             isMobile: isMobile(),
                             isLike: true,
+                            center: localCenterModelList[index],
                           );
                         },
                       ),

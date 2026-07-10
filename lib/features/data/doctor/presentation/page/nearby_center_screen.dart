@@ -31,12 +31,6 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
 
   List<CenterModel> centerList = [];
 
-  List<CenterModel> centerModelList = [
-    CenterModel.fromLocal('Hope Medical Center', 1, 4, 'male'),
-    CenterModel.fromLocal('Aurora Health Clinic', 2, 7, 'female'),
-    CenterModel.fromLocal('Crestview Wellness Institute', 1, 10, 'female'),
-    CenterModel.fromLocal('Pulse General Hospital', 5, 12, 'male'),
-  ];
   @override
   void initState() {
     super.initState();
@@ -186,11 +180,11 @@ class _NearbyCenterScreenState extends State<NearbyCenterScreen>
                       ),
                     ),
                     SliverList.builder(
-                      itemCount: centerModelList.length,
+                      itemCount: localCenterModelList.length,
                       itemBuilder: (context, index) {
                         return NearbyCardWidget(
                           isMobile: isMobile(),
-                          center: centerModelList[index],
+                          center: localCenterModelList[index],
                         );
                       },
                     ),

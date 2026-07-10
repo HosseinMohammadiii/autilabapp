@@ -49,7 +49,7 @@ class _NearbyCardWidgetState extends State<NearbyCardWidget> {
             child: CachednetworkimageWidget(
               width: widget.isMobile ? 320 : 722,
               height: widget.isMobile ? 213 : 315,
-              imgUrl: widget.center!.images.isNotEmpty
+              imgUrl: widget.center?.images != null
                   ? widget.center!.images[0].imageUrl
                   : '',
               img: Image.asset(

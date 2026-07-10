@@ -49,64 +49,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
       ValueNotifier<double?>(null);
 
   late List<AllDoctorModel> doctorsList = [];
-  final List<AllDoctorModel> localDoctors = [
-    AllDoctorModel(
-      id: 1,
-      userid: 101,
-      degree: 'phd',
-      description: 'Description',
-      user: DoctorUser.fromLocal(
-        'Dr.Sam',
-        'Diego',
-        'assets/images/doctor3.png',
-        'male',
-      ),
-      specialities: RecentVisitedModel.fromLocal(RecentType.pediatricNutrition),
-      ratingaverage: 4.5,
-    ),
-    AllDoctorModel(
-      id: 2,
-      userid: 102,
-      degree: 'phd',
-      description: 'Description',
-      user: DoctorUser.fromLocal(
-        'Dr.Sophia',
-        'Matinez',
-        'assets/images/doctor_image.jpg',
-        'female',
-      ),
-      specialities: RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
-      ratingaverage: 4.8,
-    ),
-    AllDoctorModel(
-      id: 3,
-      userid: 103,
-      degree: 'phd',
-      description: 'Description',
-      user: DoctorUser.fromLocal(
-        'Dr.Sam',
-        'Diego',
-        'assets/images/doctor3.png',
-        'male',
-      ),
-      specialities: RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
-      ratingaverage: 1.5,
-    ),
-    AllDoctorModel(
-      id: 4,
-      userid: 104,
-      degree: 'phd',
-      description: 'Description',
-      user: DoctorUser.fromLocal(
-        'Dr.Sam',
-        'Diego',
-        'assets/images/doctor3.png',
-        'male',
-      ),
-      specialities: RecentVisitedModel.fromLocal(RecentType.speechtherapy),
-      ratingaverage: 4.2,
-    ),
-  ];
+
   List<RecentVisitedModel> specialtyList = [
     RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
     RecentVisitedModel.fromLocal(RecentType.developmentalPediatricians),
@@ -375,7 +318,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                             (index) {
                                               Iterable<AllDoctorModel>?
                                                   doctorList =
-                                                  localDoctors.where(
+                                                  localDoctorsList.where(
                                                 (element) {
                                                   if (element
                                                           .specialities?.name ==
@@ -416,7 +359,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                               ),
                               SpecialtyListWidget(
                                 isMobile: isMobile(),
-                                doctorsList: localDoctors,
+                                doctorsList: localDoctorsList,
                                 recentVisitedModel: specialtyList,
                               ),
                               Padding(
@@ -432,7 +375,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                 padding: AutilabMargin.marginFullScreen,
                                 child: ListView.builder(
                                   // itemCount: doctorsList.length,
-                                  itemCount: localDoctors.length,
+                                  itemCount: localDoctorsList.length,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
@@ -440,7 +383,7 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                       isMobile: isMobile(),
                                       isLike: false,
                                       // id: doctorsList[index].id,
-                                      id: localDoctors[index].id,
+                                      id: localDoctorsList[index].id,
                                       // gender:
                                       //     doctorsList[index].user?.gender ??
                                       //         'male',
@@ -448,10 +391,10 @@ class _FindDoctorScreenState extends State<FindDoctorScreen>
                                       //     localDoctors[index].user?.gender ??
                                       //         'male',
                                       // user: doctorsList[index].user,
-                                      user: localDoctors[index].user,
+                                      user: localDoctorsList[index].user,
                                       doctorSpecialities:
-                                          localDoctors[index].specialities,
-                                      doctorRate: localDoctors[index]
+                                          localDoctorsList[index].specialities,
+                                      doctorRate: localDoctorsList[index]
                                           .ratingaverage
                                           .toString(),
                                     );

@@ -1,6 +1,66 @@
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 
+//Local doctors list
+final List<AllDoctorModel> localDoctorsList = [
+  AllDoctorModel(
+    id: 1,
+    userid: 101,
+    degree: 'phd',
+    description: 'Description',
+    user: DoctorUser.fromLocal(
+      'Dr.Sam',
+      'Diego',
+      'assets/images/doctor3.png',
+      'male',
+    ),
+    specialities: RecentVisitedModel.fromLocal(RecentType.pediatricNutrition),
+    ratingaverage: 4.5,
+  ),
+  AllDoctorModel(
+    id: 2,
+    userid: 102,
+    degree: 'phd',
+    description: 'Description',
+    user: DoctorUser.fromLocal(
+      'Dr.Sophia',
+      'Matinez',
+      'assets/images/doctor_image.jpg',
+      'female',
+    ),
+    specialities: RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+    ratingaverage: 4.8,
+  ),
+  AllDoctorModel(
+    id: 3,
+    userid: 103,
+    degree: 'phd',
+    description: 'Description',
+    user: DoctorUser.fromLocal(
+      'Dr.Sam',
+      'Diego',
+      'assets/images/doctor3.png',
+      'male',
+    ),
+    specialities: RecentVisitedModel.fromLocal(RecentType.childPsychiatry),
+    ratingaverage: 1.5,
+  ),
+  AllDoctorModel(
+    id: 4,
+    userid: 104,
+    degree: 'phd',
+    description: 'Description',
+    user: DoctorUser.fromLocal(
+      'Dr.Sam',
+      'Diego',
+      'assets/images/doctor3.png',
+      'male',
+    ),
+    specialities: RecentVisitedModel.fromLocal(RecentType.speechtherapy),
+    ratingaverage: 4.2,
+  ),
+];
+
 class AllDoctorModel {
   int? id;
   int? userid;

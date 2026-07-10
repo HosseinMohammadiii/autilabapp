@@ -1,6 +1,14 @@
 import 'package:autilab_project/features/data/doctor/data/model/doctor_model.dart';
 import 'package:autilab_project/features/data/home/data/model/recent_visited_model.dart';
 
+//Local center list
+List<CenterModel> localCenterModelList = [
+  CenterModel.fromLocal('Hope Medical Center', 1, 4, 'male'),
+  CenterModel.fromLocal('Aurora Health Clinic', 2, 7, 'female'),
+  CenterModel.fromLocal('Crestview Wellness Institute', 1, 10, 'female'),
+  CenterModel.fromLocal('Pulse General Hospital', 5, 12, 'male'),
+];
+
 class CenterModel {
   String name;
   int agemin;
