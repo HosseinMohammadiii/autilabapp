@@ -299,7 +299,7 @@ class _ButtomnavigationWidgetState extends State<ButtomnavigationWidget>
                                 height: isMobile() ? 52 : 84,
                                 imgUrl: '',
                                 img: Image.asset(
-                                  'assets/images/doctor4.png',
+                                  'assets/images/child2_image.jpg',
                                   fit: BoxFit.cover,
                                   width: isMobile() ? 52 : 84,
                                   height: isMobile() ? 52 : 84,
