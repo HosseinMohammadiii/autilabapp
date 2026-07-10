@@ -38,7 +38,7 @@ class _MydoctorScreenState extends State<MydoctorScreen>
         vsync: this, begin: 0.5, duration: const Duration(seconds: 1));
 
     animationHelper.animationController.forward();
-    BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
+    // BlocProvider.of<HomeBloc>(context).add(DisplayHomeContent());
   }
 
   @override
@@ -67,123 +67,124 @@ class _MydoctorScreenState extends State<MydoctorScreen>
 
         return BlocConsumer<HomeBloc, HomeState>(
           listener: (context, state) {
-            if (state is HomeFetchData) {
-              state.homeResponse.fold(
-                (exception) {},
-                (response) {
-                  for (var home in response) {
-                    for (var appointment in home.newappointmentModel) {
-                      if (appointment.status == 'APPROVED') {
-                        appointmenApprovedList = home.newappointmentModel;
-                      }
-                    }
-                  }
-                },
-              );
-            }
+            // if (state is HomeFetchData) {
+            //   state.homeResponse.fold(
+            //     (exception) {},
+            //     (response) {
+            //       for (var home in response) {
+            //         for (var appointment in home.newappointmentModel) {
+            //           if (appointment.status == 'APPROVED') {
+            //             appointmenApprovedList = home.newappointmentModel;
+            //           }
+            //         }
+            //       }
+            //     },
+            //   );
+            // }
           },
           builder: (context, state) {
-            if (state is HomeLoading) {
-              return const LoadingProgressWidget();
-            }
-            if (state is HomeErrorHandling) {
-              return NotConnectionInternetScreen(
-                onChange: () async {
-                  context.read<HomeBloc>().add(DisplayHomeContent());
-                },
-              );
-            }
-            if (state is HomeFetchData) {
-              return state.homeResponse.fold(
-                (l) {
-                  return NotConnectionInternetScreen(
-                    onChange: () async {
-                      context.read<HomeBloc>().add(DisplayHomeContent());
-                    },
-                  );
-                },
-                (response) {
-                  return ResponsiveLayout(
-                    child: FadeTransition(
-                      opacity: animationHelper.fadeAnimation,
-                      child: Scaffold(
-                        appBar: appBarWidget(
-                          context: context,
-                          title: 'My Doctor',
-                          isIcon: true,
-                          isMobile: isMobile(),
-                        ),
-                        body: SafeArea(
-                          child: CustomTabBarWidget(
-                            isMobile: isMobile(),
-                            tabLength: 2,
-                            tabbarSpace: 32,
-                            tabBar: [
-                              Visibility(
-                                visible: isMobile(),
-                                replacement: const Text(
-                                  'Valid Appointment',
-                                  style: AutilabTextStyle.small24_400,
-                                ),
-                                child: const FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    'Valid Appointment',
-                                    style: AutilabTextStyle.small16_400,
-                                  ),
-                                ),
-                              ),
-                              Visibility(
-                                visible: isMobile(),
-                                replacement: const Text(
-                                  'Expired Appointment',
-                                  style: AutilabTextStyle.small24_400,
-                                ),
-                                child: const FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    'Expired Appointment',
-                                    style: AutilabTextStyle.small16_400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                            tabBarView: [
-                              if (appointmenApprovedList.isNotEmpty) ...{
-                                ValidAppointmentWidget(
-                                  newappointmentModel: appointmenApprovedList,
-                                  color: statusCheckColor('APPROVED').$3,
-                                  title: statusCheckColor('APPROVED').$2,
-                                  statusIcon: statusCheckColor('APPROVED').$1,
-                                  isMobile: isMobile(),
-                                ),
-                              } else ...{
-                                ItemNotFoundWidget(isMobile: isMobile())
-                              },
-                              if (appointmenExpiredList.isNotEmpty) ...{
-                                ExpiredAppointmentWidget(
-                                  isMobile: isMobile(),
-                                  newappointmentModel: appointmenExpiredList,
-                                  color: statusCheckColor('CANCELED').$3,
-                                  title: statusCheckColor('CANCELED').$2,
-                                  statusIcon: statusCheckColor('CANCELED').$1,
-                                ),
-                              } else ...{
-                                ItemNotFoundWidget(isMobile: isMobile())
-                              },
-                            ],
+            // if (state is HomeLoading) {
+            //   return const LoadingProgressWidget();
+            // }
+            // if (state is HomeErrorHandling) {
+            //   return NotConnectionInternetScreen(
+            //     onChange: () async {
+            //       context.read<HomeBloc>().add(DisplayHomeContent());
+            //     },
+            //   );
+            // }
+            // if (state is HomeFetchData) {
+            //   return state.homeResponse.fold(
+            //     (l) {
+            //       return NotConnectionInternetScreen(
+            //         onChange: () async {
+            //           context.read<HomeBloc>().add(DisplayHomeContent());
+            //         },
+            //       );
+            //     },
+            //     (response) {
+            return ResponsiveLayout(
+              child: FadeTransition(
+                opacity: animationHelper.fadeAnimation,
+                child: Scaffold(
+                  appBar: appBarWidget(
+                    context: context,
+                    title: 'My Doctor',
+                    isIcon: true,
+                    isMobile: isMobile(),
+                  ),
+                  body: SafeArea(
+                    child: CustomTabBarWidget(
+                      isMobile: isMobile(),
+                      tabLength: 2,
+                      tabbarSpace: 32,
+                      tabBar: [
+                        Visibility(
+                          visible: isMobile(),
+                          replacement: const Text(
+                            'Valid Appointment',
+                            style: AutilabTextStyle.small24_400,
+                          ),
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Valid Appointment',
+                              style: AutilabTextStyle.small16_400,
+                            ),
                           ),
                         ),
-                      ),
+                        Visibility(
+                          visible: isMobile(),
+                          replacement: const Text(
+                            'Expired Appointment',
+                            style: AutilabTextStyle.small24_400,
+                          ),
+                          child: const FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Expired Appointment',
+                              style: AutilabTextStyle.small16_400,
+                            ),
+                          ),
+                        ),
+                      ],
+                      tabBarView: [
+                        if (appointmenApprovedList.isNotEmpty) ...{
+                          ValidAppointmentWidget(
+                            newappointmentModel: appointmenApprovedList,
+                            color: statusCheckColor('APPROVED').$3,
+                            title: statusCheckColor('APPROVED').$2,
+                            statusIcon: statusCheckColor('APPROVED').$1,
+                            isMobile: isMobile(),
+                          ),
+                        } else ...{
+                          ItemNotFoundWidget(isMobile: isMobile())
+                        },
+                        if (appointmenExpiredList.isNotEmpty) ...{
+                          ExpiredAppointmentWidget(
+                            isMobile: isMobile(),
+                            newappointmentModel: appointmenExpiredList,
+                            color: statusCheckColor('CANCELED').$3,
+                            title: statusCheckColor('CANCELED').$2,
+                            statusIcon: statusCheckColor('CANCELED').$1,
+                          ),
+                        } else ...{
+                          ItemNotFoundWidget(isMobile: isMobile())
+                        },
+                      ],
                     ),
-                  );
-                },
-              );
-            }
-            return const SizedBox();
+                  ),
+                ),
+              ),
+            );
           },
         );
       },
     );
+    // return const SizedBox();
+    // },
+    // );
+    // },
+    // );
   }
 }

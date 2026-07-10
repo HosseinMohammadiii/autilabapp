@@ -52,6 +52,8 @@ class CustomTabBarWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(isMobile ? 16 : 24),
                     ),
                     child: TabBar(
+                      overlayColor:
+                          const WidgetStatePropertyAll(Colors.transparent),
                       labelStyle: AutilabTextStyle.small18_400.copyWith(
                         color: Colors.black,
                       ),
