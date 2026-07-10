@@ -25,11 +25,11 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        // BlocProvider(
-        //   create: (context) => AuthenticationBloc(
-        //     locator.get(),
-        //   ),
-        // ),
+        BlocProvider(
+          create: (context) => AuthenticationBloc(
+            locator.get(),
+          ),
+        ),
         // BlocProvider(
         //   create: (_) =>
         //       AuthenticationBloc(locator.get())..add(DisplayInformationUser()),
