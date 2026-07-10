@@ -214,7 +214,7 @@ class _WhiteboardScreenState extends State<WhiteboardScreen>
       // Catch any unexpected errors and show message
       displaySnackBar(
         context,
-        'Error while saving: $e',
+        'Storage permission denied. Please enable it from settings.',
         AutilabColor.bb,
       );
     }

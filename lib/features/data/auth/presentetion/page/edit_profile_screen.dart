@@ -157,11 +157,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   if (context.canPop()) {
                     Navigator.pop(context);
                   }
-
                   // Catch any unexpected errors and show message
                   displaySnackBar(
                     context,
-                    'Error while saving: $e',
+                    'Storage permission denied. Please enable it from settings.',
                     AutilabColor.bb,
                   );
                   return;
@@ -197,7 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                     // Catch any unexpected errors and show message
                     displaySnackBar(
                       context,
-                      'Error while saving: $e',
+                      'Camera access denied. Enable from settings to take photos.',
                       AutilabColor.bb,
                     );
                     return;
@@ -208,7 +207,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   // Permission denied: Show error message
                   displaySnackBar(
                     context,
-                    'Camera access permission denied.',
+                    'Camera access denied. Enable from settings to take photos.',
                     AutilabColor.bb,
                   );
                   return;
