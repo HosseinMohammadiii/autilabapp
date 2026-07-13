@@ -4,8 +4,8 @@
 ## 📱 Screenshots
 <table>
 <tr>
-<img width="300"  alt="01" src="https://github.com/user-attachments/assets/54feb087-7207-4188-a86a-09bc490535ce" />
-<img width="300"  alt="02" src="https://github.com/user-attachments/assets/5aba84ba-dc20-4973-b4f7-3a4a94ecea15" />
+<img width="370"  alt="01" src="https://github.com/user-attachments/assets/54feb087-7207-4188-a86a-09bc490535ce" />
+<img width="370"  alt="02" src="https://github.com/user-attachments/assets/5aba84ba-dc20-4973-b4f7-3a4a94ecea15" />
 </tr>
 
 <tr>
