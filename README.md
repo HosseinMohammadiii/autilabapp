@@ -1,8 +1,54 @@
-# Autilab Application
+## 📖 Description
 
-## Description
+### What is Autilab?
 
----
+Autilab is a Flutter-based mobile application designed to support children with Autism Spectrum Disorder (ASD). The application provides a centralized platform that helps families access healthcare services, educational resources, and communication tools in a simple and user-friendly environment.
+
+### ✨ Features
+
+- 📅 Online appointment booking
+- 💬 Online consultation with doctors
+- 📍 Nearby treatment center locator
+- 🧠 Personality and aptitude assessment tests
+- 📚 Educational articles
+- 🎨 Interactive whiteboard for drawing and patient-doctor interaction
+
+### 🏗️ Architecture
+
+**Clean Architecture**
+
+### ⚡ State Management
+
+- BLoC
+- flutter_bloc
+
+### 🛠️ Tech Stack
+
+#### Framework & Language
+- Flutter
+- Dart
+
+#### Main Packages
+bloc
+flutter_bloc
+dio
+intl
+get_it
+go_router
+file_picker
+image_picker
+url_launcher
+table_calendar
+connectivity_plus
+device_info_plus
+shared_preferences
+permission_handler
+cached_network_image
+
+
+### 📌 Note
+
+The project includes the complete client-side implementation and API integration. However, the backend server is currently unavailable, so network-dependent features cannot be demonstrated at runtime.
 
 ## 📱 Screenshots
 
