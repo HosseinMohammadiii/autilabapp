@@ -1,3 +1,10 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/Flutter-3.44.4-blue?logo=flutter" />
+  <img src="https://img.shields.io/badge/Dart-3.12.2-0175C2?logo=dart" />
+  <img src="https://img.shields.io/badge/Architecture-Clean-success" />
+  <img src="https://img.shields.io/badge/State%20Management-BLoC-blueviolet" />
+</p>
+
 ## 📖 Description
 
 ### What is Autilab?
