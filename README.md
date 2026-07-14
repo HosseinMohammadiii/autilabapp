@@ -29,21 +29,21 @@ Autilab is a Flutter-based mobile application designed to support children with 
 - Dart
 
 #### Main Packages
-bloc
-flutter_bloc
-dio
-intl
-get_it
-go_router
-file_picker
-image_picker
-url_launcher
-table_calendar
-connectivity_plus
-device_info_plus
-shared_preferences
-permission_handler
-cached_network_image
+- [bloc](https://pub.dev/packages/bloc)
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+- [dio](https://pub.dev/packages/dio)
+- [intl](https://pub.dev/packages/intl)
+- [get_it](https://pub.dev/packages/get_it)
+- [go_router](https://pub.dev/packages/go_router)
+- [file_picker](https://pub.dev/packages/file_picker)
+- [image_picker](https://pub.dev/packages/image_picker)
+- [url_launcher](https://pub.dev/packages/url_launcher)
+- [table_calendar](https://pub.dev/packages/table_calendar)
+- [connectivity_plus](https://pub.dev/packages/connectivity_plus)
+- [device_info_plus](https://pub.dev/packages/device_info_plus)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+- [permission_handler](https://pub.dev/packages/permission_handler)
+- [cached_network_image](https://pub.dev/packages/cached_network_image)
 
 
 ### 📌 Note
