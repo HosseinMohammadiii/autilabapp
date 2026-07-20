@@ -72,3 +72,10 @@ The project includes the complete client-side implementation and API integration
   <img width="49%" alt="05" src="https://github.com/user-attachments/assets/0d4a5637-abd5-4b77-951d-6ed5fcd23201" />
   <img width="49%" alt="06" src="https://github.com/user-attachments/assets/25f097aa-6725-4096-b260-efbad22e573d" />
 </p>
+
+---
+
+## 🌐 Connect with Me
+
+<a href="https://www.linkedin.com/in/hossein-mohammadi-612683341/"><img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/></a>
+<a href="https://instagram.com/hosseinmohammadi.dev"><img src="https://img.shields.io/badge/Instagram-purple?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram Badge"/></a>
