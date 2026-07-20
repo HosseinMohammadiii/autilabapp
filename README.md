@@ -26,8 +26,7 @@ Autilab is a Flutter-based mobile application designed to support children with 
 
 ### ⚡ State Management
 
-- BLoC
-- flutter_bloc
+- **BLoC**
 
 ### 🛠️ Tech Stack
 
